@@ -27,6 +27,12 @@ at least one external ID, desired artwork URLs, optional season posters, and an
 11-character YouTube ID where applicable. A moderator can ask the constrained bot
 to create a pull request after reviewing the issue.
 
+### Moderator Bot Commands
+
+A moderator can trigger LumiereDB-bot actions by commenting on the contribution issue:
+
+- `@LumiereDB-bot approve` — creates a pull request for this contribution.
+
 Dataset JSON changes are accepted only from that bot workflow. This keeps filenames,
 schema validation, and the relationship between an issue and its pull request
 consistent. Changes to schemas, validators, workflows, documentation, notices, or
@@ -87,5 +93,5 @@ entry. Security-sensitive reports follow `.github/SECURITY.md`.
 
 Contract changes require coordinated Lumiere and LumiereDB pull requests. Change
 the canonical schema and Python contract here, update tests, regenerate Lumiere's
-bundled contract, and increment `schema_version` when compatibility changes. Do not
+bundled contract (via `uv run python scripts/dataset_contract.py`, see [Lumiere Development Guide](../Lumiere/docs/development.md#schema-contracts-pipeline)), and increment `schema_version` when compatibility changes. Do not
 add compatibility shims for catalog formats that were never publicly released.
