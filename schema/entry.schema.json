@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/AutoGitr/LumiereDB/main/schema/entry.schema.json",
-  "title": "LumiereDB entry",
-  "description": "One movie or show in the version 2 LumiereDB catalog.",
+  "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/entry.schema.json",
+  "title": "OvertureDB entry",
+  "description": "One movie or show in the version 2 OvertureDB catalog.",
   "type": "object",
   "additionalProperties": false,
   "required": [

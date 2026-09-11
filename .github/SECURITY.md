@@ -3,7 +3,7 @@
 Report validation bypasses, SSRF or redirect issues, workflow privilege problems,
 artifact tampering, or other publication-pipeline vulnerabilities through GitHub's
 private **Report a vulnerability** form or a
-[private security advisory](https://github.com/AutoGitr/LumiereDB/security/advisories/new).
+[private security advisory](https://github.com/AutoGitr/OvertureDB/security/advisories/new).
 Do not disclose exploit details or private information in a contribution issue.
 
 Include the affected revision or artifact `source_revision`, impact, reproduction,

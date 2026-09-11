@@ -129,7 +129,7 @@ class SourceRedirectHandler(HTTPRedirectHandler):
 def check_art_url(url: str) -> None:
     check_art_destination(url)
     request = Request(  # noqa: S310
-        url, headers={"Range": "bytes=0-15", "User-Agent": "LumiereDB"}
+        url, headers={"Range": "bytes=0-15", "User-Agent": "OvertureDB"}
     )
     with build_opener(ArtRedirectHandler()).open(request, timeout=20) as response:
         content_type = response.headers.get_content_type()
@@ -147,7 +147,7 @@ def check_art_url(url: str) -> None:
 def check_source_url(url: str) -> None:
     check_source_destination(url)
     request = Request(  # noqa: S310
-        url, headers={"Range": "bytes=0-0", "User-Agent": "LumiereDB"}
+        url, headers={"Range": "bytes=0-0", "User-Agent": "OvertureDB"}
     )
     with build_opener(SourceRedirectHandler()).open(request, timeout=20) as response:
         response.read(1)
@@ -200,8 +200,8 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
     for name in ("entry.schema.json", "catalog.schema.json"):
         shutil.copyfile(root / "schema" / name, output / "schema" / name)
     (output / "index.html").write_text(
-        '<!doctype html><html lang="en"><meta charset="utf-8"><title>LumiereDB</title>'
-        "<h1>LumiereDB</h1><ul>"
+        '<!doctype html><html lang="en"><meta charset="utf-8"><title>OvertureDB</title>'
+        "<h1>OvertureDB</h1><ul>"
         + "".join(
             f'<li><a href="{name}">{name}</a></li>'
             for name in (

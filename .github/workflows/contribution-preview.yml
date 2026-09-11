@@ -44,7 +44,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          marker="<!-- lumieredb-contribution-preview -->"
+          marker="<!-- overturedb-contribution-preview -->"
           body_file="$(mktemp)"
           labels_file="$(mktemp)"
           comment_file="$(mktemp)"
@@ -71,7 +71,7 @@ jobs:
 
           {
             echo "$marker"
-            echo "### LumiereDB contribution preview"
+            echo "### OvertureDB contribution preview"
             echo
 
             if [ "$status" = "ok" ]; then
@@ -128,7 +128,7 @@ jobs:
 
           comment_id="$(
             gh api "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" --paginate \
-              --jq '.[] | select(.body | contains("<!-- lumieredb-contribution-preview -->")) | .id' \
+              --jq '.[] | select(.body | contains("<!-- overturedb-contribution-preview -->")) | .id' \
               | tail -n1
           )"
 

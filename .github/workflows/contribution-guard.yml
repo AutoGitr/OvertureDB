@@ -37,7 +37,7 @@ jobs:
       - name: Validate contribution changes
         shell: bash
         env:
-          BOT_LOGIN: lumieredb-bot[bot]
+          BOT_LOGIN: overturedb-bot[bot]
           HEAD_REF: ${{ github.head_ref }}
         run: |
           set -euo pipefail
@@ -64,7 +64,7 @@ jobs:
 
           if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "$dataset_files" ]; then
             if [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]; then
-              echo "Dataset changes must come from an internal LumiereDB bot branch."
+              echo "Dataset changes must come from an internal OvertureDB bot branch."
               exit 1
             fi
 

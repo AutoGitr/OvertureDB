@@ -1,7 +1,7 @@
-# LumiereDB
+# OvertureDB
 
-LumiereDB is the public, opt-in catalog of curated artwork and theme selections
-used by [Lumiere](https://github.com/AutoGitr/Lumiere). It publishes metadata and
+OvertureDB is the public, opt-in catalog of curated artwork and theme selections
+used by [Overture](https://github.com/AutoGitr/Overture). It publishes metadata and
 links; it does not redistribute the linked artwork or YouTube audio.
 
 ## Published artifacts
@@ -21,7 +21,7 @@ HTTPS Pages origin.
 ## Contract
 
 `schema/entry.schema.json`, `schema/catalog.schema.json`, and `schema/contract.py`
-are the canonical version 2 contract, shared with Lumiere through its
+are the canonical version 2 contract, shared with Overture through its
 `scripts/dataset_contract.py` generator. Change this source first, regenerate the
 app's bundled copy, and land both changes together. No other catalog format is
 served or supported.
@@ -84,11 +84,11 @@ inputs therefore produce identical artifacts.
 
 The single Pages URL serves the current schema only. Increment `schema_version`
 for an incompatible field, type, validation, identity, or semantic change. Update
-Lumiere to understand that version before switching the publisher. Compatible
+Overture to understand that version before switching the publisher. Compatible
 clarifications that do not alter accepted data may remain on the current version.
 
 Old schemas are not retained at the live URL. A consumer must reject unsupported
-versions before changing local data, which Lumiere does. Published catalog
+versions before changing local data, which Overture does. Published catalog
 artifacts remain reproducible from their Git revision.
 
 ## Contributing and corrections

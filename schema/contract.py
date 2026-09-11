@@ -1,4 +1,4 @@
-"""The version 2 catalog contract, shared with Lumiere by dataset_contract.py."""
+"""The version 2 catalog contract, shared with Overture by dataset_contract.py."""
 
 from __future__ import annotations
 
@@ -93,7 +93,7 @@ def _identities(entries: list[dict[str, Any]]) -> None:
 def validate_catalog(value: object) -> list[dict[str, Any]]:
     # Validate the envelope first so unsupported versions have a clear error.
     if not isinstance(value, dict):
-        raise ValueError("Payload is not a LumiereDB catalog")
+        raise ValueError("Payload is not a OvertureDB catalog")
     payload = cast("dict[str, Any]", value)
     if payload.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("Unsupported public dataset schema_version")

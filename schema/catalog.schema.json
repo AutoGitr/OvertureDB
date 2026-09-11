@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/AutoGitr/LumiereDB/main/schema/catalog.schema.json",
-  "title": "LumiereDB catalog v2",
+  "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/catalog.schema.json",
+  "title": "OvertureDB catalog v2",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "generated_at", "source_revision", "third_party_notices", "entries"],

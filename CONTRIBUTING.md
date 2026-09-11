@@ -1,6 +1,6 @@
-# Contributing to LumiereDB
+# Contributing to OvertureDB
 
-LumiereDB accepts curated selections, not arbitrary media uploads. The repository
+OvertureDB accepts curated selections, not arbitrary media uploads. The repository
 stores metadata, image URLs, and YouTube IDs; never attach copyrighted image or
 audio files to a contribution.
 
@@ -29,9 +29,9 @@ to create a pull request after reviewing the issue.
 
 ### Moderator Bot Commands
 
-A moderator can trigger LumiereDB-bot actions by commenting on the contribution issue:
+A moderator can trigger OvertureDB-bot actions by commenting on the contribution issue:
 
-- `@LumiereDB-bot approve` — creates a pull request for this contribution.
+- `@OvertureDB-bot approve` — creates a pull request for this contribution.
 
 Dataset JSON changes are accepted only from that bot workflow. This keeps filenames,
 schema validation, and the relationship between an issue and its pull request
@@ -91,7 +91,7 @@ entry. Security-sensitive reports follow `.github/SECURITY.md`.
 
 ## Contract changes
 
-Contract changes require coordinated Lumiere and LumiereDB pull requests. Change
-the canonical schema and Python contract here, update tests, regenerate Lumiere's
-bundled contract (via `uv run python scripts/dataset_contract.py`, see [Lumiere Development Guide](../Lumiere/docs/development.md#schema-contracts-pipeline)), and increment `schema_version` when compatibility changes. Do not
+Contract changes require coordinated Overture and OvertureDB pull requests. Change
+the canonical schema and Python contract here, update tests, regenerate Overture's
+bundled contract (via `uv run python scripts/dataset_contract.py`, see [Overture Development Guide](../Overture/docs/development.md#schema-contracts-pipeline)), and increment `schema_version` when compatibility changes. Do not
 add compatibility shims for catalog formats that were never publicly released.
