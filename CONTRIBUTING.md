@@ -31,7 +31,7 @@ to create a pull request after reviewing the issue.
 
 A moderator can trigger OvertureDB-bot actions by commenting on the contribution issue:
 
-- `@OvertureDB-bot approve` — creates a pull request for this contribution.
+- `@OvertureDB-bot approve` - creates a pull request for this contribution.
 
 Dataset JSON changes are accepted only from that bot workflow. This keeps filenames,
 schema validation, and the relationship between an issue and its pull request
