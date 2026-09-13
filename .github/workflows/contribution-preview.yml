@@ -121,7 +121,8 @@ jobs:
               echo '```'
             fi
 
-            cat bot_commands.md
+            echo
+            echo "See [moderator bot commands](https://github.com/${REPO}/blob/main/CONTRIBUTING.md#moderator-bot-commands)."
           } > "$comment_file"
 
           jq -n --rawfile body "$comment_file" '{body: $body}' > "$payload_file"
