@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ben-Hur",
+  "year": 1959,
+  "tmdb_id": 665,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HxkXi6VKu8w",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/665.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Seven Mortal Sins",
+  "year": 2017,
+  "tmdb_id": 71018,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YIC4McFu2sE",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/71018.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

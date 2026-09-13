@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "March Comes In Like a Lion",
+  "year": 2016,
+  "tmdb_id": 65336,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ri4yD6ysQBI",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/65336.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

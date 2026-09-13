@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Lego Movie",
+  "year": 2014,
+  "tmdb_id": 137106,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "PIJc7jkq5P8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/137106.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

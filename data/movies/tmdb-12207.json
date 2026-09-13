@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Legend of Drunken Master",
+  "year": 1994,
+  "tmdb_id": 12207,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sQBV3luzXEA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12207.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

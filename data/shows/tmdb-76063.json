@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Citrus",
+  "year": 2018,
+  "tmdb_id": 76063,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "a46lHG70qdw",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/76063.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

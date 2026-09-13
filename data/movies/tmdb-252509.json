@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Satellite Girl and Milk Cow",
+  "year": 2014,
+  "tmdb_id": 252509,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oG8SW0KayFE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/252509.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

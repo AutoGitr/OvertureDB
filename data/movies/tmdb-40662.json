@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Batman: Under the Red Hood",
+  "year": 2010,
+  "tmdb_id": 40662,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "TBzQpfLDg1Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/40662.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

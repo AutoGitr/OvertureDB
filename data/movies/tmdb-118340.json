@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Guardians of the Galaxy",
+  "year": 2014,
+  "tmdb_id": 118340,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "VQ4WLvj5ODE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/118340.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Apollo 13",
+  "year": 1995,
+  "tmdb_id": 568,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RPnWVzAZkH4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/568.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

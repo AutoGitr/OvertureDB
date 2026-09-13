@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Café Terrace and Its Goddesses",
+  "year": 2023,
+  "tmdb_id": 209707,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "udAF_mgHmD4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/209707.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

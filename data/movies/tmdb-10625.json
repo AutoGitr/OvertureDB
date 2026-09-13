@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Mean Girls",
+  "year": 2004,
+  "tmdb_id": 10625,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "O3ve7MWwdG8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10625.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

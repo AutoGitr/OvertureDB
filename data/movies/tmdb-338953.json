@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fantastic Beasts: The Secrets of Dumbledore",
+  "year": 2022,
+  "tmdb_id": 338953,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YSVjmLO15yo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/338953.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

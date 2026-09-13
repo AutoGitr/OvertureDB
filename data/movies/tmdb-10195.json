@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Thor",
+  "year": 2011,
+  "tmdb_id": 10195,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FjlSBZb9oMk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10195.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

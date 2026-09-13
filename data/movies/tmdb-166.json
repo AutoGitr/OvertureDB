@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Party",
+  "year": 1980,
+  "tmdb_id": 166,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5zq0_x77aAE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/166.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tammy",
+  "year": 2014,
+  "tmdb_id": 226486,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FQ8rRufgUY8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/226486.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

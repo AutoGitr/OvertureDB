@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Beauty and the Beast: A Latter-Day Tale",
+  "year": 2007,
+  "tmdb_id": 50059,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gKP2VMpgBec",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/50059.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

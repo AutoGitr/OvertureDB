@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Universal Soldier",
+  "year": 1992,
+  "tmdb_id": 9349,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "L_XJq9t0XeQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9349.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

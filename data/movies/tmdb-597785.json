@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Deathcember",
+  "year": 2019,
+  "tmdb_id": 597785,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "8gQT726Gqjg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/597785.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bugsy Malone",
+  "year": 1976,
+  "tmdb_id": 8446,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sL6sP9wXwgY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8446.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

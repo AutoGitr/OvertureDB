@@ -8,11 +8,18 @@
   "poster_url": "https://theposterdb.com/api/assets/37517",
   "background_url": "https://image.tmdb.org/t/p/original/8IrYdrfBKZ1GVAnxRaJrzxRzi1J.jpg",
   "youtube_id": "p4zluA60hjs",
-  "youtube_id_secondary": null,
+  "youtube_id_secondary": "a7kk0KSGPs0",
   "seasons": [
     {
       "season_num": 1,
       "poster_url": "https://image.tmdb.org/t/p/original/gVkx2L06re7YeM5qrn5woWClOLJ.jpg"
+    }
+  ],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/46648.json",
+      "license": "BSD-3-Clause"
     }
   ]
 }

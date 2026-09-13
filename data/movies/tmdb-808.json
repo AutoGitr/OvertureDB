@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Shrek",
+  "year": 2001,
+  "tmdb_id": 808,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aT5JaB5agSE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/808.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

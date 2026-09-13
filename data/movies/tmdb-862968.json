@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Pain Hustlers",
+  "year": 2023,
+  "tmdb_id": 862968,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3nLoe58GFK8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/862968.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Inside Out",
+  "year": 2015,
+  "tmdb_id": 150540,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "O4N0Fsnsr4I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/150540.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

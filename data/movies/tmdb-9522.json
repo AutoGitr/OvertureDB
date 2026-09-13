@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Wedding Crashers",
+  "year": 2005,
+  "tmdb_id": 9522,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "diZX8ahdh-c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9522.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

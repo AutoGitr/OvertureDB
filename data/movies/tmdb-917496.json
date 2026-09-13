@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Beetlejuice Beetlejuice",
+  "year": 2024,
+  "tmdb_id": 917496,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "C9vv3-AYxkw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/917496.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

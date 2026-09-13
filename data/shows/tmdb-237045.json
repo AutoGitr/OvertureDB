@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Cherry Magic! Thirty Years of Virginity Can Make You a Wizard?!",
+  "year": 2024,
+  "tmdb_id": 237045,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "c7Xy5KxDSOo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/237045.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

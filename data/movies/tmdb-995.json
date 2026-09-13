@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Stagecoach",
+  "year": 1939,
+  "tmdb_id": 995,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Rk_4cx_kXOk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/995.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

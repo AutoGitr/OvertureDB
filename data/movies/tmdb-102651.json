@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Maleficent",
+  "year": 2014,
+  "tmdb_id": 102651,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2TCEtsiugXw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/102651.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

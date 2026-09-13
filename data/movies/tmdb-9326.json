@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Romancing the Stone",
+  "year": 1984,
+  "tmdb_id": 9326,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bXd8BZ4W4gc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9326.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

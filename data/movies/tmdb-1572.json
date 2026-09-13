@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Die Hard: With a Vengeance",
+  "year": 1995,
+  "tmdb_id": 1572,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0X3Me_MVR90",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1572.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

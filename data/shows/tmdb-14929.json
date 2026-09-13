@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Heartland",
+  "year": 2007,
+  "tmdb_id": 14929,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GDI4liMm1II",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/14929.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

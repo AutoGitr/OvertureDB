@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The World is Still Beautiful",
+  "year": 2014,
+  "tmdb_id": 60818,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aAABi6Y3VQk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/60818.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

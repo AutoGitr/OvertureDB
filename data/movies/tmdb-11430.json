@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Lion King 1½",
+  "year": 2004,
+  "tmdb_id": 11430,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Fx7bN3QGOWw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11430.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

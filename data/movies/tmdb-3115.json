@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ebirah, Horror of the Deep",
+  "year": 1966,
+  "tmdb_id": 3115,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Ttd17rPuIUQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/3115.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

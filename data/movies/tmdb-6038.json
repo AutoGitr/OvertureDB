@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Shanghai Knights",
+  "year": 2003,
+  "tmdb_id": 6038,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "N_IoWDU5XuQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/6038.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hot Summer Nights",
+  "year": 2018,
+  "tmdb_id": 347866,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YY7gw28PPaI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/347866.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

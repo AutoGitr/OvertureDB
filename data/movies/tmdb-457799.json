@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Extremely Wicked, Shockingly Evil and Vile",
+  "year": 2019,
+  "tmdb_id": 457799,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wI8y4VdsMGk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/457799.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

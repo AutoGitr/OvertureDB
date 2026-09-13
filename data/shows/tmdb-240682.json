@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Astro Note",
+  "year": 2024,
+  "tmdb_id": 240682,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kDH_Vqv_3XQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/240682.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

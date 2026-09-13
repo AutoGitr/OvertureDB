@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tokyo Godfathers",
+  "year": 2003,
+  "tmdb_id": 13398,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "a93WX6PAIfw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13398.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

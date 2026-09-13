@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Metropolis",
+  "year": 1927,
+  "tmdb_id": 19,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HRKAhKKMDuc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/19.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

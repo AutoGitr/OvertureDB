@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Americans",
+  "year": 2013,
+  "tmdb_id": 46533,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fQtHbqW5NxQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/46533.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

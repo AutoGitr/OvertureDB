@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ted Lasso",
+  "year": 2020,
+  "tmdb_id": 97546,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AIcis7S-byg",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/97546.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "John Q",
+  "year": 2002,
+  "tmdb_id": 8470,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wAJGS4vMnRA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8470.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

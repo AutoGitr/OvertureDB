@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Clerks",
+  "year": 1994,
+  "tmdb_id": 2292,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "M1e5MbzCogo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2292.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

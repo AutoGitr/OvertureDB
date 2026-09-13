@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Haunting of the Queen Mary",
+  "year": 2023,
+  "tmdb_id": 977013,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "P2wP9L5Tw0k",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/977013.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

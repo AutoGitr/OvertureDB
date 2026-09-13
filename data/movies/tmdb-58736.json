@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Cow and I",
+  "year": 1959,
+  "tmdb_id": 58736,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "iYFJt-GU134",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/58736.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

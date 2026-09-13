@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Bad Seed",
+  "year": 2018,
+  "tmdb_id": 532814,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "R1fGGvyOIlw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/532814.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

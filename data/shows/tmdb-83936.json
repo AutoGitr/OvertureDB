@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Das Boot",
+  "year": 2018,
+  "tmdb_id": 83936,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wvPqADE4ChY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/83936.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

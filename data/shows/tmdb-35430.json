@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Tinker Tailor Soldier Spy",
+  "year": 1979,
+  "tmdb_id": 35430,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "mNKKWe2FUww",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/35430.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

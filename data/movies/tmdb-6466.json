@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Freddy vs. Jason",
+  "year": 2003,
+  "tmdb_id": 6466,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HmE3AiLxSEA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/6466.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

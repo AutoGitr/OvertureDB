@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Terrifier 2",
+  "year": 2022,
+  "tmdb_id": 663712,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KVMTNBGTR2E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/663712.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

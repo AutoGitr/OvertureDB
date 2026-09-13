@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Highlander",
+  "year": 1986,
+  "tmdb_id": 8009,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "f0pif8FowwE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8009.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

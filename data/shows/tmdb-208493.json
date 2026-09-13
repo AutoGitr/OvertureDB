@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "I Got a Cheat Skill in Another World and Became Unrivaled in the Real World, Too",
+  "year": 2023,
+  "tmdb_id": 208493,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_VwpWpA17Ho",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/208493.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The House",
+  "year": 2022,
+  "tmdb_id": 926899,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7fyMvgMNm9o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/926899.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

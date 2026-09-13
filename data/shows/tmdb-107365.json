@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Bel-Air",
+  "year": 2022,
+  "tmdb_id": 107365,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0EnRK5YvBwU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/107365.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "La Bamba",
+  "year": 1987,
+  "tmdb_id": 16620,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bfAZvP83-74",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/16620.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

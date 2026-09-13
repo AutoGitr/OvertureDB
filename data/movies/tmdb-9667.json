@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Jacket",
+  "year": 2005,
+  "tmdb_id": 9667,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HH9adpjNJIs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9667.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

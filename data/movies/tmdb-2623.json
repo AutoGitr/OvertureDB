@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "An Officer and a Gentleman",
+  "year": 1982,
+  "tmdb_id": 2623,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "s4c26KQ600o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2623.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

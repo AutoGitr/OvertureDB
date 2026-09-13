@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Lethal Weapon 2",
+  "year": 1989,
+  "tmdb_id": 942,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gIenb1mymJY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/942.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "5 Centimeters per Second",
+  "year": 2007,
+  "tmdb_id": 38142,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "e8X_bUyrUfg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/38142.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Asterix: The Secret of the Magic Potion",
+  "year": 2018,
+  "tmdb_id": 527729,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "yN9A1IkUpQ0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/527729.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

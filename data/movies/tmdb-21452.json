@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Case Closed: The Fourteenth Target",
+  "year": 1998,
+  "tmdb_id": 21452,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "f7DZMCbvSBc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/21452.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Sweetpea",
+  "year": 2024,
+  "tmdb_id": 218347,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IjLKrgw0c1I",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/218347.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

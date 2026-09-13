@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Umbrellas of Cherbourg",
+  "year": 1964,
+  "tmdb_id": 5967,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "C-tAQsKTNCY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/5967.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

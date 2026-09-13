@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Kong: Skull Island",
+  "year": 2017,
+  "tmdb_id": 293167,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zDH26LzZdvk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/293167.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

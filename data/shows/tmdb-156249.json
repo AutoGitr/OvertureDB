@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Das Boot",
+  "year": 1985,
+  "tmdb_id": 156249,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "rC03c9rUzDs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/156249.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Boyz n the Hood",
+  "year": 1991,
+  "tmdb_id": 650,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7_-eabvlMzI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/650.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

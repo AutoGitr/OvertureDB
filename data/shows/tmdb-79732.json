@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "She-Ra and the Princesses of Power",
+  "year": 2018,
+  "tmdb_id": 79732,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "juIsRg6z41k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/79732.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

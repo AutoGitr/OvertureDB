@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fright Night 2: New Blood",
+  "year": 2013,
+  "tmdb_id": 214597,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "TVVTz_0zGv8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/214597.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

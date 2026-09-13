@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cry-Baby",
+  "year": 1990,
+  "tmdb_id": 9768,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "S5v2ckhvUho",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9768.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

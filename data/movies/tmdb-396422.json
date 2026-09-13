@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Annabelle: Creation",
+  "year": 2017,
+  "tmdb_id": 396422,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aYeGZqTEbec",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/396422.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

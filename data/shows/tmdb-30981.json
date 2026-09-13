@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Monster",
+  "year": 2004,
+  "tmdb_id": 30981,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "i8Rhb-Ln01Q",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/30981.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

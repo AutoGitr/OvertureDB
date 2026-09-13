@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Insidious: Chapter 3",
+  "year": 2015,
+  "tmdb_id": 280092,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HyZRflry-Hg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/280092.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

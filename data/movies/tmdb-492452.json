@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ben Is Back",
+  "year": 2018,
+  "tmdb_id": 492452,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FGJ7vJn7yuQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/492452.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

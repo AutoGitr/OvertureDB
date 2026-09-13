@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Man Who Shot Liberty Valance",
+  "year": 1962,
+  "tmdb_id": 11697,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "K7_FZ05l3K0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11697.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

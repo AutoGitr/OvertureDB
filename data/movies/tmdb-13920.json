@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Radio",
+  "year": 2003,
+  "tmdb_id": 13920,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YdLkdY3M9gQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13920.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Frailty",
+  "year": 2002,
+  "tmdb_id": 12149,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "s7-izden9wU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12149.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

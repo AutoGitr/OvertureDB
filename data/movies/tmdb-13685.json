@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bottle Rocket",
+  "year": 1996,
+  "tmdb_id": 13685,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4oBAf_YFf1w",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13685.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

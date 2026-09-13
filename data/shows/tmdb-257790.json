@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "I'm Getting Married to a Girl I Hate in My Class",
+  "year": 2025,
+  "tmdb_id": 257790,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zjCKAPSHR3Q",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/257790.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

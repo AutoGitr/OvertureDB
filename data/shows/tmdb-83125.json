@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Cursed",
+  "year": 2020,
+  "tmdb_id": 83125,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "30hLiFCn5QA",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/83125.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

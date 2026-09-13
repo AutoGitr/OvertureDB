@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Frankenstein",
+  "year": 1931,
+  "tmdb_id": 3035,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "B38ohaelNBQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/3035.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

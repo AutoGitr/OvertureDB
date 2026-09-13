@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Down Periscope",
+  "year": 1996,
+  "tmdb_id": 9101,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "j3mk2S8o8e4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9101.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

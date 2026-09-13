@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Blues Brothers 2000",
+  "year": 1998,
+  "tmdb_id": 11568,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sfcqazhllJ4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11568.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

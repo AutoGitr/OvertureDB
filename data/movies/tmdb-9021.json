@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Santa Clause 2",
+  "year": 2002,
+  "tmdb_id": 9021,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5PAtnxdwjGg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9021.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

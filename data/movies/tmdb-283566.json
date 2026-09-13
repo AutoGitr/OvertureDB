@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Evangelion: 3.0+1.0 Thrice Upon a Time",
+  "year": 2021,
+  "tmdb_id": 283566,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0Dq2FTMnqX4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/283566.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

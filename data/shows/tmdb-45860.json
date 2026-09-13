@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Lupin the Third: The Woman Called Fujiko Mine",
+  "year": 2012,
+  "tmdb_id": 45860,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Kqyx-1oaksE",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/45860.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

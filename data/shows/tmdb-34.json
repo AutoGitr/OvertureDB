@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Keeping Up Appearances",
+  "year": 1990,
+  "tmdb_id": 34,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SYeN3HpRSlE",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/34.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

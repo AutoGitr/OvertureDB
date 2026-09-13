@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "She and Her Cat",
+  "year": 1999,
+  "tmdb_id": 18143,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jvRG49syGKM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/18143.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

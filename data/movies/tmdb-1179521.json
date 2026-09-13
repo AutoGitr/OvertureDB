@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Calamity Jane",
+  "year": 2024,
+  "tmdb_id": 1179521,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "m6-qspHp8uQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1179521.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Meg 2: The Trench",
+  "year": 2023,
+  "tmdb_id": 615656,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "UF9giZxkpbw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/615656.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

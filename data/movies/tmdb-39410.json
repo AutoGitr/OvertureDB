@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Mothra",
+  "year": 1961,
+  "tmdb_id": 39410,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "eC6t7JeFuDw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/39410.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

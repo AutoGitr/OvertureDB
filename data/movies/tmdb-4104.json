@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Benny & Joon",
+  "year": 1993,
+  "tmdb_id": 4104,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7OjFtBv9BSQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4104.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

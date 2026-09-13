@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Good Luck, Have Fun, Don't Die",
+  "year": 2026,
+  "tmdb_id": 1119449,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gjVDYxWnj40",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1119449.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

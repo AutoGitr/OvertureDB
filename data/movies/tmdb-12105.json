@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Yellow Submarine",
+  "year": 1968,
+  "tmdb_id": 12105,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "j_JaDDcyIIU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12105.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

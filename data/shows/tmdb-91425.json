@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Infinity Train",
+  "year": 2019,
+  "tmdb_id": 91425,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3soghKb1_qg",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/91425.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

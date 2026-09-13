@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bad Moms",
+  "year": 2016,
+  "tmdb_id": 376659,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "W50HtcPAeSs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/376659.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

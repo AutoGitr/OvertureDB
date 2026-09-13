@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Tower of God",
+  "year": 2020,
+  "tmdb_id": 97860,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7SPnJMGB9u4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/97860.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

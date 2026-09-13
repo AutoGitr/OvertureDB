@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Notebook",
+  "year": 2004,
+  "tmdb_id": 11036,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "BEi7JmN2eew",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11036.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

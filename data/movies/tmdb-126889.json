@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Alien: Covenant",
+  "year": 2017,
+  "tmdb_id": 126889,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IpMZ2-91q2g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/126889.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

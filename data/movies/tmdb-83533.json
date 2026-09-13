@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Avatar: Fire and Ash",
+  "year": 2025,
+  "tmdb_id": 83533,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wMPG20foJ0Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/83533.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

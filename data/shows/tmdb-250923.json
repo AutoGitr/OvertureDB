@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Nobody Wants This",
+  "year": 2024,
+  "tmdb_id": 250923,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hZh-ARGAib8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/250923.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

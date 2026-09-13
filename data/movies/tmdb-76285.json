@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Percy Jackson: Sea of Monsters",
+  "year": 2013,
+  "tmdb_id": 76285,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "9leyZagHZsc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/76285.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

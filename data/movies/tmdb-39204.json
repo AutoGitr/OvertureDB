@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Detective Conan: Strategy Above the Depths",
+  "year": 2005,
+  "tmdb_id": 39204,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "n7boa_Mbe1g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/39204.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

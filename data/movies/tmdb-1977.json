@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Grudge 3",
+  "year": 2009,
+  "tmdb_id": 1977,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Orep6DNR6ZM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1977.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

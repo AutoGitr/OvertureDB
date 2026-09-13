@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Soul",
+  "year": 2020,
+  "tmdb_id": 508442,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KtcPriBV65U",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/508442.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Iron Giant",
+  "year": 1999,
+  "tmdb_id": 10386,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5c86mAmwK9A",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10386.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

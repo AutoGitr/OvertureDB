@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Grand Budapest Hotel",
+  "year": 2014,
+  "tmdb_id": 120467,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "voX15vG2gOk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/120467.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

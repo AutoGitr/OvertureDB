@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "VeggieTales: Josh and the Big Wall",
+  "year": 1997,
+  "tmdb_id": 261409,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ol1A_69uvhc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/261409.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

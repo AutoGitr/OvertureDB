@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Santa Claus Is Comin' to Town",
+  "year": 1970,
+  "tmdb_id": 13400,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0ZgURwN2YZQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13400.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Fourth Kind",
+  "year": 2009,
+  "tmdb_id": 22824,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HYpsSlxOhD4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/22824.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

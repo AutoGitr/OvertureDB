@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Born on the Fourth of July",
+  "year": 1989,
+  "tmdb_id": 2604,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RF_9VNepSpY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2604.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

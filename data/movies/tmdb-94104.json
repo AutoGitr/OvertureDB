@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "3, 2, 1... Frankie Go Boom",
+  "year": 2012,
+  "tmdb_id": 94104,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hCNI_XY2k9Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/94104.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

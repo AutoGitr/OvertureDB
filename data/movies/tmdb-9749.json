@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fletch",
+  "year": 1985,
+  "tmdb_id": 9749,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "r-lu0vjHSO0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9749.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

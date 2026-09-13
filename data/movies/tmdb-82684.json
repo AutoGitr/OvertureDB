@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Chasing Mavericks",
+  "year": 2012,
+  "tmdb_id": 82684,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "9DIBI-_3Bzg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/82684.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

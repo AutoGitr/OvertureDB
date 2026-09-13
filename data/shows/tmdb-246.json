@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Avatar: The Last Airbender",
+  "year": 2005,
+  "tmdb_id": 246,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "d1EnW4kn1kg",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/246.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

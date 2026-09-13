@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Rascal Does Not Dream of a Knapsack Kid",
+  "year": 2023,
+  "tmdb_id": 1086591,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "QANik4TFX-o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1086591.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

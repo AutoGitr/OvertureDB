@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Blankman",
+  "year": 1994,
+  "tmdb_id": 20678,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "quS2xp191bo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/20678.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Maleficent: Mistress of Evil",
+  "year": 2019,
+  "tmdb_id": 420809,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ABHxfPKQUxk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/420809.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Terminator Salvation",
+  "year": 2009,
+  "tmdb_id": 534,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hJ7_UdVefdA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/534.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Danger Close: The Battle of Long Tan",
+  "year": 2019,
+  "tmdb_id": 508664,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WlRvlfmRtqY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/508664.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

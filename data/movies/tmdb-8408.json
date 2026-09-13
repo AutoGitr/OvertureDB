@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Day of the Dead",
+  "year": 1985,
+  "tmdb_id": 8408,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "8L5SHL2NkdM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8408.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

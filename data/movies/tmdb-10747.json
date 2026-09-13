@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Outlaw Josey Wales",
+  "year": 1976,
+  "tmdb_id": 10747,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IBmSMAdzg6k",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10747.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

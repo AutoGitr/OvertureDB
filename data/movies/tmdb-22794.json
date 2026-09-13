@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cloudy with a Chance of Meatballs",
+  "year": 2009,
+  "tmdb_id": 22794,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wEb9wjwVUtA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/22794.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

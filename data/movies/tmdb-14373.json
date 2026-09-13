@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Death Wish II",
+  "year": 1982,
+  "tmdb_id": 14373,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HLIDEVrJoiI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/14373.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

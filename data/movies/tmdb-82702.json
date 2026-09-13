@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "How to Train Your Dragon 2",
+  "year": 2014,
+  "tmdb_id": 82702,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "TSoyuQHPuOg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/82702.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

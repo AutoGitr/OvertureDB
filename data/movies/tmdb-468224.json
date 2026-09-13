@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tolkien",
+  "year": 2019,
+  "tmdb_id": 468224,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WpqPlDgWfwI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/468224.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

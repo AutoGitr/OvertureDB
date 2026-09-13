@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ash vs Evil Dead",
+  "year": 2015,
+  "tmdb_id": 62264,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0zaTMlFE8Sk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/62264.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

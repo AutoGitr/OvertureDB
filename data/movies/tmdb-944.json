@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Lethal Weapon 4",
+  "year": 1998,
+  "tmdb_id": 944,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4id3Zf_AT5Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/944.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

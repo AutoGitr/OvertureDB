@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Alias",
+  "year": 2001,
+  "tmdb_id": 2046,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "q3h2wZAhwYY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/2046.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

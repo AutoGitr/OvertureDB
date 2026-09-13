@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Kiznaiver",
+  "year": 2016,
+  "tmdb_id": 65950,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LM6RhRm2GQM",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/65950.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

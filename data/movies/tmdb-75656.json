@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Now You See Me",
+  "year": 2013,
+  "tmdb_id": 75656,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ei4eH-aYiRo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/75656.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

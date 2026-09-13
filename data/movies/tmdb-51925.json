@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Les Sous-Doués En Vacances",
+  "year": 1982,
+  "tmdb_id": 51925,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "47R8B7HgLU8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/51925.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

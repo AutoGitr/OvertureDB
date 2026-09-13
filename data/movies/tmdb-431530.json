@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Bad Moms Christmas",
+  "year": 2017,
+  "tmdb_id": 431530,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "8bRo6CIH_Do",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/431530.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Terms of Endearment",
+  "year": 1983,
+  "tmdb_id": 11050,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YnxfDuxaRzA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11050.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

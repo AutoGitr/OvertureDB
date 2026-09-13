@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Witch and the Beast",
+  "year": 2024,
+  "tmdb_id": 208445,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "g_RQUP6OV0k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/208445.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

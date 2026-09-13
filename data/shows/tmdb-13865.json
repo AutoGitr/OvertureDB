@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Edge of Darkness",
+  "year": 1985,
+  "tmdb_id": 13865,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2bfPS7p6Z1k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/13865.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

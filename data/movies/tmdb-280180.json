@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Beverly Hills Cop: Axel F",
+  "year": 2024,
+  "tmdb_id": 280180,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Jw1aKwElnNY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/280180.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

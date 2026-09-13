@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Maximum Ride",
+  "year": 2016,
+  "tmdb_id": 339116,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "b-jEo9n9mYc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/339116.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

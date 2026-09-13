@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Spice World",
+  "year": 1997,
+  "tmdb_id": 6116,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "s_J-RVWhJHU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/6116.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

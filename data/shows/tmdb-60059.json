@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Better Call Saul",
+  "year": 2015,
+  "tmdb_id": 60059,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5AI44gnaLxY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/60059.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

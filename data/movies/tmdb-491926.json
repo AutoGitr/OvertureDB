@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Resistance",
+  "year": 2020,
+  "tmdb_id": 491926,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "s-VdZS3NCYg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/491926.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

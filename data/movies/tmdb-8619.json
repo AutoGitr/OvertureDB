@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Master and Commander: The Far Side of the World",
+  "year": 2003,
+  "tmdb_id": 8619,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oS8Sd8amxcU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8619.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

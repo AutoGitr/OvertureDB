@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Wet Hot American Summer",
+  "year": 2001,
+  "tmdb_id": 2171,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sXmrMMYpQL4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2171.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

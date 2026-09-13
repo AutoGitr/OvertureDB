@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Alien",
+  "year": 1979,
+  "tmdb_id": 348,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "6pnev1fa2bY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/348.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

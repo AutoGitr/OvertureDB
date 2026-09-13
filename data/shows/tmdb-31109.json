@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ben 10: Ultimate Alien",
+  "year": 2010,
+  "tmdb_id": 31109,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KpKf53kga1k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/31109.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

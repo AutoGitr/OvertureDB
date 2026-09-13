@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Blue Gate Crossing",
+  "year": 2002,
+  "tmdb_id": 44708,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "G1Ht9P71f8o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/44708.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Babe: Pig in the City",
+  "year": 1998,
+  "tmdb_id": 9447,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LNVAFTmaWqg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9447.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

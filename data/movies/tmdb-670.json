@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Oldboy",
+  "year": 2003,
+  "tmdb_id": 670,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aLTF7U_ce-8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/670.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

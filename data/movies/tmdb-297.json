@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Meet Joe Black",
+  "year": 1998,
+  "tmdb_id": 297,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RfxkV0OozTo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/297.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

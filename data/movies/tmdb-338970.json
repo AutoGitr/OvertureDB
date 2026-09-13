@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tomb Raider",
+  "year": 2018,
+  "tmdb_id": 338970,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Y0D-9hkozg4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/338970.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

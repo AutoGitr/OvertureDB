@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Minority Report",
+  "year": 2002,
+  "tmdb_id": 180,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sy_Mn91DdKE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/180.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

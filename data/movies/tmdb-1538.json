@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Collateral",
+  "year": 2004,
+  "tmdb_id": 1538,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Ynm5nrNv5js",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1538.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

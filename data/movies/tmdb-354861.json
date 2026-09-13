@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Father Figures",
+  "year": 2017,
+  "tmdb_id": 354861,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zrhSOAEap48",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/354861.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

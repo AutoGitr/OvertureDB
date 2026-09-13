@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Girl Next Door",
+  "year": 2007,
+  "tmdb_id": 15356,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "1tgynXrSPrY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15356.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Jack Strong",
+  "year": 2014,
+  "tmdb_id": 204968,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "CvSzKVBTF_Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/204968.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

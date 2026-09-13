@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Two and a Half Men",
+  "year": 2003,
+  "tmdb_id": 2691,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KxNrJljt_WI",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/2691.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

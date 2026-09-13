@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "My Isekai Life: I Gained a Second Character Class and Became the Strongest Sage in the World!",
+  "year": 2022,
+  "tmdb_id": 117889,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zQhHfdMolqo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/117889.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

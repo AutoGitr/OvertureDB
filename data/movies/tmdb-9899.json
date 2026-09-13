@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Producers",
+  "year": 2005,
+  "tmdb_id": 9899,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hrpf6LvnDR4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9899.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

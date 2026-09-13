@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Professor and the Madman",
+  "year": 2019,
+  "tmdb_id": 411728,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Qm-49hu34nk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/411728.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

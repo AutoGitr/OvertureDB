@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Twilight Saga: Eclipse",
+  "year": 2010,
+  "tmdb_id": 24021,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "EC1BHOZRQ8Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/24021.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Indiana Jones and the Dial of Destiny",
+  "year": 2023,
+  "tmdb_id": 335977,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "glf5KmRGvOk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/335977.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World",
+  "year": 2024,
+  "tmdb_id": 237150,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xqEg9TElS6o",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/237150.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Glass",
+  "year": 2019,
+  "tmdb_id": 450465,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "L-QRLByrEGM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/450465.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

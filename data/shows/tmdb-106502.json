@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Leverage: Redemption",
+  "year": 2021,
+  "tmdb_id": 106502,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "B_JHFmjyzDs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/106502.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

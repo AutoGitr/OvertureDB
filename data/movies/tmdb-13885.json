@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Sweeney Todd: The Demon Barber of Fleet Street",
+  "year": 2007,
+  "tmdb_id": 13885,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "MkE9P-h1oeI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13885.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

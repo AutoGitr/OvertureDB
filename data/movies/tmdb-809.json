@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Shrek 2",
+  "year": 2004,
+  "tmdb_id": 809,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GEo7W-uJNkc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/809.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

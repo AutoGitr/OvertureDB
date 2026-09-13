@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The God of High School",
+  "year": 2020,
+  "tmdb_id": 99778,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pkw_Hl3qXCs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/99778.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Snow White with the Red Hair",
+  "year": 2015,
+  "tmdb_id": 63087,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "XjtTsCCTZUY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/63087.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

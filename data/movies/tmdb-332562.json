@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Star Is Born",
+  "year": 2018,
+  "tmdb_id": 332562,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "BpIf43m2ZQI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/332562.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

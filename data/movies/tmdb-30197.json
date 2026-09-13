@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Producers",
+  "year": 1968,
+  "tmdb_id": 30197,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WmAyXa4CcUU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/30197.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

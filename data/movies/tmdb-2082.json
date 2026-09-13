@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Halloween",
+  "year": 2007,
+  "tmdb_id": 2082,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5ym9p6Tg3Dk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2082.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

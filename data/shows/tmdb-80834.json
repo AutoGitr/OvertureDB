@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Revue Starlight",
+  "year": 2018,
+  "tmdb_id": 80834,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "CBda5UCtFjs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/80834.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

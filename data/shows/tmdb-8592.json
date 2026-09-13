@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Parks and Recreation",
+  "year": 2009,
+  "tmdb_id": 8592,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "F64-5t6xXBk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/8592.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

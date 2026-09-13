@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Slumdog Millionaire",
+  "year": 2008,
+  "tmdb_id": 12405,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2R3XstG35sE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12405.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

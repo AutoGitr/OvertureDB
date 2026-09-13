@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "1922",
+  "year": 2017,
+  "tmdb_id": 452507,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "U3y82MaUk0o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/452507.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

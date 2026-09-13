@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Michael Clayton",
+  "year": 2007,
+  "tmdb_id": 4566,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "qeq40R2FJzM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4566.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

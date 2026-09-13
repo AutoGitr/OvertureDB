@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Amazing Grace",
+  "year": 2006,
+  "tmdb_id": 15163,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_fulANB2pQ0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15163.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

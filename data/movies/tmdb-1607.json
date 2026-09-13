@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Bronx Tale",
+  "year": 1993,
+  "tmdb_id": 1607,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Cx-Cm4kLm9I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1607.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Re:ZERO -Starting Life in Another World- The Frozen Bond",
+  "year": 2019,
+  "tmdb_id": 566451,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ANXqwK0czgc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/566451.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

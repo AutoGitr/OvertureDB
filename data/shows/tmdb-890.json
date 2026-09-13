@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Neon Genesis Evangelion",
+  "year": 1995,
+  "tmdb_id": 890,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fShlVhCfHig",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/890.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

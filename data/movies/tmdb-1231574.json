@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "My Oni Girl",
+  "year": 2024,
+  "tmdb_id": 1231574,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "S4NHQeqEywA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1231574.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

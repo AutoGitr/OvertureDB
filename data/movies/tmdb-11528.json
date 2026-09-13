@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Sandlot",
+  "year": 1993,
+  "tmdb_id": 11528,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oTZ-nzKQojw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11528.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

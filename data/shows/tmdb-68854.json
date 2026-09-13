@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "From Me to You: Kimi ni Todoke",
+  "year": 2009,
+  "tmdb_id": 68854,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "h8WpL3TJSDQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/68854.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

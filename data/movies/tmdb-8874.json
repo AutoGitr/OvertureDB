@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "My Best Friend's Wedding",
+  "year": 1997,
+  "tmdb_id": 8874,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pm-dGvCCn_4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8874.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

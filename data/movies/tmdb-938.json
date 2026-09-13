@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "For a Few Dollars More",
+  "year": 1965,
+  "tmdb_id": 938,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "yyV_eb3p3Zw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/938.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

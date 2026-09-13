@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Werewolf of Washington",
+  "year": 1973,
+  "tmdb_id": 88065,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "yjVT-guAO_Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/88065.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

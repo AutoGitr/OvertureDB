@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "갤럭시 안전 프로젝트",
+  "year": 2015,
+  "tmdb_id": 207964,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Dw5tJVVgjD8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/207964.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

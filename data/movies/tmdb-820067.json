@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Quintessential Quintuplets Movie",
+  "year": 2022,
+  "tmdb_id": 820067,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "r6HBt5enR70",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/820067.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

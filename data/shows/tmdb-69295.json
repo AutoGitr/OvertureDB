@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Masamune-kun's Revenge",
+  "year": 2017,
+  "tmdb_id": 69295,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "EXh9ZFk_Q0c",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/69295.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

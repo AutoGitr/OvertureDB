@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "JoJo's Bizarre Adventure",
+  "year": 1993,
+  "tmdb_id": 60862,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Y9U_54T2O1g",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/60862.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

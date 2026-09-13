@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cheaper by the Dozen",
+  "year": 2003,
+  "tmdb_id": 11007,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HTECxfKm_fQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11007.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

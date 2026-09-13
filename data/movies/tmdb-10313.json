@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Men Who Stare at Goats",
+  "year": 2009,
+  "tmdb_id": 10313,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DIK9kYnl96U",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10313.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

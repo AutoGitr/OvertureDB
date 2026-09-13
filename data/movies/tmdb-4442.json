@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Brothers Grimm",
+  "year": 2005,
+  "tmdb_id": 4442,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3I7CoHmUlYs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4442.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

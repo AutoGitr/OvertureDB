@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Blair Witch Project",
+  "year": 1999,
+  "tmdb_id": 2667,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "peO7k9LVSyY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2667.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Vampire Hunter D",
+  "year": 1985,
+  "tmdb_id": 9463,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "EkkBVSXPa9o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9463.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

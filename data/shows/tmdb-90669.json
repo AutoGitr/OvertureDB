@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "1899",
+  "year": 2022,
+  "tmdb_id": 90669,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "NMuXoFboAok",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/90669.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

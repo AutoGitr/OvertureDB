@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Carnage",
+  "year": 2011,
+  "tmdb_id": 72113,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KZNEkCT1hXA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/72113.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

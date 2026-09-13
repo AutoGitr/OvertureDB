@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Dial M for Murder",
+  "year": 1954,
+  "tmdb_id": 521,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lTF7y90Y6NU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/521.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

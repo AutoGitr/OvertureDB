@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Mononoke",
+  "year": 2007,
+  "tmdb_id": 16660,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aosCAYON2QU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/16660.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

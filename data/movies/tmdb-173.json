@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "20,000 Leagues Under the Sea",
+  "year": 1954,
+  "tmdb_id": 173,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HAZ7A-d1MjE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/173.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

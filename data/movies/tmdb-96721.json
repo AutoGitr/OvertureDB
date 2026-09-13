@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Rush",
+  "year": 2013,
+  "tmdb_id": 96721,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "-YoFWm2NYNE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/96721.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

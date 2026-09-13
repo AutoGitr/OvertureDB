@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bumblebee",
+  "year": 2018,
+  "tmdb_id": 424783,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4Z1Gx3DYVqs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/424783.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Addams Family",
+  "year": 1991,
+  "tmdb_id": 2907,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "u6awa1KetJQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2907.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

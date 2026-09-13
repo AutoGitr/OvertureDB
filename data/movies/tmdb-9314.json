@@ -8,5 +8,12 @@
   "poster_url": "https://image.tmdb.org/t/p/original/brvLMSAJ3smt6Es6jZwZI07MY4X.jpg",
   "background_url": "https://image.tmdb.org/t/p/original/iiYCg63DJ0w7pLdJmAmj9xCfQzw.jpg",
   "youtube_id": "F43DqnMoWi0",
-  "youtube_id_secondary": null
+  "youtube_id_secondary": "F43DqnMoWi0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9314.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
 }

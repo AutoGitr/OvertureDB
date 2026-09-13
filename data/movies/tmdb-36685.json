@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Rocky Horror Picture Show",
+  "year": 1975,
+  "tmdb_id": 36685,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "S91wQbYYX3Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/36685.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

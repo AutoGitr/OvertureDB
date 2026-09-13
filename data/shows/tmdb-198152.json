@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "ONIMAI: I'm Now Your Sister!",
+  "year": 2023,
+  "tmdb_id": 198152,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SID2OofwYyM",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/198152.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

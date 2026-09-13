@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Harem in the Labyrinth of Another World",
+  "year": 2022,
+  "tmdb_id": 114477,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ZqNPrY_6Wog",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/114477.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

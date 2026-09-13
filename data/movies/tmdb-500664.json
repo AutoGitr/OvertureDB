@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Upgrade",
+  "year": 2018,
+  "tmdb_id": 500664,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "tDvO-nTAYxk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/500664.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

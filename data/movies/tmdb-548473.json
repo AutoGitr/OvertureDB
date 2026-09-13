@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Color Out of Space",
+  "year": 2020,
+  "tmdb_id": 548473,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "p0NwyFbckEA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/548473.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

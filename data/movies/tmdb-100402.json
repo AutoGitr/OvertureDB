@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Captain America: The Winter Soldier",
+  "year": 2014,
+  "tmdb_id": 100402,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DnhMgQrZzEs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/100402.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

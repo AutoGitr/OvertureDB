@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Citizen Kane",
+  "year": 1941,
+  "tmdb_id": 15,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vINmw-FTuZM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

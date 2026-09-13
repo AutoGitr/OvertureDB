@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Zoids: Fuzors",
+  "year": 2004,
+  "tmdb_id": 34769,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "u6J0U7AlVZE",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/34769.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

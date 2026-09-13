@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Baptists at Our Barbecue",
+  "year": 2004,
+  "tmdb_id": 28151,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nRSHXcoKdEY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/28151.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

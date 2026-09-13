@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cape Fear",
+  "year": 1991,
+  "tmdb_id": 1598,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RjwGEOXIkt8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1598.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

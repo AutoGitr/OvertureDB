@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Halloween Kills",
+  "year": 2021,
+  "tmdb_id": 610253,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "QJ-nJ2o9Hlo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/610253.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

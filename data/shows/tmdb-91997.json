@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "PLUTO",
+  "year": 2023,
+  "tmdb_id": 91997,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "-o8T4c3oQ9s",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/91997.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

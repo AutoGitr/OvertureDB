@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Jeepers Creepers 3",
+  "year": 2017,
+  "tmdb_id": 55341,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ZY__kExg1CM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/55341.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

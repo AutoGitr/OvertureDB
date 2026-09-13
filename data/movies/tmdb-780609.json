@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Men",
+  "year": 2022,
+  "tmdb_id": 780609,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3V9ucYVN-lw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/780609.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

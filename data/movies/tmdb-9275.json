@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Death to Smoochy",
+  "year": 2002,
+  "tmdb_id": 9275,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SJTsuiHD5ew",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9275.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

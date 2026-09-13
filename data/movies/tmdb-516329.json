@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Antlers",
+  "year": 2021,
+  "tmdb_id": 516329,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "c3VIrd9ttGo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/516329.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

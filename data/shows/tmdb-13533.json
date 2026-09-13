@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Harry's Game",
+  "year": 1982,
+  "tmdb_id": 13533,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4zHTcxVjX0I",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/13533.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

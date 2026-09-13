@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Adventure Time: Fionna and Cake",
+  "year": 2023,
+  "tmdb_id": 131378,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nNTPQUKowjA",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/131378.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

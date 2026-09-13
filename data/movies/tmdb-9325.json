@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Jungle Book",
+  "year": 1967,
+  "tmdb_id": 9325,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AhGdUtZeK8g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9325.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

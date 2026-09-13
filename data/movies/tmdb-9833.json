@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Phantom of the Opera",
+  "year": 2004,
+  "tmdb_id": 9833,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "5NstnB3Wnqk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9833.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

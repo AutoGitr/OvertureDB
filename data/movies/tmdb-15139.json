@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Pagemaster",
+  "year": 1994,
+  "tmdb_id": 15139,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zw8_LNT36M4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15139.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

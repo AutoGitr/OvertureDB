@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Grudge Match",
+  "year": 2013,
+  "tmdb_id": 64807,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "O4zIHx_SSko",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/64807.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "NIPPON SANGOKU: The Three Nations of the Crimson Sun",
+  "year": 2026,
+  "tmdb_id": 312474,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nW2CpHcmlo4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/312474.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

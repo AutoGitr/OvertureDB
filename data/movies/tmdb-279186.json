@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "0.5 mm",
+  "year": 2014,
+  "tmdb_id": 279186,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ykkr4sW1zBk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/279186.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

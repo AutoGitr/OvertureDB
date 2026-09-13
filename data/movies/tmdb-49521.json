@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Man of Steel",
+  "year": 2013,
+  "tmdb_id": 49521,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "EngKxF3Cqh4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/49521.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

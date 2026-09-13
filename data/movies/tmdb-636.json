@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "THX 1138",
+  "year": 1971,
+  "tmdb_id": 636,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "D7qr1QVdPN8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/636.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

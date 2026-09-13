@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Godzilla Minus One",
+  "year": 2023,
+  "tmdb_id": 940721,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Am1Ev_sJ454",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/940721.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

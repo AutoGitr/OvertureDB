@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Spider-Man: Far From Home",
+  "year": 2019,
+  "tmdb_id": 429617,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AY89SnNAlxg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/429617.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

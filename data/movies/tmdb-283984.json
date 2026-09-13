@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fate/stay night: Heaven's Feel I. Presage Flower",
+  "year": 2017,
+  "tmdb_id": 283984,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "p-Jly1jmkwE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/283984.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Miracle at St. Anna",
+  "year": 2008,
+  "tmdb_id": 12412,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LzIB_OM2Zb8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12412.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

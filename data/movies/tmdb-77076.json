@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Dr. Goldfoot and the Girl Bombs",
+  "year": 1966,
+  "tmdb_id": 77076,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pwJq3ClsUNk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/77076.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

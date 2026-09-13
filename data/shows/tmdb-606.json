@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ed, Edd n Eddy",
+  "year": 1999,
+  "tmdb_id": 606,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "1BPLXepRC8E",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/606.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

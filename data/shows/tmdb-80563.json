@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "How Not to Summon a Demon Lord",
+  "year": 2018,
+  "tmdb_id": 80563,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2aZCGdVI568",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/80563.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

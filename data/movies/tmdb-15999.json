@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Vampire Hunter D: Bloodlust",
+  "year": 2001,
+  "tmdb_id": 15999,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "mR6I6l9fZsw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15999.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

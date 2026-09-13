@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Spenser Confidential",
+  "year": 2020,
+  "tmdb_id": 581600,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ef-IwY8XNlU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/581600.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

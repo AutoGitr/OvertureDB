@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Air Gear",
+  "year": 2006,
+  "tmdb_id": 31670,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "klFVxGAacz0",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/31670.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

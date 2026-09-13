@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Abraham Lincoln: Vampire Hunter",
+  "year": 2012,
+  "tmdb_id": 72331,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Q4uwH5VDIPo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/72331.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

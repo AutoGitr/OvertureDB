@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Scarlet Pimpernel",
+  "year": 1982,
+  "tmdb_id": 23615,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vTvmUQF-FIA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/23615.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

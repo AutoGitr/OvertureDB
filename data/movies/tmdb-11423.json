@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Memories of Murder",
+  "year": 2003,
+  "tmdb_id": 11423,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "x1K_8BFw3_g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11423.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

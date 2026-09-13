@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "VeggieTales: Lord of the Beans",
+  "year": 2005,
+  "tmdb_id": 273309,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WCxKyiG1Qz8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/273309.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

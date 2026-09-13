@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Rescuers Down Under",
+  "year": 1990,
+  "tmdb_id": 11135,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "I9VajjemR-0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11135.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

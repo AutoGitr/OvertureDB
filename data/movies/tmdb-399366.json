@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Marrowbone",
+  "year": 2017,
+  "tmdb_id": 399366,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AMHdt8VG_0Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/399366.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

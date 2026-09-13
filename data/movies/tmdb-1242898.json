@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Predator: Badlands",
+  "year": 2025,
+  "tmdb_id": 1242898,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ULuB-I7aPtU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1242898.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

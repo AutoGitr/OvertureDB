@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Hitorijime My Hero",
+  "year": 2017,
+  "tmdb_id": 72526,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pgQsGCAIe2g",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/72526.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

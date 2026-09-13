@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "R.I.P.D.",
+  "year": 2013,
+  "tmdb_id": 49524,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xxxdR8yVMXM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/49524.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

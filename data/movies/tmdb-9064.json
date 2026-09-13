@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hellbound: Hellraiser II",
+  "year": 1988,
+  "tmdb_id": 9064,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jYAoo9UN76g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9064.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

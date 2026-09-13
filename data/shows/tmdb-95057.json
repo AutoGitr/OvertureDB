@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Superman & Lois",
+  "year": 2021,
+  "tmdb_id": 95057,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fb-Ngwq7eGk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/95057.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

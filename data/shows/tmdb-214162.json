@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Animal Control",
+  "year": 2023,
+  "tmdb_id": 214162,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "M6yYq-vtuAU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/214162.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

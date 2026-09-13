@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Parasyte -the maxim-",
+  "year": 2014,
+  "tmdb_id": 61459,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ziatgnrtG0Y",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/61459.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Non Non Biyori: Vacation",
+  "year": 2018,
+  "tmdb_id": 494471,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jNjS4x0B450",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/494471.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

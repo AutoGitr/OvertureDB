@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Infiltrator",
+  "year": 2016,
+  "tmdb_id": 325789,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "536Ut6FhmJA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/325789.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

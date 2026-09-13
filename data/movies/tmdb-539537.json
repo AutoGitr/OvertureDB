@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fantasy Island",
+  "year": 2020,
+  "tmdb_id": 539537,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2mCtcMjf25c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/539537.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Fourth Musketeer",
+  "year": 2022,
+  "tmdb_id": 919348,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0A3K1ZJq-8U",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/919348.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

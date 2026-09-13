@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Backstrom",
+  "year": 2015,
+  "tmdb_id": 50971,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "m__3dI3BKk4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/50971.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

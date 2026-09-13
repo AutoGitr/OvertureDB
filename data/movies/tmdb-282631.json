@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Admiral: Roaring Currents",
+  "year": 2014,
+  "tmdb_id": 282631,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HMC-yqpXtpM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/282631.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

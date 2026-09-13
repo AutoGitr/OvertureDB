@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Fiasco",
+  "year": 2024,
+  "tmdb_id": 221120,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ot0scJH6q7o",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/221120.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

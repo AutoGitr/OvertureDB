@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Torrente: The Dumb Arm of the Law",
+  "year": 1998,
+  "tmdb_id": 1283,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Ovm_pyv7Ycg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1283.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

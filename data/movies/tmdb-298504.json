@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Vampire Sisters 2: Bats in the Belly",
+  "year": 2014,
+  "tmdb_id": 298504,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wMxUvvG-Wjw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/298504.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

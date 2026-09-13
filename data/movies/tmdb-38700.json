@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bad Boys for Life",
+  "year": 2020,
+  "tmdb_id": 38700,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kz0akPjtVhQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/38700.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

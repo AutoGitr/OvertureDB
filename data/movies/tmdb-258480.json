@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Carol",
+  "year": 2015,
+  "tmdb_id": 258480,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "awk0YahlOcA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/258480.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

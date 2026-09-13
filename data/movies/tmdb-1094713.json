@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Mistress",
+  "year": 2023,
+  "tmdb_id": 1094713,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "erFsM_7tfL8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1094713.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

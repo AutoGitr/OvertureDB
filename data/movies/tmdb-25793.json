@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Precious: Based on the Novel 'Push' by Sapphire",
+  "year": 2009,
+  "tmdb_id": 25793,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ZzFw82S_qU0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/25793.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

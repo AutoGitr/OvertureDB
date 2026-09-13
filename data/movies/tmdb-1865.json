@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Pirates of the Caribbean: On Stranger Tides",
+  "year": 2011,
+  "tmdb_id": 1865,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "PPs416S7OFU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1865.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

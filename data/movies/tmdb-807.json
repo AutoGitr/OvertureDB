@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Se7en",
+  "year": 1995,
+  "tmdb_id": 807,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "R8V0dbh_hOM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/807.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

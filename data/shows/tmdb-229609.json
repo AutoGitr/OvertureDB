@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "My Daughter Left the Nest and Returned an S-Rank Adventurer",
+  "year": 2023,
+  "tmdb_id": 229609,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aoluUL5DQ24",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/229609.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

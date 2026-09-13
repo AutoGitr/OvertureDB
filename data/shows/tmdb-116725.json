@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Vivy -Fluorite Eye's Song-",
+  "year": 2021,
+  "tmdb_id": 116725,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2p8ig-TrYPY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/116725.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

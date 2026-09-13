@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Murder in the First",
+  "year": 1995,
+  "tmdb_id": 8438,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IKsel94CLPc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8438.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Xena: Warrior Princess",
+  "year": 1995,
+  "tmdb_id": 4616,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pMHzd2qrxEs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/4616.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

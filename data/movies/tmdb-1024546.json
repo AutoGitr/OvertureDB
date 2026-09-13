@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Detective Knight: Rogue",
+  "year": 2022,
+  "tmdb_id": 1024546,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DoAA1b9bszU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1024546.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

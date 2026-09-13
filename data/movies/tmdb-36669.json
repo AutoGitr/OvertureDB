@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Die Another Day",
+  "year": 2002,
+  "tmdb_id": 36669,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "VlbaJA7aO9M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/36669.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

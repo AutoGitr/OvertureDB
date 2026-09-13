@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Manchurian Candidate",
+  "year": 1962,
+  "tmdb_id": 982,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "u4V0uQE-nRY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/982.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

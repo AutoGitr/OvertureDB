@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Thor: Love and Thunder",
+  "year": 2022,
+  "tmdb_id": 616037,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LJlVtsqyYdU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/616037.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

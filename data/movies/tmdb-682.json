@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Man with the Golden Gun",
+  "year": 1974,
+  "tmdb_id": 682,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ko3_6AviC3c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/682.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

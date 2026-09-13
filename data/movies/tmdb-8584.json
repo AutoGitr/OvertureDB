@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Shanghai Noon",
+  "year": 2000,
+  "tmdb_id": 8584,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "btMy7QBNvR4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8584.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

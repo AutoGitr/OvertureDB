@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ace Ventura: Pet Detective",
+  "year": 1994,
+  "tmdb_id": 3049,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gHTEFS-imKY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/3049.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

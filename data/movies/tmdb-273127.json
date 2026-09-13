@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "VeggieTales: Dave and the Giant Pickle",
+  "year": 1996,
+  "tmdb_id": 273127,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HtGn3bMJ7js",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/273127.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

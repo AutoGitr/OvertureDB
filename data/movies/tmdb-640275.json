@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gone with the Light",
+  "year": 2019,
+  "tmdb_id": 640275,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "E31oHKLc6dM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/640275.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Nightmare on Elm Street 3: Dream Warriors",
+  "year": 1987,
+  "tmdb_id": 10072,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "tdQmV9Gm1W8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10072.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "After Earth",
+  "year": 2013,
+  "tmdb_id": 82700,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "F5adHHsb0Xg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/82700.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

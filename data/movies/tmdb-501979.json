@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bill & Ted Face the Music",
+  "year": 2020,
+  "tmdb_id": 501979,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "MCbJSGWim9E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/501979.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

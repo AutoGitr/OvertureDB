@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Recess: School's Out",
+  "year": 2001,
+  "tmdb_id": 19405,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ug3HEMYUQ6M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/19405.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

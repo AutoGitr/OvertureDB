@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ponyo",
+  "year": 2008,
+  "tmdb_id": 12429,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "-wOocwx5VV4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12429.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

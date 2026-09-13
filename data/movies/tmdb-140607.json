@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Star Wars: The Force Awakens",
+  "year": 2015,
+  "tmdb_id": 140607,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2ZGMAjett4I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/140607.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

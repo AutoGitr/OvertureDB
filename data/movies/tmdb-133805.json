@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Carrie",
+  "year": 2013,
+  "tmdb_id": 133805,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fzA8E9roV3I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/133805.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

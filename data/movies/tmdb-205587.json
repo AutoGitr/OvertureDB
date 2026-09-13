@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Judge",
+  "year": 2014,
+  "tmdb_id": 205587,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "m8no8041rw8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/205587.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

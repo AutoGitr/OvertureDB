@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Another 48 Hrs.",
+  "year": 1990,
+  "tmdb_id": 11595,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FI__sUbQ_6s",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11595.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

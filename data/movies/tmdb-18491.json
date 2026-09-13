@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Neon Genesis Evangelion: The End of Evangelion",
+  "year": 1997,
+  "tmdb_id": 18491,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "6kguaGI7aZg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/18491.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Jathi Ratnalu",
+  "year": 2021,
+  "tmdb_id": 796368,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "NHp38DyIOmQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/796368.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Let's Be Cops",
+  "year": 2014,
+  "tmdb_id": 193893,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "z-59lqFYtRM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/193893.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

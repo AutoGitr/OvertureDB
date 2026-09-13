@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Taking of Deborah Logan",
+  "year": 2014,
+  "tmdb_id": 297608,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "x0vePF9QSE0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/297608.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

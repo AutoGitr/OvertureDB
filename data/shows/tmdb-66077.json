@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Tanaka-kun Is Always Listless",
+  "year": 2016,
+  "tmdb_id": 66077,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "iDo-gUvdjdM",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/66077.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

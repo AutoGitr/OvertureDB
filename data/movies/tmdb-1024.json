@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Heavenly Creatures",
+  "year": 1994,
+  "tmdb_id": 1024,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DXo7q1BMMD0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1024.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

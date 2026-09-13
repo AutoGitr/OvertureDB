@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Reborn as a Vending Machine, I Now Wander the Dungeon",
+  "year": 2023,
+  "tmdb_id": 207564,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "-zKrxXa6aTQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/207564.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

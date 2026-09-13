@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Batman",
+  "year": 1989,
+  "tmdb_id": 268,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YoaU3kRFvLg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/268.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Steins;Gate",
+  "year": 2011,
+  "tmdb_id": 42509,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "TR3ma_60-m4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/42509.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

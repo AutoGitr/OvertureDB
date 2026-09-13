@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Sinners",
+  "year": 2025,
+  "tmdb_id": 1233413,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3eL-XNmcuLQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1233413.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

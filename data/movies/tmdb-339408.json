@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Birth of a Nation",
+  "year": 2016,
+  "tmdb_id": 339408,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FzqK1Bb0388",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/339408.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

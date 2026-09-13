@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "TÁR",
+  "year": 2022,
+  "tmdb_id": 817758,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KUKq4OF_nvE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/817758.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

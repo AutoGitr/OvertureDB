@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Blue Planet II",
+  "year": 2017,
+  "tmdb_id": 74313,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Ps2Bzu5tG3A",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/74313.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

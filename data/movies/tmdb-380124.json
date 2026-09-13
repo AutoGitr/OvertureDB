@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Boo! A Madea Halloween",
+  "year": 2016,
+  "tmdb_id": 380124,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bzYXCxzU9Io",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/380124.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

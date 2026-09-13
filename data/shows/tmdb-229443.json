@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Tis Time for \"Torture,\" Princess",
+  "year": 2024,
+  "tmdb_id": 229443,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "L8WDAYNTaz8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/229443.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

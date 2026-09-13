@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Donnie Darko",
+  "year": 2001,
+  "tmdb_id": 141,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nNx-1M9MqM4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/141.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

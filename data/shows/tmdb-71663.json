@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Black Lightning",
+  "year": 2018,
+  "tmdb_id": 71663,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_Y230T07D_8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/71663.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

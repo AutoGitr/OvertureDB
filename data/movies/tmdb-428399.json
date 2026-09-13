@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cold Skin",
+  "year": 2017,
+  "tmdb_id": 428399,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "MuGE4fTxCj8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/428399.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Invitation",
+  "year": 2022,
+  "tmdb_id": 830788,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "R5_006sdywA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/830788.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "DAHMER - Monster: The Jeffrey Dahmer Story",
+  "year": 2022,
+  "tmdb_id": 113988,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KXMtcsoLb8g",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/113988.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

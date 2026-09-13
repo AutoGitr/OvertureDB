@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Deadpool & Wolverine",
+  "year": 2024,
+  "tmdb_id": 533535,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "OYy81a5K6Jo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/533535.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

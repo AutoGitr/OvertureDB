@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Halloweentown",
+  "year": 1998,
+  "tmdb_id": 27850,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "CptR4D7NhdU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/27850.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

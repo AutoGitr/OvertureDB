@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Other Guys",
+  "year": 2010,
+  "tmdb_id": 27581,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "2E8IBBW38EA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/27581.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

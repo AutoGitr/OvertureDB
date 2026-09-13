@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Batman vs Teenage Mutant Ninja Turtles",
+  "year": 2019,
+  "tmdb_id": 581997,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "rsDxYIgCzTI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/581997.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

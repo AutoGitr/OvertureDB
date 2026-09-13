@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "VeggieTales: King George and the Ducky",
+  "year": 2000,
+  "tmdb_id": 273302,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oba0b00LzFQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/273302.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

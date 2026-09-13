@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Frosty the Snowman",
+  "year": 1969,
+  "tmdb_id": 13675,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "g0uhieKvRXc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13675.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

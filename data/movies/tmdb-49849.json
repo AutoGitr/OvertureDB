@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cowboys & Aliens",
+  "year": 2011,
+  "tmdb_id": 49849,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LJ5_DvtbPIQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/49849.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

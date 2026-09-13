@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "One Piece: Clockwork Island Adventure",
+  "year": 2001,
+  "tmdb_id": 23446,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "b3JDng69Zd4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/23446.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

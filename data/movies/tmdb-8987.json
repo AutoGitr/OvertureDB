@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The River Wild",
+  "year": 1994,
+  "tmdb_id": 8987,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "87Ip_RyZsp8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8987.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

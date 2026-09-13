@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "How the Grinch Stole Christmas",
+  "year": 2000,
+  "tmdb_id": 8871,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_Sqqzi3zlko",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8871.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

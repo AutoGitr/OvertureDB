@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "All in the Family",
+  "year": 1971,
+  "tmdb_id": 1922,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GI46_zBGv1A",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/1922.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

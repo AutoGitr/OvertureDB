@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gamer",
+  "year": 2009,
+  "tmdb_id": 18501,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hPrU1JHXK6g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/18501.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

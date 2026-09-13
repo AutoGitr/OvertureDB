@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Spooky Tale of Captain Underpants Hack-a-ween",
+  "year": 2019,
+  "tmdb_id": 637395,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vii2s_Sw5Gg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/637395.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

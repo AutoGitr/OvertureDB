@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Airplane II: The Sequel",
+  "year": 1982,
+  "tmdb_id": 2665,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4TmIte7z7mo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2665.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

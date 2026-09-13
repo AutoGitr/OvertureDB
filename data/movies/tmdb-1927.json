@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hulk",
+  "year": 2003,
+  "tmdb_id": 1927,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Wow7-W0S9yg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1927.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "They Live",
+  "year": 1988,
+  "tmdb_id": 8337,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vqT6cZUkn5Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8337.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

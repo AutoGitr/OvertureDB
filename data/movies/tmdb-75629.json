@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Evangelion: 3.0 You Can (Not) Redo",
+  "year": 2012,
+  "tmdb_id": 75629,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "P7Hx0GYIs4k",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/75629.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "John Wick: Chapter 2",
+  "year": 2017,
+  "tmdb_id": 324552,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "1RoUV9Ho8qI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/324552.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

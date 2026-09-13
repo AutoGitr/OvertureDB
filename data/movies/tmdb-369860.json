@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bibi & Tina: Girls vs. Boys",
+  "year": 2016,
+  "tmdb_id": 369860,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Nfpaah_Mlf8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/369860.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

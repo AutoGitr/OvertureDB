@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ragna Crimson",
+  "year": 2023,
+  "tmdb_id": 195459,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DUqKtA0CESs",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/195459.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

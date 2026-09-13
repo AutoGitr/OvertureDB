@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Gendarme and the Creatures from Outer Space",
+  "year": 1979,
+  "tmdb_id": 10516,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "k5tKDWXMVVE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10516.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

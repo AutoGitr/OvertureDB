@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Gundam Build Metaverse",
+  "year": 2023,
+  "tmdb_id": 229606,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "b5O9j2uYOLU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/229606.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

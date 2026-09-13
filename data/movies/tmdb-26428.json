@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Agora",
+  "year": 2009,
+  "tmdb_id": 26428,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LZjxzDlB70M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/26428.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

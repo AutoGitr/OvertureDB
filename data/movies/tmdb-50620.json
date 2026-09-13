@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Twilight Saga: Breaking Dawn - Part 2",
+  "year": 2012,
+  "tmdb_id": 50620,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DJ0-xMvBvf8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/50620.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

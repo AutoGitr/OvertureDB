@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cruella",
+  "year": 2021,
+  "tmdb_id": 337404,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "A3td1lW4tjk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/337404.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "La Traversée de Paris",
+  "year": 1956,
+  "tmdb_id": 19178,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Rq9Yvfx6d8w",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/19178.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "SHIROHIYO - Reincarnated as a Neglected Noble: Raising My Baby Brother with Memories from My Past Life",
+  "year": 2025,
+  "tmdb_id": 281623,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4nBzqU0ruag",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/281623.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

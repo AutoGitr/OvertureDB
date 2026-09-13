@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Spanglish",
+  "year": 2004,
+  "tmdb_id": 2539,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "any-tB01QCo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2539.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

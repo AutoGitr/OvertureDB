@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Green Lantern: Beware My Power",
+  "year": 2022,
+  "tmdb_id": 887357,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "-b_HPTkdh1Q",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/887357.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Armored",
+  "year": 2009,
+  "tmdb_id": 4597,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ORLZFdzlDZs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4597.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

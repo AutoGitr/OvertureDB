@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "M3GAN",
+  "year": 2022,
+  "tmdb_id": 536554,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "NEPcmZlldu0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/536554.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

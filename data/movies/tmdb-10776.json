@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Little Shop of Horrors",
+  "year": 1986,
+  "tmdb_id": 10776,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fm-vDARXf1c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10776.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

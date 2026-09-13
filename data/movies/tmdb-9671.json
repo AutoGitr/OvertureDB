@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Crocodile Dundee",
+  "year": 1986,
+  "tmdb_id": 9671,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SbOS_4kiHxg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9671.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

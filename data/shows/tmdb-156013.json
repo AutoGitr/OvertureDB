@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Kaina of the Great Snow Sea",
+  "year": 2023,
+  "tmdb_id": 156013,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ARrp07_a97k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/156013.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

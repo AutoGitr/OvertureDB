@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "[REC]³ Genesis",
+  "year": 2012,
+  "tmdb_id": 80280,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Mvga6uRCgnE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/80280.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

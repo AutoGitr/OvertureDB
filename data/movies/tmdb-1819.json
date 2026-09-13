@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "You, Me and Dupree",
+  "year": 2006,
+  "tmdb_id": 1819,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "98E_5w5Ry8k",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1819.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

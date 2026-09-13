@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Guillermo del Toro's Pinocchio",
+  "year": 2022,
+  "tmdb_id": 555604,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Azr6ZrkwWXI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/555604.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

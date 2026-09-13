@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "My Deer Friend Nokotan",
+  "year": 2024,
+  "tmdb_id": 248866,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "mufLaKGQnaw",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/248866.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

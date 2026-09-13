@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Please Put Them On, Takamine-san",
+  "year": 2025,
+  "tmdb_id": 276880,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lNA6rCtjq9k",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/276880.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Schitt's Creek",
+  "year": 2015,
+  "tmdb_id": 61662,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fnI8cPgV3Jo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/61662.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

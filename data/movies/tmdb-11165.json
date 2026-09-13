@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tora! Tora! Tora!",
+  "year": 1970,
+  "tmdb_id": 11165,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bqzGk-5VQw8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11165.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

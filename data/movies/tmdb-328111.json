@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Secret Life of Pets",
+  "year": 2016,
+  "tmdb_id": 328111,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SqWJDaNiM3w",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/328111.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fate/stay night: Heaven's Feel II. Lost Butterfly",
+  "year": 2019,
+  "tmdb_id": 390634,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wTa7689Grjw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/390634.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

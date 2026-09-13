@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Pacific Rim: The Black",
+  "year": 2021,
+  "tmdb_id": 112162,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AAnBxy92_aA",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/112162.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Daily Life of the Immortal King",
+  "year": 2020,
+  "tmdb_id": 98123,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3c8SS8EanaQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/98123.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

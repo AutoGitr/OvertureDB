@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Palo Alto",
+  "year": 2014,
+  "tmdb_id": 192132,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kyD1daWg8-o",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/192132.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Crooks in Clover",
+  "year": 1963,
+  "tmdb_id": 25253,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "knXd3TQfFeE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/25253.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

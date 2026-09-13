@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Copshop",
+  "year": 2021,
+  "tmdb_id": 738652,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "C8wes7Cne6M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/738652.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

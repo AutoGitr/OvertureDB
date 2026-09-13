@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Griselda",
+  "year": 2024,
+  "tmdb_id": 137893,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jrzb43VFbyc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/137893.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

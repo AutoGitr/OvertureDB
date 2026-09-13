@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Palm Royale",
+  "year": 2024,
+  "tmdb_id": 157367,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0ssJxgBNBUA",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/157367.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

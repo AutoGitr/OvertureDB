@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Mysterious Cities of Gold",
+  "year": 1982,
+  "tmdb_id": 11285,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "1zfjbn2CuNQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/11285.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

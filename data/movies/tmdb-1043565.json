@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Mindcage",
+  "year": 2022,
+  "tmdb_id": 1043565,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YuKYvHWbyE8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1043565.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

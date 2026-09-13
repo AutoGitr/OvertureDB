@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Beauty and the Beast",
+  "year": 1946,
+  "tmdb_id": 648,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "832VDcC7oqg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/648.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

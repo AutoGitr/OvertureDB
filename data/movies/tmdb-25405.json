@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Taking Chance",
+  "year": 2009,
+  "tmdb_id": 25405,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "qBqeacdsccc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/25405.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

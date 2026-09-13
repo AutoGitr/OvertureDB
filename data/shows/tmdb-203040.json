@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "KONOSUBA – An Explosion on This Wonderful World!",
+  "year": 2023,
+  "tmdb_id": 203040,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IfiQMJ3QlG4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/203040.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

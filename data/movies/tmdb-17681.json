@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Scooby-Doo! and the Witch's Ghost",
+  "year": 1999,
+  "tmdb_id": 17681,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fP-ajsoiwHw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/17681.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

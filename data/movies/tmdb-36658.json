@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "X2",
+  "year": 2003,
+  "tmdb_id": 36658,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wWrq2_TtUuA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/36658.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

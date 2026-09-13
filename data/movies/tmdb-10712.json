@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Far from Heaven",
+  "year": 2002,
+  "tmdb_id": 10712,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "U_5DDvAPQcY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10712.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

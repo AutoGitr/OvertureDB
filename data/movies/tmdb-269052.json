@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "VeggieTales: An Easter Carol",
+  "year": 2004,
+  "tmdb_id": 269052,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vF0FhGVwEes",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/269052.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

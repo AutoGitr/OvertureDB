@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bang, Boom, Bang",
+  "year": 1999,
+  "tmdb_id": 344,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Df7KvN4eUVA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/344.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

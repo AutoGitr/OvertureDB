@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "National Lampoon's European Vacation",
+  "year": 1985,
+  "tmdb_id": 11418,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "l8I0n7njFqs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11418.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

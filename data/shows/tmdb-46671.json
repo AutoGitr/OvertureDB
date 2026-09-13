@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Future Diary",
+  "year": 2011,
+  "tmdb_id": 46671,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0_36iNzrEn0",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/46671.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

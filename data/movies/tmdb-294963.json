@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bone Tomahawk",
+  "year": 2015,
+  "tmdb_id": 294963,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GOlYsArmO_M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/294963.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

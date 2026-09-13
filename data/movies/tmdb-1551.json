@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Flatliners",
+  "year": 1990,
+  "tmdb_id": 1551,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3iy_bNvmR74",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1551.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

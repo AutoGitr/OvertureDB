@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Banshees of Inisherin",
+  "year": 2022,
+  "tmdb_id": 674324,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "OTw4pJ6GwKk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/674324.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Perfect Score",
+  "year": 2004,
+  "tmdb_id": 13505,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "x0VXA4IjhD0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13505.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

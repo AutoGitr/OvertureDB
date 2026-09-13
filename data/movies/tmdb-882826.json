@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "An Action Hero",
+  "year": 2022,
+  "tmdb_id": 882826,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "54KHR3Dx-P4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/882826.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

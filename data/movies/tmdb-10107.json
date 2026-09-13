@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Firehouse Dog",
+  "year": 2007,
+  "tmdb_id": 10107,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wVI3DtqE-GY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10107.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

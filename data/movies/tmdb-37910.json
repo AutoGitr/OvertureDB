@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Voices of a Distant Star",
+  "year": 2002,
+  "tmdb_id": 37910,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wLU1sMx64j4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/37910.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

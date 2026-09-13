@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bohemian Rhapsody",
+  "year": 2018,
+  "tmdb_id": 424694,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oqmNJK2U1nc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/424694.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Cult of Chucky",
+  "year": 2017,
+  "tmdb_id": 393345,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SVZGtiPvbjQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/393345.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

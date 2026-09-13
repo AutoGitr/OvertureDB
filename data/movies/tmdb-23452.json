@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gurren Lagann the Movie: The Lights in the Sky Are Stars",
+  "year": 2009,
+  "tmdb_id": 23452,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "I1IVX9P9kVk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/23452.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

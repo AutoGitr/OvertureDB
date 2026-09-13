@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Milk",
+  "year": 2008,
+  "tmdb_id": 10139,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KR3dG_Xvr0E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10139.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Theory of Everything",
+  "year": 2014,
+  "tmdb_id": 266856,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "mNsHxx_uh9Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/266856.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Unlimited Fafnir",
+  "year": 2015,
+  "tmdb_id": 66863,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ersVT7xiv3w",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/66863.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

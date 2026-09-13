@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Batman Returns",
+  "year": 1992,
+  "tmdb_id": 364,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "qyvkZ5GGP60",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/364.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

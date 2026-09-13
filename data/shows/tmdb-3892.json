@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Orkney Snork Nie",
+  "year": 1989,
+  "tmdb_id": 3892,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "koQLgXP1FYM",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/3892.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

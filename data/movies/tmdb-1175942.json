@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Bad Guys 2",
+  "year": 2025,
+  "tmdb_id": 1175942,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DWkev5jYRk8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1175942.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

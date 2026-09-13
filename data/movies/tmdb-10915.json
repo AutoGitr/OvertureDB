@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Genius, Two Friends, and an Idiot",
+  "year": 1975,
+  "tmdb_id": 10915,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RP2zllWqt4g",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10915.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

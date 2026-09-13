@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Creator",
+  "year": 2023,
+  "tmdb_id": 670292,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "aMJcMVGJ2mE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/670292.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

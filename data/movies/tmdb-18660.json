@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Apple Dumpling Gang",
+  "year": 1975,
+  "tmdb_id": 18660,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wuSvyLKzY8Y",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/18660.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

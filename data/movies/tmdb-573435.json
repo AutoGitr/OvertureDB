@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bad Boys: Ride or Die",
+  "year": 2024,
+  "tmdb_id": 573435,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Bu9tVwgKMiA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/573435.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Society of the Snow",
+  "year": 2023,
+  "tmdb_id": 906126,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ZIFWsZATxXg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/906126.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

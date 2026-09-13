@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Halloween: The Curse of Michael Myers",
+  "year": 1995,
+  "tmdb_id": 10987,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4VN4ni6lORU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10987.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

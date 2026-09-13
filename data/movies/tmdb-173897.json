@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Resident Evil: The Final Chapter",
+  "year": 2016,
+  "tmdb_id": 173897,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wLBgDOHAG-M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/173897.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

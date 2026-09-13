@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The King's Daughter",
+  "year": 2022,
+  "tmdb_id": 245842,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bv8iuXHL88w",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/245842.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

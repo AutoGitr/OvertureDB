@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Exorcism of Emily Rose",
+  "year": 2005,
+  "tmdb_id": 8643,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jBisRnj-ULI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8643.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "I Know What You Did Last Summer",
+  "year": 1997,
+  "tmdb_id": 3597,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "PtCN9uP51QU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/3597.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

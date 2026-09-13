@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Space Pirate Captain Harlock",
+  "year": 2013,
+  "tmdb_id": 192577,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "__-tmU_k1jw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/192577.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

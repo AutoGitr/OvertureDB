@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Cowboys",
+  "year": 1972,
+  "tmdb_id": 15573,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pis-030sl80",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15573.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

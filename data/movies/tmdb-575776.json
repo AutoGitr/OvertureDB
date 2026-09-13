@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Saint Maud",
+  "year": 2020,
+  "tmdb_id": 575776,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "mWQm02BRSfg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/575776.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

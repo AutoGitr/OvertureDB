@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Saga of Tanya the Evil",
+  "year": 2017,
+  "tmdb_id": 69346,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "w4saikdG9pQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/69346.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

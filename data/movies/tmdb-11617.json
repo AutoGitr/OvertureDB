@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Rio Grande",
+  "year": 1950,
+  "tmdb_id": 11617,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Da14Q4XVyZ8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11617.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

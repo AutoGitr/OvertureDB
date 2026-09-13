@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "In the Line of Fire",
+  "year": 1993,
+  "tmdb_id": 9386,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "IOIBL7oFuS0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9386.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

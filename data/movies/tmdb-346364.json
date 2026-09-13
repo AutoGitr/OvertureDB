@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "It",
+  "year": 2017,
+  "tmdb_id": 346364,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "y6lQMPE6MVE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/346364.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

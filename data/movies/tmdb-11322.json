@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Public Enemies",
+  "year": 2009,
+  "tmdb_id": 11322,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3sQOOZv_CYM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11322.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

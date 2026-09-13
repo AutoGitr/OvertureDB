@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Haven't You Heard? I'm Sakamoto",
+  "year": 2016,
+  "tmdb_id": 65944,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "f8d3bW42aFY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/65944.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

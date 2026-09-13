@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Star Trek: The Motion Picture",
+  "year": 1979,
+  "tmdb_id": 152,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gsHBpx6pdUA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/152.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

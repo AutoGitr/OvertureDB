@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Lost World: Jurassic Park",
+  "year": 1997,
+  "tmdb_id": 330,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "6laPiPI4RKU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/330.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

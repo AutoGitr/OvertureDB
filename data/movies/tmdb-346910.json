@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Predator",
+  "year": 2018,
+  "tmdb_id": 346910,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "oeQwH_ZT5f4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/346910.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

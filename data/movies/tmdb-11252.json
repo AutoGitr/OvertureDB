@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Psycho",
+  "year": 1998,
+  "tmdb_id": 11252,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Tn_sTv25IAQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11252.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Shawshank Redemption",
+  "year": 1994,
+  "tmdb_id": 278,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lYGald0tFro",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/278.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

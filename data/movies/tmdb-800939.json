@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ticket to Paradise",
+  "year": 2022,
+  "tmdb_id": 800939,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kR9vai7MIG0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/800939.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "RoboCop 3",
+  "year": 1993,
+  "tmdb_id": 5550,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KiTVl7BU5pI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/5550.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

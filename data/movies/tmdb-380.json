@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Rain Man",
+  "year": 1988,
+  "tmdb_id": 380,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kHsQUGjC1NA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/380.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

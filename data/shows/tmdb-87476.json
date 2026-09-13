@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Mr. Nobunaga's Young Bride",
+  "year": 2019,
+  "tmdb_id": 87476,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "MejIxEC9xlQ",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/87476.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

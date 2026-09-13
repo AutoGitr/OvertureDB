@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Fate/Extra Last Encore",
+  "year": 2018,
+  "tmdb_id": 76123,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "uuZKRK3IYFo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/76123.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Nefarious",
+  "year": 2023,
+  "tmdb_id": 913673,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Z0J7l5CHvx0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/913673.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Shot in the Dark",
+  "year": 1964,
+  "tmdb_id": 1594,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "6RC_ZWU18Jg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1594.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

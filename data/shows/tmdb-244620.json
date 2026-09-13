@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "A Nobody's Way Up to an Exploration Hero",
+  "year": 2024,
+  "tmdb_id": 244620,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "N6Y-8boE4UU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/244620.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

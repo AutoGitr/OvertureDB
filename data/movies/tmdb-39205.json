@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Detective Conan: The Private Eyes' Requiem",
+  "year": 2006,
+  "tmdb_id": 39205,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "XlpNr1amdyY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/39205.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Wrinkle in Time",
+  "year": 2018,
+  "tmdb_id": 407451,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "N8vYGEfhvps",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/407451.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Dawn of the Planet of the Apes",
+  "year": 2014,
+  "tmdb_id": 119450,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lXXsPMTrLIg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/119450.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

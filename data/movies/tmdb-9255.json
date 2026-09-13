@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hot Shots! Part Deux",
+  "year": 1993,
+  "tmdb_id": 9255,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "e42uaPiShqI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9255.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

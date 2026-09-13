@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Charlotte",
+  "year": 2015,
+  "tmdb_id": 63145,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DMcJtk0LEvo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/63145.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Punisher",
+  "year": 2004,
+  "tmdb_id": 7220,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Np2_9JcVZaA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/7220.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fool's Gold",
+  "year": 2008,
+  "tmdb_id": 8676,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Ox2ySH4EAc8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8676.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

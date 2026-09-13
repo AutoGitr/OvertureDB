@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ghost in the Shell: SAC_2045",
+  "year": 2020,
+  "tmdb_id": 90293,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fuXZMQAD9vU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/90293.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

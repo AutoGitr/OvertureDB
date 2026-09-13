@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "American Pastoral",
+  "year": 2016,
+  "tmdb_id": 326285,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "EzJ6DJDrOvE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/326285.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

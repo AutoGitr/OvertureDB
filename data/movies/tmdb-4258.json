@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Scary Movie 5",
+  "year": 2013,
+  "tmdb_id": 4258,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WWnL36iUjUE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4258.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

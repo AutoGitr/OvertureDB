@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Girl on the Train",
+  "year": 2016,
+  "tmdb_id": 346685,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nDgl6QU94d8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/346685.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

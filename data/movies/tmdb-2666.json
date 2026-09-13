@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Dark City",
+  "year": 1998,
+  "tmdb_id": 2666,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "MIvWZ8iF6CI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2666.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

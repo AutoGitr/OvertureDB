@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Nancy Drew and the Hidden Staircase",
+  "year": 2019,
+  "tmdb_id": 519473,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "whAT7ewSmG8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/519473.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

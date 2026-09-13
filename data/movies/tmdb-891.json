@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "All the President's Men",
+  "year": 1976,
+  "tmdb_id": 891,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_Acj1gHFinE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/891.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

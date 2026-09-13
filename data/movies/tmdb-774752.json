@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Guardians of the Galaxy Holiday Special",
+  "year": 2022,
+  "tmdb_id": 774752,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "axjJCkTZx74",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/774752.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

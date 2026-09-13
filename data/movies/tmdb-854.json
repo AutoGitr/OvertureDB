@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Mask",
+  "year": 1994,
+  "tmdb_id": 854,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "BMVqog82Y9I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/854.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

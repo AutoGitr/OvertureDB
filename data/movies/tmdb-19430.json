@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "08/15",
+  "year": 1954,
+  "tmdb_id": 19430,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "I1bOqHjtcew",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/19430.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

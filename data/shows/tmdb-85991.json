@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Fruits Basket",
+  "year": 2019,
+  "tmdb_id": 85991,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "CzhI2NjuLyM",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/85991.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

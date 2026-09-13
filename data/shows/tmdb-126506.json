@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Smiling Friends",
+  "year": 2020,
+  "tmdb_id": 126506,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xDxgI4l8orc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/126506.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

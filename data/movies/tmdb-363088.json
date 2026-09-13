@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ant-Man and the Wasp",
+  "year": 2018,
+  "tmdb_id": 363088,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "E8nxMWr2sr4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/363088.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

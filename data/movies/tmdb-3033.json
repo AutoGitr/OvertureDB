@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gods and Monsters",
+  "year": 1998,
+  "tmdb_id": 3033,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SA__xXsz0D4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/3033.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

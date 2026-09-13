@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Yi Yi",
+  "year": 2000,
+  "tmdb_id": 25538,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wGN6UREkE8s",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/25538.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Investigation of a Citizen Above Suspicion",
+  "year": 1970,
+  "tmdb_id": 26451,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_OyP2fQRSzI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/26451.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

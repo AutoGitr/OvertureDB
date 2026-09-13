@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Final Cut",
+  "year": 2022,
+  "tmdb_id": 852438,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "O3HKon6ARNA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/852438.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

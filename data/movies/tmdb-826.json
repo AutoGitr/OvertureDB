@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Bridge on the River Kwai",
+  "year": 1957,
+  "tmdb_id": 826,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "zjD5NKSJ2kg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/826.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

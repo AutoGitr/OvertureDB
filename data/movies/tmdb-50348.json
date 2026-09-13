@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Lincoln Lawyer",
+  "year": 2011,
+  "tmdb_id": 50348,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "orKDyHl4d3c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/50348.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

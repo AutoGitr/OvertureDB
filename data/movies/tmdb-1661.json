@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gigantic",
+  "year": 1999,
+  "tmdb_id": 1661,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jQiqpX7EbqU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1661.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

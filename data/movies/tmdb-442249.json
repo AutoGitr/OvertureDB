@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The First Purge",
+  "year": 2018,
+  "tmdb_id": 442249,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RAOtt28IzWM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/442249.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

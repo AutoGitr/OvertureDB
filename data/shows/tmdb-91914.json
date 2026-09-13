@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Chinese Restaurant",
+  "year": 2017,
+  "tmdb_id": 91914,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jB-VZA_xVAg",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/91914.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

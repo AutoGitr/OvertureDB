@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "ALF: The Animated Series",
+  "year": 1987,
+  "tmdb_id": 11042,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "WZDVb9sB6UE",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/11042.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

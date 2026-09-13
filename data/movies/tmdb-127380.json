@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Finding Dory",
+  "year": 2016,
+  "tmdb_id": 127380,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jQR1n2V3AJU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/127380.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

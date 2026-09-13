@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Intolerable Cruelty",
+  "year": 2003,
+  "tmdb_id": 11775,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "JeWHIVKdpFc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11775.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

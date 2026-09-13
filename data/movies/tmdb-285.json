@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Pirates of the Caribbean: At World's End",
+  "year": 2007,
+  "tmdb_id": 285,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "dfgJYRdNwDE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/285.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

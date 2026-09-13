@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Beaches of Agnès",
+  "year": 2008,
+  "tmdb_id": 38879,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LmsdHnQ7RD8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/38879.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "I May Be a Guild Receptionist, but I'll Solo Any Boss to Clock Out on Time",
+  "year": 2025,
+  "tmdb_id": 249964,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "VEb3rctB3dc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/249964.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

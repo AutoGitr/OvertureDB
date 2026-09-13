@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Arsenic and Old Lace",
+  "year": 1944,
+  "tmdb_id": 212,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wXfW4v2l6NU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/212.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

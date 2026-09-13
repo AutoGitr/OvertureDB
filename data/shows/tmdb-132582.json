@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Gaim Gaiden: Kamen Rider Gridon VS Kamen Rider Bravo",
+  "year": 2020,
+  "tmdb_id": 132582,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "uFfDiFiu0Yg",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/132582.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

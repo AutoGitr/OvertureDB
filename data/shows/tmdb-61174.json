@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Bee and PuppyCat",
+  "year": 2014,
+  "tmdb_id": 61174,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "h04C28iXOU4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/61174.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

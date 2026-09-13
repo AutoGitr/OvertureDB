@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Shōgun",
+  "year": 2024,
+  "tmdb_id": 126308,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Joq4jIUHrrc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/126308.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

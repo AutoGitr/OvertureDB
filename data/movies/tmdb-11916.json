@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Two Mules for Sister Sara",
+  "year": 1970,
+  "tmdb_id": 11916,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "NNbLE5Eznu0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11916.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

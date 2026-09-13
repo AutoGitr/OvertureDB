@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Sister Act 2: Back in the Habit",
+  "year": 1993,
+  "tmdb_id": 6279,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "UPeoaVGEM9A",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/6279.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

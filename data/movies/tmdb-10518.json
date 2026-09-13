@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Marathon Man",
+  "year": 1976,
+  "tmdb_id": 10518,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_vioJmM2phw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10518.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

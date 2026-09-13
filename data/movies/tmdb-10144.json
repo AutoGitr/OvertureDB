@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Little Mermaid",
+  "year": 1989,
+  "tmdb_id": 10144,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hHyC100Wm88",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10144.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Sankarea: Undying Love",
+  "year": 2012,
+  "tmdb_id": 62742,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ULdRo08H1O4",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/62742.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

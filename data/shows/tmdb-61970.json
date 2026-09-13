@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Ben-To",
+  "year": 2011,
+  "tmdb_id": 61970,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "YNRPT_2pw5A",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/61970.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

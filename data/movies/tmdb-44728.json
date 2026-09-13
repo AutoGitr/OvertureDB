@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "One Piece: Curse of the Sacred Sword",
+  "year": 2004,
+  "tmdb_id": 44728,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xPGVbUXsQ3I",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/44728.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

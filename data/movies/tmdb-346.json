@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Seven Samurai",
+  "year": 1954,
+  "tmdb_id": 346,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AIVYm8Yc-XA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/346.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

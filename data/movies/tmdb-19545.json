@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Invasion of Astro-Monster",
+  "year": 1965,
+  "tmdb_id": 19545,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "XMkEXULdvTo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/19545.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

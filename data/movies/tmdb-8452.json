@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The 6th Day",
+  "year": 2000,
+  "tmdb_id": 8452,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "iX94_mzmW_E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8452.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

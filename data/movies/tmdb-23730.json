@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "C.H.U.D.",
+  "year": 1984,
+  "tmdb_id": 23730,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "h4-9Hux1KSw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/23730.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

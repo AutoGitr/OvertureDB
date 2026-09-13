@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Jingle All the Way",
+  "year": 1996,
+  "tmdb_id": 9279,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Rq_3RVcxnoQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9279.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

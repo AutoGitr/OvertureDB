@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "My Unique Skill Makes Me OP Even at Level 1",
+  "year": 2023,
+  "tmdb_id": 201363,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "UJ8IKFMAvok",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/201363.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "American Night",
+  "year": 2021,
+  "tmdb_id": 695080,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AV1tmHCdp0k",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/695080.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

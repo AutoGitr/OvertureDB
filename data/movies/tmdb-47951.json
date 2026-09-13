@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Adventures of Milo and Otis",
+  "year": 1986,
+  "tmdb_id": 47951,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LSIk-OH7wfc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/47951.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

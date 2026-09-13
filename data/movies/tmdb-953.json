@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Madagascar",
+  "year": 2005,
+  "tmdb_id": 953,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "y9ZNTtRez08",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/953.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

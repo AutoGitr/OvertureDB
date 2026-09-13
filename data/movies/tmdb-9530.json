@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "RV",
+  "year": 2006,
+  "tmdb_id": 9530,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sjzR6375QME",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9530.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

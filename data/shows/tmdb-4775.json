@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Would I Lie to You?",
+  "year": 2007,
+  "tmdb_id": 4775,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bvCKL3JBXrk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/4775.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

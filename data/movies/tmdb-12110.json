@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Dracula: Dead and Loving It",
+  "year": 1995,
+  "tmdb_id": 12110,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HFF8MrGgo3E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/12110.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

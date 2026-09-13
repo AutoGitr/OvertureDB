@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Outlander",
+  "year": 2014,
+  "tmdb_id": 56570,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FgaXQ4DsdLo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/56570.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

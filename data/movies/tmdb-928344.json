@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Weird: The Al Yankovic Story",
+  "year": 2022,
+  "tmdb_id": 928344,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hikh0d0q7HA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/928344.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

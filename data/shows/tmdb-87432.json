@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "We Never Learn: BOKUBEN",
+  "year": 2019,
+  "tmdb_id": 87432,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "cEgft90Gdvk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/87432.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

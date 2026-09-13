@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Liberator",
+  "year": 2020,
+  "tmdb_id": 111462,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AoMixnmMDDw",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/111462.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

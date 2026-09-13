@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "King of the Hill",
+  "year": 1997,
+  "tmdb_id": 2122,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lpCPgHVBV1s",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/2122.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

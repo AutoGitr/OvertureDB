@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Detective Conan: The Scarlet Bullet",
+  "year": 2021,
+  "tmdb_id": 662638,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "atE3kkG1Wrc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/662638.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

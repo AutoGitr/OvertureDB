@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Stigmata",
+  "year": 1999,
+  "tmdb_id": 10307,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pW3WKaTuvK4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10307.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

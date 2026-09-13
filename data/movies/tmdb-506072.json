@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Prospect",
+  "year": 2018,
+  "tmdb_id": 506072,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "vcihHqdujz4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/506072.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

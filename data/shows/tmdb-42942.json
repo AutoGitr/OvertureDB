@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Angel Beats!",
+  "year": 2010,
+  "tmdb_id": 42942,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ng40ORZq3M8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/42942.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

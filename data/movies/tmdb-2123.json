@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Me, Myself & Irene",
+  "year": 2000,
+  "tmdb_id": 2123,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kZYZfqyiuPY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2123.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

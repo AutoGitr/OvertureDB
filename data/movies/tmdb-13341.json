@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Bad News Bears",
+  "year": 2005,
+  "tmdb_id": 13341,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bq-c2RV0xk4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13341.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

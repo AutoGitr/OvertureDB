@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "3:10 to Yuma",
+  "year": 2007,
+  "tmdb_id": 5176,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "61B6Z6CRfac",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/5176.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

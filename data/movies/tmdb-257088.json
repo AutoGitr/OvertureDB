@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Point Break",
+  "year": 2015,
+  "tmdb_id": 257088,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "KP7GK5zIZW8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/257088.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

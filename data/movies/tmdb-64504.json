@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "My Best Friend's Girl",
+  "year": 1983,
+  "tmdb_id": 64504,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "uwCHRw_38C4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/64504.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Warfare",
+  "year": 2025,
+  "tmdb_id": 1241436,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7zcDTIaoJcs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1241436.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

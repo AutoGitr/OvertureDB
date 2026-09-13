@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Back to the Future",
+  "year": 1985,
+  "tmdb_id": 105,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GNDxaOFkbBY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/105.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

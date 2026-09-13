@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Father of the Bride",
+  "year": 1991,
+  "tmdb_id": 11846,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "hAitDc-_8OA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11846.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

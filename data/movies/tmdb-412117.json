@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Secret Life of Pets 2",
+  "year": 2019,
+  "tmdb_id": 412117,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fV-Y6rjTCjU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/412117.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

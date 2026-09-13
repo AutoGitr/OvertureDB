@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Life",
+  "year": 2017,
+  "tmdb_id": 395992,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "FC9QldbuGYI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/395992.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

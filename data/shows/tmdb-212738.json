@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "그리스 로마 신화 - 올림포스의 별",
+  "year": 2021,
+  "tmdb_id": 212738,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lqza2oxTu0Y",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/212738.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

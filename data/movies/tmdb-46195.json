@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Rio",
+  "year": 2011,
+  "tmdb_id": 46195,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "29UBLzLX_us",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/46195.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

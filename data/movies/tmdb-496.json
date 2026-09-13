@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan",
+  "year": 2006,
+  "tmdb_id": 496,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "crUQ2rAk5AE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/496.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

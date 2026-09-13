@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Longest Nite",
+  "year": 1998,
+  "tmdb_id": 41158,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xFiBDC4AQFw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/41158.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "47 Meters Down",
+  "year": 2017,
+  "tmdb_id": 403119,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fb8fvgWsyFY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/403119.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

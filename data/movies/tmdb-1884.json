@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Ewok Adventure",
+  "year": 1984,
+  "tmdb_id": 1884,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "pB7DDw9_4Fs",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/1884.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

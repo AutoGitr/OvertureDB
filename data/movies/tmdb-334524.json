@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Gold",
+  "year": 2016,
+  "tmdb_id": 334524,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Z3Fx8x1zfGQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/334524.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Harder They Fall",
+  "year": 2021,
+  "tmdb_id": 618162,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "tS79G3ULOBo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/618162.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

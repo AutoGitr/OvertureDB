@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Luck of the Irish",
+  "year": 2001,
+  "tmdb_id": 46004,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DPhVEmQMP58",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/46004.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

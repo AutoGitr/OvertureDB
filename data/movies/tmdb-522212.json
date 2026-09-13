@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Just Mercy",
+  "year": 2019,
+  "tmdb_id": 522212,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0IZl5_W-86s",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/522212.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Return of Godzilla",
+  "year": 1984,
+  "tmdb_id": 421467,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HNq808fU1Fw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/421467.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

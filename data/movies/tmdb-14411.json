@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Sinbad: Legend of the Seven Seas",
+  "year": 2003,
+  "tmdb_id": 14411,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "cLOOVwKxP3M",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/14411.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

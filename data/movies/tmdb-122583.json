@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Detective Conan: The Eleventh Striker",
+  "year": 2012,
+  "tmdb_id": 122583,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "4PU3jSsC96c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/122583.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

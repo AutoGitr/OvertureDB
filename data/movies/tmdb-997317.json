@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Kaguya-sama: Love Is War -The First Kiss That Never Ends-",
+  "year": 2022,
+  "tmdb_id": 997317,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "d0hVQPsqUbc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/997317.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

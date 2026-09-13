@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Texas Chain Saw Massacre",
+  "year": 1974,
+  "tmdb_id": 30497,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "gjEAE8AsQUM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/30497.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

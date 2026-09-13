@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Isekai Office Worker: The Other World's Books Depend on the Bean Counter",
+  "year": 2026,
+  "tmdb_id": 284495,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "d-1B7OkYQJc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/284495.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

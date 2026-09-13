@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Thank You for Smoking",
+  "year": 2005,
+  "tmdb_id": 9388,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "DUCsULR6ODA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9388.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

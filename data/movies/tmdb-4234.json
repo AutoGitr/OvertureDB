@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Scream 3",
+  "year": 2000,
+  "tmdb_id": 4234,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "iK--QK5T-YI",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4234.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

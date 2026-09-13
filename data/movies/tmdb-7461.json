@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Vantage Point",
+  "year": 2008,
+  "tmdb_id": 7461,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "CNJepwUFE08",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/7461.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Irregular at Magic High School",
+  "year": 2014,
+  "tmdb_id": 60833,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GFW7P55j0-g",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/60833.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

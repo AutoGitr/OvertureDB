@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hansel & Gretel: Witch Hunters",
+  "year": 2013,
+  "tmdb_id": 60304,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "tOE2S6JI2e8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/60304.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

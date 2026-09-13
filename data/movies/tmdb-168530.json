@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ride Along",
+  "year": 2014,
+  "tmdb_id": 168530,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "ZhzBkZ2guQc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/168530.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

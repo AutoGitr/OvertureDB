@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Wannabes",
+  "year": 2022,
+  "tmdb_id": 740460,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LSFTVX_vS_0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/740460.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

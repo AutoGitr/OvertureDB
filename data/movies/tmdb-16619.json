@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ordinary People",
+  "year": 1980,
+  "tmdb_id": 16619,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "fezsJ-D8vWA",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/16619.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Magical Girl and the Evil Lieutenant Used to Be Archenemies",
+  "year": 2024,
+  "tmdb_id": 239764,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "wG8_0zwkOME",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/239764.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

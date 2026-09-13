@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Starship Troopers 2: Hero of the Federation",
+  "year": 2004,
+  "tmdb_id": 10304,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Mj8IzB-rJ_4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10304.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

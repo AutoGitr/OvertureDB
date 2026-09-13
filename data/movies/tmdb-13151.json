@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Scooby-Doo on Zombie Island",
+  "year": 1998,
+  "tmdb_id": 13151,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_tPSU0xPSS4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/13151.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Beast",
+  "year": 2022,
+  "tmdb_id": 760741,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "6hYCVq1N618",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/760741.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

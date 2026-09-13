@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The BFG",
+  "year": 2016,
+  "tmdb_id": 267935,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Wnj9F_yd2Bc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/267935.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

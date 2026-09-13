@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Life Is a Long Quiet River",
+  "year": 1988,
+  "tmdb_id": 4271,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sBEF5PY0stk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4271.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

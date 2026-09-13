@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Big Trouble in Little China",
+  "year": 1986,
+  "tmdb_id": 6978,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "OfSjNPxNPDg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/6978.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

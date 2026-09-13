@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Jurassic Park III",
+  "year": 2001,
+  "tmdb_id": 331,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "t7hCXuPYMp8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/331.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

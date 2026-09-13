@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Banana Fish",
+  "year": 2018,
+  "tmdb_id": 80564,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "VekCU4YJiR8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/80564.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

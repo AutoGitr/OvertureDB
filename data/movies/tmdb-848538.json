@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Argylle",
+  "year": 2024,
+  "tmdb_id": 848538,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "z-O_4pgf_y0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/848538.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

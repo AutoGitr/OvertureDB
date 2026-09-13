@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Garden of Words",
+  "year": 2013,
+  "tmdb_id": 198375,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "xxXHI8BI6AY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/198375.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

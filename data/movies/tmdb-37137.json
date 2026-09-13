@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Naked Gun 2½: The Smell of Fear",
+  "year": 1991,
+  "tmdb_id": 37137,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "P9eQ7CLgOBY",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/37137.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

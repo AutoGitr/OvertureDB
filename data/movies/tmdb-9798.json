@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Enemy of the State",
+  "year": 1998,
+  "tmdb_id": 9798,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "nUM77f_f180",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9798.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

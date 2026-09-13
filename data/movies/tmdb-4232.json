@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Scream",
+  "year": 1996,
+  "tmdb_id": 4232,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "0HCRcCkMlLM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/4232.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

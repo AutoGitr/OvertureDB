@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Impossible",
+  "year": 2012,
+  "tmdb_id": 80278,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "APGZQG7OVzw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/80278.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

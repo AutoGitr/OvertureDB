@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Lego Batman Movie",
+  "year": 2017,
+  "tmdb_id": 324849,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "41537tXF5-U",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/324849.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

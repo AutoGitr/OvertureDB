@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Go! Go! Loser Ranger!",
+  "year": 2024,
+  "tmdb_id": 215799,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "bG0cGW35-TI",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/215799.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

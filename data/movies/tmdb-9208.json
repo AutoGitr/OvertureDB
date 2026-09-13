@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Broken Arrow",
+  "year": 1996,
+  "tmdb_id": 9208,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "uKWV4MQY6Dg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9208.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

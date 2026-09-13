@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Life of Brian",
+  "year": 1979,
+  "tmdb_id": 583,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "G-48R0hvpSU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/583.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

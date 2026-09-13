@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "And Now for Something Completely Different",
+  "year": 1971,
+  "tmdb_id": 9267,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Fb6zQ9wj0Xo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/9267.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

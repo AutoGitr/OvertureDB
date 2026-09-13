@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Aquaman",
+  "year": 2018,
+  "tmdb_id": 297802,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "91frtrftNJw",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/297802.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

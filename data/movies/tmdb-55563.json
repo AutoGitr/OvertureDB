@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Tammy and the T-Rex",
+  "year": 1994,
+  "tmdb_id": 55563,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3Wky3JOeFRo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/55563.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

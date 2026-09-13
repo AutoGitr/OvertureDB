@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Shang-Chi and the Legend of the Ten Rings",
+  "year": 2021,
+  "tmdb_id": 566525,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "SA4i3rB6eiQ",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/566525.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

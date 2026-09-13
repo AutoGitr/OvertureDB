@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ip Man 4: The Finale",
+  "year": 2019,
+  "tmdb_id": 449924,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "kkQJjFQBJjo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/449924.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

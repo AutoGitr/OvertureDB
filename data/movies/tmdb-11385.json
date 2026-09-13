@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hatari!",
+  "year": 1962,
+  "tmdb_id": 11385,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "rnvcva7ARMM",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11385.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Ice Age: Collision Course",
+  "year": 2016,
+  "tmdb_id": 278154,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "lhJka_kHfQk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/278154.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

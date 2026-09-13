@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Star Trek II: The Wrath of Khan",
+  "year": 1982,
+  "tmdb_id": 154,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "sofU3EMa4xc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/154.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

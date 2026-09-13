@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Dexter: Resurrection",
+  "year": 2025,
+  "tmdb_id": 259909,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "jr980PL9QKc",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/259909.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

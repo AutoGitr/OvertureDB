@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "The Penguins of Madagascar",
+  "year": 2008,
+  "tmdb_id": 7869,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "qHfKTbmLe8o",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/7869.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

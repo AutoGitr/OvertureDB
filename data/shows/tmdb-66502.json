@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Mars Intelligence Agency",
+  "year": 2016,
+  "tmdb_id": 66502,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "v0aeiDm3fAk",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/66502.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

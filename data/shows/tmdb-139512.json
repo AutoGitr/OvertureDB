@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Trapped in a Dating Sim: The World of Otome Games Is Tough for Mobs",
+  "year": 2022,
+  "tmdb_id": 139512,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "HQQAN_y2mq0",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/139512.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Without a Paddle",
+  "year": 2004,
+  "tmdb_id": 10762,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LhjHBV20ZV4",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/10762.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

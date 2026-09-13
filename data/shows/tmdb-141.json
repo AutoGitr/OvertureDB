@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Cheers",
+  "year": 1982,
+  "tmdb_id": 141,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "h-mi0r0LpXo",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/141.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

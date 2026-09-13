@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Attack on Titan",
+  "year": 2013,
+  "tmdb_id": 1429,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "AgBUP8TJqV8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/1429.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

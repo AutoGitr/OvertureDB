@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Yes, I Do",
+  "year": 2019,
+  "tmdb_id": 124265,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "d357RgxSo-M",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/124265.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

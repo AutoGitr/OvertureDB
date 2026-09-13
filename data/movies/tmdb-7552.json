@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fun with Dick and Jane",
+  "year": 2005,
+  "tmdb_id": 7552,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "U7tUIM_jws8",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/7552.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

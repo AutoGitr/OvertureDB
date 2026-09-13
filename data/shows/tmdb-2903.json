@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "Le cœur a ses raisons",
+  "year": 2005,
+  "tmdb_id": 2903,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Llh3fJCtoj8",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/2903.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

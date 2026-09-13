@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Purge: Election Year",
+  "year": 2016,
+  "tmdb_id": 316727,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "7HbhW9L0Hlc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/316727.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

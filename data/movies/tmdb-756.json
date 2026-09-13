@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fantasia",
+  "year": 1940,
+  "tmdb_id": 756,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "_MZFn1D-_kE",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/756.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

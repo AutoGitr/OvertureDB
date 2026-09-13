@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "First Cow",
+  "year": 2020,
+  "tmdb_id": 558582,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Wq_rV1UuTEg",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/558582.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

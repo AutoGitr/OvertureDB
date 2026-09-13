@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "A Good Day to Die Hard",
+  "year": 2013,
+  "tmdb_id": 47964,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "m4oWr7zlm0E",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/47964.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

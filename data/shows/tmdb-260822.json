@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "From Bureaucrat to Villainess: Dad's Been Reincarnated!",
+  "year": 2025,
+  "tmdb_id": 260822,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "u9RuD4zUzJY",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/260822.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

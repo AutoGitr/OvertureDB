@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "American Wedding",
+  "year": 2003,
+  "tmdb_id": 8273,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Lkv6jgokDWk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/8273.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

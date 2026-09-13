@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Golden Compass",
+  "year": 2007,
+  "tmdb_id": 2268,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Mz7ckoBi8Ds",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/2268.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

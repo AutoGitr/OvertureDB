@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Snatch",
+  "year": 2000,
+  "tmdb_id": 107,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "NxB4mcaLlfo",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/107.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

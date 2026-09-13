@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Wind River",
+  "year": 2017,
+  "tmdb_id": 395834,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "GQ-DtGO6X04",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/395834.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

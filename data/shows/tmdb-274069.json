@@ -1,0 +1,20 @@
+{
+  "media_type": "show",
+  "title": "KOWLOON GENERIC ROMANCE",
+  "year": 2025,
+  "tmdb_id": 274069,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "LdLY7bKoogU",
+  "seasons": [],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/274069.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

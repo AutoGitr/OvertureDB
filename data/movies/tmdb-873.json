@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "The Color Purple",
+  "year": 1985,
+  "tmdb_id": 873,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "3cLJvQ9kS7A",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/873.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

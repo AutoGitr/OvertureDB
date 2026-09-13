@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Psycho",
+  "year": 1960,
+  "tmdb_id": 539,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "w5Sqv_45A5c",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/539.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

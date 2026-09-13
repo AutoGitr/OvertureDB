@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Fabricated City",
+  "year": 2017,
+  "tmdb_id": 435366,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "h9KDHny4BqU",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/435366.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

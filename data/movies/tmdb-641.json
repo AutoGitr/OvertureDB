@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Requiem for a Dream",
+  "year": 2000,
+  "tmdb_id": 641,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "RdcngtH6rzk",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/641.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

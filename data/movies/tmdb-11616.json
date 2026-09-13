@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Go for It",
+  "year": 1983,
+  "tmdb_id": 11616,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "Vez0srsd8vc",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/11616.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

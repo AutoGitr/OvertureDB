@@ -8,7 +8,7 @@
   "poster_url": "https://image.tmdb.org/t/p/original/anFx9aTOOYqgS3v7x3R84Kz67ly.jpg",
   "background_url": "https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
   "youtube_id": "3U6PSWyv5sc",
-  "youtube_id_secondary": null,
+  "youtube_id_secondary": "ilfYnhXD-bE",
   "seasons": [
     {
       "season_num": 0,
@@ -33,6 +33,13 @@
     {
       "season_num": 5,
       "poster_url": "https://image.tmdb.org/t/p/original/895qySGNOWp9nJgV7llPBKv3ERk.jpg"
+    }
+  ],
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/tv_shows/themoviedb/1396.json",
+      "license": "BSD-3-Clause"
     }
   ]
 }

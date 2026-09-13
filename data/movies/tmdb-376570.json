@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Hush",
+  "year": 2016,
+  "tmdb_id": 376570,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "tRFp8WZnrJ0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/376570.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}

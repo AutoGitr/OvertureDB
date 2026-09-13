@@ -1,0 +1,19 @@
+{
+  "media_type": "movie",
+  "title": "Foul Play",
+  "year": 1978,
+  "tmdb_id": 15659,
+  "tvdb_id": null,
+  "imdb_id": null,
+  "poster_url": null,
+  "background_url": null,
+  "youtube_id": null,
+  "youtube_id_secondary": "9gAF7im7df0",
+  "sources": [
+    {
+      "name": "ThemerrDB",
+      "url": "https://github.com/LizardByte/ThemerrDB/blob/database/movies/themoviedb/15659.json",
+      "license": "BSD-3-Clause"
+    }
+  ]
+}
