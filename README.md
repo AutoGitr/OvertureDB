@@ -52,7 +52,8 @@ is set. Both distinct choices are available in the theme panel.
 Manual import runs support a positive item limit and a dry run that validates and
 reports changes without writing files. Missing input directories, invalid existing
 data, and conflicting identity matches fail the import instead of silently
-overwriting records. A successful import triggers catalog publication.
+overwriting records. Imports run daily; catalog publication runs once daily one
+hour later.
 
 ## Provenance and licensing
 
@@ -86,9 +87,9 @@ Every contribution validates the complete dataset's structure and identities.
 `--entry data/movies/tmdb-123.json` limits only the live URL checks. Publication
 validates the complete catalog contract and runs tests before uploading a
 Pages artifact. Live URL checks run for contributions and can be run manually;
-publication does not depend on every remote source being available. Pushes to
-`main`, successful imports, the daily schedule, and manual runs publish the
-current `main`. Build jobs have read-only repository permissions; only the
+publication does not depend on every remote source being available. Publication
+runs once daily on a schedule one hour after the ThemerrDB import, as well as via
+manual workflow dispatch. Build jobs have read-only repository permissions; only the
 deployment job receives Pages and identity-token write permissions.
 
 The builder sorts entries, uses canonical JSON encoding and a zero gzip timestamp,

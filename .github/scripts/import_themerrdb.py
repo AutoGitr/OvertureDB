@@ -106,17 +106,12 @@ def _update_existing(
     existing_path: Path,
     loaded_entries: dict[Path, dict[str, Any]],
     youtube_id: str,
-    source: dict[str, str],
     *,
     dry_run: bool,
 ) -> str:
-    """Update the imported theme and its attribution, preserving curated fields."""
+    """Update the imported theme, preserving curated fields."""
     existing = loaded_entries[existing_path]
     updated = {**existing, "youtube_id_secondary": youtube_id}
-    sources = list(existing.get("sources", []))
-    if source not in sources:
-        sources.append(source)
-    updated["sources"] = sources
     if updated == existing:
         return "skipped_unchanged"
     validate_entry(updated)
@@ -136,7 +131,6 @@ def _create_new_entry(
     media_type: str,
     tmdb_id: int,
     youtube_id: str,
-    source: dict[str, str],
     by_tmdb: dict[tuple[str, int], Path],
     loaded_entries: dict[Path, dict[str, Any]],
     data_dir: Path,
@@ -174,7 +168,6 @@ def _create_new_entry(
 
     if media_type == "show":
         new_entry["seasons"] = []
-    new_entry["sources"] = [source]
 
     validate_entry(new_entry)
 
@@ -220,15 +213,6 @@ def process_themerr_item(
     clean_imdb_id = (
         imdb_id if isinstance(imdb_id, str) and IMDB_ID_RE.fullmatch(imdb_id) else None
     )
-    folder = "movies" if media_type == "movie" else "tv_shows"
-    source = {
-        "name": "ThemerrDB",
-        "url": (
-            "https://github.com/LizardByte/ThemerrDB/blob/database/"
-            f"{folder}/themoviedb/{tmdb_id}.json"
-        ),
-        "license": "BSD-3-Clause",
-    }
 
     existing_path = by_tmdb.get((media_type, tmdb_id))
     imdb_path = by_imdb.get((media_type, clean_imdb_id)) if clean_imdb_id else None
@@ -248,7 +232,6 @@ def process_themerr_item(
             existing_path,
             loaded_entries,
             youtube_id,
-            source,
             dry_run=dry_run,
         )
 
@@ -257,7 +240,6 @@ def process_themerr_item(
         media_type,
         tmdb_id,
         youtube_id,
-        source,
         by_tmdb,
         loaded_entries,
         data_dir,

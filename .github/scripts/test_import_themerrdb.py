@@ -291,7 +291,7 @@ class ImportIntegrationTests(unittest.TestCase):
                     [path.read_bytes() for path in (first, second)], before
                 )
 
-    def test_imdb_only_match_preserves_identity_and_adds_attribution_once(self):
+    def test_imdb_only_match_preserves_identity_and_existing_sources(self):
         prior_source = {
             "name": "Curator",
             "url": "https://example.org/entry",
@@ -304,21 +304,18 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(self.run_import()["updated"], 1)
         saved = json.loads(path.read_text(encoding="utf-8"))
         self.assertIsNone(saved["tmdb_id"])
-        self.assertEqual(saved["sources"][0], prior_source)
-        self.assertEqual(saved["sources"][1]["license"], "BSD-3-Clause")
-        self.assertTrue(saved["sources"][1]["url"].endswith("movies/themoviedb/1.json"))
+        self.assertEqual(saved["youtube_id_secondary"], "4xdyx5NVUhI")
+        self.assertEqual(saved["sources"], [prior_source])
         before = path.read_bytes()
         self.assertEqual(self.run_import()["skipped_unchanged"], 1)
         self.assertEqual(path.read_bytes(), before)
         self.assertEqual(len(list(self.data.rglob("*.json"))), 1)
 
-    def test_existing_matching_theme_still_gets_source_attribution(self):
+    def test_existing_matching_theme_is_skipped_unchanged(self):
         path = self.write_existing(youtube_id_secondary="4xdyx5NVUhI")
         self.write_upstream()
-        self.assertEqual(self.run_import()["updated"], 1)
-        self.assertEqual(
-            json.loads(path.read_text())["sources"][0]["name"], "ThemerrDB"
-        )
+        self.assertEqual(self.run_import()["skipped_unchanged"], 1)
+        self.assertNotIn("sources", json.loads(path.read_text()))
 
     def test_dry_run_and_real_import_agree_for_repeated_new_records(self):
         self.write_upstream()
