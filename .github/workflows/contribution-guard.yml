@@ -37,7 +37,7 @@ jobs:
       - name: Validate contribution changes
         shell: bash
         env:
-          BOT_LOGIN: overturedb-bot[bot]
+          BOT_LOGIN: overturedb[bot]
           HEAD_REF: ${{ github.head_ref }}
         run: |
           set -euo pipefail
