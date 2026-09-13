@@ -1,11 +1,11 @@
 ---
 
 <details>
-<summary>LumiereDB-bot commands and options</summary>
+<summary>OvertureDB-bot commands and options</summary>
 <br />
 
-A moderator can trigger LumiereDB-bot actions by commenting on this issue:
+A moderator can trigger OvertureDB-bot actions by commenting on this issue:
 
-- `@LumiereDB-bot approve` create a pull request for this contribution
+- `@OvertureDB-bot approve` create a pull request for this contribution
 
 </details>
