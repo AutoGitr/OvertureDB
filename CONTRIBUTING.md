@@ -33,7 +33,8 @@ A moderator can trigger OvertureDB-bot actions by commenting on the contribution
 
 - `@OvertureDB-bot approve` - creates a pull request for this contribution.
 
-Dataset JSON changes are accepted only from that bot workflow. This keeps filenames,
+Curated dataset JSON changes are accepted through that bot workflow. Automated
+ThemerrDB imports maintain secondary themes separately. This keeps filenames,
 schema validation, and the relationship between an issue and its pull request
 consistent. Changes to schemas, validators, workflows, documentation, notices, or
 licenses use an ordinary maintainer pull request.
@@ -75,8 +76,9 @@ python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb
 ```
 
 The pull-request guard validates the complete dataset and performs live checks for
-changed entries. The publication workflow repeats all tests and live checks across
-the complete catalog; no artifact is deployed after a partial failure.
+changed entries. The publication workflow repeats all tests and validates the
+complete catalog's structure and identities. Live URL checks remain available
+through `--check-urls` without blocking publication on remote availability.
 
 ## Corrections and removal requests
 

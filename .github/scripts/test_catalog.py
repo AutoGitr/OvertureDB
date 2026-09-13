@@ -28,6 +28,7 @@ def movie(**changes):
         "poster_url": "https://image.tmdb.org/t/p/original/movie.jpg",
         "background_url": None,
         "youtube_id": None,
+        "youtube_id_secondary": None,
         **changes,
     }
 
@@ -63,6 +64,9 @@ class ContractTests(unittest.TestCase):
             {"media_type": "episode"},
             {"seasons": []},
             {"youtube_id": "https://youtube.com/watch?v=abc"},
+            {"youtube_id_secondary": "https://youtube.com/watch?v=abc"},
+            {"youtube_id": "3U6PSWyv5sc\n"},
+            {"youtube_id_secondary": "3U6PSWyv5sc\n"},
             {"poster_url": "http://image.tmdb.org/a.jpg"},
             {"poster_url": "https://user:password@image.tmdb.org/a.jpg"},
             {
@@ -81,6 +85,10 @@ class ContractTests(unittest.TestCase):
         for change in invalid:
             with self.subTest(change=change), self.assertRaises(ValueError):
                 validate_entry(movie(**change))
+
+    def test_valid_secondary_youtube_id(self):
+        entry = movie(youtube_id_secondary="3U6PSWyv5sc")
+        self.assertEqual(validate_entry(entry), entry)
 
     def test_seasons_require_unique_nonnegative_numbers_and_posters(self):
         season = {"season_num": 0, "poster_url": "https://image.tmdb.org/s.jpg"}

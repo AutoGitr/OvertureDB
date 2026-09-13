@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/catalog.schema.json",
-  "title": "OvertureDB catalog v2",
+  "title": "OvertureDB catalog v3",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "generated_at", "source_revision", "third_party_notices", "entries"],
   "properties": {
-    "schema_version": {"type": "integer", "const": 2},
+    "schema_version": {"type": "integer", "const": 3},
     "generated_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
     "source_revision": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
     "third_party_notices": {"const": "THIRD_PARTY_NOTICES.md"},

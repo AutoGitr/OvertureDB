@@ -4,8 +4,12 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows: [Import ThemerrDB]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -16,6 +20,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +43,7 @@ jobs:
           ruff check .github/scripts
           ruff format --check .github/scripts
           python -m unittest discover -s .github/scripts -p 'test_*.py'
-          python .github/scripts/catalog.py validate --check-urls
+          python .github/scripts/catalog.py validate
 
       - name: Build reproducible catalog
         run: python .github/scripts/catalog.py build

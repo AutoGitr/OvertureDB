@@ -1,4 +1,4 @@
-"""The version 2 catalog contract, shared with Overture by dataset_contract.py."""
+"""The version 3 catalog contract, shared with Overture by dataset_contract.py."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from jsonschema import Draft202012Validator, ValidationError, validators
 if TYPE_CHECKING:
     from jsonschema import TypeChecker
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 

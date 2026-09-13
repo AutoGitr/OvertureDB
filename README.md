@@ -21,7 +21,7 @@ HTTPS Pages origin.
 ## Contract
 
 `schema/entry.schema.json`, `schema/catalog.schema.json`, and `schema/contract.py`
-are the canonical version 2 contract, shared with Overture through its
+are the canonical version 3 contract, shared with Overture through its
 `scripts/dataset_contract.py` generator. Change this source first, regenerate the
 app's bundled copy, and land both changes together. No other catalog format is
 served or supported.
@@ -40,12 +40,26 @@ public HTTPS destination on the allowlist in `.github/scripts/catalog.py`. Live
 validation checks every redirect and reads only enough bytes to verify JPEG or
 PNG content.
 
+## ThemerrDB themes
+
+The daily importer reads ThemerrDB's `database` branch. It fills
+`youtube_id_secondary` and records per-entry attribution. Existing curated fields,
+including the primary `youtube_id`, are preserved. New entries contain a TMDB ID,
+title, year, and secondary theme; other metadata remains empty. Overture prefers
+the primary theme for automatic selection and uses the secondary when no primary
+is set. Both distinct choices are available in the theme panel.
+
+Manual import runs support a positive item limit and a dry run that validates and
+reports changes without writing files. Missing input directories, invalid existing
+data, and conflicting identity matches fail the import instead of silently
+overwriting records. A successful import triggers catalog publication.
+
 ## Provenance and licensing
 
 Artwork URLs identify the remote source; YouTube IDs identify the selected video.
 An entry derived from another catalog, database, or authored publication must add
 the optional `sources` array with that source's name, public HTTPS URL, and license.
-The source URL and every redirect are checked before publication. Original
+Live URL validation checks the source URL and every redirect. Original
 curatorial choices need no artificial source record, but contributors remain
 responsible for the accuracy of IDs and links.
 
@@ -70,8 +84,10 @@ python .github/scripts/catalog.py build
 
 Every contribution validates the complete dataset's structure and identities.
 `--entry data/movies/tmdb-123.json` limits only the live URL checks. Publication
-validates all entries, artwork, attribution links, and tests before uploading a
-Pages artifact. Pushes to `main`, the daily schedule, and manual runs publish the
+validates the complete catalog contract and runs tests before uploading a
+Pages artifact. Live URL checks run for contributions and can be run manually;
+publication does not depend on every remote source being available. Pushes to
+`main`, successful imports, the daily schedule, and manual runs publish the
 current `main`. Build jobs have read-only repository permissions; only the
 deployment job receives Pages and identity-token write permissions.
 
