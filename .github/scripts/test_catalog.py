@@ -218,6 +218,74 @@ class BuildTests(unittest.TestCase):
             generated_at="1970-01-01T00:00:00Z",
         )
 
+    @patch.object(catalog, "dataset")
+    def test_cli_validate_entry_does_not_load_dataset(self, mock_dataset):
+        with (
+            patch.object(catalog, "ROOT", self.root),
+            patch("sys.argv", ["catalog.py", "validate", "--entry", str(self.entry)]),
+        ):
+            self.assertEqual(catalog.main(), 0)
+        mock_dataset.assert_not_called()
+
+    def test_cli_validate_entry_rejects_invalid_path(self):
+        outside = self.root / "tmdb-1.json"
+        outside.write_text(self.entry.read_text(encoding="utf-8"), encoding="utf-8")
+        for path in (outside, self.root / "nonexistent.json", self.entry.parent):
+            with (
+                self.subTest(path=path),
+                patch.object(catalog, "ROOT", self.root),
+                patch("sys.argv", ["catalog.py", "validate", "--entry", str(path)]),
+                patch("sys.stderr", new_callable=io.StringIO),
+            ):
+                self.assertEqual(catalog.main(), 1)
+
+    def test_cli_validate_entry_checks_filename_and_directory(self):
+        for destination in ("data/movies/tmdb-2.json", "data/shows/tmdb-1.json"):
+            target = self.root / destination
+            self.entry.rename(target)
+            with (
+                self.subTest(destination=destination),
+                patch.object(catalog, "ROOT", self.root),
+                patch("sys.argv", ["catalog.py", "validate", "--entry", str(target)]),
+                patch("sys.stderr", new_callable=io.StringIO),
+            ):
+                self.assertEqual(catalog.main(), 1)
+            target.rename(self.entry)
+
+    def test_cli_validate_entry_rejects_invalid_content(self):
+        self.entry.write_text(json.dumps(movie(title="")), encoding="utf-8")
+        with (
+            patch.object(catalog, "ROOT", self.root),
+            patch("sys.argv", ["catalog.py", "validate", "--entry", str(self.entry)]),
+            patch("sys.stderr", new_callable=io.StringIO),
+        ):
+            self.assertEqual(catalog.main(), 1)
+
+    @patch.object(catalog, "check_source_url")
+    @patch.object(catalog, "check_art_url")
+    def test_cli_validates_multiple_entries_and_checks_each_url_once(self, art, source):
+        attribution = {
+            "name": "Example",
+            "url": "https://example.com/",
+            "license": "MIT",
+        }
+        paths = [self.entry, self.root / "data/movies/tmdb-2.json"]
+        for identifier, path in enumerate(paths, start=1):
+            path.write_text(
+                json.dumps(movie(tmdb_id=identifier, sources=[attribution])),
+                encoding="utf-8",
+            )
+        with (
+            patch.object(catalog, "ROOT", self.root),
+            patch(
+                "sys.argv",
+                ["catalog.py", "validate", "--check-urls", "--entry", *map(str, paths)],
+            ),
+        ):
+            self.assertEqual(catalog.main(), 0)
+        art.assert_called_once_with(movie()["poster_url"])
+        source.assert_called_once_with(attribution["url"])
+
 
 class ArtworkTests(unittest.TestCase):
     @patch.object(

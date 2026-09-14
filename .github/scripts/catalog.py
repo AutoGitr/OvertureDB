@@ -37,14 +37,18 @@ def dataset(root: Path = ROOT) -> list[dict]:
         [json.loads(path.read_text(encoding="utf-8")) for path in paths]
     )
     for path, entry in zip(paths, entries, strict=True):
-        folder = "movies" if entry["media_type"] == "movie" else "shows"
-        if path.parent != root / "data" / folder:
-            raise ValueError(f"{path.name} belongs in data/{folder}")
-        prefix, _, value = path.stem.partition("-")
-        field = {"tmdb": "tmdb_id", "tvdb": "tvdb_id", "imdb": "imdb_id"}.get(prefix)
-        if not field or entry[field] is None or str(entry[field]) != value:
-            raise ValueError(f"{path.name} does not match an entry identifier")
+        validate_entry_path(path, entry, root)
     return entries
+
+
+def validate_entry_path(path: Path, entry: dict, root: Path) -> None:
+    folder = "movies" if entry["media_type"] == "movie" else "shows"
+    if path.parent != root / "data" / folder:
+        raise ValueError(f"{path.name} belongs in data/{folder}")
+    prefix, _, value = path.stem.partition("-")
+    field = {"tmdb": "tmdb_id", "tvdb": "tvdb_id", "imdb": "imdb_id"}.get(prefix)
+    if not field or entry[field] is None or str(entry[field]) != value:
+        raise ValueError(f"{path.name} does not match an entry identifier")
 
 
 def art_urls(entries: list[dict]) -> set[str]:
@@ -232,19 +236,32 @@ def main() -> int:
     validate = commands.add_parser("validate")
     validate.add_argument("--check-urls", action="store_true")
     validate.add_argument(
-        "--entry", type=Path, help="Check live URLs only for this contribution"
+        "--entry", type=Path, nargs="+", help="Validate only these dataset entries"
     )
     publish = commands.add_parser("build")
     publish.add_argument("--output", type=Path, default=ROOT / "public")
     args = parser.parse_args()
     try:
         if args.command == "validate":
-            entries = dataset()
             if args.entry:
-                target = args.entry.resolve()
-                if target not in (ROOT / "data").rglob("*.json"):
-                    raise ValueError("Contribution must be an existing dataset entry")
-                entries = [json.loads(target.read_text(encoding="utf-8"))]
+                root = ROOT.resolve()
+                paths = [path.resolve() for path in args.entry]
+                for path in paths:
+                    if (
+                        not path.is_file()
+                        or not path.is_relative_to(root / "data")
+                        or path.suffix != ".json"
+                    ):
+                        raise ValueError(
+                            "Contribution must be an existing dataset entry"
+                        )
+                entries = validate_entries(
+                    [json.loads(path.read_text(encoding="utf-8")) for path in paths]
+                )
+                for path, entry in zip(paths, entries, strict=True):
+                    validate_entry_path(path, entry, root)
+            else:
+                entries = dataset()
             if args.check_urls:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)
