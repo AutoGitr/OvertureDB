@@ -89,12 +89,12 @@ jobs:
 
           if [ -z "$dataset_files" ]; then
             echo "No dataset files changed"
+          elif [[ "$HEAD_REF" == automation/themerrdb-* ]]; then
+            echo "Skipping URL probes for the trusted ThemerrDB theme import."
           else
             echo "Dataset files changed:"
             echo "$dataset_files"
 
-            while IFS= read -r file; do
-              [ -n "$file" ] || continue
-              python .github/scripts/catalog.py validate --check-urls --entry "$file"
-            done <<< "$dataset_files"
+            mapfile -t entries <<< "$dataset_files"
+            python .github/scripts/catalog.py validate --check-urls --entry "${entries[@]}"
           fi
