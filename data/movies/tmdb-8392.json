@@ -3,10 +3,10 @@
   "title": "My Neighbor Totoro",
   "year": 1988,
   "tmdb_id": 8392,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 339,
+  "imdb_id": "tt0096283",
+  "poster_url": "https://theposterdb.com/api/assets/51612",
+  "background_url": "https://image.tmdb.org/t/p/original/voTcUUuiwYMbF7WybJN8aZU6lCk.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "BF3JGIvK71I"
 }

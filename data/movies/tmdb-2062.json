@@ -3,10 +3,10 @@
   "title": "Ratatouille",
   "year": 2007,
   "tmdb_id": 2062,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 534,
+  "imdb_id": "tt0382932",
+  "poster_url": "https://theposterdb.com/api/assets/464",
+  "background_url": "https://image.tmdb.org/t/p/original/XPJ4B88IjfWEfitwMFglh3eQ33.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "A078E6faw18"
 }

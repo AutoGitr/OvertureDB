@@ -3,10 +3,10 @@
   "title": "Coco",
   "year": 2017,
   "tmdb_id": 354912,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 321,
+  "imdb_id": "tt2380307",
+  "poster_url": "https://theposterdb.com/api/assets/475",
+  "background_url": "https://image.tmdb.org/t/p/original/9Fs9oONsUDi5Lr7sl8UgrzneLX4.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "nsx0pvgls4E"
 }

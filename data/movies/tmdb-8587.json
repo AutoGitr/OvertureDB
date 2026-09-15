@@ -3,10 +3,10 @@
   "title": "The Lion King",
   "year": 1994,
   "tmdb_id": 8587,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 377,
+  "imdb_id": "tt0110357",
+  "poster_url": "https://theposterdb.com/api/assets/6046",
+  "background_url": "https://image.tmdb.org/t/p/original/zoBSVPbTY3rVBLIYJE2yYrsaX0s.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "zlkPh7kOnt4"
 }

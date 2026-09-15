@@ -3,10 +3,10 @@
   "title": "Monsters, Inc.",
   "year": 2001,
   "tmdb_id": 585,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 331,
+  "imdb_id": "tt0198781",
+  "poster_url": "https://theposterdb.com/api/assets/460",
+  "background_url": "https://image.tmdb.org/t/p/original/iNM3FeO4Hshwtw05AMLT8XhaXCC.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "_WRKbu5j0O0"
 }

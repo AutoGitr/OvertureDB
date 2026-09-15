@@ -3,10 +3,10 @@
   "title": "Big Hero 6",
   "year": 2014,
   "tmdb_id": 177572,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 151,
+  "imdb_id": "tt2245084",
+  "poster_url": "https://theposterdb.com/api/assets/6068",
+  "background_url": "https://image.tmdb.org/t/p/original/z3v5lEJgn759x81X6e5ieqFsYV6.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "dtavlrve-yQ"
 }

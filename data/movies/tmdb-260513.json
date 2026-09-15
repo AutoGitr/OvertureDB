@@ -3,10 +3,10 @@
   "title": "Incredibles 2",
   "year": 2018,
   "tmdb_id": 260513,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 49,
+  "imdb_id": "tt3606756",
+  "poster_url": "https://theposterdb.com/api/assets/476",
+  "background_url": "https://image.tmdb.org/t/p/original/coYYp9v52nWxohWCP8IGxerDm65.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "bBz3fWQkMBY"
 }

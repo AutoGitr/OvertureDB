@@ -3,10 +3,10 @@
   "title": "Dumbo",
   "year": 1941,
   "tmdb_id": 11360,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 1172,
+  "imdb_id": "tt0033563",
+  "poster_url": "https://theposterdb.com/api/assets/6020",
+  "background_url": "https://image.tmdb.org/t/p/original/zCwZ3K02IjTHDAw9IZz6LmrJshn.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "R65VGSqpRIs"
 }
