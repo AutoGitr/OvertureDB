@@ -3,10 +3,10 @@
   "title": "Treasure Planet",
   "year": 2002,
   "tmdb_id": 9016,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 655,
+  "imdb_id": "tt0133240",
+  "poster_url": "https://theposterdb.com/api/assets/6057",
+  "background_url": "https://image.tmdb.org/t/p/original/eoTcJ50xuPg2q8EIrZL1NYNN44K.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "qSNvsteAmh8"
 }

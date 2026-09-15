@@ -3,10 +3,10 @@
   "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
   "year": 2003,
   "tmdb_id": 22,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 64,
+  "imdb_id": "tt0325980",
+  "poster_url": "https://theposterdb.com/api/assets/49957",
+  "background_url": "https://image.tmdb.org/t/p/original/16FT0cxxBK9qQSvZf7F8i0ITQPm.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "BuYf0taXoNw"
 }

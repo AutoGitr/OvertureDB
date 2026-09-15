@@ -3,10 +3,10 @@
   "title": "Finding Nemo",
   "year": 2003,
   "tmdb_id": 12,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 256,
+  "imdb_id": "tt0266543",
+  "poster_url": "https://theposterdb.com/api/assets/461",
+  "background_url": "https://image.tmdb.org/t/p/original/pDMndR1yj7WHZmLTwzLxMu16xxD.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "dqwYE7XOffQ"
 }

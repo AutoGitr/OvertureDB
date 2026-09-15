@@ -3,10 +3,10 @@
   "title": "Airplane!",
   "year": 1980,
   "tmdb_id": 813,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 406,
+  "imdb_id": "tt0080339",
+  "poster_url": "https://image.tmdb.org/t/p/original/7Q3efxd3AF1vQjlSxnlerSA7RzN.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/eqJ3iuYenHbOEe24UoYao9rhIT5.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "jlYcTXywx7Q"
 }

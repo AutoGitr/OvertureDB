@@ -3,10 +3,10 @@
   "title": "Toy Story 2",
   "year": 1999,
   "tmdb_id": 863,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 378,
+  "imdb_id": "tt0120363",
+  "poster_url": "https://theposterdb.com/api/assets/459",
+  "background_url": "https://image.tmdb.org/t/p/original/1M40AHTjggFkRs9tbvHzFpgCPAG.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "8DsdldUFgKg"
 }

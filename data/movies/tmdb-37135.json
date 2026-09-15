@@ -3,10 +3,10 @@
   "title": "Tarzan",
   "year": 1999,
   "tmdb_id": 37135,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 978,
+  "imdb_id": "tt0120855",
+  "poster_url": "https://theposterdb.com/api/assets/6051",
+  "background_url": "https://image.tmdb.org/t/p/original/3Skg7e94WFreLgQAR0PAYSk0Zv1.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "wb5keTpC4WU"
 }

@@ -3,10 +3,10 @@
   "title": "Cars",
   "year": 2006,
   "tmdb_id": 920,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 562,
+  "imdb_id": "tt0317219",
+  "poster_url": "https://theposterdb.com/api/assets/463",
+  "background_url": "https://image.tmdb.org/t/p/original/vABOhCPfvm1g0cKNzQXwK8EyQ5z.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "gn19U2lMNnw"
 }

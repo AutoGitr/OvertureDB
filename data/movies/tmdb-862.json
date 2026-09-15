@@ -3,10 +3,10 @@
   "title": "Toy Story",
   "year": 1995,
   "tmdb_id": 862,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 318,
+  "imdb_id": "tt0114709",
+  "poster_url": "https://theposterdb.com/api/assets/457",
+  "background_url": "https://image.tmdb.org/t/p/original/8AqWECiUHnz1Crj69uB9vhiK9Le.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "0hG-2tQtdlE"
 }

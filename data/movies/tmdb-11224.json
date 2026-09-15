@@ -3,10 +3,10 @@
   "title": "Cinderella",
   "year": 1950,
   "tmdb_id": 11224,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 369,
+  "imdb_id": "tt0042332",
+  "poster_url": "https://theposterdb.com/api/assets/6027",
+  "background_url": "https://image.tmdb.org/t/p/original/er4vX8hNbSNp7nJ5V0ydEkyCTRh.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "hxIUFxiy_LI"
 }

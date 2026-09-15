@@ -3,10 +3,10 @@
   "title": "Beauty and the Beast",
   "year": 1991,
   "tmdb_id": 10020,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 226,
+  "imdb_id": "tt0101414",
+  "poster_url": "https://theposterdb.com/api/assets/6044",
+  "background_url": "https://image.tmdb.org/t/p/original/A4jlgm2beUpcCrzNK6fNHnFABjB.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "JW81PFSsNZs"
 }
