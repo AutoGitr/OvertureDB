@@ -1,4 +1,4 @@
-﻿[project]
+[project]
 name = "overturedb"
 version = "0.1.0"
 description = "Curated dataset of clean artwork, verified themes, and franchise sets"
