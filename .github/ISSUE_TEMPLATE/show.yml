@@ -64,3 +64,11 @@ body:
       label: Season posters
       description: One HTTPS JPG/JPEG/PNG image URL per line, format season_num=url. Use theposterdb.com/api/assets/ for ThePosterDB links.
       placeholder: 1=https://image.tmdb.org/t/p/original/example.jpg
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification (if replacing existing artwork or theme)
+      description: If updating artwork or theme that is already set in OvertureDB, state the reason (e.g. higher resolution, textless, dead link).
+    validations:
+      required: false

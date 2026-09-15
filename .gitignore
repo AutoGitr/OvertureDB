@@ -1,2 +1,5 @@
 __pycache__/
 /public/
+.venv/
+.uv-cache/
+.ruff_cache/

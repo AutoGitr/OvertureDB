@@ -57,3 +57,11 @@ body:
       label: YouTube theme video ID
       description: Use only the 11-character video ID, not the full URL.
       placeholder: abc123abc12
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification (if replacing existing artwork or theme)
+      description: If updating artwork or theme that is already set in OvertureDB, state the reason (e.g. higher resolution, textless, dead link).
+    validations:
+      required: false

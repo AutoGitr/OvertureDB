@@ -1,5 +1,5 @@
-name: Contribution to Pull Request
-run-name: "Contribution #${{ github.event.issue.number }} approved by @${{ github.actor }}"
+name: Bulk Contribution to Pull Request
+run-name: "Bulk Contribution #${{ github.event.issue.number }} approved by @${{ github.actor }}"
 
 on:
   issue_comment:
@@ -8,7 +8,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: contribution-to-pr-${{ github.event.issue.number }}
+  group: bulk-contribution-to-pr-${{ github.event.issue.number }}
   cancel-in-progress: false
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     if: |
       !github.event.issue.pull_request &&
       contains(github.event.issue.labels.*.name, 'contribution') &&
-      !contains(github.event.issue.labels.*.name, 'bulk')
+      contains(github.event.issue.labels.*.name, 'bulk')
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -47,22 +47,6 @@ jobs:
             exit 0
           fi
 
-          labels="$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name')"
-
-          if ! echo "$labels" | grep -qx "contribution"; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-              --body "Ignoring approval command from @${ACTOR}: issue must have the \`contribution\` label."
-            exit 0
-          fi
-
-          if ! echo "$labels" | grep -Eqx "movie|show"; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-              --body "Ignoring approval command from @${ACTOR}: issue must use the movie or show contribution form."
-            exit 0
-          fi
-
           actor_permission="$(
             gh api "repos/${REPO}/collaborators/${ACTOR}/permission" \
               --jq '.permission' 2>/dev/null || true
@@ -75,11 +59,11 @@ jobs:
             *)
               echo "approved=false" >> "$GITHUB_OUTPUT"
               gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring approval command from @${ACTOR}: owner or maintainer access is required to approve contributions."
+                --body "Ignoring approval command from @${ACTOR}: owner or maintainer access is required to approve bulk contributions."
               ;;
           esac
 
-  create-contribution-pr:
+  create-bulk-pr:
     needs: approve-gate
     if: needs.approve-gate.outputs.approved == 'true'
     runs-on: ubuntu-latest
@@ -112,7 +96,7 @@ jobs:
       - name: Set up Python
         run: uv python install 3.14.7
 
-      - name: Create contribution PR from issue
+      - name: Create bulk contribution PR from issue
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -126,26 +110,25 @@ jobs:
           fail() {
             message="$1"
             echo "$message" >&2
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Could not create contribution pull request: ${message}"
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Could not create bulk contribution pull request: ${message}"
             exit 1
           }
 
-          body_file="$(mktemp)"
-          printf '%s' "$ISSUE_BODY" > "$body_file"
+          zip_url="$(printf '%s' "$ISSUE_BODY" | grep -Eo 'https://github\.com/(user-attachments/(assets/[a-zA-Z0-9_.~-]+|files/[0-9]+/[a-zA-Z0-9_.~-]+)|[^/ ]+/[^/ ]+/files/[0-9]+/[a-zA-Z0-9_.~-]+)' | head -n1 || true)"
+          [ -n "$zip_url" ] || fail "No valid GitHub-attached \`.zip\` archive found in the issue description."
 
-          labels_file="$(mktemp)"
-          gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' > "$labels_file"
+          archive_file="$(mktemp --suffix=.zip)"
+          curl -fSL --max-filesize 10485760 "$zip_url" -o "$archive_file" 2>/dev/null || fail "Could not download attached archive from ${zip_url} (file may exceed 10 MB limit or be inaccessible)."
 
-          if ! target="$(bash .github/scripts/build-contribution-entry.sh "$body_file" "$ISSUE_TITLE" "$labels_file" . 2>&1)"; then
-            fail "$target"
+          if ! import_output="$(uv run python .github/scripts/import_bulk_export.py --archive "$archive_file" 2>&1)"; then
+            fail "$import_output"
           fi
 
-          if ! validation_output="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
-            rm -f "$target"
+          if ! validation_output="$(uv run python .github/scripts/catalog.py validate 2>&1)"; then
             fail "$validation_output"
           fi
 
-          branch="contribution/issue-${ISSUE_NUMBER}"
+          branch="contribution/bulk-issue-${ISSUE_NUMBER}"
           if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
             fail "Contribution branch already exists: \`${branch}\`. Please review the existing branch or pull request."
           fi
@@ -153,31 +136,32 @@ jobs:
           git switch -c "$branch"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$target"
+          git add data
 
           if git diff --cached --quiet; then
-            fail "No dataset changes were produced."
+            fail "No new dataset changes were produced (all records were already populated or unchanged)."
           fi
 
-          git commit -m "Add dataset entry from contribution #${ISSUE_NUMBER}"
+          git commit -m "Bulk dataset contribution from issue #${ISSUE_NUMBER}"
           git push origin "$branch"
 
-          printf -v pr_body "Closes #%s\n\nAdds \`%s\` from the approved contribution." "$ISSUE_NUMBER" "$target"
+          pr_title="Bulk contribution from #${ISSUE_NUMBER}"
+          pr_body="$(
+            printf '%s\n\n' "Closes #${ISSUE_NUMBER}"
+            echo '### Summary of Import'
+            echo '```text'
+            printf '%s\n' "$import_output"
+            echo '```'
+          )"
 
           pr_url="$(
             gh pr create \
               --repo "$REPO" \
               --base main \
               --head "$branch" \
-              --title "Add dataset entry from contribution #${ISSUE_NUMBER}" \
+              --title "$pr_title" \
               --body "$pr_body"
           )"
 
-          if ! gh pr merge "$pr_url" --repo "$REPO" --auto --squash --delete-branch; then
-            printf -v failure_body "Created pull request for \`%s\`: %s\n\nAuto-merge could not be enabled. Check that repository auto-merge is enabled and that the GitHub App has pull request write access." "$target" "$pr_url"
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$failure_body"
-            exit 1
-          fi
-
-          printf -v success_body "Created pull request for \`%s\`: %s\n\nAuto-merge is enabled. The pull request will merge after required checks pass." "$target" "$pr_url"
-          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$success_body"
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+            --body "Created pull request for this bulk contribution: ${pr_url}"

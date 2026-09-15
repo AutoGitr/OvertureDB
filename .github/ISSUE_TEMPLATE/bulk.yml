@@ -1,0 +1,33 @@
+﻿name: Bulk contribution
+description: Submit bulk exported artwork and theme selections from Overture.
+title: "[Bulk]: Contribution from Overture"
+labels: ["contribution", "bulk"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Export saved library selections from Overture (**OvertureDB -> Export selections**).
+        Attach the downloaded `overturedb-selections.zip` to this issue.
+
+        **Preservation Rules Enforced**:
+        - Existing `poster_url`, `background_url`, and `youtube_id` in OvertureDB are never overwritten; only missing values are backfilled. Ensure your selections are consistent with the existing OvertureDB entries.
+        - `youtube_id_secondary` is never modified or added by bulk contributions (managed exclusively by ThemerrDB).
+        - Existing source attributions (`sources`) are preserved.
+
+  - type: textarea
+    id: archive
+    attributes:
+      label: OvertureDB Selections Archive
+      description: Attach `overturedb-selections.zip` by dragging and dropping it into this text area.
+      placeholder: Drag and drop overturedb-selections.zip here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Optional comments or notes regarding this bulk contribution.
+    validations:
+      required: false

@@ -19,20 +19,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.14.7"
+          version: "latest"
+          enable-cache: true
 
-      - name: Install validator
-        run: python -m pip install -r .github/scripts/requirements.txt
+      - name: Set up Python
+        run: uv python install 3.14.7
 
       - name: Test and validate the complete dataset
         run: |
-          ruff check .github/scripts
-          ruff format --check .github/scripts
-          python -m unittest discover -s .github/scripts -p 'test_*.py'
-          python .github/scripts/catalog.py validate
+          uv run ruff check .github/scripts
+          uv run ruff format --check .github/scripts
+          uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
+          uv run python .github/scripts/catalog.py validate
 
       - name: Validate contribution changes
         shell: bash
@@ -68,8 +69,8 @@ jobs:
               exit 1
             fi
 
-            if [[ "$HEAD_REF" != contribution/issue-* && "$HEAD_REF" != automation/themerrdb-* ]]; then
-              echo "Dataset changes must come from a contribution/issue-* or automation/themerrdb-* branch."
+            if [[ "$HEAD_REF" != contribution/issue-* && "$HEAD_REF" != contribution/bulk-issue-* && "$HEAD_REF" != automation/themerrdb-* ]]; then
+              echo "Dataset changes must come from a contribution/issue-*, contribution/bulk-issue-*, or automation/themerrdb-* branch."
               exit 1
             fi
 
@@ -96,5 +97,5 @@ jobs:
             echo "$dataset_files"
 
             mapfile -t entries <<< "$dataset_files"
-            python .github/scripts/catalog.py validate --check-urls --entry "${entries[@]}"
+            uv run python .github/scripts/catalog.py validate --check-urls --entry "${entries[@]}"
           fi

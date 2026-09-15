@@ -64,15 +64,15 @@ notices that apply to their source.
 
 ## Validate changes
 
-Use Python 3.14.7:
+Use Python 3.14.7 managed with `uv`:
 
 ```sh
-python -m pip install -r .github/scripts/requirements.txt
-ruff check .github/scripts
-ruff format --check .github/scripts
-python -m unittest discover -s .github/scripts -p 'test_*.py'
-python .github/scripts/catalog.py validate
-python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
+uv lock --check
+uv run ruff check .github/scripts
+uv run ruff format --check .github/scripts
+uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
+uv run python .github/scripts/catalog.py validate
+uv run python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
 ```
 
 The pull-request guard validates the complete dataset and performs live checks for

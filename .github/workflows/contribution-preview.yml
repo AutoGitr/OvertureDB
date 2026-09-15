@@ -15,7 +15,8 @@ jobs:
   preview:
     if: |
       !github.event.issue.pull_request &&
-      contains(github.event.issue.labels.*.name, 'contribution')
+      contains(github.event.issue.labels.*.name, 'contribution') &&
+      !contains(github.event.issue.labels.*.name, 'bulk')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -25,13 +26,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.14.7"
+          version: "latest"
+          enable-cache: true
 
-      - name: Install validator
-        run: python -m pip install -r .github/scripts/requirements.txt
+      - name: Set up Python
+        run: uv python install 3.14.7
 
       - name: Build and comment preview
         env:
@@ -64,7 +66,7 @@ jobs:
           fi
 
           if [ "$status" = "ok" ]; then
-            if ! message="$(python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
+            if ! message="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
               status="error"
             fi
           fi

@@ -54,13 +54,14 @@ jobs:
             movies/themoviedb
             tv_shows/themoviedb
 
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.14.7"
+          version: "latest"
+          enable-cache: true
 
-      - name: Install dependencies
-        run: python -m pip install -r .github/scripts/requirements.txt
+      - name: Set up Python
+        run: uv python install 3.14.7
 
       - name: Run ThemerrDB import
         env:
@@ -74,14 +75,14 @@ jobs:
           if [ -n "$LIMIT" ]; then
             ARGS+=(--limit "$LIMIT")
           fi
-          python .github/scripts/import_themerrdb.py "${ARGS[@]}"
+          uv run python .github/scripts/import_themerrdb.py "${ARGS[@]}"
 
       - name: Run test suite
         run: |
-          ruff check .github/scripts
-          ruff format --check .github/scripts
-          python -m unittest discover -s .github/scripts -p 'test_*.py'
-          python .github/scripts/catalog.py validate
+          uv run ruff check .github/scripts
+          uv run ruff format --check .github/scripts
+          uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
+          uv run python .github/scripts/catalog.py validate
 
       - name: Create pull request for imported changes
         if: ${{ inputs.dry_run != true }}
