@@ -90,8 +90,8 @@ jobs:
 
           if [ -z "$dataset_files" ]; then
             echo "No dataset files changed"
-          elif [[ "$HEAD_REF" == automation/themerrdb-* ]]; then
-            echo "Skipping URL probes for the trusted ThemerrDB theme import."
+          elif [[ "$HEAD_REF" == automation/themerrdb-* || "$HEAD_REF" == contribution/bulk-issue-* ]]; then
+            echo "Skipping URL probes for bulk or automated import ($HEAD_REF)."
           else
             echo "Dataset files changed:"
             echo "$dataset_files"
