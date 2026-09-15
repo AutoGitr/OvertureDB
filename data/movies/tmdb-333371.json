@@ -3,10 +3,10 @@
   "title": "10 Cloverfield Lane",
   "year": 2016,
   "tmdb_id": 333371,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 777,
+  "imdb_id": "tt1179933",
+  "poster_url": "https://image.tmdb.org/t/p/original/84Dhwz93vCin6T1PX6ctSvWEuNE.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/5mGQSZ180NPjevaAcgcoTRX8yPT.jpg",
   "youtube_id": null,
   "youtube_id_secondary": "Uv1O0eYISm0"
 }
