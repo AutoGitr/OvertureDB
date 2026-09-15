@@ -1,0 +1,18 @@
+{
+  "media_type": "show",
+  "title": "Chernobyl",
+  "year": 2019,
+  "tmdb_id": 87108,
+  "tvdb_id": 360893,
+  "imdb_id": "tt7366338",
+  "poster_url": "https://image.tmdb.org/t/p/original/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/hKvUl20MWYFrXmoJp2LdXSOVzE0.jpg",
+  "youtube_id": null,
+  "youtube_id_secondary": null,
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/hr3PmXW4fwkj7Fm2MYITPGIW1RI.jpg"
+    }
+  ]
+}

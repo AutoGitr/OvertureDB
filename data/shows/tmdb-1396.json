@@ -1,0 +1,38 @@
+{
+  "media_type": "show",
+  "title": "Breaking Bad",
+  "year": 2008,
+  "tmdb_id": 1396,
+  "tvdb_id": 81189,
+  "imdb_id": "tt0903747",
+  "poster_url": "https://image.tmdb.org/t/p/original/anFx9aTOOYqgS3v7x3R84Kz67ly.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
+  "youtube_id": null,
+  "youtube_id_secondary": null,
+  "seasons": [
+    {
+      "season_num": 0,
+      "poster_url": "https://image.tmdb.org/t/p/original/22oqX3CG4P0rH475x78cdO3uYxG.jpg"
+    },
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/1C96KIebESXhEnpeq4BWY0jg4KS.jpg"
+    },
+    {
+      "season_num": 2,
+      "poster_url": "https://image.tmdb.org/t/p/original/qcBs6JZ3YmOOqk9rzg9hxydfxNj.jpg"
+    },
+    {
+      "season_num": 3,
+      "poster_url": "https://image.tmdb.org/t/p/original/i1v8sYQAzL7Ec24xq2sfo6Lkgcw.jpg"
+    },
+    {
+      "season_num": 4,
+      "poster_url": "https://image.tmdb.org/t/p/original/97GpEcGEv9gaZnjKfE5jCqdJgHo.jpg"
+    },
+    {
+      "season_num": 5,
+      "poster_url": "https://image.tmdb.org/t/p/original/895qySGNOWp9nJgV7llPBKv3ERk.jpg"
+    }
+  ]
+}

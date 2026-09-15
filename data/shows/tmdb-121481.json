@@ -1,0 +1,26 @@
+{
+  "media_type": "show",
+  "title": "100 Foot Wave",
+  "year": 2021,
+  "tmdb_id": 121481,
+  "tvdb_id": 396600,
+  "imdb_id": "tt14126234",
+  "poster_url": "https://image.tmdb.org/t/p/original/ubwVtWy86MmIEGpOOlzSdyUB4dn.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/jPiYqgBEquMh4RSIut1KR8Ey6zu.jpg",
+  "youtube_id": null,
+  "youtube_id_secondary": null,
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/uZQyVcKaU2IlTN5AATNKvibk5G3.jpg"
+    },
+    {
+      "season_num": 2,
+      "poster_url": "https://image.tmdb.org/t/p/original/wO8hxeRKbD9Kdy3pmlbSc1yv82B.jpg"
+    },
+    {
+      "season_num": 3,
+      "poster_url": "https://image.tmdb.org/t/p/original/yyKo4i1wfMt2OBk2bEgjMhHtb7B.jpg"
+    }
+  ]
+}
