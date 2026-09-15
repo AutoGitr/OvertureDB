@@ -7,8 +7,8 @@
   "imdb_id": "tt15524930",
   "poster_url": "https://image.tmdb.org/t/p/original/mnlfxYXxFDavsYecKDCewMUvGXo.jpg",
   "background_url": "https://image.tmdb.org/t/p/original/q3SOEXNl07Lw19e2gfGBQVDWuqj.jpg",
-  "youtube_id": null,
-  "youtube_id_secondary": null,
+  "youtube_id_overturedb": null,
+  "youtube_id_themerrdb": null,
   "seasons": [
     {
       "season_num": 1,
