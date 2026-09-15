@@ -3,10 +3,10 @@
   "title": "A Star Is Born",
   "year": 2018,
   "tmdb_id": 332562,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 6,
+  "imdb_id": "tt1517451",
+  "poster_url": "https://image.tmdb.org/t/p/original/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/jiegCknD99KbzQujazRN0muSipM.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "BpIf43m2ZQI"
 }

@@ -3,10 +3,10 @@
   "title": "The Jungle Book",
   "year": 1967,
   "tmdb_id": 9325,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 688,
+  "imdb_id": "tt0061852",
+  "poster_url": "https://theposterdb.com/api/assets/6033",
+  "background_url": "https://image.tmdb.org/t/p/original/qTbVjInPbaTaQOVsdX5ocyv9CYl.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "AhGdUtZeK8g"
 }
