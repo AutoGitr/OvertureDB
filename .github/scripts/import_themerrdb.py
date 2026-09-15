@@ -1,7 +1,7 @@
 """Import theme metadata from LizardByte/ThemerrDB into OvertureDB.
 
 Ingests movies and tv shows from ThemerrDB's database branch, updating
-existing entries' `youtube_id_secondary` or creating new entries when items
+existing entries' `youtube_id_themerrdb` or creating new entries when items
 do not yet exist in OvertureDB.
 """
 
@@ -111,7 +111,10 @@ def _update_existing(
 ) -> str:
     """Update the imported theme, preserving curated fields."""
     existing = loaded_entries[existing_path]
-    updated = {**existing, "youtube_id_secondary": youtube_id}
+    updated = {**existing, "youtube_id_themerrdb": youtube_id}
+    # Conflict resolution: OvertureDB adapts when there is a conflict.
+    if updated.get("youtube_id_overturedb") == youtube_id:
+        updated["youtube_id_overturedb"] = None
     if updated == existing:
         return "skipped_unchanged"
     validate_entry(updated)
@@ -162,8 +165,8 @@ def _create_new_entry(
         "imdb_id": None,
         "poster_url": None,
         "background_url": None,
-        "youtube_id": None,
-        "youtube_id_secondary": youtube_id,
+        "youtube_id_overturedb": None,
+        "youtube_id_themerrdb": youtube_id,
     }
 
     if media_type == "show":

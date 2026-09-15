@@ -64,10 +64,6 @@ def art_urls(entries: list[dict]) -> set[str]:
     }
 
 
-def source_urls(entries: list[dict]) -> set[str]:
-    return {source["url"] for entry in entries for source in entry.get("sources", [])}
-
-
 def public_https_destination(
     url: str, *, allowed_hosts: set[str] | None = None
 ) -> SplitResult:
@@ -110,23 +106,11 @@ def check_art_destination(url: str) -> None:
         raise ValueError("Artwork must be a JPEG or PNG")
 
 
-def check_source_destination(url: str) -> None:
-    public_https_destination(url)
-
-
 class ArtRedirectHandler(HTTPRedirectHandler):
     max_redirections = 3
 
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         check_art_destination(newurl)
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
-
-
-class SourceRedirectHandler(HTTPRedirectHandler):
-    max_redirections = 3
-
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        check_source_destination(newurl)
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
@@ -146,15 +130,6 @@ def check_art_url(url: str) -> None:
         or (content_type == "image/png" and signature.startswith(b"\x89PNG\r\n\x1a\n"))
     ):
         raise ValueError("Artwork response is not a JPEG or PNG image")
-
-
-def check_source_url(url: str) -> None:
-    check_source_destination(url)
-    request = Request(  # noqa: S310
-        url, headers={"Range": "bytes=0-0", "User-Agent": "OvertureDB"}
-    )
-    with build_opener(SourceRedirectHandler()).open(request, timeout=20) as response:
-        response.read(1)
 
 
 def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) -> None:
@@ -265,8 +240,6 @@ def main() -> int:
             if args.check_urls:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)
-                for url in sorted(source_urls(entries)):
-                    check_source_url(url)
         else:
             if git_output("status", "--porcelain", "--untracked-files=all"):
                 raise ValueError(

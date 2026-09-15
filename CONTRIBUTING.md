@@ -39,29 +39,6 @@ schema validation, and the relationship between an issue and its pull request
 consistent. Changes to schemas, validators, workflows, documentation, notices, or
 licenses use an ordinary maintainer pull request.
 
-## Attribution
-
-If values are derived from another catalog, database, list, or authored
-publication, include a source entry:
-
-```json
-{
-  "name": "Source project",
-  "url": "https://example.org/source-record",
-  "license": "SPDX identifier or exact license name"
-}
-```
-
-The URL must be a public HTTPS page, remain valid through redirects, and describe
-the derivation closely enough to audit. The stated license must permit the reuse.
-Do not use a search-result page as provenance. An artwork provider URL is still
-validated separately and does not by itself claim ownership of the artwork.
-
-By contributing, you confirm that the submitted metadata is accurate to the best
-of your knowledge and that any derived data is compatible with its stated license.
-Contributions are distributed under this repository's license together with the
-notices that apply to their source.
-
 ## Validate changes
 
 Use Python 3.14.7 managed with `uv`:

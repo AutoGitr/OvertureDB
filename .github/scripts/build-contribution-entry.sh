@@ -133,8 +133,8 @@ if ! jq -n \
       imdb_id: ($imdb_id | string_or_null),
       poster_url: ($poster_url | string_or_null),
       background_url: ($background_url | string_or_null),
-      youtube_id: ($youtube_id | string_or_null),
-      youtube_id_secondary: null
+      youtube_id_overturedb: ($youtube_id | string_or_null),
+      youtube_id_themerrdb: null
     }
     + if $media_type == "show" then { seasons: $seasons } else {} end
     ' > "${output_root}/${target}"; then

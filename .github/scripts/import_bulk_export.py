@@ -1,9 +1,9 @@
 """Import bulk exported selections into OvertureDB.
 
 Enforces:
-1. Rule 1: Existing poster_url, background_url, and youtube_id are never overwritten.
-   Only missing/null fields are backfilled.
-2. Rule 2: youtube_id_secondary is managed exclusively by themerrdb and is never
+1. Rule 1: Existing poster_url, background_url, and youtube_id_overturedb are
+   never overwritten. Only missing/null fields are backfilled.
+2. Rule 2: youtube_id_themerrdb is managed exclusively by themerrdb and is never
    altered or populated by bulk imports.
 """
 
@@ -152,12 +152,17 @@ def merge_entry(
         updated["year"] = incoming["year"]
         changes.append(f"added year={incoming['year']}")
 
-    # 3. Rule 1: poster_url, background_url, youtube_id
+    # 3. Rule 1: poster_url, background_url, youtube_id_overturedb
     # Never overwrite existing non-empty values. Only backfill when empty or null.
-    for art_field in ("poster_url", "background_url", "youtube_id"):
+    for art_field in ("poster_url", "background_url", "youtube_id_overturedb"):
         exist_val = existing.get(art_field)
         inc_val = incoming.get(art_field)
         if not exist_val and inc_val:
+            # Conflict resolution: OvertureDB adapts when there is a conflict.
+            if art_field == "youtube_id_overturedb" and inc_val == existing.get(
+                "youtube_id_themerrdb"
+            ):
+                continue
             updated[art_field] = inc_val
             changes.append(f"backfilled {art_field}")
 
@@ -166,8 +171,7 @@ def merge_entry(
     if new_seasons is not None:
         updated["seasons"] = new_seasons
 
-    # Rule 2: youtube_id_secondary is preserved untouched from existing
-    # Sources: existing sources are preserved untouched
+    # Rule 2: youtube_id_themerrdb is preserved untouched from existing
 
     return updated, bool(changes), changes
 
@@ -200,9 +204,9 @@ def create_new_entry(
         "imdb_id": incoming.get("imdb_id"),
         "poster_url": incoming.get("poster_url"),
         "background_url": incoming.get("background_url"),
-        "youtube_id": incoming.get("youtube_id"),
+        "youtube_id_overturedb": incoming.get("youtube_id_overturedb"),
         # Rule 2: Secondary theme is never populated by bulk import
-        "youtube_id_secondary": None,
+        "youtube_id_themerrdb": None,
     }
     if media_type == "show":
         entry["seasons"] = incoming.get("seasons", [])

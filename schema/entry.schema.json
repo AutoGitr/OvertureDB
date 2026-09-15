@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/entry.schema.json",
   "title": "OvertureDB entry",
-  "description": "One movie or show in the version 3 OvertureDB catalog.",
+  "description": "One movie or show in the version 4 OvertureDB catalog.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -14,8 +14,8 @@
     "imdb_id",
     "poster_url",
     "background_url",
-    "youtube_id",
-    "youtube_id_secondary"
+    "youtube_id_overturedb",
+    "youtube_id_themerrdb"
   ],
   "allOf": [
     {
@@ -91,12 +91,12 @@
       "type": ["string", "null"],
       "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
     },
-    "youtube_id": {
+    "youtube_id_overturedb": {
       "type": ["string", "null"],
       "maxLength": 11,
       "pattern": "^[A-Za-z0-9_-]{11}$"
     },
-    "youtube_id_secondary": {
+    "youtube_id_themerrdb": {
       "type": ["string", "null"],
       "maxLength": 11,
       "pattern": "^[A-Za-z0-9_-]{11}$"
@@ -117,29 +117,6 @@
           "poster_url": {
             "type": "string",
             "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
-          }
-        }
-      }
-    },
-    "sources": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["name", "url", "license"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "pattern": "\\S"
-          },
-          "url": {
-            "type": "string",
-            "pattern": "^https?://[^\\s/?#@]+/[^\\s]*$"
-          },
-          "license": {
-            "type": "string",
-            "pattern": "\\S"
           }
         }
       }

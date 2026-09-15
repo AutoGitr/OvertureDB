@@ -27,8 +27,8 @@ def movie(**changes):
         "imdb_id": None,
         "poster_url": "https://image.tmdb.org/t/p/original/movie.jpg",
         "background_url": None,
-        "youtube_id": None,
-        "youtube_id_secondary": None,
+        "youtube_id_overturedb": None,
+        "youtube_id_themerrdb": None,
         **changes,
     }
 
@@ -63,32 +63,29 @@ class ContractTests(unittest.TestCase):
             {"imdb_id": "1234567"},
             {"media_type": "episode"},
             {"seasons": []},
-            {"youtube_id": "https://youtube.com/watch?v=abc"},
-            {"youtube_id_secondary": "https://youtube.com/watch?v=abc"},
-            {"youtube_id": "3U6PSWyv5sc\n"},
-            {"youtube_id_secondary": "3U6PSWyv5sc\n"},
+            {"youtube_id_overturedb": "https://youtube.com/watch?v=abc"},
+            {"youtube_id_themerrdb": "https://youtube.com/watch?v=abc"},
+            {"youtube_id_overturedb": "3U6PSWyv5sc\n"},
+            {"youtube_id_themerrdb": "3U6PSWyv5sc\n"},
             {"poster_url": "http://image.tmdb.org/a.jpg"},
             {"poster_url": "https://user:password@image.tmdb.org/a.jpg"},
-            {
-                "sources": [
-                    {"name": " ", "url": "https://example.com/", "license": "MIT"}
-                ]
-            },
-            {"sources": [{"name": "Example", "url": "invalid", "license": "MIT"}]},
-            {
-                "sources": [
-                    {"name": "Example", "url": "https://example.com/", "license": " "}
-                ]
-            },
             {"unrecognised": True},
         ]
         for change in invalid:
             with self.subTest(change=change), self.assertRaises(ValueError):
                 validate_entry(movie(**change))
 
-    def test_valid_secondary_youtube_id(self):
-        entry = movie(youtube_id_secondary="3U6PSWyv5sc")
+    def test_valid_themerrdb_youtube_id(self):
+        entry = movie(youtube_id_themerrdb="3U6PSWyv5sc")
         self.assertEqual(validate_entry(entry), entry)
+
+    def test_youtube_ids_must_be_different(self):
+        entry = movie(
+            youtube_id_overturedb="3U6PSWyv5sc",
+            youtube_id_themerrdb="3U6PSWyv5sc",
+        )
+        with self.assertRaises(ValueError):
+            validate_entry(entry)
 
     def test_seasons_require_unique_nonnegative_numbers_and_posters(self):
         season = {"season_num": 0, "poster_url": "https://image.tmdb.org/s.jpg"}
@@ -261,18 +258,12 @@ class BuildTests(unittest.TestCase):
         ):
             self.assertEqual(catalog.main(), 1)
 
-    @patch.object(catalog, "check_source_url")
     @patch.object(catalog, "check_art_url")
-    def test_cli_validates_multiple_entries_and_checks_each_url_once(self, art, source):
-        attribution = {
-            "name": "Example",
-            "url": "https://example.com/",
-            "license": "MIT",
-        }
+    def test_cli_validates_multiple_entries_and_checks_each_url_once(self, art):
         paths = [self.entry, self.root / "data/movies/tmdb-2.json"]
         for identifier, path in enumerate(paths, start=1):
             path.write_text(
-                json.dumps(movie(tmdb_id=identifier, sources=[attribution])),
+                json.dumps(movie(tmdb_id=identifier)),
                 encoding="utf-8",
             )
         with (
@@ -284,7 +275,6 @@ class BuildTests(unittest.TestCase):
         ):
             self.assertEqual(catalog.main(), 0)
         art.assert_called_once_with(movie()["poster_url"])
-        source.assert_called_once_with(attribution["url"])
 
 
 class ArtworkTests(unittest.TestCase):
@@ -337,50 +327,6 @@ class ArtworkTests(unittest.TestCase):
     def test_art_urls_are_deduplicated(self):
         entries = [movie(), movie(tmdb_id=2)]
         self.assertEqual(catalog.art_urls(entries), {movie()["poster_url"]})
-
-    @patch.object(
-        socket, "getaddrinfo", return_value=[(2, 1, 6, "", ("93.184.216.34", 443))]
-    )
-    def test_source_destinations_require_public_https(self, lookup):
-        catalog.check_source_destination("https://example.com/source#selection")
-        self.assertEqual(lookup.call_count, 1)
-        for url in (
-            "http://example.com/source",
-            "https://user:password@example.com/source",
-            "https://example.com:8443/source",
-        ):
-            with self.subTest(url=url), self.assertRaises(ValueError):
-                catalog.check_source_destination(url)
-        lookup.return_value = [(2, 1, 6, "", ("127.0.0.1", 443))]
-        with self.assertRaises(ValueError):
-            catalog.check_source_destination("https://example.com/source")
-
-    @patch.object(catalog, "check_source_destination")
-    @patch.object(catalog, "build_opener")
-    def test_source_probe_validates_redirects_and_reads_one_byte(
-        self, opener, destination
-    ):
-        response = MagicMock()
-        opener.return_value.open.return_value.__enter__.return_value = response
-        catalog.check_source_url("https://example.com/source")
-        destination.assert_called_once_with("https://example.com/source")
-        response.read.assert_called_once_with(1)
-
-        destination.side_effect = ValueError("unsafe redirect")
-        with self.assertRaises(ValueError):
-            catalog.SourceRedirectHandler().redirect_request(
-                Request("https://example.com/source"),
-                None,
-                302,
-                "Found",
-                {},
-                "http://127.0.0.1/private",
-            )
-
-    def test_source_urls_are_deduplicated(self):
-        source = {"name": "Example", "url": "https://example.com/", "license": "MIT"}
-        entries = [movie(sources=[source]), movie(tmdb_id=2, sources=[source])]
-        self.assertEqual(catalog.source_urls(entries), {source["url"]})
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-"""The version 3 catalog contract, shared with Overture by dataset_contract.py."""
+"""The version 4 catalog contract, shared with Overture by dataset_contract.py."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from jsonschema import Draft202012Validator, ValidationError, validators
 if TYPE_CHECKING:
     from jsonschema import TypeChecker
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 
@@ -62,7 +62,21 @@ def validate_entry(value: object) -> dict[str, Any]:
     _validate(value, catalog=False)
     entry = cast("dict[str, Any]", value)
     _seasons(entry)
+    _youtube_ids(entry)
     return entry
+
+
+def _youtube_ids(entry: dict[str, Any]) -> None:
+    yt_overturedb = entry.get("youtube_id_overturedb")
+    yt_themerrdb = entry.get("youtube_id_themerrdb")
+    if (
+        yt_overturedb is not None
+        and yt_themerrdb is not None
+        and yt_overturedb == yt_themerrdb
+    ):
+        raise ValueError(
+            "youtube_id_overturedb and youtube_id_themerrdb must be different"
+        )
 
 
 def _seasons(entry: dict[str, Any]) -> None:
@@ -102,5 +116,6 @@ def validate_catalog(value: object) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = payload["entries"]
     for entry in entries:
         _seasons(entry)
+        _youtube_ids(entry)
     _identities(entries)
     return entries

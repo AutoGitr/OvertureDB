@@ -21,7 +21,7 @@ HTTPS Pages origin.
 ## Contract
 
 `schema/entry.schema.json`, `schema/catalog.schema.json`, and `schema/contract.py`
-are the canonical version 3 contract, shared with Overture through its
+are the canonical version 4 contract, shared with Overture through its
 `scripts/dataset_contract.py` generator. Change this source first, regenerate the
 app's bundled copy, and land both changes together. No other catalog format is
 served or supported.
@@ -43,11 +43,12 @@ PNG content.
 ## ThemerrDB themes
 
 The daily importer reads ThemerrDB's `database` branch. It fills
-`youtube_id_secondary` and records per-entry attribution. Existing curated fields,
-including the primary `youtube_id`, are preserved. New entries contain a TMDB ID,
-title, year, and secondary theme; other metadata remains empty. Overture prefers
-the primary theme for automatic selection and uses the secondary when no primary
-is set. Both distinct choices are available in the theme panel.
+`youtube_id_themerrdb`. Existing curated fields, including `youtube_id_overturedb`,
+are preserved (with `youtube_id_overturedb` yielding if there is an ID conflict).
+New entries contain a TMDB ID, title, year, and ThemerrDB theme; other metadata
+remains empty. Overture separates OvertureDB and ThemerrDB as selectable theme
+sources in its assets workflow, falling back if the first choice does not download.
+Both distinct choices are available in the theme panel.
 
 Manual import runs support a positive item limit and a dry run that validates and
 reports changes without writing files. Missing input directories, invalid existing
@@ -58,11 +59,7 @@ hour later.
 ## Provenance and licensing
 
 Artwork URLs identify the remote source; YouTube IDs identify the selected video.
-An entry derived from another catalog, database, or authored publication must add
-the optional `sources` array with that source's name, public HTTPS URL, and license.
-Live URL validation checks the source URL and every redirect. Original
-curatorial choices need no artificial source record, but contributors remain
-responsible for the accuracy of IDs and links.
+Contributors remain responsible for the accuracy of IDs and links.
 
 Repository-level derivations and license obligations are recorded in
 `THIRD_PARTY_NOTICES.md` and `licenses/`. A catalog entry does not grant rights to

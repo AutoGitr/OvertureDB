@@ -70,8 +70,8 @@ class ImportThemerrdbTests(unittest.TestCase):
                 "imdb_id": None,
                 "poster_url": "https://image.tmdb.org/t/p/original/curated.jpg",
                 "background_url": "https://image.tmdb.org/t/p/original/bg.jpg",
-                "youtube_id": "original_yt",
-                "youtube_id_secondary": None,
+                "youtube_id_overturedb": "original_yt",
+                "youtube_id_themerrdb": None,
             }
             existing_file.write_text(json.dumps(existing_data), encoding="utf-8")
 
@@ -99,8 +99,8 @@ class ImportThemerrdbTests(unittest.TestCase):
             self.assertEqual(status, "updated")
 
             updated_data = json.loads(existing_file.read_text(encoding="utf-8"))
-            self.assertEqual(updated_data["youtube_id"], "original_yt")
-            self.assertEqual(updated_data["youtube_id_secondary"], "themerr_sec")
+            self.assertEqual(updated_data["youtube_id_overturedb"], "original_yt")
+            self.assertEqual(updated_data["youtube_id_themerrdb"], "themerr_sec")
             # Must NOT touch imdb_id or poster_url
             self.assertIsNone(updated_data["imdb_id"])
             self.assertEqual(
@@ -146,8 +146,8 @@ class ImportThemerrdbTests(unittest.TestCase):
             self.assertEqual(saved["title"], "New Film")
             self.assertEqual(saved["year"], 2023)
             self.assertEqual(saved["tmdb_id"], 99999)
-            self.assertIsNone(saved["youtube_id"])
-            self.assertEqual(saved["youtube_id_secondary"], "newfilmthem")
+            self.assertIsNone(saved["youtube_id_overturedb"])
+            self.assertEqual(saved["youtube_id_themerrdb"], "newfilmthem")
             self.assertIsNone(saved["imdb_id"])
             self.assertIsNone(saved["tvdb_id"])
             self.assertIsNone(saved["poster_url"])
@@ -193,8 +193,8 @@ class ImportThemerrdbTests(unittest.TestCase):
             self.assertEqual(saved["media_type"], "show")
             self.assertEqual(saved["title"], "New Anime Show")
             self.assertEqual(saved["year"], 2021)
-            self.assertEqual(saved["youtube_id_secondary"], "anime_theme")
-            self.assertIsNone(saved["youtube_id"])
+            self.assertEqual(saved["youtube_id_themerrdb"], "anime_theme")
+            self.assertIsNone(saved["youtube_id_overturedb"])
             self.assertIsNone(saved["poster_url"])
             self.assertIsNone(saved["background_url"])
             self.assertIsNone(saved["imdb_id"])
@@ -291,31 +291,35 @@ class ImportIntegrationTests(unittest.TestCase):
                     [path.read_bytes() for path in (first, second)], before
                 )
 
-    def test_imdb_only_match_preserves_identity_and_existing_sources(self):
-        prior_source = {
-            "name": "Curator",
-            "url": "https://example.org/entry",
-            "license": "CC0-1.0",
-        }
-        path = self.write_existing(
-            "imdb-tt1.json", tmdb_id=None, imdb_id="tt1", sources=[prior_source]
-        )
+    def test_imdb_only_match_preserves_identity(self):
+        path = self.write_existing("imdb-tt1.json", tmdb_id=None, imdb_id="tt1")
         self.write_upstream(imdb_id="tt1")
         self.assertEqual(self.run_import()["updated"], 1)
         saved = json.loads(path.read_text(encoding="utf-8"))
         self.assertIsNone(saved["tmdb_id"])
-        self.assertEqual(saved["youtube_id_secondary"], "4xdyx5NVUhI")
-        self.assertEqual(saved["sources"], [prior_source])
+        self.assertEqual(saved["youtube_id_themerrdb"], "4xdyx5NVUhI")
         before = path.read_bytes()
         self.assertEqual(self.run_import()["skipped_unchanged"], 1)
         self.assertEqual(path.read_bytes(), before)
         self.assertEqual(len(list(self.data.rglob("*.json"))), 1)
 
+    def test_conflicting_youtube_id_resets_overturedb(self):
+        path = self.write_existing(
+            youtube_id_overturedb="4xdyx5NVUhI",
+            youtube_id_themerrdb=None,
+        )
+        self.write_upstream(youtube_theme_url="https://youtu.be/4xdyx5NVUhI")
+        stats = self.run_import()
+        self.assertEqual(stats["updated"], 1)
+        saved = json.loads(path.read_text(encoding="utf-8"))
+        self.assertIsNone(saved["youtube_id_overturedb"])
+        self.assertEqual(saved["youtube_id_themerrdb"], "4xdyx5NVUhI")
+        validate_entry(saved)
+
     def test_existing_matching_theme_is_skipped_unchanged(self):
-        path = self.write_existing(youtube_id_secondary="4xdyx5NVUhI")
+        self.write_existing(youtube_id_themerrdb="4xdyx5NVUhI")
         self.write_upstream()
         self.assertEqual(self.run_import()["skipped_unchanged"], 1)
-        self.assertNotIn("sources", json.loads(path.read_text()))
 
     def test_dry_run_and_real_import_agree_for_repeated_new_records(self):
         self.write_upstream()

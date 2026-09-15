@@ -85,7 +85,7 @@ jobs:
               tmdb_id="$(jq -r '.tmdb_id // ""' "$target")"
               tvdb_id="$(jq -r '.tvdb_id // ""' "$target")"
               imdb_id="$(jq -r '.imdb_id // ""' "$target")"
-              youtube_id="$(jq -r '.youtube_id // ""' "$target")"
+              youtube_id="$(jq -r '.youtube_id_overturedb // ""' "$target")"
 
               if [ -n "$tmdb_id" ]; then
                 if [ "$media_type" = "show" ]; then
