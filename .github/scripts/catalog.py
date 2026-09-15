@@ -11,8 +11,11 @@ import shutil
 import socket
 import subprocess
 import sys
+import time
 from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import SplitResult, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
@@ -114,14 +117,43 @@ class ArtRedirectHandler(HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
-def check_art_url(url: str) -> None:
+def parse_retry_after(header: str | None, default: float = 2.0) -> float:
+    if not header:
+        return default
+    try:
+        return max(0.5, float(header))
+    except ValueError:
+        pass
+    try:
+        dt = parsedate_to_datetime(header)
+        return max(0.5, (dt - datetime.now(UTC)).total_seconds())
+    except Exception:
+        return default
+
+
+def check_art_url(url: str, *, max_retries: int = 5) -> None:
     check_art_destination(url)
     request = Request(  # noqa: S310
         url, headers={"Range": "bytes=0-15", "User-Agent": "OvertureDB"}
     )
-    with build_opener(ArtRedirectHandler()).open(request, timeout=20) as response:
-        content_type = response.headers.get_content_type()
-        signature = response.read(16)
+    opener = build_opener(ArtRedirectHandler())
+    for attempt in range(max_retries):
+        try:
+            with opener.open(request, timeout=20) as response:
+                content_type = response.headers.get_content_type()
+                signature = response.read(16)
+            break
+        except HTTPError as exc:
+            if exc.code == 429 and attempt < max_retries - 1:
+                delay = parse_retry_after(
+                    exc.headers.get("Retry-After"), default=2.0**attempt
+                )
+                time.sleep(min(delay, 60.0))
+                continue
+            raise
+    else:
+        raise ValueError("Exceeded maximum retries checking artwork URL")
+
     if not (
         (
             content_type in {"image/jpeg", "image/jpg"}

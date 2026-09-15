@@ -328,6 +328,55 @@ class ArtworkTests(unittest.TestCase):
         entries = [movie(), movie(tmdb_id=2)]
         self.assertEqual(catalog.art_urls(entries), {movie()["poster_url"]})
 
+    def test_parse_retry_after(self):
+        self.assertEqual(catalog.parse_retry_after("10"), 10.0)
+        self.assertEqual(catalog.parse_retry_after(None, default=3.0), 3.0)
+        self.assertEqual(catalog.parse_retry_after("invalid", default=2.5), 2.5)
+
+    @patch.object(catalog.time, "sleep")
+    @patch.object(catalog, "check_art_destination")
+    @patch.object(catalog, "build_opener")
+    def test_image_probe_retries_on_http_429(self, opener, destination, mock_sleep):
+        rate_error = catalog.HTTPError(
+            "https://image.tmdb.org/a.jpg",
+            429,
+            "Too Many Requests",
+            Message(),
+            io.BytesIO(b""),
+        )
+        self.addCleanup(rate_error.close)
+        rate_error.headers["Retry-After"] = "5"
+        good_response = MagicMock()
+        good_response.headers = Message()
+        good_response.headers["Content-Type"] = "image/jpeg"
+        good_response.read.return_value = b"\xff\xd8\xff" + b"x" * 13
+
+        cm = MagicMock()
+        cm.__enter__.return_value = good_response
+        opener.return_value.open.side_effect = [rate_error, cm]
+
+        catalog.check_art_url("https://image.tmdb.org/a.jpg")
+        mock_sleep.assert_called_once_with(5.0)
+
+    @patch.object(catalog.time, "sleep")
+    @patch.object(catalog, "check_art_destination")
+    @patch.object(catalog, "build_opener")
+    def test_image_probe_exhausts_retries_on_http_429(
+        self, opener, destination, mock_sleep
+    ):
+        rate_error = catalog.HTTPError(
+            "https://image.tmdb.org/a.jpg",
+            429,
+            "Too Many Requests",
+            Message(),
+            io.BytesIO(b""),
+        )
+        self.addCleanup(rate_error.close)
+        opener.return_value.open.side_effect = rate_error
+        with self.assertRaises(catalog.HTTPError):
+            catalog.check_art_url("https://image.tmdb.org/a.jpg", max_retries=3)
+        self.assertEqual(mock_sleep.call_count, 2)
+
 
 if __name__ == "__main__":
     unittest.main()
