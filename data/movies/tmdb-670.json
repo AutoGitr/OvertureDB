@@ -3,10 +3,10 @@
   "title": "Oldboy",
   "year": 2003,
   "tmdb_id": 670,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 1200,
+  "imdb_id": "tt0364569",
+  "poster_url": "https://image.tmdb.org/t/p/original/aszprx9ZNNGD2J6ntQuvcFGsLza.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/w6HbMC142NkGG3A0tKFfKEI4nAD.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "aLTF7U_ce-8"
 }
