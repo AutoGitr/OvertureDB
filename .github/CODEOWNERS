@@ -1,6 +1,7 @@
-.github/** @AutoGitr
-licenses/** @AutoGitr
-schema/** @AutoGitr
-.gitignore @AutoGitr
-*.md @AutoGitr
-LICENSE @AutoGitr
+# Match all files in repo root
+/* @AutoGitr
+
+# Match all directories except /data/
+/.github/ @AutoGitr
+/licenses/ @AutoGitr
+/schema/ @AutoGitr
