@@ -3,10 +3,10 @@
   "title": "Another Round",
   "year": 2020,
   "tmdb_id": 580175,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 136060,
+  "imdb_id": "tt10288566",
+  "poster_url": "https://image.tmdb.org/t/p/original/6vdqteHzmUBNEDlu0OTXJvILAe1.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/5uuhWQFFE3EdAd5DtVYj9xYLqM2.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "W5yUmmgYCa0"
 }

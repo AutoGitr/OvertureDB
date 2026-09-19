@@ -3,11 +3,16 @@
   "title": "Alien: Earth",
   "year": 2025,
   "tmdb_id": 157239,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 458912,
+  "imdb_id": "tt13623632",
+  "poster_url": "https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/A2a3ZsfMGfwbk6H0WRBxJBUdRuA.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "Nr86-AS0IGc",
-  "seasons": []
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/8jOvcm6ivd3VlQaSv88wvlkIIQD.jpg"
+    }
+  ]
 }

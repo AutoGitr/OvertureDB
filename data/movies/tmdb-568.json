@@ -3,10 +3,10 @@
   "title": "Apollo 13",
   "year": 1995,
   "tmdb_id": 568,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 282,
+  "imdb_id": "tt0112384",
+  "poster_url": "https://image.tmdb.org/t/p/original/gPfVKALLA7OSC5KEbYu80wK1WEg.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/3vYX7Yd6I0IOfVxdBamdKbssrt.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "RPnWVzAZkH4"
 }

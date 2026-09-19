@@ -3,11 +3,20 @@
   "title": "Loki",
   "year": 2021,
   "tmdb_id": 84958,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 362472,
+  "imdb_id": "tt9140554",
+  "poster_url": "https://theposterdb.com/api/assets/139913",
+  "background_url": "https://image.tmdb.org/t/p/original/8CwfC4oXnP2JO5U7ArFzpinwCrT.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "183tEhupiSQ",
-  "seasons": []
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/27pIhwQb2fxQoPIGcrXv4rAbzQi.jpg"
+    },
+    {
+      "season_num": 2,
+      "poster_url": "https://image.tmdb.org/t/p/original/8vjTn0NGF5vM8BijlJxe6YZCRmU.jpg"
+    }
+  ]
 }

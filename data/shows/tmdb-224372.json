@@ -3,11 +3,16 @@
   "title": "A Knight of the Seven Kingdoms",
   "year": 2026,
   "tmdb_id": 224372,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
-  "youtube_id_overturedb": null,
+  "tvdb_id": 433631,
+  "imdb_id": "tt27497448",
+  "poster_url": "https://image.tmdb.org/t/p/original/k8yARbD9iYn2nRX2HvsopfKDN2r.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/erfgq5HoNyJM5cvnUwqyXeumiQX.jpg",
+  "youtube_id_overturedb": "outAjKU72cQ",
   "youtube_id_themerrdb": "V9irhnypAK8",
-  "seasons": []
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/hlkm3wAc8mzuLlt6XbIgT7Tnj7v.jpg"
+    }
+  ]
 }

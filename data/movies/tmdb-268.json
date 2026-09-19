@@ -3,10 +3,10 @@
   "title": "Batman",
   "year": 1989,
   "tmdb_id": 268,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 1204,
+  "imdb_id": "tt0096895",
+  "poster_url": "https://image.tmdb.org/t/p/original/zF9iebmAn1a3ETjwoPWo5qxQq0f.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/qMsbXoFEzqsCZxA8i4szTPLw64d.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "YoaU3kRFvLg"
 }

@@ -3,10 +3,10 @@
   "title": "Batman Begins",
   "year": 2005,
   "tmdb_id": 272,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 293,
+  "imdb_id": "tt0372784",
+  "poster_url": "https://theposterdb.com/api/assets/21707",
+  "background_url": "https://image.tmdb.org/t/p/original/n5kwaE3bvW24DRU2uItGVEqca28.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "QtHO0P4bKrY"
 }

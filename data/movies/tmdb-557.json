@@ -3,10 +3,10 @@
   "title": "Spider-Man",
   "year": 2002,
   "tmdb_id": 557,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 301,
+  "imdb_id": "tt0145487",
+  "poster_url": "https://theposterdb.com/api/assets/147",
+  "background_url": "https://image.tmdb.org/t/p/original/vo3PNv6uyfw7zPPjKimgiZb82DG.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "Xke6p-LJSlY"
 }
