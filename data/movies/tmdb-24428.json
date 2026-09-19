@@ -3,10 +3,10 @@
   "title": "The Avengers",
   "year": 2012,
   "tmdb_id": 24428,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 31,
+  "imdb_id": "tt0848228",
+  "poster_url": "https://theposterdb.com/api/assets/139890",
+  "background_url": "https://image.tmdb.org/t/p/original/86IbFy98QjRIqg6WanKYb9tXNbJ.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "QtxeJ703w18"
 }

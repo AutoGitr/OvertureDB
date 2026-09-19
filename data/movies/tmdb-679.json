@@ -3,10 +3,10 @@
   "title": "Aliens",
   "year": 1986,
   "tmdb_id": 679,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 654,
+  "imdb_id": "tt0090605",
+  "poster_url": "https://image.tmdb.org/t/p/original/8ESCANsNtRvfNjEFHD6CSkC3fia.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/zA5qGOQAgKhn3PLazgFmyMI4esc.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "wnPJRJbVEIg"
 }

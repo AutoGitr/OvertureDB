@@ -3,10 +3,10 @@
   "title": "Armageddon",
   "year": 1998,
   "tmdb_id": 95,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 612,
+  "imdb_id": "tt0120591",
+  "poster_url": "https://theposterdb.com/api/assets/60729",
+  "background_url": "https://image.tmdb.org/t/p/original/8aiT2TYAGOI113WfA5gCL1S7eFm.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "bos_67LLDhw"
 }

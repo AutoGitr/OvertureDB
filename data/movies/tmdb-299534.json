@@ -3,10 +3,10 @@
   "title": "Avengers: Endgame",
   "year": 2019,
   "tmdb_id": 299534,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 148,
+  "imdb_id": "tt4154796",
+  "poster_url": "https://theposterdb.com/api/assets/139906",
+  "background_url": "https://image.tmdb.org/t/p/original/rVnyAnoVoHGQPzFHONX2SSTNMHk.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "F_mhWxOjxp4"
 }

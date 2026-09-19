@@ -1,0 +1,18 @@
+{
+  "media_type": "show",
+  "title": "Planet Dinosaur",
+  "year": 2011,
+  "tmdb_id": 40517,
+  "tvdb_id": 251542,
+  "imdb_id": "tt1998816",
+  "poster_url": "https://theposterdb.com/api/assets/237202",
+  "background_url": "https://image.tmdb.org/t/p/original/6Vd9JA2yCKd5KYCIZdwCEvPrztp.jpg",
+  "youtube_id_overturedb": null,
+  "youtube_id_themerrdb": null,
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/6z3iOiMvhWXKifd43E7yaNuxh2C.jpg"
+    }
+  ]
+}

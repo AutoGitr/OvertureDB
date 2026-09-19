@@ -3,10 +3,10 @@
   "title": "The Dark Knight",
   "year": 2008,
   "tmdb_id": 155,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 116,
+  "imdb_id": "tt0468569",
+  "poster_url": "https://theposterdb.com/api/assets/21708",
+  "background_url": "https://image.tmdb.org/t/p/original/4ORaDgLekcxzHmJPeSncyOgZImR.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "iGx5a1ifSDs"
 }
