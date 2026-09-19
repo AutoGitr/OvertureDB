@@ -102,8 +102,11 @@ def check_art_destination(url: str) -> None:
     if parsed.hostname in {
         "theposterdb.com",
         "www.theposterdb.com",
-    } and not parsed.path.startswith("/api/"):
-        raise ValueError("ThePosterDB artwork must use its /api/ path")
+    }:
+        if not parsed.path.startswith("/api/"):
+            raise ValueError("ThePosterDB artwork must use its /api/ path")
+        if parsed.path.rstrip("/").endswith("/view"):
+            raise ValueError("ThePosterDB artwork must not include trailing /view")
     suffix = Path(parsed.path).suffix.lower()
     if suffix and suffix not in {".jpg", ".jpeg", ".png"}:
         raise ValueError("Artwork must be a JPEG or PNG")

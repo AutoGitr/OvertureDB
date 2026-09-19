@@ -290,6 +290,8 @@ class ArtworkTests(unittest.TestCase):
             "https://image.tmdb.org:8443/a.jpg",
             "https://image.tmdb.org/a.svg",
             "https://theposterdb.com/poster/123",
+            "https://theposterdb.com/api/assets/123/view",
+            "https://theposterdb.com/api/assets/123/view/",
             "https://image.tmdb.org/a.jpg#fragment",
         ):
             with self.subTest(url=url), self.assertRaises(ValueError):

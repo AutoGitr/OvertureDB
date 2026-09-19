@@ -37,6 +37,10 @@ clean_single_line() {
   printf '%s' "$1" | tr -d '\r' | head -n1
 }
 
+clean_art_url() {
+  printf '%s' "$1" | sed -E 's|^(https?://(www\.)?theposterdb\.com/api/assets/[0-9]+)/view/?$|\1|'
+}
+
 if grep -qx "movie" "$labels_file"; then
   media_type="movie"
 elif grep -qx "show" "$labels_file"; then
@@ -54,10 +58,14 @@ year="$(clean_single_line "$(field "Year")")"
 tmdb_id="$(clean_single_line "$(field "TMDB ID")")"
 tvdb_id="$(clean_single_line "$(field "TVDB ID")")"
 imdb_id="$(clean_single_line "$(field "IMDb ID")")"
-poster_url="$(clean_single_line "$(field "Poster URL")")"
-background_url="$(clean_single_line "$(field "Background URL")")"
+poster_url="$(clean_art_url "$(clean_single_line "$(field "Poster URL")")")"
+background_url="$(clean_art_url "$(clean_single_line "$(field "Background URL")")")"
 youtube_id="$(clean_single_line "$(field "YouTube theme video ID")")"
 season_posters="$(field "Season posters")"
+if [ -n "$season_posters" ]; then
+  season_posters="$(printf '%s\n' "$season_posters" | sed -E 's|^(.*=https?://(www\.)?theposterdb\.com/api/assets/[0-9]+)/view/?$|\1|')"
+fi
+
 
 [ -n "$title" ] || fail "Missing Title field."
 
