@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "schema"))
 
 from contract import validate_entries, validate_entry  # noqa: E402
 
-MAX_ARCHIVE_ENTRIES = 500
+MAX_ARCHIVE_ENTRIES = 1000
 MAX_SINGLE_ENTRY_BYTES = 1 * 1024 * 1024  # 1 MB
 MAX_TOTAL_UNCOMPRESSED_BYTES = 50 * 1024 * 1024  # 50 MB
 
