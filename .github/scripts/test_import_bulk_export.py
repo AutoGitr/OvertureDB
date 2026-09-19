@@ -302,12 +302,12 @@ class BulkImportTests(unittest.TestCase):
         self.assertEqual(final_show["youtube_id_overturedb"], "showtheme11")
         self.assertEqual(len(final_show["seasons"]), 1)
 
-    def test_rejection_over_500_entries_archive(self) -> None:
+    def test_rejection_over_1000_entries_archive(self) -> None:
         import zipfile
 
         zip_path = self.temp_dir / "too_many.zip"
         with zipfile.ZipFile(zip_path, "w") as zf:
-            for i in range(501):
+            for i in range(1001):
                 zf.writestr(f"movie_{i}.json", "{}")
         with self.assertRaises(ValueError) as ctx:
             import_bulk_export(overture_dir=self.temp_dir, archive_path=zip_path)
@@ -323,10 +323,10 @@ class BulkImportTests(unittest.TestCase):
             import_bulk_export(overture_dir=self.temp_dir, archive_path=zip_path)
         self.assertIn("exceeds maximum size", str(ctx.exception))
 
-    def test_rejection_over_500_entries_directory(self) -> None:
+    def test_rejection_over_1000_entries_directory(self) -> None:
         large_dir = self.temp_dir / "large_dir"
         large_dir.mkdir()
-        for i in range(501):
+        for i in range(1001):
             (large_dir / f"entry_{i}.json").write_text("{}", encoding="utf-8")
         with self.assertRaises(ValueError) as ctx:
             import_bulk_export(overture_dir=self.temp_dir, input_dir=large_dir)
