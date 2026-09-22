@@ -4,6 +4,11 @@ title: "[Movie]: Title (Year)"
 labels: ["contribution", "movie"]
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please review the [Contribution Guidelines and Selection Criteria](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md#selection-criteria).
+
   - type: input
     id: item_title
     attributes:
@@ -62,6 +67,14 @@ body:
     id: modification_reason
     attributes:
       label: Reason for modification (if replacing existing artwork or theme)
-      description: If updating artwork or theme that is already set in OvertureDB, state the reason (e.g. higher resolution, textless, dead link).
+      value: "If this modifies an existing entry, replace this text with a reason for the change (e.g. higher resolution, textless, dead link, corrected ID)."
     validations:
-      required: false
+      required: true
+
+  - type: checkboxes
+    id: assert
+    attributes:
+      label: Contribution Guidelines
+      options:
+        - label: I have read and followed the [Contribution Guidelines](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md).
+          required: true

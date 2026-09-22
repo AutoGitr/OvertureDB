@@ -10,16 +10,15 @@ body:
         Export saved library selections from Overture (**OvertureDB -> Export selections**).
         Attach the downloaded `overturedb-selections.zip` to this issue.
 
-        **Preservation Rules Enforced**:
-        - Existing `poster_url`, `background_url`, and `youtube_id_overturedb` in OvertureDB are never overwritten; only missing values are backfilled. Ensure your selections are consistent with the existing OvertureDB entries.
-        - `youtube_id_themerrdb` is never modified or added by bulk contributions (managed exclusively by ThemerrDB).
+        **How a Bulk Contributions Works**:
+        - Only missing items and values are added.
+        - No existing items or values are modified or deleted. To modify selections, please submit a separate issue with the specific changes.
 
   - type: textarea
     id: archive
     attributes:
       label: OvertureDB Selections Archive
-      description: Attach `overturedb-selections.zip` by dragging and dropping it into this text area.
-      placeholder: Drag and drop overturedb-selections.zip here...
+      placeholder: Attach or drag and drop overturedb-selections.zip here...
     validations:
       required: true
 
@@ -27,6 +26,13 @@ body:
     id: notes
     attributes:
       label: Additional Notes
-      description: Optional comments or notes regarding this bulk contribution.
     validations:
       required: false
+
+  - type: checkboxes
+    id: assert
+    attributes:
+      label: Contribution Guidelines
+      options:
+        - label: I have read and followed the [Contribution Guidelines](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md).
+          required: true

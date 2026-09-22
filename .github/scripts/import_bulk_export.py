@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
@@ -31,6 +32,54 @@ type ExistingIndex = tuple[
     dict[tuple[str, str], Path],
     dict[Path, dict[str, Any]],
 ]
+
+
+@dataclass
+class ReviewItem:
+    title: str
+    year: int | None
+    media_type: str
+    poster_url: str | None = None
+    background_url: str | None = None
+    youtube_id: str | None = None
+    seasons: list[tuple[int, str]] = field(default_factory=list)
+
+
+def format_review_markdown(review_items: list[ReviewItem]) -> str:
+    """Render collapsible, alphabetically sorted review section with clickable links."""
+    if not review_items:
+        return ""
+
+    sorted_items = sorted(
+        review_items,
+        key=lambda item: (item.title.lower(), item.year or 0),
+    )
+
+    count = len(sorted_items)
+    lines = [
+        "<details>",
+        f"<summary><b>Review Artwork & Theme URLs ({count} items)</b></summary>",
+        "<br />",
+        "",
+    ]
+    for item in sorted_items:
+        year_str = f" ({item.year})" if item.year else ""
+        lines.append(f"#### {item.title}{year_str}")
+        if item.poster_url:
+            lines.append(f"- **Poster:** [View image]({item.poster_url})")
+        if item.background_url:
+            lines.append(f"- **Background:** [View image]({item.background_url})")
+        if item.youtube_id:
+            yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
+            lines.append(
+                f"- **YouTube Theme:** [Watch video]({yt_url}) (`{item.youtube_id}`)"
+            )
+        for s_num, s_url in sorted(item.seasons, key=lambda s: s[0]):
+            lines.append(f"- **Season {s_num} Poster:** [View image]({s_url})")
+        lines.append("")
+
+    lines.append("</details>")
+    return "\n".join(lines)
 
 
 def index_existing_entries(data_dir: Path) -> ExistingIndex:
@@ -282,18 +331,85 @@ def load_incoming_entries(
     return entries
 
 
+def _collect_backfilled_review(
+    existing: dict[str, Any], updated: dict[str, Any]
+) -> ReviewItem | None:
+    backfilled_poster = (
+        updated.get("poster_url")
+        if not existing.get("poster_url") and updated.get("poster_url")
+        else None
+    )
+    backfilled_bg = (
+        updated.get("background_url")
+        if not existing.get("background_url") and updated.get("background_url")
+        else None
+    )
+    backfilled_yt = (
+        updated.get("youtube_id_overturedb")
+        if not existing.get("youtube_id_overturedb")
+        and updated.get("youtube_id_overturedb")
+        else None
+    )
+
+    exist_seasons_map = {
+        s["season_num"]: s.get("poster_url") for s in existing.get("seasons", [])
+    }
+    backfilled_seasons: list[tuple[int, str]] = []
+    for s in updated.get("seasons", []):
+        s_num = s["season_num"]
+        s_url = s.get("poster_url")
+        if s_url and not exist_seasons_map.get(s_num):
+            backfilled_seasons.append((s_num, s_url))
+
+    if backfilled_poster or backfilled_bg or backfilled_yt or backfilled_seasons:
+        return ReviewItem(
+            title=updated["title"],
+            year=updated.get("year"),
+            media_type=updated["media_type"],
+            poster_url=backfilled_poster,
+            background_url=backfilled_bg,
+            youtube_id=backfilled_yt,
+            seasons=backfilled_seasons,
+        )
+    return None
+
+
+def _collect_new_review(entry: dict[str, Any]) -> ReviewItem | None:
+    seasons = [
+        (s["season_num"], s["poster_url"])
+        for s in entry.get("seasons", [])
+        if s.get("poster_url")
+    ]
+    if (
+        entry.get("poster_url")
+        or entry.get("background_url")
+        or entry.get("youtube_id_overturedb")
+        or seasons
+    ):
+        return ReviewItem(
+            title=entry["title"],
+            year=entry.get("year"),
+            media_type=entry["media_type"],
+            poster_url=entry.get("poster_url"),
+            background_url=entry.get("background_url"),
+            youtube_id=entry.get("youtube_id_overturedb"),
+            seasons=seasons,
+        )
+    return None
+
+
 def _process_existing_item(
     existing_path: Path,
     entry: dict[str, Any],
     loaded_entries: dict[Path, dict[str, Any]],
     *,
     dry_run: bool,
-) -> tuple[bool, str]:
+) -> tuple[bool, str, ReviewItem | None]:
     """Merge incoming entry into existing file and save if changed."""
     existing = loaded_entries[existing_path]
     updated, changed, changes = merge_entry(existing, entry)
     if not changed:
-        return False, ""
+        return False, "", None
 
     validate_entry(updated)
     if not dry_run:
@@ -303,7 +419,8 @@ def _process_existing_item(
             newline="\n",
         )
     loaded_entries[existing_path] = updated
-    return True, f"BACKFILLED {existing_path.name}: {', '.join(changes)}"
+    review_item = _collect_backfilled_review(existing, updated)
+    return True, f"BACKFILLED {existing_path.name}: {', '.join(changes)}", review_item
 
 
 def _process_new_item(
@@ -317,7 +434,7 @@ def _process_new_item(
     ],
     *,
     dry_run: bool,
-) -> str:
+) -> tuple[str, ReviewItem | None]:
     """Create a new entry file and update indices."""
     by_tmdb, by_tvdb, by_imdb = indices
     target_path, new_entry = create_new_entry(entry, data_dir)
@@ -343,7 +460,8 @@ def _process_new_item(
     if new_entry.get("imdb_id") is not None:
         by_imdb[(m_type, new_entry["imdb_id"])] = target_path
 
-    return f"CREATED {target_path.name}: {new_entry['title']}"
+    review_item = _collect_new_review(new_entry)
+    return f"CREATED {target_path.name}: {new_entry['title']}", review_item
 
 
 def import_bulk_export(
@@ -368,6 +486,7 @@ def import_bulk_export(
     skipped_count = 0
     errors: list[str] = []
     details: list[str] = []
+    review_items: list[ReviewItem] = []
 
     for name, raw_entry in incoming_entries:
         try:
@@ -375,20 +494,24 @@ def import_bulk_export(
             existing_path = find_existing_entry(entry, by_tmdb, by_tvdb, by_imdb)
 
             if existing_path is not None:
-                changed, detail = _process_existing_item(
+                changed, detail, review = _process_existing_item(
                     existing_path, entry, loaded_entries, dry_run=dry_run
                 )
                 if changed:
                     backfilled_count += 1
                     details.append(detail)
+                    if review:
+                        review_items.append(review)
                 else:
                     unchanged_count += 1
             else:
-                detail = _process_new_item(
+                detail, review = _process_new_item(
                     entry, data_dir, loaded_entries, indices, dry_run=dry_run
                 )
                 created_count += 1
                 details.append(detail)
+                if review:
+                    review_items.append(review)
         except (ValueError, StopIteration) as exc:
             errors.append(f"{name}: {exc}")
             skipped_count += 1
@@ -404,6 +527,7 @@ def import_bulk_export(
         "skipped": skipped_count,
         "errors": errors,
         "details": details,
+        "review_markdown": format_review_markdown(review_items),
         "dry_run": dry_run,
     }
 
@@ -430,6 +554,11 @@ def main() -> int:
         action="store_true",
         help="Output results as JSON",
     )
+    parser.add_argument(
+        "--review-markdown",
+        action="store_true",
+        help="Output review markdown section with clickable art and theme URLs",
+    )
     args = parser.parse_args()
 
     if not args.archive and not args.input_dir:
@@ -448,6 +577,11 @@ def main() -> int:
 
     if args.json:
         print(json.dumps(results, indent=2))  # noqa: T201
+        return 0 if not results["errors"] else 2
+
+    if args.review_markdown:
+        if results["review_markdown"]:
+            print(results["review_markdown"])  # noqa: T201
         return 0 if not results["errors"] else 2
 
     mode = " (DRY RUN)" if results["dry_run"] else ""

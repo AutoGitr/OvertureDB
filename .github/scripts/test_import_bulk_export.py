@@ -340,6 +340,48 @@ class BulkImportTests(unittest.TestCase):
             import_bulk_export(overture_dir=self.temp_dir, input_dir=large_dir)
         self.assertIn("exceeds maximum size", str(ctx.exception))
 
+    def test_format_review_markdown_sorting_and_links(self) -> None:
+        from import_bulk_export import ReviewItem, format_review_markdown
+
+        items = [
+            ReviewItem(
+                title="Zoolander",
+                year=2001,
+                media_type="movie",
+                poster_url="https://image.tmdb.org/zoolander.jpg",
+                youtube_id="zoo12345678",
+            ),
+            ReviewItem(
+                title="Avatar",
+                year=2009,
+                media_type="movie",
+                background_url="https://image.tmdb.org/avatar_bg.jpg",
+            ),
+            ReviewItem(
+                title="Breaking Bad",
+                year=2008,
+                media_type="show",
+                seasons=[(1, "https://image.tmdb.org/bb_s1.jpg")],
+            ),
+        ]
+        md = format_review_markdown(items)
+        self.assertIn("<details>", md)
+        self.assertIn(
+            "<summary><b>Review Artwork & Theme URLs (3 items)</b></summary>", md
+        )
+
+        # Check alphabetical ordering: Avatar -> Breaking Bad -> Zoolander
+        idx_avatar = md.index("Avatar (2009)")
+        idx_bb = md.index("Breaking Bad (2008)")
+        idx_zoolander = md.index("Zoolander (2001)")
+        self.assertTrue(idx_avatar < idx_bb < idx_zoolander)
+
+        # Check clickable links
+        self.assertIn("[View image](https://image.tmdb.org/avatar_bg.jpg)", md)
+        self.assertIn("[View image](https://image.tmdb.org/zoolander.jpg)", md)
+        self.assertIn("[Watch video](https://www.youtube.com/watch?v=zoo12345678)", md)
+        self.assertIn("[View image](https://image.tmdb.org/bb_s1.jpg)", md)
+
 
 if __name__ == "__main__":
     unittest.main()

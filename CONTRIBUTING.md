@@ -24,14 +24,30 @@ existing set.
 
 Use the repository contribution issue form. Supply the media type, title, year,
 at least one external ID, desired artwork URLs, optional season posters, and an
-11-character YouTube ID where applicable. A moderator can ask the constrained bot
-to create a pull request after reviewing the issue.
+11-character YouTube ID where applicable. All submissions require asserting compliance
+with the guidelines via the contribution form checkbox.
+
+### Modifications to existing entries
+
+If a contribution updates an item that already exists in OvertureDB, the contributor
+must replace the pre-filled placeholder in **Reason for modification** with an explanation
+of the change (e.g. higher resolution, textless artwork, dead link, corrected ID).
+Submissions where the placeholder is left unmodified will be paused with instructions,
+preventing accidental overwrites.
 
 ### Moderator Bot Commands
 
-A moderator can trigger OvertureDB-bot actions by commenting on the contribution issue:
+A maintainer can trigger OvertureDB-bot actions by commenting on the contribution issue:
 
 - `@OvertureDB-bot approve` - creates a pull request for this contribution.
+- `@OvertureDB-bot reject [reason]` - rejects this contribution, closes the issue as not planned, and records the reason.
+
+### Maintainer workflow: Modifying or adjusting selections
+
+When maintainers want to adjust a selection (e.g. swap to a higher-resolution poster, fix a typo, or correct an external ID):
+1. **Direct Edit:** Maintainers have write permissions to edit the issue description directly. Clicking **Edit** on the issue form and saving changes triggers the automated preview workflow to recalculate and validate the new URLs immediately. The maintainer can then comment `@OvertureDB-bot approve`.
+2. **Contributor Revision:** Maintainers may comment feedback asking the contributor to update their submission.
+3. **Rejection:** Comment `@OvertureDB-bot reject [reason]` to close the issue cleanly.
 
 Curated dataset JSON changes are accepted through that bot workflow. Automated
 ThemerrDB imports maintain secondary themes separately. This keeps filenames,
