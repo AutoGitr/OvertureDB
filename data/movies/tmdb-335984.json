@@ -3,10 +3,10 @@
   "title": "Blade Runner 2049",
   "year": 2017,
   "tmdb_id": 335984,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 117,
+  "imdb_id": "tt1856101",
+  "poster_url": "https://image.tmdb.org/t/p/original/24QbPFjdv0ojtt2Phw10nvhLwUw.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/gNdLJU9TxrpGx4dkZidjys3fyy0.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "NujlXgBmUoU"
 }
