@@ -19,7 +19,7 @@ OvertureDB provides consistent posters, backgrounds, and theme music for your me
 ## Highlights
 
 - **Visual consistency**: Matching poster sets across franchises, select studios, people, and TV seasons.
-- **Real background scenes**: Genuine shots from the movie or episode - no "photoshopped" character collages or floating heads.
+- **Real background scenes**: Genuine shots from the movie or show - no "photoshopped" character collages or floating heads.
 - **Criterion artwork**: Authentic, modern-formatted Criterion posters for films distributed by Criterion.
 - **Curated themes**: Theme music for movies and shows without dialogue intros, YouTube promos, or watermarks.
 - **Guided contributions**: Filter for incomplete catalog items in Overture, move through your selections, and submit a prefilled GitHub issue.
