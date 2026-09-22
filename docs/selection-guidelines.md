@@ -2,11 +2,10 @@
 
 OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. It does not host image or audio files.
 
----
-
 ## 1. General Rules
 
 - **Preferred Source**: TMDB (`image.tmdb.org`) is the preferred and prioritised artwork source.
+- **Resolution**: The higher ther better, as long as it doesnt compromise other criteria.
 - **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the stated target aspect ratios:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
   - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
@@ -17,31 +16,24 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 - **No Explicit or Malicious Content**: Submissions must not contain adult or explicit (NSFW) imagery, nudity, gore, hate speech, or deceptive/malicious links.
 - **Document New Poster Sets**: When you use a new poster set for a franchise or collection, submit a pull request adding its link to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
 
----
-
 ## 2. Artwork Requirements
 
 ### Posters
 
 - Must contain the title.
-- Preferably no other text (no taglines, actor lists, critic quotes, or release dates) unless it genuinely suits the item.
-- 2000x3000 (2:3 aspect ratio) preferred.
+- Preferably no other text unless it suits the item.
 
 ### Backgrounds
 
 - Must be a real scene or shot taken directly from the item.
 - No text unless it naturally appears in the scene.
-- 3840x2160 (16:9 aspect ratio) preferred; 1920x1080 minimum.
 - **Never use "photoshopped" composite images** where main characters are cut out and placed together, or shown as floating heads.
 
 ### Season Posters
 
-- Must contain the season info (for example, "Season 1").
-- Preferably nothing else unless it suits the item.
-- 2000x3000 preferred.
-- An item's season posters must be consistent with each other.
-
----
+- Must contain the show's title and season title/info ("Season 1").
+- Preferably no other text unless it suits the item.
+- A show's season posters must be consistent with each other.
 
 ## 3. Theme Audio Requirements
 
@@ -52,9 +44,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 
 ### Do Not Duplicate ThemerrDB
 
-- Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if ThemerrDB does not have one, or if you are providing a distinctly better version.
-
----
+- Overture automatically imports ThemerrDB themes. If the item already has youtube_id_themerrdb set, ensure the contribution supplies a different one. Having two youtube id:s in the dataset for every item adds a fallback for youtube video deletions, region restrictions and other issues.
 
 ## 4. Allowed Sources & URL Formats
 
@@ -69,8 +59,6 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 - Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
 - Use HTTPS URLs.
 
----
-
 ## 5. Established Poster Sets
 
 - Use the established poster set when contributing items that belong to the series below.
@@ -82,16 +70,14 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 | **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
 | **Disneynature** | https://theposterdb.com/set/11090 | |
 | **James Bond** | https://theposterdb.com/set/62004 | |
-| **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | From TPDB user `fwlolx`. |
+| **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | Images in this format from TPDB user `fwlolx`. |
 | **Marvel Cinematic Universe** | https://theposterdb.com/set/87082 | |
 | **Pixar Animation Studios** | https://theposterdb.com/set/97 | |
 | **Pixar Shorts** | https://theposterdb.com/set/11456 | |
 | **Planet Documentaries** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
 | **Studio Ghibli** | https://theposterdb.com/set/32965 | |
 | **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
-| **Walt Disney Animation Studios Shorts** | Posters in this style: https://theposterdb.com/poster/206944 | From TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
-
----
+| **Walt Disney Animation Studios Shorts** | https://theposterdb.com/poster/206944 | Images in this format from TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
 
 ## 6. How to Submit
 
