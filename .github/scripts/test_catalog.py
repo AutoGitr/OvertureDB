@@ -137,7 +137,9 @@ class BuildTests(unittest.TestCase):
         (self.root / "data/movies").mkdir(parents=True)
         (self.root / "data/shows").mkdir()
         (self.root / "licenses").mkdir()
-        (self.root / "THIRD_PARTY_NOTICES.md").write_text("Notices\n", encoding="utf-8")
+        (self.root / "licenses" / "THIRD_PARTY_NOTICES.md").write_text(
+            "Notices\n", encoding="utf-8"
+        )
         shutil.copytree(catalog.ROOT / "schema", self.root / "schema")
         self.entry = self.root / "data/movies/tmdb-1.json"
         self.entry.write_text(json.dumps(movie()), encoding="utf-8")

@@ -186,7 +186,7 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
         "entries": entries,
     }
     validate_catalog(payload)
-    notices = root / "THIRD_PARTY_NOTICES.md"
+    notices = root / "licenses" / "THIRD_PARTY_NOTICES.md"
     if not notices.is_file():
         raise ValueError("Third-party notices are required for publication")
     content = (

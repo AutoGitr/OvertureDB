@@ -116,33 +116,36 @@ Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
 
 ## 5. Established Poster Sets
 
-When contributing items that belong to these series, use the established set to keep the catalog consistent:
+When contributing items that belong to these series, use the established set to keep the catalog consistent (alphabetically sorted) and add to it when introducing a new set:
 
 | Series / Category | Poster Set Link | Notes |
 | :--- | :--- | :--- |
-| **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
-| **Walt Disney Animation Studios Shorts** | Posters in this style: https://theposterdb.com/poster/206944 | From TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
-| **Pixar Animation Studios** | https://theposterdb.com/set/97 | |
-| **Pixar Shorts** | https://theposterdb.com/set/11456 | |
-| **Studio Ghibli** | https://theposterdb.com/set/32965 | |
-| **Disneynature** | https://theposterdb.com/set/11090 | |
 | **Apocalypse Documentaries** | https://theposterdb.com/set/398222 | Documentary series. |
+| **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
+| **Disneynature** | https://theposterdb.com/set/11090 | |
 | **James Bond** | https://theposterdb.com/set/62004 | |
 | **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | From TPDB user `fwlolx`. |
-| **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
-| **Planet Documentaries** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
 | **Marvel Cinematic Universe** | https://theposterdb.com/set/87082 | |
+| **Pixar Animation Studios** | https://theposterdb.com/set/97 | |
+| **Pixar Shorts** | https://theposterdb.com/set/11456 | |
+| **Planet Documentaries** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
+| **Studio Ghibli** | https://theposterdb.com/set/32965 | |
+| **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
+| **Walt Disney Animation Studios Shorts** | Posters in this style: https://theposterdb.com/poster/206944 | From TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
 
 ---
 
 ## 6. How to Submit
 
-### Contributing with Overture (Recommended)
-If you use [Overture](https://github.com/AutoGitr/Overture), contributing is effortless:
-1. Select your artwork and theme in Overture.
-2. Click the GitHub contribution link on the item.
-3. The issue template opens prefilled with the title, year, external IDs (TMDB, TVDB, IMDb), artwork URLs, and YouTube ID. You never have to look up external IDs or copy anything manually.
-4. Review the details and click **Submit new issue**.
+### Contributing with Overture (Strongly recommended)
+Using [Overture](https://github.com/AutoGitr/Overture) makes contributing to OvertureDB fast and accurate because the app automatically enforces the catalog rules for you:
+- **Aspect ratio limits**: Automatically verifies pixel dimensions to ensure candidates strictly conform to target aspect ratios within the 1% margin (2:3 for posters, 16:9 for backgrounds).
+- **Known resolutions & sorting**: Detects exact dimensions and automatically sorts candidates by resolution, surfacing the highest-quality artwork first.
+- **True image validation**: Checks image file headers to ensure authentic JPEG and PNG files, filtering out corrupt files or unsupported formats.
+- **Guaranteed direct links**: Formats URLs directly to allowed providers using valid public HTTPS endpoints (such as direct ThePosterDB API paths and TMDB image links).
+- **Accurate external IDs**: Automatically pairs TMDB, TVDB, and IMDb IDs from your media server match, eliminating typos and identity errors.
+- **Prefilled one-click submissions**: Clicking the GitHub contribution link opens an issue template with title, year, external IDs, and URLs already populated. You never have to look up IDs or copy links manually.
+- Simply review the details and click **Submit new issue**.
 
 To contribute your full library at once, export your saved selections (**OvertureDB -> Export selections**) and upload the `.zip` to the [Bulk Contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml) form.
 
