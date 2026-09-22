@@ -3,10 +3,10 @@
   "title": "Broker",
   "year": 2022,
   "tmdb_id": 736732,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 336578,
+  "imdb_id": "tt13056052",
+  "poster_url": "https://image.tmdb.org/t/p/original/x86xaUnxU31JYiwlO35corDEV1i.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/bsWfystXBs6UJMcSvg3YU7eRfhX.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "hfVTM8j8DIg"
 }

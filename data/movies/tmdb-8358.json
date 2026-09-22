@@ -3,10 +3,10 @@
   "title": "Cast Away",
   "year": 2000,
   "tmdb_id": 8358,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 838,
+  "imdb_id": "tt0162222",
+  "poster_url": "https://metadata-static.plex.tv/c/gracenote/c4be3b65470fc29272613a8a2bb33b68.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/3Epsjs0q4gbkusvAVcCBUCwnjeo.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "fMoFmICrISE"
 }
