@@ -1,53 +1,37 @@
 # OvertureDB
 
-<p align="center">
-  <b>The open, curated catalog of premium artwork sets and verified theme music for <a href="https://github.com/AutoGitr/Overture">Overture</a>.</b>
-</p>
+Public catalog of community-curated posters, backgrounds, and theme song links for [Overture](https://github.com/AutoGitr/Overture).
+
+OvertureDB indexes metadata, image URLs, and YouTube IDs so media server users can match clean, consistent artwork and music across their libraries. It does not host or redistribute image or audio files.
 
 ---
 
-## Overview
+## Highlights
 
-**OvertureDB** is a community-driven metadata catalog dedicated to elevating personal media libraries. It provides hand-curated, high-resolution poster collections, authentic background scenes, and verified theme music selections for movies and television series.
-
-Rather than hosting or redistributing copyrighted media files, OvertureDB indexes strictly verified URLs and identifiers. Users of Overture can seamlessly query OvertureDB to automatically match and apply consistent, high-standard artwork and audio directly to their Plex, Jellyfin, and Emby servers.
-
----
-
-## Curation Highlights
-
-- **Visual Harmony**: Curated sets ensure that entire franchises, director collections, and TV show seasons share a consistent aesthetic and typography.
-- **Authentic Backdrops**: Backgrounds are genuine in-universe scenes captured directly from the film or episode—never artificial character collages or photoshopped floating heads.
-- **High-Standard Posters**: Crisp, 2000×3000 artwork with minimal text clutter, honoring the work's original artistic identity.
-- **Criterion Standards**: Criterion Collection releases utilize properly formatted Criterion artwork with authentic cover art.
-- **Curated Themes**: Clean, 1–2 minute standalone theme music clips without dialogue intros, watermarks, or sponsor stings.
+- **Visual consistency**: Matching poster sets across franchises, director collections, and TV seasons.
+- **Real background scenes**: Genuine shots from the movie or episode—no "photoshopped" character collages or floating heads.
+- **Criterion artwork**: Authentic, modern-formatted Criterion posters for films distributed by Criterion.
+- **Curated themes**: 1–2 minute standalone audio clips without dialogue intros, YouTube promos, or watermarks.
+- **Effortless contributions via Overture**: Select your artwork and theme in Overture, click the GitHub contribution link, and the issue form opens with all titles, IDs, and URLs prefilled. You never have to look up external IDs or copy anything manually.
 
 ---
 
-## Documentation & Guides
+## Documentation
 
-Whether you are contributing artwork selections, developing tooling, or integrating with OvertureDB, explore the relevant guide below:
-
-| Guide | Description |
-| :--- | :--- |
-| 🎨 **[Selection Guidelines](docs/selection-guidelines.md)** | Rules for contributing artwork and themes: dimensions, allowed hosts, Criterion standards, and established poster sets. |
-| 🛠️ **[Contributing & Development](CONTRIBUTING.md)** | Technical guide for developers: Python environment setup, testing suite, schema contracts, and bot workflows. |
-| 🔒 **[Security Policy](.github/SECURITY.md)** | Procedures for responsibly disclosing vulnerabilities. |
+- **[Selection Guidelines](docs/selection-guidelines.md)** — Image rules, resolutions, allowed hosts, theme audio rules, and established poster sets.
+- **[Contributing & Development](CONTRIBUTING.md)** — Development environment setup, testing, validation scripts, and schema contracts.
+- **[Security Policy](.github/SECURITY.md)** — Vulnerability reporting and disclosure.
 
 ---
 
-## Catalog Distribution
+## Published Catalog
 
-The curated catalog is validated and published daily to GitHub Pages as reproducible artifacts:
-
-- `catalog.json` and `catalog.json.gz`: The full catalog payload.
-- `SHA256SUMS`: Byte-level integrity checksums.
-- Canonical JSON schemas enforcing strict data validation.
+The catalog validates and publishes daily to GitHub Pages:
+- `catalog.json` and `catalog.json.gz`: Complete catalog records.
+- `SHA256SUMS`: Checksums for file integrity.
 
 ---
 
 ## Licensing & Provenance
 
-Artwork URLs link directly to approved public upstream hosts (ThePosterDB, TMDB, Fanart.tv, TheTVDB, Plex Static) and theme identifiers reference YouTube videos. Contributors and consumers remain responsible for adhering to the respective providers' terms and conditions.
-
-Repository derivations, schemas, and automation scripts are provided under the repository's [LICENSE](LICENSE). Third-party acknowledgments are recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Artwork URLs point to approved public hosts (ThePosterDB, TMDB, Fanart.tv, TheTVDB, Plex Static) and theme IDs point to YouTube. Code and schemas are licensed under [LICENSE](LICENSE). Third-party notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
