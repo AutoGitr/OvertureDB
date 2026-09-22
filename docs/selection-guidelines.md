@@ -138,16 +138,21 @@ When contributing items that belong to these series, use the established set to 
 ## 6. How to Submit
 
 ### Contributing with Overture (Strongly recommended)
-Using [Overture](https://github.com/AutoGitr/Overture) makes contributing to OvertureDB fast and accurate because the app automatically enforces the catalog rules for you:
+
+Using [Overture](https://github.com/AutoGitr/Overture) helps you find gaps in the catalog, choose artwork, and prepare submissions. The app handles the technical checks; use the guidelines above to judge visual consistency, suitability, and theme quality.
+
+- **Find missing selections**: Filter for incomplete OvertureDB items in Overture to see where contributions are needed without searching dataset files or previous issues.
+- **Workflow & auto-advance**: Enable auto-advance in settings to automatically move from poster to background to theme to the next item as you make selections.
 - **Aspect ratio limits**: Automatically verifies pixel dimensions to ensure candidates strictly conform to target aspect ratios within the 1% margin (2:3 for posters, 16:9 for backgrounds).
 - **Known resolutions & sorting**: Detects exact dimensions and automatically sorts candidates by resolution, surfacing the highest-quality artwork first.
 - **True image validation**: Checks image file headers to ensure authentic JPEG and PNG files, filtering out corrupt files or unsupported formats.
 - **Guaranteed direct links**: Formats URLs directly to allowed providers using valid public HTTPS endpoints (such as direct ThePosterDB API paths and TMDB image links).
 - **Accurate external IDs**: Automatically pairs TMDB, TVDB, and IMDb IDs from your media server match, eliminating typos and identity errors.
-- **Prefilled one-click submissions**: Clicking the GitHub contribution link opens an issue template with title, year, external IDs, and URLs already populated. You never have to look up IDs or copy links manually.
-- Simply review the details and click **Submit new issue**.
+- **Prefilled submissions**: Clicking the GitHub contribution link opens a labeled issue form with title, year, external IDs, and URLs already populated, saving you from looking up IDs or copying links manually.
 
-To contribute your full library at once, export your saved selections (**OvertureDB -> Export selections**) and upload the `.zip` to the [Bulk Contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml) form.
+Review the details and click **Submit new issue**.
+
+To contribute your complete selections at once, export your saved selections (**OvertureDB -> Export selections**) and upload the `.zip` to the [Bulk Contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml) form.
 
 ### Manual Submissions
 You can also open an issue directly:
