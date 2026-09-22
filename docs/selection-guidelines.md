@@ -81,7 +81,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 
 ## 6. How to Submit
 
-### Contributing with Overture (Strongly recommended)
+### Contributing with Overture (Recommended)
 
 Using [Overture](https://github.com/AutoGitr/Overture) helps you find gaps in the catalog, choose artwork, and prepare submissions. The app handles the technical checks; use the guidelines above to judge visual consistency, suitability, and theme quality.
 
