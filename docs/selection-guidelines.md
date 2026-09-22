@@ -6,9 +6,8 @@ Movies and TV Shows are refered to as items in this document.
 
 ## 1. General Rules
 
-- **Represent the item**: Artwork and audio must match the tone and style of the movie or show.
+- **Represent the item**: Artwork and audio must match the tone and style of the item.
 - **Consistency**: Keep artwork consistent across related items (franchises, collections, seasons etc.).
-
 - **No spoilers**: Do not submit artwork or theme music that spoils major plot points, twists, character deaths, or endings.
 - **No explicit or malicious content**: Submissions must not contain adult or explicit (NSFW) imagery, gore, hate speech, or deceptive/malicious links.
 - **Submit new sets to docs**: When you use a new poster set for a franchise or collection, submit a pull request adding it to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
