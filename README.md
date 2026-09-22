@@ -1,8 +1,20 @@
-# OvertureDB
+<!-- prettier-ignore -->
+<div align="center">
 
-Public catalog of community-curated posters, backgrounds, and theme song links for [Overture](https://github.com/AutoGitr/Overture).
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./docs/brand/overturedb-logo-stacked-dark.svg" />
+  <img src="./docs/brand/overturedb-logo-stacked-light.svg" alt="OvertureDB" width="260" />
+</picture>
 
-OvertureDB indexes metadata, image URLs, and YouTube IDs so media server users can match clean, consistent artwork and music across their libraries. It does not host or redistribute image or audio files.
+<br>
+
+*Community-curated artwork and theme music catalog for [Overture](https://github.com/AutoGitr/Overture)*
+
+</div>
+
+## Overview
+
+OvertureDB helps you find consistent posters, backgrounds, and theme music for your media library. The public catalog stores curated selections as metadata, image URLs, and YouTube IDs for Overture to match against your movies and shows. It does not host or redistribute image or audio files.
 
 ---
 

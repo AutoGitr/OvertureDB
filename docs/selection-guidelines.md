@@ -50,10 +50,10 @@ Artwork URLs must use public HTTPS on one of these allowed hosts:
 
 | Source | Allowed Host | Required Format |
 | :--- | :--- | :--- |
-| **ThePosterDB** | `theposterdb.com`<br>`www.theposterdb.com` | Must use the direct API path: `/api/assets/<id>`.<br>Do not include trailing `/view` or URL fragments (`#`). |
 | **TMDB** | `image.tmdb.org` | Direct image path (e.g. `/t/p/original/...`). |
-| **Fanart.tv** | `assets.fanart.tv` | Direct image path. |
+| **ThePosterDB** | `theposterdb.com`<br>`www.theposterdb.com` | Must use the direct API path: `/api/assets/<id>`.<br>Do not include trailing `/view` or URL fragments (`#`). |
 | **TheTVDB** | `artworks.thetvdb.com` | Direct image path. |
+| **Fanart.tv** | `assets.fanart.tv` | Direct image path. |
 | **Plex Static** | `metadata-static.plex.tv` | Direct static image path. |
 
 Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.

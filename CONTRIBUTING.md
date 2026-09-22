@@ -4,7 +4,7 @@ Thank you for helping improve OvertureDB. This document covers code, schemas, au
 
 > [!TIP]
 > **Contributing artwork or theme music?**
-> See the **[Selection Guidelines](docs/selection-guidelines.md)** for curation standards, image requirements, allowed sources, and poster sets.
+> See the **[Selection Guidelines](docs/selection-guidelines.md)**.
 
 ---
 
