@@ -38,13 +38,7 @@ Using [Overture](https://github.com/AutoGitr/Overture) makes both contributing a
 - **Accurate external IDs**: Automatically pairs verified TMDB, TVDB, and IMDb IDs from your media server match, eliminating typos.
 - **One-click submissions**: Clicking the contribution link opens a labeled and prefilled GitHub issue form with all titles, IDs and URLs ready to submit.
 
----
-
-## Documentation
-
-- **[Selection Guidelines](../docs/selection-guidelines.md)** - Image rules, aspect ratio limits, allowed hosts, theme audio rules, examples, and established poster sets.
-- **[Contributing & Development](CONTRIBUTING.md)** - Development environment setup, testing, validation scripts, and schema contracts.
-- **[Security Policy](SECURITY.md)** - Vulnerability reporting and disclosure.
+Read the [Selection Guidelines](../docs/selection-guidelines.md) to start contributing.
 
 ---
 
