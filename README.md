@@ -14,7 +14,7 @@
 
 ## Overview
 
-OvertureDB helps you find consistent posters, backgrounds, and theme music for your media library. The public catalog stores curated selections as metadata, image URLs, and YouTube IDs for Overture to match against your movies and shows. It does not host or redistribute image or audio files.
+OvertureDB provides consistent posters, backgrounds, and theme music for your media library. The public catalog stores curated selections as metadata, image URLs, and YouTube IDs for Overture to match against your movies and shows. It does not host or redistribute image or audio files.
 
 ---
 
