@@ -21,18 +21,18 @@ OvertureDB provides consistent posters, backgrounds, and theme music for your me
 ## Highlights
 
 - **Visual consistency**: Matching poster sets across franchises, director collections, and TV seasons.
-- **Real background scenes**: Genuine shots from the movie or episode—no "photoshopped" character collages or floating heads.
+- **Real background scenes**: Genuine shots from the movie or episode - no "photoshopped" character collages or floating heads.
 - **Criterion artwork**: Authentic, modern-formatted Criterion posters for films distributed by Criterion.
-- **Curated themes**: 1–2 minute standalone audio clips without dialogue intros, YouTube promos, or watermarks.
+- **Curated themes**: 1-2 minute standalone audio clips without dialogue intros, YouTube promos, or watermarks.
 - **Effortless contributions via Overture**: Select your artwork and theme in Overture, click the GitHub contribution link, and the issue form opens with all titles, IDs, and URLs prefilled. You never have to look up external IDs or copy anything manually.
 
 ---
 
 ## Documentation
 
-- **[Selection Guidelines](docs/selection-guidelines.md)** — Image rules, resolutions, allowed hosts, theme audio rules, and established poster sets.
-- **[Contributing & Development](CONTRIBUTING.md)** — Development environment setup, testing, validation scripts, and schema contracts.
-- **[Security Policy](.github/SECURITY.md)** — Vulnerability reporting and disclosure.
+- **[Selection Guidelines](docs/selection-guidelines.md)** - Image rules, aspect ratio limits, allowed hosts, theme audio rules, examples, and established poster sets.
+- **[Contributing & Development](.github/CONTRIBUTING.md)** - Development environment setup, testing, validation scripts, and schema contracts.
+- **[Security Policy](.github/SECURITY.md)** - Vulnerability reporting and disclosure.
 
 ---
 

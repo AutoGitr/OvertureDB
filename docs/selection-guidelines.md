@@ -1,16 +1,54 @@
 # Selection Guidelines
 
-Movies and TV Shows are refered to as items in this document.
+OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. It does not host image or audio files.
 
 ---
 
 ## 1. General Rules
 
-- **Represent the item**: Artwork and audio must match the tone and style of the item.
-- **Consistency**: Keep artwork consistent across related items (franchises, collections, seasons etc.).
-- **No spoilers**: Do not submit artwork or theme music that spoils major plot points, twists, character deaths, or endings.
-- **No explicit or malicious content**: Submissions must not contain adult or explicit (NSFW) imagery, gore, hate speech, or deceptive/malicious links.
-- **Submit new sets to docs**: When you use a new poster set for a franchise or collection, submit a pull request adding it to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
+### Preferred Source
+TMDB (`image.tmdb.org`) is the preferred and prioritised artwork source. Other allowed sources (ThePosterDB, Fanart.tv, TheTVDB, Plex Static) should only be used when TMDB lacks suitable artwork.
+- Follows: https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (Direct TMDB image)
+- Does not follow: https://i.imgur.com/8NStB0C.jpg (Third-party rehost not on the allowlist)
+
+### Aspect Ratio Margin (1% Rule)
+The aspect ratio of submitted artwork must lie within a 1% margin of the stated target aspect ratios:
+- Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
+- Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
+- Follows (exact 2:3): https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (2000x3000)
+- Follows (exact 16:9): https://image.tmdb.org/t/p/original/A2a3ZsfMGfwbk6H0WRBxJBUdRuA.jpg (3840x2160)
+- Does not follow (1:1 square): https://theposterdb.com/api/assets/95 (Square image with 33% aspect ratio error)
+- Does not follow (16:10): https://theposterdb.com/api/assets/100 (1920x1200 image with 10% aspect ratio error)
+
+### Represent the Item
+Artwork and audio must match the tone, genre, and aesthetic of the movie or show.
+- Follows: https://image.tmdb.org/t/p/original/vokienr4CK4A5RyB2QaVlrU9CS7.jpg (Authentic visual tone matching the film)
+- Does not follow: https://theposterdb.com/poster/1 (Mismatched fan art or parody style that misrepresents the work)
+
+### Visual Consistency
+Keep artwork consistent across related items in a franchise, collection or TV show seasons.
+- Follows: https://theposterdb.com/set/87082 (Consistent visual language across the full Marvel Cinematic Universe set)
+- Does not follow: https://theposterdb.com/api/assets/6044 (Mixing a minimalist stylized poster into a franchise that otherwise uses photo posters)
+
+### Criterion Collection Films
+Any Criterion film must use a properly formatted Criterion poster. It must use modern Criterion formatting (clean layout), correct aspect ratio (not stretched or distorted), and authentic Criterion cover art.
+- Follows: https://theposterdb.com/api/assets/183441 (Modern Criterion framing with authentic cover art)
+- Does not follow: https://theposterdb.com/poster/40722 (Non-Criterion generic art or stretched scan used for a Criterion title)
+
+### No Spoilers
+Do not submit artwork or theme music that spoils major plot points, twists, character deaths, or endings.
+- Follows: https://image.tmdb.org/t/p/original/A2a3ZsfMGfwbk6H0WRBxJBUdRuA.jpg (Premise-setting scene without spoilers)
+- Does not follow: https://image.tmdb.org/t/p/original/bvYjhsbxCrardzgVv5IRRAkjF05.jpg (Art depicting third-act twist reveals, death scenes, or villain identities)
+
+### No Explicit or Malicious Content
+Submissions must not contain adult or explicit (NSFW) imagery, nudity, gore, hate speech, or deceptive/malicious links.
+- Follows: https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (General theatrical art suitable for catalog browsing)
+- Does not follow: https://theposterdb.com/poster/2 (Explicit adult imagery or malicious URL targets)
+
+### Document New Poster Sets
+When you use a new poster set for a franchise or collection, submit a pull request adding its link to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
+- Follows: Adding https://theposterdb.com/set/87082 to the established sets table when contributing MCU titles.
+- Does not follow: https://theposterdb.com/set/999999 (Submitting items from a multi-item set without documenting the set link)
 
 ---
 
@@ -19,44 +57,60 @@ Movies and TV Shows are refered to as items in this document.
 ### Posters
 - Must contain the title.
 - Preferably no other text (no taglines, actor lists, critic quotes, or release dates) unless it genuinely suits the item.
-- 2000×3000 (2:3 aspect ratio) preferred.
-- Any item distributed by Criterion must use the poster they use for the item on their website. Many Criterion posters have been stretched out since they do not make their cover art in the 2:3 aspect ratio, so only use ones that have been properly reformatted without stretching.
+- 2000x3000 (2:3 aspect ratio) preferred.
+- Follows: https://theposterdb.com/api/assets/6044 (Clean title, no promotional clutter)
+- Does not follow: https://image.tmdb.org/t/p/original/bvYjhsbxCrardzgVv5IRRAkjF05.jpg (Theatrical sheet covered with actor credits, review stars, and billing block)
 
 ### Backgrounds
 - Must be a real scene or shot taken directly from the item.
 - No text unless it naturally appears in the scene.
-- 3840×2160 (16:9 aspect ratio) preferred; 1920×1080 minimum.
+- 3840x2160 (16:9 aspect ratio) preferred; 1920x1080 minimum.
 - **Never use "photoshopped" composite images** where main characters are cut out and placed together, or shown as floating heads.
+- Follows: https://image.tmdb.org/t/p/original/A4jlgm2beUpcCrzNK6fNHnFABjB.jpg (Authentic scene frame taken directly from the movie)
+- Does not follow: https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg (Marketing collage of floating character heads pasted on a generic background)
 
 ### Season Posters
-- Must contain the season info (e.g., "Season 1").
+- Must contain the season info (for example, "Season 1").
 - Preferably nothing else unless it suits the item.
-- 2000×3000 preferred.
+- 2000x3000 preferred.
 - An item's season posters must be consistent with each other.
+- Follows: https://image.tmdb.org/t/p/original/8jOvcm6ivd3VlQaSv88wvlkIIQD.jpg (Clean season poster with clear season number)
+- Does not follow: https://theposterdb.com/api/assets/200 (Missing season number or clashing art style from other seasons of the same show)
 
 ---
 
 ## 3. Theme Audio Requirements
 
-- Preferred length is **1 to 2 minutes**.
+### Duration and Audio Quality
+- Preferred length is 1 to 2 minutes.
 - Clean audio only: no dialogue intros, YouTube outro promotions, watermarks, or abrupt cutoffs.
-- **Do not duplicate ThemerrDB**: Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if ThemerrDB does not have one, or if you are providing a distinctly better version.
+- Follows: https://www.youtube.com/watch?v=tXsZxz37PDo (Clean, standalone theme audio)
+- Does not follow: https://www.youtube.com/watch?v=dQw4w9WgXcQ (Irrelevant audio, voiceover channel intro, or sudden cutoff)
+
+### Do Not Duplicate ThemerrDB
+Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if ThemerrDB does not have one, or if you are providing a distinctly better version.
+- Follows: Setting `youtube_id_overturedb` = "tXsZxz37PDo" when `youtube_id_themerrdb` is null or lower quality.
+- Does not follow: Submitting the identical YouTube ID "JW81PFSsNZs" for OvertureDB when it already exists in ThemerrDB.
 
 ---
 
 ## 4. Allowed Sources & URL Formats
 
-Artwork URLs must use public HTTPS on one of these allowed hosts:
-
-| Source | Allowed Host | Required Format |
-| :--- | :--- | :--- |
-| **TMDB** | `image.tmdb.org` | Direct image path (e.g. `/t/p/original/...`). |
-| **ThePosterDB** | `theposterdb.com`<br>`www.theposterdb.com` | Must use the direct API path: `/api/assets/<id>`.<br>Do not include trailing `/view` or URL fragments (`#`). |
-| **TheTVDB** | `artworks.thetvdb.com` | Direct image path. |
-| **Fanart.tv** | `assets.fanart.tv` | Direct image path. |
-| **Plex Static** | `metadata-static.plex.tv` | Direct static image path. |
+| Source | Priority | Allowed Host | Required Format |
+| :--- | :--- | :--- | :--- |
+| **TMDB** | Preferred | `image.tmdb.org` | Direct image path (e.g. `/t/p/original/...`). |
+| **ThePosterDB** | Secondary | `theposterdb.com`<br>`www.theposterdb.com` | Must use the direct API path: `/api/assets/<id>`.<br>Do not include trailing `/view` or URL fragments (`#`). |
+| **Fanart.tv** | Secondary | `assets.fanart.tv` | Direct image path. |
+| **TheTVDB** | Secondary | `artworks.thetvdb.com` | Direct image path. |
+| **Plex Static** | Secondary | `metadata-static.plex.tv` | Direct static image path. |
 
 Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
+
+- Follows (TMDB direct and original resolution): https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg
+- Follows (TPDB direct API): https://theposterdb.com/api/assets/183441
+- Does not follow (TPDB web page link): https://theposterdb.com/poster/183441
+- Does not follow (TPDB trailing view): https://theposterdb.com/api/assets/183441/view
+- Does not follow (Insecure HTTP): http://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg
 
 ---
 
@@ -66,19 +120,19 @@ When contributing items that belong to these series, use the established set to 
 
 | Series / Category | Poster Set Link | Notes |
 | :--- | :--- | :--- |
-| **Apocalypse Documentaries** | https://theposterdb.com/set/398222 | Documentary series. |
-| **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
-| **David Attenborough (Planet Documentaries)** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
-| **James Bond** | https://theposterdb.com/set/62004 | |
-| **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | From TPDB user `fwlolx`. |
-| **Disneynature** | https://theposterdb.com/set/11090 | |
+| **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
+| **Walt Disney Animation Studios Shorts** | Posters in this style: https://theposterdb.com/poster/206944 | From TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
 | **Pixar Animation Studios** | https://theposterdb.com/set/97 | |
 | **Pixar Shorts** | https://theposterdb.com/set/11456 | |
 | **Studio Ghibli** | https://theposterdb.com/set/32965 | |
+| **Disneynature** | https://theposterdb.com/set/11090 | |
+| **Apocalypse Documentaries** | https://theposterdb.com/set/398222 | Documentary series. |
+| **James Bond** | https://theposterdb.com/set/62004 | |
+| **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | From TPDB user `fwlolx`. |
+| **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
+| **Planet Documentaries** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
 | **Marvel Cinematic Universe** | https://theposterdb.com/set/87082 | |
 
-| **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
-| **Walt Disney Animation Studios Shorts** | Posters in this style: https://theposterdb.com/poster/206944 | From TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
 ---
 
 ## 6. How to Submit
@@ -99,10 +153,12 @@ You can also open an issue directly:
 
 ### Modifying an Existing Entry
 If you are changing an existing catalog entry, you **must replace the placeholder text in "Reason for modification"** with an explanation (such as higher resolution, textless artwork, or fixing a dead link). If the placeholder is left unchanged, the submission is paused to prevent accidental overwrites.
+- Follows: "Replaced with 2000x3000 textless TMDB poster to replace low-res poster."
+- Does not follow: Leaving the default placeholder: "If this modifies an existing entry, replace this text with a reason for the change..."
 
 ### Review and Bot Commands
 Submissions are validated by an automated preview workflow. Maintainers review the issue and can run these commands in a comment:
-- `@OvertureDB-bot approve` — Generates a bot PR and merges the change.
-- `@OvertureDB-bot reject [reason]` — Rejects the submission and closes the issue.
+- `@OvertureDB-bot approve` - Generates a bot PR and merges the change.
+- `@OvertureDB-bot reject [reason]` - Rejects the submission and closes the issue.
 
 Maintainers can also edit the issue description directly to adjust URLs or metadata before approving.

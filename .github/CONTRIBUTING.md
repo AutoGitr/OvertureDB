@@ -1,16 +1,16 @@
 # Contributing to OvertureDB
 
-Thank you for helping improve OvertureDB. This document covers code, schemas, automated workflows, and local validation.
+This document covers code, schemas, automated workflows, and local validation.
 
 > [!TIP]
 > **Contributing artwork or theme music?**
-> See the **[Selection Guidelines](docs/selection-guidelines.md)**.
+> See the **[Selection Guidelines](../docs/selection-guidelines.md)**.
 
 ---
 
 ## Tooling & Setup
 
-Code and scripts use Python 3.14.7 managed with `uv`.
+Code and scripts use Python 3.14.7 managed with `uv`. Do not invoke `pip` directly.
 
 ```sh
 uv sync
@@ -66,8 +66,8 @@ When changing schemas:
 Dataset submissions are converted into pull requests by `@OvertureDB-bot`.
 
 Maintainers can trigger bot actions in issue comments:
-- `@OvertureDB-bot approve` — Generates a bot PR and merges the selection.
-- `@OvertureDB-bot reject [reason]` — Closes the issue with the given reason.
+- `@OvertureDB-bot approve` - Generates a bot PR and merges the selection.
+- `@OvertureDB-bot reject [reason]` - Closes the issue with the given reason.
 
 Maintainers can edit issue descriptions directly to correct URLs or IDs. Saving re-runs validation before approval.
 

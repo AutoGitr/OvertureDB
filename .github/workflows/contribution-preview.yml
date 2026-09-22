@@ -69,7 +69,7 @@ jobs:
               echo
 
               if [ -z "$zip_url" ]; then
-                echo "⚠️ No valid GitHub-attached \`.zip\` archive found in the issue description."
+                echo "[Warning] No valid GitHub-attached \`.zip\` archive found in the issue description."
                 echo "Please attach your \`overturedb-selections.zip\` by editing the issue and dragging the file into the description area."
               else
                 echo "Archive: \`$zip_url\`"
@@ -87,12 +87,12 @@ jobs:
                     printf '%s\n' "$review_section"
                   fi
                 else
-                  echo "⚠️ Could not download attached archive file (must be a valid GitHub attachment under 10 MB)."
+                  echo "[Warning] Could not download attached archive file (must be a valid GitHub attachment under 10 MB)."
                 fi
               fi
 
               echo
-              cat bot_commands.md
+              cat .github/bot_commands.md
             } > "$comment_file"
 
           else
@@ -199,7 +199,7 @@ jobs:
               fi
 
               echo
-              cat bot_commands.md
+              cat .github/bot_commands.md
             } > "$comment_file"
           fi
 
