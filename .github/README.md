@@ -36,7 +36,7 @@ Using [Overture](https://github.com/AutoGitr/Overture) makes both contributing a
 - **True image validation**: Checks file signatures to guarantee authentic JPEG and PNG files, filtering out corrupt or unsupported formats.
 - **Correct links**: Ensures correct HTTPS URLs in the required format (such as direct ThePosterDB API paths and TMDB image links).
 - **Accurate external IDs**: Automatically pairs verified TMDB, TVDB, and IMDb IDs from your media server match, eliminating typos.
-- **One-click submissions**: Clicking the contribution link opens a prefilled GitHub issue form with all titles, IDs, URLs and labels ready to submit.
+- **One-click submissions**: Clicking the contribution link opens a labeled and prefilled GitHub issue form with all titles, IDs and URLs ready to submit.
 
 ---
 
