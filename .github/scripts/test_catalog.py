@@ -166,6 +166,19 @@ class BuildTests(unittest.TestCase):
         payload = json.loads(raw)
         self.assertEqual(payload, envelope([movie()]))
         validate_catalog(payload)
+        stats = json.loads((first / "stats.json").read_text(encoding="utf-8"))
+        self.assertEqual(stats["source_revision"], payload["source_revision"])
+        self.assertEqual(stats["generated_at"], payload["generated_at"])
+        self.assertEqual(stats["counts"]["movies"]["titles"], 1)
+        self.assertEqual(stats["counts"]["total"]["posters"], 1)
+        self.assertEqual(stats["counts"]["shows"]["titles"], 0)
+        for name in ("stats.json", "stats-light.svg", "stats-dark.svg"):
+            self.assertIn(name, (first / "SHA256SUMS").read_text())
+            self.assertIn(name, (first / "index.html").read_text())
+        self.assertNotEqual(
+            (first / "stats-light.svg").read_bytes(),
+            (first / "stats-dark.svg").read_bytes(),
+        )
         for line in (first / "SHA256SUMS").read_text().splitlines():
             digest, name = line.split("  ")
             self.assertEqual(

@@ -19,6 +19,8 @@ from urllib.error import HTTPError
 from urllib.parse import SplitResult, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from catalog_stats import dashboard, statistics_json, summarize
+
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "schema"))
 
@@ -198,6 +200,19 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
         "catalog.json": content,
         "catalog.json.gz": gzip.compress(content, mtime=0),
     }
+    groups = summarize(entries)
+    artifacts["stats.json"] = (
+        json.dumps(
+            statistics_json(groups, revision=revision, generated_at=generated_at),
+            sort_keys=True,
+            indent=2,
+        )
+        + "\n"
+    ).encode("utf-8")
+    for theme in ("light", "dark"):
+        artifacts[f"stats-{theme}.svg"] = dashboard(
+            groups, revision=revision, generated_at=generated_at, dark=theme == "dark"
+        ).encode("utf-8")
     for name, data in artifacts.items():
         (output / name).write_bytes(data)
     (output / "SHA256SUMS").write_text(

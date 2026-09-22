@@ -45,6 +45,23 @@ uv run python .github/scripts/catalog.py build
 
 ---
 
+## README statistics
+
+The catalog build also publishes `stats.json`, `stats-light.svg`, and
+`stats-dark.svg`. The README loads the SVGs from GitHub Pages, so statistics
+refresh with the existing daily publication without committing generated files.
+All statistics use the same validated entries and source revision as the catalog,
+and their checksums are included in `SHA256SUMS`.
+
+Counting and presentation live in `.github/scripts/catalog_stats.py`. Theme
+totals count both source selections; theme coverage counts each title once.
+Season totals include specials, but do not claim completeness because expected
+season counts are not stored. No historical growth is inferred from release years
+or commit dates. After a clean-checkout build, open `public/stats-light.svg` and
+`public/stats-dark.svg` to preview both themes.
+
+---
+
 ## Schema Contracts
 
 OvertureDB defines canonical JSON schemas shared with [Overture](https://github.com/AutoGitr/Overture):
