@@ -35,16 +35,4 @@ OvertureDB provides consistent posters, backgrounds, and theme music for your me
   </picture>
 </a>
 
-<details>
-<summary>How the numbers are counted</summary>
-
-- **Movies / shows:** catalog entries, including titles that currently have only a theme.
-- **Posters / backgrounds:** non-empty selections for movies and shows. Season posters are counted separately.
-- **Season posters:** recorded season selections, including season 0 (specials). The catalog does not list every expected season, so this is not a season-completeness percentage.
-- **Themes:** all OvertureDB and ThemerrDB theme selections. A title with both contributes two themes, but counts once in theme coverage.
-- **Coverage:** titles with a selection divided by all catalog titles of that media type. **Core complete** means a poster, background and at least one theme; it does not imply complete season artwork or a fresh live-link check.
-- Totals count selections, not unique image files or YouTube videos. Shared assets count once for each title or season using them.
-
-</details>
-
 Want to help fill the gaps? Read the [Selection Guidelines](../docs/selection-guidelines.md) to get started.

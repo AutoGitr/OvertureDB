@@ -118,7 +118,7 @@ def dashboard(
             f'font-weight="{weight}" text-anchor="{anchor}">{escape(value)}</text>'
         )
 
-    text(32, 78, "OVERTUREDB STATS", size=27, weight=600)
+    text(32, 78, "OvertureDB Stats", size=27, weight=600)
     text(
         32,
         106,
