@@ -6,91 +6,53 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 
 ## 1. General Rules
 
-### Preferred Source
-TMDB (`image.tmdb.org`) is the preferred and prioritised artwork source. Other allowed sources (ThePosterDB, Fanart.tv, TheTVDB, Plex Static) should only be used when TMDB lacks suitable artwork.
-- Follows: https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (Direct TMDB image)
-- Does not follow: https://i.imgur.com/8NStB0C.jpg (Third-party rehost not on the allowlist)
-
-### Aspect Ratio Margin (1% Rule)
-The aspect ratio of submitted artwork must lie within a 1% margin of the stated target aspect ratios:
-- Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
-- Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
-- Follows (exact 2:3): https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (2000x3000)
-- Follows (exact 16:9): https://image.tmdb.org/t/p/original/A2a3ZsfMGfwbk6H0WRBxJBUdRuA.jpg (3840x2160)
-- Does not follow (1:1 square): https://theposterdb.com/api/assets/95 (Square image with 33% aspect ratio error)
-- Does not follow (16:10): https://theposterdb.com/api/assets/100 (1920x1200 image with 10% aspect ratio error)
-
-### Represent the Item
-Artwork and audio must match the tone, genre, and aesthetic of the movie or show.
-- Follows: https://image.tmdb.org/t/p/original/vokienr4CK4A5RyB2QaVlrU9CS7.jpg (Authentic visual tone matching the film)
-- Does not follow: https://theposterdb.com/poster/1 (Mismatched fan art or parody style that misrepresents the work)
-
-### Visual Consistency
-Keep artwork consistent across related items in a franchise, collection or TV show seasons.
-- Follows: https://theposterdb.com/set/87082 (Consistent visual language across the full Marvel Cinematic Universe set)
-- Does not follow: https://theposterdb.com/api/assets/6044 (Mixing a minimalist stylized poster into a franchise that otherwise uses photo posters)
-
-### Criterion Collection Films
-Any Criterion film must use a properly formatted Criterion poster. It must use modern Criterion formatting (clean layout), correct aspect ratio (not stretched or distorted), and authentic Criterion cover art.
-- Follows: https://theposterdb.com/api/assets/183441 (Modern Criterion framing with authentic cover art)
-- Does not follow: https://theposterdb.com/poster/40722 (Non-Criterion generic art or stretched scan used for a Criterion title)
-
-### No Spoilers
-Do not submit artwork or theme music that spoils major plot points, twists, character deaths, or endings.
-- Follows: https://image.tmdb.org/t/p/original/A2a3ZsfMGfwbk6H0WRBxJBUdRuA.jpg (Premise-setting scene without spoilers)
-- Does not follow: https://image.tmdb.org/t/p/original/bvYjhsbxCrardzgVv5IRRAkjF05.jpg (Art depicting third-act twist reveals, death scenes, or villain identities)
-
-### No Explicit or Malicious Content
-Submissions must not contain adult or explicit (NSFW) imagery, nudity, gore, hate speech, or deceptive/malicious links.
-- Follows: https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg (General theatrical art suitable for catalog browsing)
-- Does not follow: https://theposterdb.com/poster/2 (Explicit adult imagery or malicious URL targets)
-
-### Document New Poster Sets
-When you use a new poster set for a franchise or collection, submit a pull request adding its link to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
-- Follows: Adding https://theposterdb.com/set/87082 to the established sets table when contributing MCU titles.
-- Does not follow: https://theposterdb.com/set/999999 (Submitting items from a multi-item set without documenting the set link)
+- **Preferred Source**: TMDB (`image.tmdb.org`) is the preferred and prioritised artwork source.
+- **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the stated target aspect ratios:
+  - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
+  - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
+- **Represent the Item**: Artwork and audio must match the tone, genre, and aesthetic of the movie or show.
+- **Visual Consistency**: Keep artwork consistent across related items in a franchise, collection or TV show seasons.
+- **Criterion Collection Films**: Any Criterion film must use a properly formatted Criterion poster. It must use modern Criterion formatting (clean layout), correct aspect ratio (not stretched or distorted), and authentic Criterion cover art.
+- **No Spoilers**: Do not submit artwork or theme music that spoils major plot points, twists, character deaths, or endings.
+- **No Explicit or Malicious Content**: Submissions must not contain adult or explicit (NSFW) imagery, nudity, gore, hate speech, or deceptive/malicious links.
+- **Document New Poster Sets**: When you use a new poster set for a franchise or collection, submit a pull request adding its link to [Established Poster Sets](#5-established-poster-sets) so future contributions stay aligned.
 
 ---
 
 ## 2. Artwork Requirements
 
 ### Posters
+
 - Must contain the title.
 - Preferably no other text (no taglines, actor lists, critic quotes, or release dates) unless it genuinely suits the item.
 - 2000x3000 (2:3 aspect ratio) preferred.
-- Follows: https://theposterdb.com/api/assets/6044 (Clean title, no promotional clutter)
-- Does not follow: https://image.tmdb.org/t/p/original/bvYjhsbxCrardzgVv5IRRAkjF05.jpg (Theatrical sheet covered with actor credits, review stars, and billing block)
 
 ### Backgrounds
+
 - Must be a real scene or shot taken directly from the item.
 - No text unless it naturally appears in the scene.
 - 3840x2160 (16:9 aspect ratio) preferred; 1920x1080 minimum.
 - **Never use "photoshopped" composite images** where main characters are cut out and placed together, or shown as floating heads.
-- Follows: https://image.tmdb.org/t/p/original/A4jlgm2beUpcCrzNK6fNHnFABjB.jpg (Authentic scene frame taken directly from the movie)
-- Does not follow: https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg (Marketing collage of floating character heads pasted on a generic background)
 
 ### Season Posters
+
 - Must contain the season info (for example, "Season 1").
 - Preferably nothing else unless it suits the item.
 - 2000x3000 preferred.
 - An item's season posters must be consistent with each other.
-- Follows: https://image.tmdb.org/t/p/original/8jOvcm6ivd3VlQaSv88wvlkIIQD.jpg (Clean season poster with clear season number)
-- Does not follow: https://theposterdb.com/api/assets/200 (Missing season number or clashing art style from other seasons of the same show)
 
 ---
 
 ## 3. Theme Audio Requirements
 
 ### Duration and Audio Quality
+
 - Preferred length is 1 to 2 minutes.
 - Clean audio only: no dialogue intros, YouTube outro promotions, watermarks, or abrupt cutoffs.
-- Follows: https://www.youtube.com/watch?v=tXsZxz37PDo (Clean, standalone theme audio)
-- Does not follow: https://www.youtube.com/watch?v=dQw4w9WgXcQ (Irrelevant audio, voiceover channel intro, or sudden cutoff)
 
 ### Do Not Duplicate ThemerrDB
-Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if ThemerrDB does not have one, or if you are providing a distinctly better version.
-- Follows: Setting `youtube_id_overturedb` = "tXsZxz37PDo" when `youtube_id_themerrdb` is null or lower quality.
-- Does not follow: Submitting the identical YouTube ID "JW81PFSsNZs" for OvertureDB when it already exists in ThemerrDB.
+
+- Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if ThemerrDB does not have one, or if you are providing a distinctly better version.
 
 ---
 
@@ -104,19 +66,15 @@ Overture automatically imports ThemerrDB themes. Only add an OvertureDB theme if
 | **TheTVDB** | Secondary | `artworks.thetvdb.com` | Direct image path. |
 | **Plex Static** | Secondary | `metadata-static.plex.tv` | Direct static image path. |
 
-Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
-
-- Follows (TMDB direct and original resolution): https://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg
-- Follows (TPDB direct API): https://theposterdb.com/api/assets/183441
-- Does not follow (TPDB web page link): https://theposterdb.com/poster/183441
-- Does not follow (TPDB trailing view): https://theposterdb.com/api/assets/183441/view
-- Does not follow (Insecure HTTP): http://image.tmdb.org/t/p/original/v9q9VLMTMagiqYnMP7br3FjVzcI.jpg
+- Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
+- Use HTTPS URLs.
 
 ---
 
 ## 5. Established Poster Sets
 
-When contributing items that belong to these series, use the established set to keep the catalog consistent (alphabetically sorted) and add to it when introducing a new set:
+- Use the established poster set when contributing items that belong to the series below.
+- Add new sets to the table and keep it alphabetically sorted.
 
 | Series / Category | Poster Set Link | Notes |
 | :--- | :--- | :--- |
@@ -155,16 +113,17 @@ Review the details and click **Submit new issue**.
 To contribute your complete selections at once, export your saved selections (**OvertureDB -> Export selections**) and upload the `.zip` to the [Bulk Contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml) form.
 
 ### Manual Submissions
+
 You can also open an issue directly:
 - **[Movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml)**: Title, year, external IDs, poster URL, background URL, and YouTube ID.
 - **[Show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml)**: Same as movie, plus season poster URLs (`season_number=url`).
 
 ### Modifying an Existing Entry
-If you are changing an existing catalog entry, you **must replace the placeholder text in "Reason for modification"** with an explanation (such as higher resolution, textless artwork, or fixing a dead link). If the placeholder is left unchanged, the submission is paused to prevent accidental overwrites.
-- Follows: "Replaced with 2000x3000 textless TMDB poster to replace low-res poster."
-- Does not follow: Leaving the default placeholder: "If this modifies an existing entry, replace this text with a reason for the change..."
+
+- If you are changing an existing catalog entry, you **must replace the placeholder text in "Reason for modification"** with an explanation (such as higher resolution, textless artwork, or fixing a dead link). If the placeholder is left unchanged, the submission is paused to prevent accidental overwrites.
 
 ### Review and Bot Commands
+
 Submissions are validated by an automated preview workflow. Maintainers review the issue and can run these commands in a comment:
 - `@OvertureDB-bot approve` - Generates a bot PR and merges the change.
 - `@OvertureDB-bot reject [reason]` - Rejects the submission and closes the issue.
