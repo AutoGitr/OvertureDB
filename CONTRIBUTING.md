@@ -1,92 +1,99 @@
 # Contributing to OvertureDB
 
-OvertureDB accepts curated selections, not arbitrary media uploads. The repository
-stores metadata, image URLs, and YouTube IDs; never attach copyrighted image or
-audio files to a contribution.
+Thank you for helping improve OvertureDB. This document outlines development standards, validation tools, schema contract management, and contribution workflows.
 
-## Selection criteria
+> [!TIP]
+> **Looking to contribute artwork or theme music?**  
+> Read the **[Selection Guidelines](docs/selection-guidelines.md)** for detailed curation standards, resolution requirements, allowed sources, Criterion rules, and established poster sets.
 
-- Use stable external IDs for the exact movie or show.
-- Prefer high-resolution, correctly framed artwork from the allowlisted providers.
-- Posters should identify the title clearly and avoid unrelated promotional text.
-- Backgrounds should work as wide artwork without critical content at the edges.
-- A show's season poster set should be visually coherent.
-- Theme selections should identify the work, contain no unrelated commentary, and
-  normally run between 30 seconds and five minutes.
-- Do not submit malicious, deceptive, explicit, hateful, or rights-infringing
-  destinations.
+---
 
-Review is curatorial. A structurally valid contribution may still be declined when
-the selection is low quality, duplicative, misleading, or inconsistent with an
-existing set.
+## Code & Tooling Guidelines
 
-## Submit a selection
+OvertureDB's build scripts, validation suite, and import automation are written in Python 3.14.7 and managed with Astral's `uv`.
 
-Use the repository contribution issue form. Supply the media type, title, year,
-at least one external ID, desired artwork URLs, optional season posters, and an
-11-character YouTube ID where applicable. All submissions require asserting compliance
-with the guidelines via the contribution form checkbox.
+### Tooling Conventions
+- **No Direct `pip`**: Always use `uv` for dependency management.
+- **Strict Linting & Formatting**: Enforced via Ruff.
+- **Reproducible Builds**: All catalog artifacts (`catalog.json`, `catalog.json.gz`, and `SHA256SUMS`) must build deterministically.
 
-### Modifications to existing entries
+### Local Environment Setup
 
-If a contribution updates an item that already exists in OvertureDB, the contributor
-must replace the pre-filled placeholder in **Reason for modification** with an explanation
-of the change (e.g. higher resolution, textless artwork, dead link, corrected ID).
-Submissions where the placeholder is left unmodified will be paused with instructions,
-preventing accidental overwrites.
-
-### Moderator Bot Commands
-
-A maintainer can trigger OvertureDB-bot actions by commenting on the contribution issue:
-
-- `@OvertureDB-bot approve` - creates a pull request for this contribution.
-- `@OvertureDB-bot reject [reason]` - rejects this contribution, closes the issue as not planned, and records the reason.
-
-### Maintainer workflow: Modifying or adjusting selections
-
-When maintainers want to adjust a selection (e.g. swap to a higher-resolution poster, fix a typo, or correct an external ID):
-1. **Direct Edit:** Maintainers have write permissions to edit the issue description directly. Clicking **Edit** on the issue form and saving changes triggers the automated preview workflow to recalculate and validate the new URLs immediately. The maintainer can then comment `@OvertureDB-bot approve`.
-2. **Contributor Revision:** Maintainers may comment feedback asking the contributor to update their submission.
-3. **Rejection:** Comment `@OvertureDB-bot reject [reason]` to close the issue cleanly.
-
-Curated dataset JSON changes are accepted through that bot workflow. Automated
-ThemerrDB imports maintain secondary themes separately. This keeps filenames,
-schema validation, and the relationship between an issue and its pull request
-consistent. Changes to schemas, validators, workflows, documentation, notices, or
-licenses use an ordinary maintainer pull request.
-
-## Validate changes
-
-Use Python 3.14.7 managed with `uv`:
+Ensure Python 3.14.7 and `uv` are installed, then sync dependencies:
 
 ```sh
-uv lock --check
-uv run ruff check .github/scripts
-uv run ruff format --check .github/scripts
-uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
-uv run python .github/scripts/catalog.py validate
-uv run python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
+uv sync
 ```
 
-The pull-request guard validates the complete dataset and performs live checks for
-changed entries. The publication workflow repeats all tests and validates the
-complete catalog's structure and identities. Live URL checks remain available
-through `--check-urls` without blocking publication on remote availability.
+### Validation & Testing Commands
 
-## Corrections and removal requests
+Always run the full test suite and linters before submitting a pull request:
 
-Open an issue and identify the entry, field, reason, and supporting source. Use the
-same process for dead links, changed upstream content, incorrect IDs, attribution
-or licensing concerns, and removal requests from a rights holder. Do not include
-private personal information.
+```sh
+# 1. Verify lockfile integrity
+uv lock --check
 
-Maintainers preserve the discussion and corrective commit in Git history. The live
-catalog is rebuilt from corrected `main`; it does not continue serving the removed
-entry. Security-sensitive reports follow `.github/SECURITY.md`.
+# 2. Lint and format checks
+uv run ruff check .github/scripts
+uv run ruff format --check .github/scripts
 
-## Contract changes
+# 3. Run unit tests
+uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
 
-Contract changes require coordinated Overture and OvertureDB pull requests. Change
-the canonical schema and Python contract here, update tests, regenerate Overture's
-bundled contract (via `uv run python scripts/dataset_contract.py`, see [Overture Development Guide](../Overture/docs/development.md#schema-contracts-pipeline)), and increment `schema_version` when compatibility changes. Do not
-add compatibility shims for catalog formats that were never publicly released.
+# 4. Validate dataset schema and integrity
+uv run python .github/scripts/catalog.py validate
+
+# 5. (Optional) Run live URL check against a single entry
+uv run python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
+
+# 6. Test artifact build output
+uv run python .github/scripts/catalog.py build
+```
+
+---
+
+## Schema Contracts & Overture Synchronization
+
+OvertureDB defines the canonical JSON schemas and validation contracts shared with [Overture](https://github.com/AutoGitr/Overture).
+
+- Canonical definitions live in:
+  - `schema/entry.schema.json`
+  - `schema/catalog.schema.json`
+  - `schema/contract.py`
+- When modifying schemas:
+  1. Update the canonical contract in `OvertureDB/schema/`.
+  2. Run the test suite to confirm schema compliance.
+  3. Increment `SCHEMA_VERSION` if any incompatible validation, type, identity, or semantic changes are introduced.
+  4. Regenerate Overture's bundled contract (`uv run python scripts/dataset_contract.py` in the Overture repository) and land both pull requests together.
+- Never introduce legacy shims or backwards-compatibility wrappers for catalog versions that were never publicly released.
+
+---
+
+## Automation & Bot Workflows
+
+Dataset contributions are converted into automated pull requests via `@OvertureDB-bot`.
+
+### Moderator Bot Commands
+Maintainers manage contribution issues by commenting:
+- `@OvertureDB-bot approve` — Generates a bot-authored pull request with verified changes and merges the submission.
+- `@OvertureDB-bot reject [reason]` — Closes the issue as not planned with the provided reason recorded in the comment.
+
+### Maintainer Workflow
+Maintainers can directly edit an issue description to fix typos or adjust URLs. Saving changes automatically triggers the preview workflow to re-verify the selection before running `@OvertureDB-bot approve`.
+
+Non-dataset changes (updates to schemas, GitHub Actions, scripts, or documentation) use standard GitHub pull requests.
+
+---
+
+## Corrections and Removal Requests
+
+To report incorrect IDs, dead links, changed upstream media, attribution concerns, or removal requests from rights holders:
+1. Open a new issue in the repository.
+2. Specify the entry filename, affected fields, and relevant justification.
+3. Maintainers will verify the request and update or remove the entry. The published catalog is rebuilt automatically upon merge.
+
+---
+
+## Security Policy
+
+For security vulnerabilities (such as SSRF, redirect bypasses, workflow privilege escalation, or artifact tampering), follow the private disclosure process in **[.github/SECURITY.md](.github/SECURITY.md)**. Do not disclose vulnerabilities in public issues.

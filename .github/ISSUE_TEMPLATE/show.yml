@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before submitting, please review the [Contribution Guidelines and Selection Criteria](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md#selection-criteria).
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
 
   - type: input
     id: item_title
@@ -83,5 +83,5 @@ body:
     attributes:
       label: Contribution Guidelines
       options:
-        - label: I have read and followed the [Contribution Guidelines](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md).
+        - label: I have read and followed the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
           required: true

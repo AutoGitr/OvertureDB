@@ -1,117 +1,53 @@
 # OvertureDB
 
-OvertureDB is the public, opt-in catalog of curated artwork and theme selections
-used by [Overture](https://github.com/AutoGitr/Overture). It publishes metadata and
-links; it does not redistribute the linked artwork or YouTube audio.
+<p align="center">
+  <b>The open, curated catalog of premium artwork sets and verified theme music for <a href="https://github.com/AutoGitr/Overture">Overture</a>.</b>
+</p>
 
-## Published artifacts
+---
 
-The GitHub Pages publication contains:
+## Overview
 
-- `catalog.json` and deterministic `catalog.json.gz`;
-- `SHA256SUMS` for byte-level integrity checks;
-- the catalog and entry JSON schemas;
-- the source Git revision and its UTC commit timestamp; and
-- third-party notices and applicable license texts.
+**OvertureDB** is a community-driven metadata catalog dedicated to elevating personal media libraries. It provides hand-curated, high-resolution poster collections, authentic background scenes, and verified theme music selections for movies and television series.
 
-Hashes detect accidental or unexpected byte changes; they do not prove who
-published an artifact. Consumers must download from the repository's documented
-HTTPS Pages origin.
+Rather than hosting or redistributing copyrighted media files, OvertureDB indexes strictly verified URLs and identifiers. Users of Overture can seamlessly query OvertureDB to automatically match and apply consistent, high-standard artwork and audio directly to their Plex, Jellyfin, and Emby servers.
 
-## Contract
+---
 
-`schema/entry.schema.json`, `schema/catalog.schema.json`, and `schema/contract.py`
-are the canonical version 4 contract, shared with Overture through its
-`scripts/dataset_contract.py` generator. Change this source first, regenerate the
-app's bundled copy, and land both changes together. No other catalog format is
-served or supported.
+## Curation Highlights
 
-Entries have a nonblank title of at most 200 characters, a nullable four-digit
-year, and at least one external ID. Numeric IDs are positive signed 64-bit
-integers; IMDb IDs use `tt` followed by digits. IDs are unique within each media
-type, so a movie and show can legitimately share a numeric ID. Shows require a
-season list with unique nonnegative season numbers; movies cannot have seasons.
-Unknown properties, wrong scalar types, and duplicate identities reject the
-entire catalog.
+- **Visual Harmony**: Curated sets ensure that entire franchises, director collections, and TV show seasons share a consistent aesthetic and typography.
+- **Authentic Backdrops**: Backgrounds are genuine in-universe scenes captured directly from the film or episode—never artificial character collages or photoshopped floating heads.
+- **High-Standard Posters**: Crisp, 2000×3000 artwork with minimal text clutter, honoring the work's original artistic identity.
+- **Criterion Standards**: Criterion Collection releases utilize properly formatted Criterion artwork with authentic cover art.
+- **Curated Themes**: Clean, 1–2 minute standalone theme music clips without dialogue intros, watermarks, or sponsor stings.
 
-Files live directly in `data/movies` or `data/shows`, named for one of their IDs,
-such as `tmdb-123.json`, `tvdb-123.json`, or `imdb-tt123.json`. Artwork must use a
-public HTTPS destination on the allowlist in `.github/scripts/catalog.py`. Live
-validation checks every redirect and reads only enough bytes to verify JPEG or
-PNG content.
+---
 
-## ThemerrDB themes
+## Documentation & Guides
 
-The daily importer reads ThemerrDB's `database` branch. It fills
-`youtube_id_themerrdb`. Existing curated fields, including `youtube_id_overturedb`,
-are preserved (with `youtube_id_overturedb` yielding if there is an ID conflict).
-New entries contain a TMDB ID, title, year, and ThemerrDB theme; other metadata
-remains empty. Overture separates OvertureDB and ThemerrDB as selectable theme
-sources in its assets workflow, falling back if the first choice does not download.
-Both distinct choices are available in the theme panel.
+Whether you are contributing artwork selections, developing tooling, or integrating with OvertureDB, explore the relevant guide below:
 
-Manual import runs support a positive item limit and a dry run that validates and
-reports changes without writing files. Missing input directories, invalid existing
-data, and conflicting identity matches fail the import instead of silently
-overwriting records. Imports run daily; catalog publication runs once daily one
-hour later.
+| Guide | Description |
+| :--- | :--- |
+| 🎨 **[Selection Guidelines](docs/selection-guidelines.md)** | Rules for contributing artwork and themes: dimensions, allowed hosts, Criterion standards, and established poster sets. |
+| 🛠️ **[Contributing & Development](CONTRIBUTING.md)** | Technical guide for developers: Python environment setup, testing suite, schema contracts, and bot workflows. |
+| 🔒 **[Security Policy](.github/SECURITY.md)** | Procedures for responsibly disclosing vulnerabilities. |
 
-## Provenance and licensing
+---
 
-Artwork URLs identify the remote source; YouTube IDs identify the selected video.
-Contributors remain responsible for the accuracy of IDs and links.
+## Catalog Distribution
 
-Repository-level derivations and license obligations are recorded in
-`THIRD_PARTY_NOTICES.md` and `licenses/`. A catalog entry does not grant rights to
-downloaded media. Consumers and contributors must follow the source service's
-terms and applicable law.
+The curated catalog is validated and published daily to GitHub Pages as reproducible artifacts:
 
-## Validation and publication
+- `catalog.json` and `catalog.json.gz`: The full catalog payload.
+- `SHA256SUMS`: Byte-level integrity checksums.
+- Canonical JSON schemas enforcing strict data validation.
 
-Use Python 3.14.7:
+---
 
-```sh
-python -m pip install -r .github/scripts/requirements.txt
-ruff check .github/scripts
-ruff format --check .github/scripts
-python -m unittest discover -s .github/scripts -p 'test_*.py'
-python .github/scripts/catalog.py validate
-python .github/scripts/catalog.py validate --check-urls
-python .github/scripts/catalog.py build
-```
+## Licensing & Provenance
 
-Every contribution validates the complete dataset's structure and identities.
-`--entry data/movies/tmdb-123.json` limits only the live URL checks. Publication
-validates the complete catalog contract and runs tests before uploading a
-Pages artifact. Live URL checks run for contributions and can be run manually;
-publication does not depend on every remote source being available. Publication
-runs once daily on a schedule one hour after the ThemerrDB import, as well as via
-manual workflow dispatch. Build jobs have read-only repository permissions; only the
-deployment job receives Pages and identity-token write permissions.
+Artwork URLs link directly to approved public upstream hosts (ThePosterDB, TMDB, Fanart.tv, TheTVDB, Plex Static) and theme identifiers reference YouTube videos. Contributors and consumers remain responsible for adhering to the respective providers' terms and conditions.
 
-The builder sorts entries, uses canonical JSON encoding and a zero gzip timestamp,
-and derives `generated_at` from the source commit. It refuses a dirty checkout so
-`source_revision` identifies every input byte. Identical source and toolchain
-inputs therefore produce identical artifacts.
-
-## Schema versions
-
-The single Pages URL serves the current schema only. Increment `schema_version`
-for an incompatible field, type, validation, identity, or semantic change. Update
-Overture to understand that version before switching the publisher. Compatible
-clarifications that do not alter accepted data may remain on the current version.
-
-Old schemas are not retained at the live URL. A consumer must reject unsupported
-versions before changing local data, which Overture does. Published catalog
-artifacts remain reproducible from their Git revision.
-
-## Contributing and corrections
-
-Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for selection criteria, entry format,
-attribution rules, and local checks. Contributions are submitted through the issue
-form and converted into a constrained bot-authored pull request for review.
-
-Report incorrect IDs, dead or changed links, inappropriate selections, licensing
-concerns, or removal requests through a new issue. For a vulnerability in the
-validation or publication pipeline, use the private process in
-`.github/SECURITY.md` instead of disclosing it in an issue.
+Repository derivations, schemas, and automation scripts are provided under the repository's [LICENSE](LICENSE). Third-party acknowledgments are recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

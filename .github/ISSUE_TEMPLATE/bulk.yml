@@ -12,7 +12,7 @@ body:
 
         **How a Bulk Contributions Works**:
         - Only missing items and values are added.
-        - No existing items or values are modified or deleted. To modify selections, please submit a separate issue with the specific changes.
+        To modify selections, please submit a separate issue for the item with the specific changes.
 
   - type: textarea
     id: archive
@@ -34,5 +34,5 @@ body:
     attributes:
       label: Contribution Guidelines
       options:
-        - label: I have read and followed the [Contribution Guidelines](https://github.com/OvertureDB/OvertureDB/blob/main/CONTRIBUTING.md).
+        - label: I have read and followed the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
           required: true
