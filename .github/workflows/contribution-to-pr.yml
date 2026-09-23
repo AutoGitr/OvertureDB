@@ -158,7 +158,7 @@ jobs:
           set -euo pipefail
 
           fail() {
-            message="$1"
+            message="${1:-Unknown contribution build error}"
             echo "$message" >&2
             gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Could not create contribution pull request: ${message}"
             exit 1
@@ -225,13 +225,18 @@ jobs:
             gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' > "$labels_file"
 
             result_json="$(mktemp)"
+            error_file="$(mktemp)"
             if ! uv run python .github/scripts/contribution.py \
                 --issue-body-file "$body_file" \
                 --issue-title "$ISSUE_TITLE" \
                 --labels-file "$labels_file" \
                 --repo-root . \
-                --json > "$result_json" 2>&1; then
-              fail "$(cat "$result_json")"
+                --json > "$result_json" 2>"$error_file"; then
+              if [ -s "$result_json" ] && jq -e .error "$result_json" >/dev/null 2>&1; then
+                fail "$(jq -r .error "$result_json")"
+              else
+                fail "$(cat "$error_file")"
+              fi
             fi
 
             if [ "$(jq -r '.status // ""' "$result_json")" != "ok" ]; then
@@ -242,7 +247,7 @@ jobs:
             is_modification="$(jq -r .is_modification "$result_json")"
 
             if ! validation_output="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
-              rm -f "$target"
+              git checkout -- "$target" 2>/dev/null || rm -f "$target"
               fail "$validation_output"
             fi
 

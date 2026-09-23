@@ -328,6 +328,94 @@ Adding missing backdrop.
         )
         self.assertEqual(updated["tvdb_id"], 500)
 
+    def test_cli_json_success(self) -> None:
+        import subprocess
+        import sys
+
+        body_file = self.temp_dir / "body.md"
+        body_file.write_text(
+            """### Title
+
+Test Movie
+
+### Year
+
+2024
+
+### TMDB ID
+
+99999
+
+### Poster URL
+
+https://image.tmdb.org/poster.jpg
+""",
+            encoding="utf-8",
+        )
+        labels_file = self.temp_dir / "labels.txt"
+        labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
+
+        script_path = Path(__file__).resolve().parent / "contribution.py"
+        res = subprocess.run(  # noqa: S603
+            [
+                sys.executable,
+                str(script_path),
+                "--issue-body-file",
+                str(body_file),
+                "--issue-title",
+                "[Movie]: Test Movie (2024)",
+                "--labels-file",
+                str(labels_file),
+                "--repo-root",
+                str(self.temp_dir),
+                "--dry-run",
+                "--json",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(res.returncode, 0)
+        parsed = json.loads(res.stdout)
+        self.assertEqual(parsed.get("status"), "ok")
+        self.assertEqual(parsed.get("target"), "data/movies/tmdb-99999.json")
+
+    def test_cli_json_error(self) -> None:
+        import subprocess
+        import sys
+
+        body_file = self.temp_dir / "bad_body.md"
+        body_file.write_text(
+            "### Title\n\nMovie\n\n### TMDB ID\n\nnot-digits\n", encoding="utf-8"
+        )
+        labels_file = self.temp_dir / "labels.txt"
+        labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
+
+        script_path = Path(__file__).resolve().parent / "contribution.py"
+        res = subprocess.run(  # noqa: S603
+            [
+                sys.executable,
+                str(script_path),
+                "--issue-body-file",
+                str(body_file),
+                "--issue-title",
+                "[Movie]: Movie",
+                "--labels-file",
+                str(labels_file),
+                "--repo-root",
+                str(self.temp_dir),
+                "--dry-run",
+                "--json",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(res.returncode, 1)
+        parsed = json.loads(res.stdout)
+        self.assertEqual(parsed.get("status"), "error")
+        self.assertIn("digits only", parsed.get("error", ""))
+
 
 if __name__ == "__main__":
     unittest.main()
