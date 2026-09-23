@@ -121,6 +121,7 @@ jobs:
               is_modification="$(jq -r .is_modification "$result_file")"
               mod_reason="$(jq -r '.modification_reason // ""' "$result_file")"
               diff="$(jq -r .diff "$result_file")"
+              media_comparison="$(jq -r '.media_comparison // ""' "$result_file")"
 
               # Validate remote image URLs
               if ! message="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
@@ -184,6 +185,12 @@ jobs:
 
                 if [ -n "$youtube_id" ]; then
                   echo "- YouTube: [$youtube_id](https://www.youtube.com/watch?v=$youtube_id)"
+                fi
+
+                if [ -n "$media_comparison" ]; then
+                  echo
+                  echo "Artwork & Theme changes:"
+                  printf '%s\n' "$media_comparison"
                 fi
 
                 echo

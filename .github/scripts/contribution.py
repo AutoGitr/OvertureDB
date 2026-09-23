@@ -318,6 +318,69 @@ def _apply_modification(
     return validated, "".join(diff_lines)
 
 
+def format_media_comparison(
+    existing: dict[str, Any],
+    updated: dict[str, Any],
+) -> str:
+    """Format markdown comparing changed artwork and theme fields."""
+    lines: list[str] = []
+
+    old_poster = existing.get("poster_url")
+    new_poster = updated.get("poster_url")
+    if old_poster != new_poster:
+        old_val = f"[View image]({old_poster})" if old_poster else "_None_"
+        new_val = f"[View image]({new_poster})" if new_poster else "_None_"
+        lines.append(f"- **Old Poster:** {old_val}")
+        lines.append(f"- **New Poster:** {new_val}")
+
+    old_bg = existing.get("background_url")
+    new_bg = updated.get("background_url")
+    if old_bg != new_bg:
+        old_val = f"[View image]({old_bg})" if old_bg else "_None_"
+        new_val = f"[View image]({new_bg})" if new_bg else "_None_"
+        lines.append(f"- **Old Background:** {old_val}")
+        lines.append(f"- **New Background:** {new_val}")
+
+    old_yt = existing.get("youtube_id_overturedb") or existing.get(
+        "youtube_id_themerrdb"
+    )
+    new_yt = updated.get("youtube_id_overturedb") or updated.get("youtube_id_themerrdb")
+    if old_yt != new_yt:
+        old_val = (
+            f"[Watch video](https://www.youtube.com/watch?v={old_yt}) (`{old_yt}`)"
+            if old_yt
+            else "_None_"
+        )
+        new_val = (
+            f"[Watch video](https://www.youtube.com/watch?v={new_yt}) (`{new_yt}`)"
+            if new_yt
+            else "_None_"
+        )
+        lines.append(f"- **Old YouTube Theme:** {old_val}")
+        lines.append(f"- **New YouTube Theme:** {new_val}")
+
+    exist_seasons = {
+        s["season_num"]: s.get("poster_url")
+        for s in existing.get("seasons", [])
+        if "season_num" in s
+    }
+    updated_seasons = {
+        s["season_num"]: s.get("poster_url")
+        for s in updated.get("seasons", [])
+        if "season_num" in s
+    }
+    for s_num in sorted(set(exist_seasons) | set(updated_seasons)):
+        old_s = exist_seasons.get(s_num)
+        new_s = updated_seasons.get(s_num)
+        if old_s != new_s:
+            old_val = f"[View image]({old_s})" if old_s else "_None_"
+            new_val = f"[View image]({new_s})" if new_s else "_None_"
+            lines.append(f"- **Old Season {s_num} Poster:** {old_val}")
+            lines.append(f"- **New Season {s_num} Poster:** {new_val}")
+
+    return "\n".join(lines)
+
+
 def process_contribution(
     parsed: ParsedContribution,
     repo_root: Path,
@@ -330,11 +393,13 @@ def process_contribution(
     candidate = build_candidate_entry(parsed)
     existing_path = find_existing_entry(candidate, by_tmdb, by_tvdb, by_imdb)
 
+    media_comparison = ""
     if existing_path is not None:
         target_path = existing_path
         target_rel = target_path.relative_to(repo_root).as_posix()
         existing_entry = dict(loaded_entries[existing_path])
         validated, diff = _apply_modification(existing_entry, parsed, target_rel)
+        media_comparison = format_media_comparison(existing_entry, validated)
         is_modification = True
     else:
         target_path = determine_canonical_path(
@@ -367,6 +432,7 @@ def process_contribution(
         "is_modification": is_modification,
         "modification_reason": parsed.modification_reason if is_modification else None,
         "diff": diff,
+        "media_comparison": media_comparison,
         "media_type": parsed.media_type,
         "title": parsed.title,
         "year": parsed.year,

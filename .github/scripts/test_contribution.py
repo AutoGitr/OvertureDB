@@ -11,6 +11,7 @@ from contribution import (
     clean_art_url,
     determine_canonical_path,
     extract_field,
+    format_media_comparison,
     parse_issue_form,
     process_contribution,
 )
@@ -260,6 +261,17 @@ Upgrading to official 4K poster art.
         )
         self.assertIn("new_higher_res_poster.jpg", res["diff"])
 
+        self.assertIn(
+            "- **Old Poster:** [View image](https://image.tmdb.org/old_poster.jpg)",
+            res["media_comparison"],
+        )
+        self.assertIn(
+            "- **New Poster:** [View image](https://image.tmdb.org/new_higher_res_poster.jpg)",
+            res["media_comparison"],
+        )
+        self.assertNotIn("Background", res["media_comparison"])
+        self.assertNotIn("YouTube", res["media_comparison"])
+
         # Check updated file
         updated_data = json.loads(existing_file.read_text())
         self.assertEqual(
@@ -268,6 +280,67 @@ Upgrading to official 4K poster art.
         )
         # Verify themerrdb youtube id preserved untouched
         self.assertEqual(updated_data["youtube_id_themerrdb"], "themerr1111")
+
+    def test_format_media_comparison_all_types(self) -> None:
+        existing = {
+            "poster_url": "https://image.tmdb.org/old_poster.jpg",
+            "background_url": "https://image.tmdb.org/old_bg.jpg",
+            "youtube_id_themerrdb": "oldtheme123",
+            "youtube_id_overturedb": None,
+            "seasons": [
+                {"season_num": 1, "poster_url": "https://image.tmdb.org/old_s1.jpg"},
+            ],
+        }
+        updated = {
+            "poster_url": "https://image.tmdb.org/old_poster.jpg",  # Unchanged
+            "background_url": "https://image.tmdb.org/new_bg.jpg",  # Changed
+            "youtube_id_themerrdb": "oldtheme123",
+            "youtube_id_overturedb": "newtheme456",  # Changed
+            "seasons": [
+                {
+                    "season_num": 1,
+                    "poster_url": "https://image.tmdb.org/new_s1.jpg",
+                },  # Changed
+                {
+                    "season_num": 2,
+                    "poster_url": "https://image.tmdb.org/new_s2.jpg",
+                },  # Added
+            ],
+        }
+        markdown = format_media_comparison(existing, updated)
+
+        self.assertNotIn("Poster", markdown.splitlines()[0])  # Poster didn't change
+        self.assertIn(
+            "- **Old Background:** [View image](https://image.tmdb.org/old_bg.jpg)",
+            markdown,
+        )
+        self.assertIn(
+            "- **New Background:** [View image](https://image.tmdb.org/new_bg.jpg)",
+            markdown,
+        )
+        self.assertIn(
+            "- **Old YouTube Theme:** [Watch video]"
+            "(https://www.youtube.com/watch?v=oldtheme123) (`oldtheme123`)",
+            markdown,
+        )
+        self.assertIn(
+            "- **New YouTube Theme:** [Watch video]"
+            "(https://www.youtube.com/watch?v=newtheme456) (`newtheme456`)",
+            markdown,
+        )
+        self.assertIn(
+            "- **Old Season 1 Poster:** [View image](https://image.tmdb.org/old_s1.jpg)",
+            markdown,
+        )
+        self.assertIn(
+            "- **New Season 1 Poster:** [View image](https://image.tmdb.org/new_s1.jpg)",
+            markdown,
+        )
+        self.assertIn("- **Old Season 2 Poster:** _None_", markdown)
+        self.assertIn(
+            "- **New Season 2 Poster:** [View image](https://image.tmdb.org/new_s2.jpg)",
+            markdown,
+        )
 
     def test_cross_provider_matching_for_shows(self) -> None:
         # Existing show stored as tvdb-500.json with tmdb_id 1234
