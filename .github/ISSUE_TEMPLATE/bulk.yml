@@ -14,7 +14,7 @@ body:
 
         **How Bulk Contributions Work**:
         - Only missing items and values are added.
-        To modify selections, please submit a separate issue for the item with the specific changes.
+        - Existing items and values are not modified, to do that, create a separate issue for the item you want to update.
 
   - type: textarea
     id: archive
