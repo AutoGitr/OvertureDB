@@ -35,6 +35,7 @@
       "matchDatasources": ["github-runners"],
       "enabled": true,
       "groupName": "GitHub runners",
+      "minimumReleaseAge": null,
       "automerge": false
     },
     {
