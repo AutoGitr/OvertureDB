@@ -5,6 +5,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from import_bulk_export import (
     create_new_entry,
@@ -321,12 +322,13 @@ class BulkImportTests(unittest.TestCase):
         self.assertEqual(final_show["youtube_id_overturedb"], "showtheme11")
         self.assertEqual(len(final_show["seasons"]), 1)
 
-    def test_rejection_over_1000_entries_archive(self) -> None:
+    @mock.patch("import_bulk_export.MAX_ARCHIVE_ENTRIES", 5)
+    def test_rejection_over_max_entries_archive(self) -> None:
         import zipfile
 
         zip_path = self.temp_dir / "too_many.zip"
         with zipfile.ZipFile(zip_path, "w") as zf:
-            for i in range(1001):
+            for i in range(6):
                 zf.writestr(f"movie_{i}.json", "{}")
         with self.assertRaises(ValueError) as ctx:
             import_bulk_export(overture_dir=self.temp_dir, archive_path=zip_path)
@@ -342,10 +344,11 @@ class BulkImportTests(unittest.TestCase):
             import_bulk_export(overture_dir=self.temp_dir, archive_path=zip_path)
         self.assertIn("exceeds maximum size", str(ctx.exception))
 
-    def test_rejection_over_1000_entries_directory(self) -> None:
+    @mock.patch("import_bulk_export.MAX_ARCHIVE_ENTRIES", 5)
+    def test_rejection_over_max_entries_directory(self) -> None:
         large_dir = self.temp_dir / "large_dir"
         large_dir.mkdir()
-        for i in range(1001):
+        for i in range(6):
             (large_dir / f"entry_{i}.json").write_text("{}", encoding="utf-8")
         with self.assertRaises(ValueError) as ctx:
             import_bulk_export(overture_dir=self.temp_dir, input_dir=large_dir)
@@ -358,6 +361,47 @@ class BulkImportTests(unittest.TestCase):
         with self.assertRaises(ValueError) as ctx:
             import_bulk_export(overture_dir=self.temp_dir, input_dir=large_dir)
         self.assertIn("exceeds maximum size", str(ctx.exception))
+
+    def test_partial_import_writes_changes_and_reports_errors(self) -> None:
+        valid_entry = {
+            "media_type": "movie",
+            "title": "Valid Movie",
+            "year": 2024,
+            "tmdb_id": 999999,
+            "tvdb_id": None,
+            "imdb_id": None,
+            "poster_url": "https://image.tmdb.org/t/p/original/valid.jpg",
+            "background_url": None,
+            "youtube_id_overturedb": None,
+            "youtube_id_themerrdb": None,
+        }
+        invalid_entry = {
+            "media_type": "movie",
+            "title": "Invalid Movie",
+            "year": 2024,
+            "tmdb_id": 888888,
+            "tvdb_id": None,
+            "imdb_id": None,
+            "poster_url": "https://m.media-amazon.com/invalid.jpg",
+            "background_url": None,
+            "youtube_id_overturedb": None,
+            "youtube_id_themerrdb": None,
+        }
+        input_dir = self.temp_dir / "mixed_input"
+        input_dir.mkdir()
+        (input_dir / "tmdb-999999.json").write_text(
+            json.dumps(valid_entry), encoding="utf-8"
+        )
+        (input_dir / "tmdb-888888.json").write_text(
+            json.dumps(invalid_entry), encoding="utf-8"
+        )
+        res = import_bulk_export(
+            overture_dir=self.temp_dir, input_dir=input_dir, dry_run=False
+        )
+        self.assertEqual(res["created"], 1)
+        self.assertEqual(len(res["errors"]), 1)
+        self.assertTrue((self.data_dir / "movies" / "tmdb-999999.json").exists())
+        self.assertFalse((self.data_dir / "movies" / "tmdb-888888.json").exists())
 
     def test_format_review_markdown_sorting_and_links(self) -> None:
         from import_bulk_export import ReviewItem, format_review_markdown

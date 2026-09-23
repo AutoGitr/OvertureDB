@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, cast
+from urllib.parse import urlsplit
 
 from jsonschema import Draft202012Validator, ValidationError, validators
 
@@ -14,6 +16,46 @@ if TYPE_CHECKING:
 
 SCHEMA_VERSION = 4
 SCHEMA_DIR = Path(__file__).resolve().parent
+
+ART_HOSTS: frozenset[str] = frozenset(
+    {
+        "image.tmdb.org",
+        "assets.fanart.tv",
+        "theposterdb.com",
+        "www.theposterdb.com",
+        "artworks.thetvdb.com",
+        "metadata-static.plex.tv",
+    }
+)
+
+_TPDB_API_RE = re.compile(r"^/api/assets/[0-9]+$")
+_IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png"})
+
+
+def is_allowed_art_url(url: str | None) -> bool:
+    """Return True if url is a valid direct artwork destination for OvertureDB."""
+    if not url:
+        return False
+    try:
+        parsed = urlsplit(url)
+        port = parsed.port
+    except ValueError:
+        return False
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.hostname not in ART_HOSTS
+        or port not in (None, 443)
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.fragment
+        or any(ord(char) < 33 for char in url)
+        or "\\" in url
+    ):
+        return False
+    if parsed.hostname in {"theposterdb.com", "www.theposterdb.com"}:
+        return bool(_TPDB_API_RE.fullmatch(parsed.path))
+    return Path(parsed.path).suffix.lower() in _IMAGE_EXTENSIONS
 
 
 def _schema(name: str) -> dict[str, Any]:

@@ -28,18 +28,9 @@ if TYPE_CHECKING:
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import SCHEMA_VERSION, validate_catalog, validate_entries
+from contract import ART_HOSTS, SCHEMA_VERSION, validate_catalog, validate_entries
 
 ROOT = Path(__file__).resolve().parents[1]
-
-ART_HOSTS = {
-    "image.tmdb.org",
-    "assets.fanart.tv",
-    "theposterdb.com",
-    "www.theposterdb.com",
-    "artworks.thetvdb.com",
-    "metadata-static.plex.tv",
-}
 
 
 def dataset(root: Path = ROOT) -> list[dict[str, Any]]:
@@ -101,7 +92,10 @@ def art_urls(entries: list[dict[str, Any]]) -> set[str]:
 
 
 def public_https_destination(
-    url: str, *, allowed_hosts: set[str] | None = None, resolve: bool = True
+    url: str,
+    *,
+    allowed_hosts: set[str] | frozenset[str] | None = None,
+    resolve: bool = True,
 ) -> SplitResult:
     try:
         parsed = urlsplit(url)

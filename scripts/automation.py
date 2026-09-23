@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from html import escape
 from pathlib import Path
 from typing import IO, TYPE_CHECKING, Any
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -194,15 +195,36 @@ def prepare(issue: dict[str, Any], *, dry_run: bool) -> dict[str, Any]:
             result = import_bulk_export(
                 overture_dir=ROOT, archive_path=archive, dry_run=dry_run
             )
-        if result["errors"]:
-            raise ValueError("\n".join(result["errors"]))
+        if result["created"] == 0 and result["backfilled"] == 0:
+            if result["errors"]:
+                raise ValueError("\n".join(result["errors"]))
+            raise ValueError("No new or backfilled entries in this contribution.")
         summary = (
             f"{result['created']} new, {result['backfilled']} backfilled, "
             f"{result['unchanged']} unchanged."
         )
+        if result["errors"]:
+            summary += f" ({len(result['errors'])} skipped due to errors)"
         review = result["review_markdown"]
-        if len(review) > 45000:
+        if len(review) > 40000:
             review = "Review all selections in the attached archive and PR diff."
+        if result["errors"]:
+            count = len(result["errors"])
+            error_lines = [
+                "<details>",
+                f"<summary><b>Skipped Entries with Errors ({count})</b></summary>",
+                "<br />",
+                "",
+            ]
+            error_lines.extend(f"- `{escape(err)}`" for err in result["errors"])
+            error_lines.append("</details>")
+            error_section = "\n".join(error_lines)
+            if len(error_section) > 5000:
+                error_section = (
+                    f"Skipped {count} entries due to validation errors. "
+                    "Review the attached archive."
+                )
+            review = f"{review}\n\n{error_section}" if review else error_section
         return {
             "branch": f"contribution/bulk-issue-{number}",
             "title": f"Bulk contribution from #{number}",

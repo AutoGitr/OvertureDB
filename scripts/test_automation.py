@@ -239,11 +239,11 @@ class ArchiveTests(unittest.TestCase):
             for index, entry in enumerate(entries):
                 archive.writestr(f"{index}.json", json.dumps(entry))
 
-    def test_failed_import_never_writes_valid_subset(self) -> None:
+    def test_failed_import_writes_valid_subset_and_reports_skipped(self) -> None:
         self.archive_entries(movie(), movie(tmdb_id=2, year=False))
         result = import_bulk_export(overture_dir=self.root, archive_path=self.archive)
         self.assertEqual(result["skipped"], 1)
-        self.assertEqual(list((self.root / "data").rglob("*.json")), [])
+        self.assertEqual(len(list((self.root / "data").rglob("*.json"))), 1)
 
     def test_enriched_identity_is_indexed_for_later_records(self) -> None:
         path = self.root / "data/movies/tmdb-1.json"

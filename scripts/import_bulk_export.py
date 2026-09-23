@@ -19,7 +19,7 @@ from contract import validate_entries, validate_entry
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MAX_ARCHIVE_ENTRIES = 1000
+MAX_ARCHIVE_ENTRIES = 100_000
 MAX_SINGLE_ENTRY_BYTES = 1 * 1024 * 1024  # 1 MB
 MAX_TOTAL_UNCOMPRESSED_BYTES = 50 * 1024 * 1024  # 50 MB
 
@@ -494,7 +494,7 @@ def import_bulk_export(
 
     # Validate the full catalog consistency for all loaded entries
     validate_entries(list(loaded_entries.values()))
-    if not dry_run and not errors:
+    if not dry_run and (created_count > 0 or backfilled_count > 0):
         write_changes(original_entries, loaded_entries, overture_dir)
 
     return {
