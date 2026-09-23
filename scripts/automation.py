@@ -27,7 +27,7 @@ from import_bulk_export import import_bulk_export
 if TYPE_CHECKING:
     from http.client import HTTPMessage
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 MARKER = "<!-- overturedb-contribution-preview -->"
 ATTACHMENT = re.compile(
     r"https://github\.com/(?:user-attachments/(?:assets/[\w-]+|files/\d+/[\w.~%-]+)"
@@ -49,6 +49,7 @@ def gh(*args: str, payload: dict[str, Any] | None = None) -> str:
     command = [executable, *args]
     if payload is not None:
         command += ["--input", "-"]
+    # Fixed gh executable, argument array and JSON stdin; no shell evaluation.
     result = subprocess.run(  # noqa: S603
         command,
         input=json.dumps(payload) if payload is not None else None,
@@ -161,6 +162,7 @@ def download_archive(body: str, target: Path) -> None:
         raise ValueError("Attach exactly one GitHub-hosted selections ZIP.")
     url = urls.pop()
     public_https_destination(url, allowed_hosts={"github.com"})
+    # HTTPS and host validated above; redirects undergo the same validation.
     request = Request(url, headers={"User-Agent": "OvertureDB"})  # noqa: S310
     opener = build_opener(AttachmentRedirectHandler())
     deadline = time.monotonic() + 60
@@ -305,7 +307,7 @@ def enable_auto_merge(repo: str, pr_url: str) -> None:
         c["context"] == "contribution-guard" and c.get("integration_id") == 15368
         for c in required
     ):
-        print("PR requires manual merge: contribution-guard is not enforced on main.")  # noqa: T201
+        print("PR requires manual merge: contribution-guard is not enforced on main.")
         return
     head = gh(
         "pr",
@@ -366,7 +368,7 @@ def main() -> int:
         RuntimeError,
         subprocess.SubprocessError,
     ) as exc:
-        print(f"Automation failed: {exc}", file=sys.stderr)  # noqa: T201
+        print(f"Automation failed: {exc}", file=sys.stderr)
         return 1
     return 0
 

@@ -1,4 +1,3 @@
-<!-- prettier-ignore -->
 <div align="center">
 
 <picture>
@@ -27,7 +26,6 @@ OvertureDB provides consistent posters, backgrounds, and theme music for your me
 
 ## Catalog at a glance
 
-<!-- prettier-ignore -->
 <a href="https://autogitr.github.io/OvertureDB/stats.json">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://autogitr.github.io/OvertureDB/stats-dark.svg" />

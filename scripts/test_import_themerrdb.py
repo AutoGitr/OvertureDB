@@ -7,6 +7,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any
 from unittest.mock import patch
 
 import import_themerrdb as importer
@@ -15,7 +16,7 @@ from test_catalog import movie
 
 
 class ImportThemerrdbTests(unittest.TestCase):
-    def test_extract_youtube_id(self):
+    def test_extract_youtube_id(self) -> None:
         valid_cases = [
             ("4xdyx5NVUhI", "4xdyx5NVUhI"),
             ("https://www.youtube.com/watch?v=4xdyx5NVUhI", "4xdyx5NVUhI"),
@@ -46,7 +47,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             with self.subTest(input_val=input_val):
                 self.assertIsNone(importer.extract_youtube_id(input_val))
 
-    def test_parse_year(self):
+    def test_parse_year(self) -> None:
         self.assertEqual(importer.parse_year("2014-10-10"), 2014)
         self.assertEqual(importer.parse_year("1995"), 1995)
         self.assertIsNone(importer.parse_year(None))
@@ -54,7 +55,7 @@ class ImportThemerrdbTests(unittest.TestCase):
         self.assertIsNone(importer.parse_year("0999-01-01"))
         self.assertIsNone(importer.parse_year("not-a-date"))
 
-    def test_process_themerr_item_updates_existing_entry(self):
+    def test_process_themerr_item_updates_existing_entry(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             movies_dir = data_dir / "movies"
@@ -109,7 +110,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             )
             validate_entry(updated_data)
 
-    def test_process_themerr_item_adds_new_movie(self):
+    def test_process_themerr_item_adds_new_movie(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
@@ -154,7 +155,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             self.assertIsNone(saved["background_url"])
             validate_entry(saved)
 
-    def test_process_themerr_item_adds_new_show_with_empty_seasons(self):
+    def test_process_themerr_item_adds_new_show_with_empty_seasons(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
@@ -202,7 +203,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             self.assertEqual(saved["seasons"], [])
             validate_entry(saved)
 
-    def test_process_themerr_item_skips_when_no_theme_or_invalid(self):
+    def test_process_themerr_item_skips_when_no_theme_or_invalid(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
@@ -235,7 +236,7 @@ class ImportThemerrdbTests(unittest.TestCase):
 
 
 class ImportIntegrationTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         self.root = Path(temp.name)
@@ -253,20 +254,24 @@ class ImportIntegrationTests(unittest.TestCase):
             "youtube_theme_url": "https://youtu.be/4xdyx5NVUhI",
         }
 
-    def write_existing(self, name="tmdb-1.json", **changes):
+    def write_existing(self, name: str = "tmdb-1.json", **changes: Any) -> Path:
         path = self.movies / name
         path.write_text(json.dumps(movie(**changes)), encoding="utf-8")
         return path
 
-    def write_upstream(self, name="1.json", **changes):
+    def write_upstream(self, name: str = "1.json", **changes: Any) -> Path:
         path = self.upstream_movies / name
         path.write_text(json.dumps({**self.record, **changes}), encoding="utf-8")
         return path
 
-    def run_import(self, **kwargs):
-        return importer.import_themerrdb(self.upstream, self.root, **kwargs)
+    def run_import(
+        self, *, dry_run: bool = False, limit: int | None = None
+    ) -> dict[str, int]:
+        return importer.import_themerrdb(
+            self.upstream, self.root, dry_run=dry_run, limit=limit
+        )
 
-    def test_boolean_id_cannot_update_numeric_identity(self):
+    def test_boolean_id_cannot_update_numeric_identity(self) -> None:
         path = self.write_existing()
         before = path.read_bytes()
         self.write_upstream(id=True)
@@ -274,15 +279,16 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(stats["skipped_invalid"], 1)
         self.assertEqual(path.read_bytes(), before)
 
-    def test_conflicting_identifiers_leave_curated_records_unchanged(self):
+    def test_conflicting_identifiers_leave_curated_records_unchanged(self) -> None:
         first = self.write_existing(imdb_id="tt1")
         second = self.write_existing("tmdb-2.json", tmdb_id=2, imdb_id="tt2")
         before = [path.read_bytes() for path in (first, second)]
-        for changes in (
+        conflicts: list[dict[str, Any]] = [
             {"imdb_id": "tt2"},
             {"id": 3, "imdb_id": "tt1"},
             {"imdb_id": "tt3"},
-        ):
+        ]
+        for changes in conflicts:
             with self.subTest(changes=changes):
                 self.write_upstream(**changes)
                 with patch("sys.stderr", new=io.StringIO()):
@@ -291,7 +297,7 @@ class ImportIntegrationTests(unittest.TestCase):
                     [path.read_bytes() for path in (first, second)], before
                 )
 
-    def test_imdb_only_match_preserves_identity(self):
+    def test_imdb_only_match_preserves_identity(self) -> None:
         path = self.write_existing("imdb-tt1.json", tmdb_id=None, imdb_id="tt1")
         self.write_upstream(imdb_id="tt1")
         self.assertEqual(self.run_import()["updated"], 1)
@@ -303,7 +309,7 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(path.read_bytes(), before)
         self.assertEqual(len(list(self.data.rglob("*.json"))), 1)
 
-    def test_conflicting_youtube_id_resets_overturedb(self):
+    def test_conflicting_youtube_id_resets_overturedb(self) -> None:
         path = self.write_existing(
             youtube_id_overturedb="4xdyx5NVUhI",
             youtube_id_themerrdb=None,
@@ -316,12 +322,12 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(saved["youtube_id_themerrdb"], "4xdyx5NVUhI")
         validate_entry(saved)
 
-    def test_existing_matching_theme_is_skipped_unchanged(self):
+    def test_existing_matching_theme_is_skipped_unchanged(self) -> None:
         self.write_existing(youtube_id_themerrdb="4xdyx5NVUhI")
         self.write_upstream()
         self.assertEqual(self.run_import()["skipped_unchanged"], 1)
 
-    def test_dry_run_and_real_import_agree_for_repeated_new_records(self):
+    def test_dry_run_and_real_import_agree_for_repeated_new_records(self) -> None:
         self.write_upstream()
         self.write_upstream("duplicate.json")
         planned = self.run_import(dry_run=True)
@@ -330,14 +336,14 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(planned["skipped_unchanged"], 1)
         self.assertEqual(self.run_import(), planned)
 
-    def test_dry_run_never_changes_existing_file(self):
+    def test_dry_run_never_changes_existing_file(self) -> None:
         path = self.write_existing()
         before = path.read_bytes()
         self.write_upstream()
         self.assertEqual(self.run_import(dry_run=True)["updated"], 1)
         self.assertEqual(path.read_bytes(), before)
 
-    def test_missing_source_folder_fails_before_any_updates(self):
+    def test_missing_source_folder_fails_before_any_updates(self) -> None:
         path = self.write_existing()
         before = path.read_bytes()
         self.write_upstream()
@@ -346,7 +352,7 @@ class ImportIntegrationTests(unittest.TestCase):
             self.run_import()
         self.assertEqual(path.read_bytes(), before)
 
-    def test_invalid_existing_file_is_never_overwritten(self):
+    def test_invalid_existing_file_is_never_overwritten(self) -> None:
         path = self.movies / "tmdb-1.json"
         path.write_text("{broken", encoding="utf-8")
         self.write_upstream()
@@ -354,7 +360,7 @@ class ImportIntegrationTests(unittest.TestCase):
             self.run_import()
         self.assertEqual(path.read_text(), "{broken")
 
-    def test_duplicate_existing_identities_fail_before_writing(self):
+    def test_duplicate_existing_identities_fail_before_writing(self) -> None:
         first = self.write_existing()
         self.write_existing("imdb-tt1.json", imdb_id="tt1")
         before = first.read_bytes()
@@ -363,7 +369,9 @@ class ImportIntegrationTests(unittest.TestCase):
             self.run_import()
         self.assertEqual(first.read_bytes(), before)
 
-    def test_malformed_records_are_reported_and_other_records_are_processed(self):
+    def test_malformed_records_are_reported_and_other_records_are_processed(
+        self,
+    ) -> None:
         self.write_upstream()
         (self.upstream_movies / "bad.json").write_text("[]", encoding="utf-8")
         (self.upstream_movies / "broken.json").write_text("{broken", encoding="utf-8")
@@ -373,7 +381,7 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(stats["added"], 1)
         self.assertEqual(list(self.data.rglob("*.json")), [])
 
-    def test_limit_is_positive_and_applies_across_media_types(self):
+    def test_limit_is_positive_and_applies_across_media_types(self) -> None:
         self.write_upstream()
         (self.upstream_shows / "1.json").write_text(
             json.dumps({**self.record, "name": "Imported show"}), encoding="utf-8"
@@ -386,7 +394,7 @@ class ImportIntegrationTests(unittest.TestCase):
         self.assertEqual(self.run_import()["added"], 1)
         self.assertTrue((self.data / "shows" / "tmdb-1.json").exists())
 
-    def test_cli_reports_missing_input_as_failure(self):
+    def test_cli_reports_missing_input_as_failure(self) -> None:
         with (
             patch(
                 "sys.argv",

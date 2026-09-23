@@ -21,7 +21,7 @@ class BulkImportTests(unittest.TestCase):
         (self.data_dir / "shows").mkdir(parents=True)
 
     def tearDown(self) -> None:
-        shutil.rmtree(self.temp_dir, ignore_errors=True)
+        shutil.rmtree(self.temp_dir)
 
     def test_rule_1_preserves_existing_artwork_and_theme(self) -> None:
         existing = {

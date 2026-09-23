@@ -63,6 +63,7 @@ def main() -> None:
         "-z",
         f"{pr['base']['sha']}...{pr['head']['sha']}",
     ]
+    # Fixed git executable and GitHub commit SHAs passed as arguments, no shell.
     changed = subprocess.check_output(diff, text=True).rstrip("\0").split("\0")  # noqa: S603
     deleted = (
         subprocess.check_output([*diff, "--diff-filter=D"], text=True)  # noqa: S603

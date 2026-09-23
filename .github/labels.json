@@ -7,7 +7,7 @@
   {"name": "rejected", "color": "b60205", "description": "Rejected contribution; bot commands disabled"},
   {"name": "dependencies", "color": "0366d6", "description": "Dependency update"},
   {"name": "security", "color": "b60205", "description": "Security fix; report vulnerabilities privately"},
-  {"name": "ci", "color": "ededed", "description": "Repository scripts and GitHub Actions"},
+  {"name": "ci", "color": "ededed", "description": "Repository scripts and GitHub Actions", "aliases": ["github_actions"]},
   {"name": "bug", "color": "d73a4a", "description": "Incorrect behavior"},
   {"name": "documentation", "color": "0075ca", "description": "Documentation change"},
   {"name": "enhancement", "color": "a2eeef", "description": "New capability"}

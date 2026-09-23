@@ -17,7 +17,7 @@ dev = [
 
 [tool.pyright]
 typeCheckingMode = "strict"
+reportUnnecessaryTypeIgnoreComment = "error"
 pythonVersion = "3.14"
-include = [".github/scripts", "schema"]
-exclude = [".github/scripts/test_*.py"]
-extraPaths = ["schema", ".github/scripts"]
+include = ["scripts", "schema"]
+extraPaths = ["schema", "scripts"]

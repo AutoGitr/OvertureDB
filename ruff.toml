@@ -22,7 +22,15 @@ select = [
     "UP",
     "W",
 ]
-ignore = ["S101"]
+
+# These entry points intentionally report results and errors to the terminal.
+[lint.per-file-ignores]
+"scripts/automation.py" = ["T201"]
+"scripts/catalog.py" = ["T201"]
+"scripts/contribution.py" = ["T201"]
+"scripts/import_bulk_export.py" = ["T201"]
+"scripts/import_themerrdb.py" = ["T201"]
+"scripts/sync_labels.py" = ["T201"]
 
 [lint.mccabe]
 max-complexity = 12

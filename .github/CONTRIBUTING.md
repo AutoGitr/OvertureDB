@@ -9,18 +9,43 @@ Use Python 3.14.7 and uv. The same read-only gate runs locally and in CI:
 
 ```sh
 uv sync --locked
+```
+
+```sh
 bash scripts/pre-commit-check.sh
 ```
 
 It checks the lockfile, Ruff lint/formatting, strict Pyright types, unit tests,
 workflow invariants, and every dataset entry. On Windows, run it in Git Bash.
-To format changes, use `uv run --locked ruff format .github/scripts schema`.
+To format changes, use `uv run --locked ruff format scripts schema`.
+
+PR checks and a daily scheduled guard also run `uv audit --locked`, covering
+direct, transitive and development dependencies. Run it locally when changing
+dependencies; it requires network access and currently emits uv's experimental
+feature notice. No vulnerabilities are ignored.
+
+### Lint and type exceptions
+
+Production scripts and tests both pass strict Pyright. Ruff detects unused
+`noqa` comments, and Pyright rejects unnecessary type-ignore comments. There are
+no excluded test files or global assertion exemptions. CLI entry points allow
+`T201` because printing results/errors is their interface.
+
+The remaining inline exceptions are deliberate and documented at their call sites:
+`S603` for fixed executables with argument arrays and no shell; `S310` for HTTPS
+requests checked against allowed hosts and public addresses, including redirects;
+and `S314` for parsing locally generated SVG in tests. The two narrow Pyright
+exceptions in `schema/contract.py` cover incomplete upstream jsonschema factory
+and validation stubs. They do not suppress data validation or other diagnostics.
 
 Optional network checks and publication from a clean checkout:
 
 ```sh
-uv run --locked python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
-uv run --locked python .github/scripts/catalog.py build
+uv run --locked python scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
+```
+
+```sh
+uv run --locked python scripts/catalog.py build
 ```
 
 The build produces catalog JSON/gzip, schemas, licenses, checksums, and statistics
@@ -41,8 +66,13 @@ A collaborator with write, maintain or admin permission can comment:
 
 ```text
 @OvertureDB-bot approve
-@OvertureDB-bot reject optional reason
 ```
+
+```text
+@OvertureDB-bot reject
+```
+
+Append a reason to the reject command on the same line when useful.
 
 Approval creates a bot PR. Single-entry and ThemerrDB PRs request auto-merge only
 when `contribution-guard` is enforced on main; bulk PRs require manual merging.

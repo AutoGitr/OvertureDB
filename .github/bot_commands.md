@@ -1,4 +1,15 @@
-A maintainer with write access can comment:
+<details>
+<summary>OvertureDB-bot commands and options</summary>
+<br />
 
-- `@OvertureDB-bot approve` - create a reviewed contribution PR.
-- `@OvertureDB-bot reject optional reason` - reject and close.
+```text
+@OvertureDB-bot approve
+```
+
+```text
+@OvertureDB-bot reject
+```
+
+To explain a rejection, append your reason to the reject command on the same line.
+
+</details>

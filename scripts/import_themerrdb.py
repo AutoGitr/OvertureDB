@@ -18,10 +18,11 @@ from urllib.parse import parse_qs, urlparse
 from catalog import write_changes
 from import_bulk_export import index_existing_entries
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "schema"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import validate_entry  # noqa: E402
+from contract import validate_entry
+
+ROOT = Path(__file__).resolve().parents[1]
 
 YOUTUBE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 IMDB_ID_RE = re.compile(r"^tt[0-9]+$")
@@ -275,7 +276,7 @@ def import_themerrdb(
                     dry_run=True,
                 )
             except (OSError, ValueError) as exc:
-                print(  # noqa: T201
+                print(
                     f"Error importing ThemerrDB file {path}: {exc}",
                     file=sys.stderr,
                 )
@@ -316,7 +317,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    print(f"Starting ThemerrDB import (dry_run={args.dry_run})...")  # noqa: T201
+    print(f"Starting ThemerrDB import (dry_run={args.dry_run})...")
     try:
         stats = import_themerrdb(
             themerr_dir=args.themerr_dir.resolve(),
@@ -325,15 +326,15 @@ def main() -> int:
             dry_run=args.dry_run,
         )
     except (OSError, ValueError) as exc:
-        print(f"Import failed: {exc}", file=sys.stderr)  # noqa: T201
+        print(f"Import failed: {exc}", file=sys.stderr)
         return 1
 
-    print("\n--- ThemerrDB Import Summary ---")  # noqa: T201
+    print("\n--- ThemerrDB Import Summary ---")
     for key, count in stats.items():
-        print(f"{key:>20}: {count}")  # noqa: T201
+        print(f"{key:>20}: {count}")
 
     if stats["skipped_error"] > 0:
-        print(  # noqa: T201
+        print(
             f"\nWarning: Encountered {stats['skipped_error']} errors during import.",
             file=sys.stderr,
         )

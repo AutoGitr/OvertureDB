@@ -14,13 +14,13 @@ from urllib.parse import quote
 
 from catalog import art_urls, check_art_destination
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "schema"))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import validate_entry  # noqa: E402
-from import_bulk_export import find_existing_entry, index_existing_entries  # noqa: E402
-from import_themerrdb import extract_youtube_id  # noqa: E402
+from contract import validate_entry
+from import_bulk_export import find_existing_entry, index_existing_entries
+from import_themerrdb import extract_youtube_id
+
+ROOT = Path(__file__).resolve().parents[1]
 
 MODIFICATION_PLACEHOLDER = (
     "If this modifies an existing entry, replace this text with a reason "
@@ -647,17 +647,15 @@ def main() -> int:
         result = process_contribution(parsed, args.repo_root, dry_run=args.dry_run)
 
         if args.json:
-            print(json.dumps(result, indent=2))  # noqa: T201
+            print(json.dumps(result, indent=2))
         else:
-            print(result["target"])  # noqa: T201
+            print(result["target"])
         return 0
     except Exception as exc:
         if args.json:
-            print(  # noqa: T201
-                json.dumps({"status": "error", "error": str(exc)}, indent=2)
-            )
+            print(json.dumps({"status": "error", "error": str(exc)}, indent=2))
         else:
-            print(f"Error: {exc}", file=sys.stderr)  # noqa: T201
+            print(f"Error: {exc}", file=sys.stderr)
         return 1
 
 

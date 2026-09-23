@@ -26,10 +26,11 @@ from catalog_stats import dashboard, statistics_json, summarize
 if TYPE_CHECKING:
     from http.client import HTTPMessage
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "schema"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import SCHEMA_VERSION, validate_catalog, validate_entries  # noqa: E402
+from contract import SCHEMA_VERSION, validate_catalog, validate_entries
+
+ROOT = Path(__file__).resolve().parents[1]
 
 ART_HOSTS = {
     "image.tmdb.org",
@@ -178,6 +179,7 @@ def parse_retry_after(header: str | None, default: float = 2.0) -> float:
 
 def check_art_url(url: str, *, max_retries: int = 5) -> None:
     check_art_destination(url)
+    # HTTPS and host validated above; ArtRedirectHandler validates each redirect.
     request = Request(  # noqa: S310
         url, headers={"Range": "bytes=0-15", "User-Agent": "OvertureDB"}
     )
@@ -293,6 +295,7 @@ def git_output(*args: str) -> str:
     git = shutil.which("git")
     if git is None:
         raise OSError("git is required to build the catalog")
+    # Fixed git executable with internal arguments, never a shell command string.
     return subprocess.check_output(  # noqa: S603
         [git, *args], cwd=ROOT, text=True
     ).strip()
@@ -348,7 +351,7 @@ def main() -> int:
             )
             build(args.output, revision=revision, generated_at=generated_at)
     except (ValueError, OSError, subprocess.CalledProcessError) as exc:
-        print(f"Dataset validation failed: {exc}", file=sys.stderr)  # noqa: T201
+        print(f"Dataset validation failed: {exc}", file=sys.stderr)
         return 1
     return 0
 

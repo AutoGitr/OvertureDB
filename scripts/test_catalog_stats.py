@@ -8,7 +8,7 @@ from test_catalog import movie
 
 
 class StatisticsTests(unittest.TestCase):
-    def test_totals_count_both_theme_sources_and_shared_assets(self):
+    def test_totals_count_both_theme_sources_and_shared_assets(self) -> None:
         entries = [
             movie(
                 background_url="https://image.tmdb.org/background.jpg",
@@ -43,7 +43,7 @@ class StatisticsTests(unittest.TestCase):
         self.assertEqual(total.core_complete, 1)
         self.assertEqual(counts["shows"].core_complete, 0)
 
-    def test_empty_catalog_has_no_undefined_or_misleading_percentages(self):
+    def test_empty_catalog_has_no_undefined_or_misleading_percentages(self) -> None:
         counts = summarize([])
         for dark in (False, True):
             svg = dashboard(
@@ -53,7 +53,7 @@ class StatisticsTests(unittest.TestCase):
             self.assertIn("0 / 0 · n/a", svg)
             self.assertNotIn("100.0%", svg)
 
-    def test_json_preserves_provenance_and_svg_escapes_text(self):
+    def test_json_preserves_provenance_and_svg_escapes_text(self) -> None:
         counts = summarize([movie()])
         revision, generated_at = "abc<>&123", "2026-09-22T00:00:00Z"
         payload = statistics_json(counts, revision=revision, generated_at=generated_at)

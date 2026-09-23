@@ -210,7 +210,7 @@ def dashboard(
     text(
         808,
         758,
-        "Refreshes with each daily catalog publication",
+        "Refreshes with each catalog publication",
         size=12,
         color=muted,
         anchor="end",

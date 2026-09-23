@@ -5,8 +5,11 @@ import io
 import json
 import tempfile
 import unittest
+from http.client import HTTPMessage
 from pathlib import Path
+from typing import Any
 from unittest.mock import MagicMock, patch
+from urllib.request import Request
 from zipfile import ZipFile
 
 import automation
@@ -17,7 +20,7 @@ from import_bulk_export import import_bulk_export, load_incoming_entries
 from test_catalog import movie
 
 
-def issue(**changes):
+def issue(**changes: Any) -> dict[str, Any]:
     return {
         "number": 12,
         "state": "open",
@@ -32,13 +35,15 @@ def issue(**changes):
 class CommandTests(unittest.TestCase):
     @patch.object(automation, "gh", return_value="")
     @patch.object(automation, "api")
-    def test_rejection_uses_api_state_reason(self, api, gh):
+    def test_rejection_uses_api_state_reason(
+        self, api: MagicMock, gh: MagicMock
+    ) -> None:
         api.side_effect = [{"permission": "write"}, issue(), {}, {}]
         event = self.event()
         event["comment"]["body"] = "@OvertureDB-bot reject wrong artwork"
         automation.gate(event, "owner/repo")
         self.assertEqual(
-            gh.call_args.kwargs["payload"],
+            gh.call_args_list[-1].kwargs["payload"],
             {
                 "state": "closed",
                 "state_reason": "not_planned",
@@ -48,7 +53,7 @@ class CommandTests(unittest.TestCase):
             api.call_args_list[-1].args[0], "repos/owner/repo/issues/12/comments"
         )
 
-    def test_identifier_urls_require_real_provider_hosts(self):
+    def test_identifier_urls_require_real_provider_hosts(self) -> None:
         for heading, value in (
             ("TMDB ID", "https://evil.test/themoviedb.org/movie/123"),
             ("TVDB ID", "https://notthetvdb.com/series/123"),
@@ -59,7 +64,7 @@ class CommandTests(unittest.TestCase):
                     f"### Title\nMovie\n### {heading}\n{value}", "", ["movie"]
                 )
 
-    def event(self):
+    def event(self) -> dict[str, Any]:
         return {
             "issue": issue(),
             "comment": {
@@ -69,7 +74,7 @@ class CommandTests(unittest.TestCase):
             },
         }
 
-    def test_commands_are_exact_and_single_line(self):
+    def test_commands_are_exact_and_single_line(self) -> None:
         for text in (
             "hello",
             "@OvertureDB-bot rejected",
@@ -88,7 +93,7 @@ class CommandTests(unittest.TestCase):
         )
 
     @patch.object(automation, "api")
-    def test_permission_belongs_to_comment_author(self, api):
+    def test_permission_belongs_to_comment_author(self, api: MagicMock) -> None:
         api.side_effect = [{"permission": "write"}, issue()]
         event = self.event()
         with patch.dict("os.environ", {"GITHUB_ACTOR": "different-rerunner"}):
@@ -99,14 +104,18 @@ class CommandTests(unittest.TestCase):
         )
 
     @patch.object(automation, "api")
-    def test_unprivileged_commands_never_load_or_modify_issue(self, api):
+    def test_unprivileged_commands_never_load_or_modify_issue(
+        self, api: MagicMock
+    ) -> None:
         api.return_value = {"permission": "read"}
         with self.assertRaisesRegex(ValueError, "Write access"):
             automation.gate(self.event(), "owner/repo")
         self.assertEqual(api.call_count, 1)
 
     @patch.object(automation, "api")
-    def test_edits_and_label_changes_require_fresh_approval(self, api):
+    def test_edits_and_label_changes_require_fresh_approval(
+        self, api: MagicMock
+    ) -> None:
         for changes in (
             {"body": "new body"},
             {"title": "new title"},
@@ -118,20 +127,21 @@ class CommandTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "changed"):
                     automation.approved_issue(self.event(), "owner/repo")
 
-    def test_invalid_issue_state_or_ambiguous_kind_is_rejected(self):
-        for changes in (
+    def test_invalid_issue_state_or_ambiguous_kind_is_rejected(self) -> None:
+        invalid: list[dict[str, Any]] = [
             {"state": "closed"},
             {"pull_request": {}},
             {"labels": [{"name": "movie"}]},
             {"labels": issue()["labels"] + [{"name": "show"}]},
             {"labels": issue()["labels"] + [{"name": "rejected"}]},
-        ):
+        ]
+        for changes in invalid:
             with self.subTest(changes=changes), self.assertRaises(ValueError):
                 automation.contribution_kind(issue(**changes))
         with self.assertRaises(ValueError):
             parse_issue_form("", "[Movie]", ["movie", "show"])
 
-    def test_youtube_links_cannot_match_an_attacker_host_or_partial_id(self):
+    def test_youtube_links_cannot_match_an_attacker_host_or_partial_id(self) -> None:
         for url in (
             "https://notyoutube.com/watch?v=AB96CvvLZKc",
             "https://evil.test/youtube.com/watch?v=AB96CvvLZKc",
@@ -146,7 +156,9 @@ class PreviewTests(unittest.TestCase):
     @patch.object(automation, "gh")
     @patch.object(automation, "api")
     @patch.object(automation, "prepare")
-    def test_spoofed_preview_marker_is_not_edited(self, prepare, api, gh):
+    def test_spoofed_preview_marker_is_not_edited(
+        self, prepare: MagicMock, api: MagicMock, gh: MagicMock
+    ) -> None:
         prepare.return_value = {
             "body": "A preview",
             "labels": ["contribution", "movie"],
@@ -164,20 +176,24 @@ class PreviewTests(unittest.TestCase):
     @patch.object(automation, "gh")
     @patch.object(automation, "api")
     @patch.object(automation, "prepare")
-    def test_preview_does_not_publish_after_issue_changes(self, prepare, api, gh):
+    def test_preview_does_not_publish_after_issue_changes(
+        self, prepare: MagicMock, api: MagicMock, gh: MagicMock
+    ) -> None:
         prepare.return_value = {"body": "A preview", "labels": ["movie"]}
         api.side_effect = [issue(), issue(body="edited")]
         automation.preview({"issue": issue()}, "owner/repo")
         gh.assert_not_called()
 
-    def test_user_text_cannot_close_code_fence(self):
+    def test_user_text_cannot_close_code_fence(self) -> None:
         result = automation.fenced("```\n@someone\n````")
         self.assertTrue(result.startswith("`````text\n"))
         self.assertTrue(result.endswith("\n`````"))
 
     @patch.object(automation, "api", return_value=[])
     @patch.object(automation, "gh")
-    def test_disabled_protection_never_calls_merge(self, gh, _api):
+    def test_disabled_protection_never_calls_merge(
+        self, gh: MagicMock, _api: MagicMock
+    ) -> None:
         with patch("sys.stdout", new=io.StringIO()):
             automation.enable_auto_merge(
                 "owner/repo", "https://github.com/owner/repo/pull/1"
@@ -199,33 +215,37 @@ class PreviewTests(unittest.TestCase):
         ],
     )
     @patch.object(automation, "gh", return_value="a" * 40)
-    def test_merge_is_bound_to_reviewed_head(self, gh, _api):
+    def test_merge_is_bound_to_reviewed_head(
+        self, gh: MagicMock, _api: MagicMock
+    ) -> None:
         automation.enable_auto_merge(
             "owner/repo", "https://github.com/owner/repo/pull/1"
         )
-        self.assertEqual(gh.call_args.args[-2:], ("--match-head-commit", "a" * 40))
+        self.assertEqual(
+            gh.call_args_list[-1].args[-2:], ("--match-head-commit", "a" * 40)
+        )
 
 
 class ArchiveTests(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
         (self.root / "data/movies").mkdir(parents=True)
         self.archive = self.root / "export.zip"
 
-    def archive_entries(self, *entries):
+    def archive_entries(self, *entries: dict[str, Any]) -> None:
         with ZipFile(self.archive, "w") as archive:
             for index, entry in enumerate(entries):
                 archive.writestr(f"{index}.json", json.dumps(entry))
 
-    def test_failed_import_never_writes_valid_subset(self):
+    def test_failed_import_never_writes_valid_subset(self) -> None:
         self.archive_entries(movie(), movie(tmdb_id=2, year=False))
         result = import_bulk_export(overture_dir=self.root, archive_path=self.archive)
         self.assertEqual(result["skipped"], 1)
         self.assertEqual(list((self.root / "data").rglob("*.json")), [])
 
-    def test_enriched_identity_is_indexed_for_later_records(self):
+    def test_enriched_identity_is_indexed_for_later_records(self) -> None:
         path = self.root / "data/movies/tmdb-1.json"
         path.write_text(json.dumps(movie(poster_url=None)), encoding="utf-8")
         self.archive_entries(
@@ -245,7 +265,7 @@ class ArchiveTests(unittest.TestCase):
             "https://image.tmdb.org/background.jpg",
         )
 
-    def test_existing_duplicate_identity_is_rejected_before_writing(self):
+    def test_existing_duplicate_identity_is_rejected_before_writing(self) -> None:
         for name, entry in (
             ("tmdb-1.json", movie()),
             ("imdb-tt1.json", movie(imdb_id="tt1")),
@@ -258,26 +278,26 @@ class ArchiveTests(unittest.TestCase):
             import_bulk_export(overture_dir=self.root, archive_path=self.archive)
         self.assertFalse((self.root / "data/movies/tmdb-2.json").exists())
 
-    def test_bulk_url_policy_does_not_depend_on_network_probes(self):
+    def test_bulk_url_policy_does_not_depend_on_network_probes(self) -> None:
         self.archive_entries(movie(poster_url="https://127.0.0.1/private.jpg"))
         result = import_bulk_export(overture_dir=self.root, archive_path=self.archive)
         self.assertEqual(result["skipped"], 1)
         self.assertEqual(list((self.root / "data").rglob("*.json")), [])
 
-    def test_empty_archive_and_missing_directory_are_errors(self):
+    def test_empty_archive_and_missing_directory_are_errors(self) -> None:
         self.archive_entries()
         with self.assertRaises(ValueError):
             load_incoming_entries(archive_path=self.archive)
         with self.assertRaises(ValueError):
             load_incoming_entries(input_dir=self.root / "missing")
 
-    def test_bulk_does_not_create_empty_entries_from_imported_theme_only(self):
+    def test_bulk_does_not_create_empty_entries_from_imported_theme_only(self) -> None:
         self.archive_entries(movie(poster_url=None, youtube_id_themerrdb="AB96CvvLZKc"))
         result = import_bulk_export(overture_dir=self.root, archive_path=self.archive)
         self.assertEqual(result["skipped"], 1)
         self.assertFalse(list((self.root / "data").rglob("*.json")))
 
-    def test_zip_filenames_are_never_extracted(self):
+    def test_zip_filenames_are_never_extracted(self) -> None:
         with ZipFile(self.archive, "w") as archive:
             archive.writestr("../../outside.json", json.dumps(movie()))
         import_bulk_export(overture_dir=self.root, archive_path=self.archive)
@@ -287,8 +307,8 @@ class ArchiveTests(unittest.TestCase):
     @patch.object(automation, "public_https_destination")
     @patch.object(automation, "build_opener")
     def test_download_enforces_actual_bytes_without_content_length(
-        self, opener, destination
-    ):
+        self, opener: MagicMock, destination: MagicMock
+    ) -> None:
         response = MagicMock()
         response.read.side_effect = [b"a" * 6, b"b" * 6, b""]
         opener.return_value.open.return_value.__enter__.return_value = response
@@ -299,16 +319,25 @@ class ArchiveTests(unittest.TestCase):
             automation.download_archive(
                 "https://github.com/user-attachments/assets/abc-123", self.archive
             )
-        self.assertEqual(destination.call_args.kwargs["allowed_hosts"], {"github.com"})
+        self.assertEqual(
+            destination.call_args_list[-1].kwargs["allowed_hosts"], {"github.com"}
+        )
 
-    def test_attachment_redirect_rejects_untrusted_host_before_request(self):
+    def test_attachment_redirect_rejects_untrusted_host_before_request(self) -> None:
         with self.assertRaises(ValueError):
             automation.AttachmentRedirectHandler().redirect_request(
-                None, None, 302, "Found", {}, "https://127.0.0.1/private"
+                Request("https://github.com/user-attachments/assets/a"),
+                io.BytesIO(),
+                302,
+                "Found",
+                HTTPMessage(),
+                "https://127.0.0.1/private",
             )
 
     @patch.object(automation, "build_opener")
-    def test_non_attachment_or_multiple_links_never_download(self, opener):
+    def test_non_attachment_or_multiple_links_never_download(
+        self, opener: MagicMock
+    ) -> None:
         for body in (
             "https://evil.test/archive.zip",
             "https://github.com/user-attachments/assets/a https://github.com/user-attachments/assets/b",
@@ -319,8 +348,8 @@ class ArchiveTests(unittest.TestCase):
 
 
 class GuardTests(unittest.TestCase):
-    def test_provenance_and_scope(self):
-        pr = {
+    def test_provenance_and_scope(self) -> None:
+        pr: dict[str, Any] = {
             "head": {
                 "repo": {"full_name": "owner/repo"},
                 "ref": "contribution/issue-12",
@@ -346,6 +375,6 @@ class GuardTests(unittest.TestCase):
             validate_changes(bad, "owner/repo", [path], [])
         self.assertEqual(validate_changes(bad, "owner/repo", ["README.md"], []), [])
 
-    def test_missing_dataset_cannot_publish_empty_catalog(self):
+    def test_missing_dataset_cannot_publish_empty_catalog(self) -> None:
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(ValueError):
             catalog.dataset(Path(directory))

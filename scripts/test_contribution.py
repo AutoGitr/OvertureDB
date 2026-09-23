@@ -26,7 +26,7 @@ class ContributionTests(unittest.TestCase):
         (self.data_dir / "shows").mkdir(parents=True)
 
     def tearDown(self) -> None:
-        shutil.rmtree(self.temp_dir, ignore_errors=True)
+        shutil.rmtree(self.temp_dir)
 
     def test_clean_art_url(self) -> None:
         self.assertIsNone(clean_art_url(None))
@@ -760,6 +760,7 @@ https://image.tmdb.org/poster.jpg
         labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
 
         script_path = Path(__file__).resolve().parent / "contribution.py"
+        # Execute this checkout's CLI with the current interpreter; no shell.
         res = subprocess.run(  # noqa: S603
             [
                 sys.executable,
@@ -796,6 +797,7 @@ https://image.tmdb.org/poster.jpg
         labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
 
         script_path = Path(__file__).resolve().parent / "contribution.py"
+        # Execute this checkout's CLI with the current interpreter; no shell.
         res = subprocess.run(  # noqa: S603
             [
                 sys.executable,

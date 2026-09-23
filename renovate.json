@@ -24,9 +24,18 @@
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "groupName": "GitHub Actions Updates",
-      "matchUpdateTypes": ["minor"],
       "addLabels": ["ci"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions Updates",
+      "matchUpdateTypes": ["minor"]
+    },
+    {
+      "matchDatasources": ["github-runners"],
+      "enabled": true,
+      "groupName": "GitHub runners",
+      "automerge": false
     },
     {
       "matchUpdateTypes": ["pin", "patch", "digest", "pinDigest"],

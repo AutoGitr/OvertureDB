@@ -13,10 +13,11 @@ from zipfile import ZipFile
 
 from catalog import art_urls, check_art_destination, dataset, write_changes
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "schema"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import validate_entries, validate_entry  # noqa: E402
+from contract import validate_entries, validate_entry
+
+ROOT = Path(__file__).resolve().parents[1]
 
 MAX_ARCHIVE_ENTRIES = 1000
 MAX_SINGLE_ENTRY_BYTES = 1 * 1024 * 1024  # 1 MB
@@ -547,30 +548,30 @@ def main() -> int:
             dry_run=args.dry_run,
         )
     except Exception as exc:
-        print(f"Import failed: {exc}", file=sys.stderr)  # noqa: T201
+        print(f"Import failed: {exc}", file=sys.stderr)
         return 1
 
     if args.json:
-        print(json.dumps(results, indent=2))  # noqa: T201
+        print(json.dumps(results, indent=2))
         return 0 if not results["errors"] else 2
 
     if args.review_markdown:
         if results["review_markdown"]:
-            print(results["review_markdown"])  # noqa: T201
+            print(results["review_markdown"])
         return 0 if not results["errors"] else 2
 
     mode = " (DRY RUN)" if results["dry_run"] else ""
-    print(f"Bulk Import Results{mode}:")  # noqa: T201
-    print(f"  Total incoming entries: {results['total_incoming']}")  # noqa: T201
-    print(f"  New entries created:    {results['created']}")  # noqa: T201
-    print(f"  Entries backfilled:     {results['backfilled']}")  # noqa: T201
-    print(f"  Entries unchanged:      {results['unchanged']}")  # noqa: T201
-    print(f"  Entries skipped/errors: {results['skipped']}")  # noqa: T201
+    print(f"Bulk Import Results{mode}:")
+    print(f"  Total incoming entries: {results['total_incoming']}")
+    print(f"  New entries created:    {results['created']}")
+    print(f"  Entries backfilled:     {results['backfilled']}")
+    print(f"  Entries unchanged:      {results['unchanged']}")
+    print(f"  Entries skipped/errors: {results['skipped']}")
 
     if results["errors"]:
-        print("\nErrors / Collisions:")  # noqa: T201
+        print("\nErrors / Collisions:")
         for err in results["errors"]:
-            print(f"  - {err}")  # noqa: T201
+            print(f"  - {err}")
 
     return 0 if not results["errors"] else 2
 
