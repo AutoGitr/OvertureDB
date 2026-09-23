@@ -37,7 +37,6 @@ class ParsedContribution:
     youtube_id: str | None
     seasons: list[dict[str, Any]]
     modification_reason: str | None
-    is_certified: bool
 
 
 def clean_art_url(url: str | None) -> str | None:
@@ -178,13 +177,6 @@ def parse_issue_form(
     )
     modification_reason = reason_raw.strip() if reason_raw else None
 
-    cert_raw = extract_field(body, "Contribution Guidelines") or extract_field(
-        body, "Contribution Certification"
-    )
-    is_certified = False
-    if cert_raw:
-        is_certified = bool(re.search(r"-\s*\[[xX]\]", cert_raw))
-
     return ParsedContribution(
         media_type=media_type,
         title=title,
@@ -197,7 +189,6 @@ def parse_issue_form(
         youtube_id=youtube_id,
         seasons=seasons,
         modification_reason=modification_reason,
-        is_certified=is_certified,
     )
 
 

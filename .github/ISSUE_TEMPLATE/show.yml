@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md). All contributions must follow these guidelines.
 
   - type: input
     id: item_title
@@ -77,11 +77,3 @@ body:
       value: "If this modifies an existing entry, replace this text with a reason for the change (e.g. higher resolution, textless, dead link, corrected ID)."
     validations:
       required: true
-
-  - type: checkboxes
-    id: assert
-    attributes:
-      label: Contribution Guidelines
-      options:
-        - label: I have read and followed the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
-          required: true

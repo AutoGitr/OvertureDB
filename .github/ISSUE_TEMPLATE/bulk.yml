@@ -10,7 +10,9 @@ body:
         Export saved library selections from Overture (**OvertureDB -> Export selections**).
         Attach the downloaded `overturedb-selections.zip` to this issue.
 
-        **How a Bulk Contributions Works**:
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md). All contributions must follow these guidelines.
+
+        **How Bulk Contributions Work**:
         - Only missing items and values are added.
         To modify selections, please submit a separate issue for the item with the specific changes.
 
@@ -28,11 +30,3 @@ body:
       label: Additional Notes
     validations:
       required: false
-
-  - type: checkboxes
-    id: assert
-    attributes:
-      label: Contribution Guidelines
-      options:
-        - label: I have read and followed the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/docs/selection-guidelines.md).
-          required: true

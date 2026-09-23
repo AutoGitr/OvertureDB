@@ -86,10 +86,6 @@ abc123abc12
 ### Reason for modification (if replacing existing artwork or theme)
 
 {MODIFICATION_PLACEHOLDER}
-
-### Contribution Guidelines
-
-- [X] I have read and followed the Contribution Guidelines.
 """
         parsed = parse_issue_form(body, "[Movie]: Interstellar (2014)", ["movie"])
         self.assertEqual(parsed.media_type, "movie")
@@ -99,17 +95,7 @@ abc123abc12
         self.assertIsNone(parsed.tvdb_id)
         self.assertEqual(parsed.imdb_id, "tt0816692")
         self.assertEqual(parsed.youtube_id, "abc123abc12")
-        self.assertTrue(parsed.is_certified)
         self.assertEqual(parsed.modification_reason, MODIFICATION_PLACEHOLDER)
-
-    def test_parse_guidelines_checkbox(self) -> None:
-        body = (
-            "### Title\n\nMovie\n\n### TMDB ID\n\n1\n\n"
-            "### Contribution Guidelines\n\n"
-            "- [x] I have read and followed the Contribution Guidelines."
-        )
-        parsed = parse_issue_form(body, "[Movie]: Movie", ["movie"])
-        self.assertTrue(parsed.is_certified)
 
     def test_parse_invalid_fields(self) -> None:
         base_body = "### Title\n\nMovie\n\n### TMDB ID\n\nabc"
