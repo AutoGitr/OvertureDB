@@ -40,6 +40,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 ### Duration and Audio Quality
 
 - Preferred length is 1 to 2 minutes.
+- Avoid leading silence: theme audio should begin playing immediately upon start.
 - Clean audio only: no dialogue intros, YouTube outro promotions, watermarks, or abrupt cutoffs.
 
 ### Do Not Duplicate ThemerrDB

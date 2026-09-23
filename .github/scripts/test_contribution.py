@@ -407,8 +407,8 @@ Upgrading to official 4K poster art.
         existing = {
             "poster_url": "https://image.tmdb.org/old_poster.jpg",
             "background_url": "https://image.tmdb.org/old_bg.jpg",
-            "youtube_id_themerrdb": "oldtheme123",
-            "youtube_id_overturedb": None,
+            "youtube_id_themerrdb": None,
+            "youtube_id_overturedb": "oldtheme123",
             "seasons": [
                 {"season_num": 1, "poster_url": "https://image.tmdb.org/old_s1.jpg"},
             ],
@@ -581,6 +581,69 @@ newTheme222
         res = process_contribution(parsed_ok, self.temp_dir, dry_run=False)
         self.assertTrue(res["is_modification"])
         self.assertEqual(res["youtube_id"], "newTheme222")
+        self.assertIn(
+            "- **Old YouTube Theme:** [Watch video](https://www.youtube.com/watch?v=oldTheme111)",
+            res["media_comparison"],
+        )
+        self.assertIn(
+            "- **New YouTube Theme:** [Watch video](https://www.youtube.com/watch?v=newTheme222)",
+            res["media_comparison"],
+        )
+
+    def test_adding_overturedb_theme_when_themerrdb_exists_is_not_modification(
+        self,
+    ) -> None:
+        existing_file = self.data_dir / "movies" / "tmdb-999.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Theme Movie",
+                    "year": 2020,
+                    "tmdb_id": 999,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": None,
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": "themerr1111",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        body = f"""### Title
+
+Theme Movie
+
+### Year
+
+2020
+
+### TMDB ID
+
+999
+
+### YouTube theme video ID
+
+overture111
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed = parse_issue_form(body, "[Movie]: Theme Movie (2020)", ["movie"])
+        res = process_contribution(parsed, self.temp_dir, dry_run=False)
+        self.assertEqual(res["status"], "ok")
+        self.assertFalse(res["is_modification"])
+        self.assertTrue(res["is_addition"])
+        self.assertEqual(res["media_comparison"], "")
+        self.assertEqual(res["youtube_id"], "overture111")
+
+        saved = json.loads(existing_file.read_text(encoding="utf-8"))
+        self.assertEqual(saved["youtube_id_overturedb"], "overture111")
+        self.assertEqual(saved["youtube_id_themerrdb"], "themerr1111")
 
     def test_show_season_poster_replacement_vs_addition(self) -> None:
         show_file = self.data_dir / "shows" / "tvdb-600.json"

@@ -287,9 +287,7 @@ def is_media_replacement(
     ):
         return True
 
-    old_yt = existing.get("youtube_id_overturedb") or existing.get(
-        "youtube_id_themerrdb"
-    )
+    old_yt = existing.get("youtube_id_overturedb")
     if old_yt and parsed.youtube_id and parsed.youtube_id.strip() != old_yt.strip():
         return True
 
@@ -369,15 +367,11 @@ def format_media_comparison(
         lines.append(f"- **Old Background:** {old_val}")
         lines.append(f"- **New Background:** {new_val}")
 
-    old_yt = existing.get("youtube_id_overturedb") or existing.get(
-        "youtube_id_themerrdb"
-    )
-    new_yt = updated.get("youtube_id_overturedb") or updated.get("youtube_id_themerrdb")
-    if old_yt != new_yt:
+    old_yt = existing.get("youtube_id_overturedb")
+    new_yt = updated.get("youtube_id_overturedb")
+    if old_yt and old_yt != new_yt:
         old_val = (
             f"[Watch video](https://www.youtube.com/watch?v={old_yt}) (`{old_yt}`)"
-            if old_yt
-            else "_None_"
         )
         new_val = (
             f"[Watch video](https://www.youtube.com/watch?v={new_yt}) (`{new_yt}`)"
