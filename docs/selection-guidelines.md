@@ -112,7 +112,7 @@ You can also open an issue directly:
 ### Review and Bot Commands
 
 Submissions are validated by an automated preview workflow. Maintainers review the issue and can run these commands in a comment:
-- `@OvertureDB-bot approve` - Generates a bot PR and merges the change.
+- `@OvertureDB-bot approve` - Creates a bot PR. Single-entry changes merge after enforced checks; bulk PRs require manual merging.
 - `@OvertureDB-bot reject <optional reason>` - Rejects the submission and closes the issue.
 
 Maintainers can also edit the issue description directly to adjust URLs or metadata before approving.

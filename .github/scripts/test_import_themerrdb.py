@@ -75,7 +75,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             }
             existing_file.write_text(json.dumps(existing_data), encoding="utf-8")
 
-            by_tmdb, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 252178,
@@ -114,7 +114,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 99999,
@@ -159,7 +159,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 88888,
@@ -207,7 +207,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
 
             self.assertEqual(
                 importer.process_themerr_item(
@@ -371,6 +371,7 @@ class ImportIntegrationTests(unittest.TestCase):
             stats = self.run_import()
         self.assertEqual(stats["skipped_error"], 2)
         self.assertEqual(stats["added"], 1)
+        self.assertEqual(list(self.data.rglob("*.json")), [])
 
     def test_limit_is_positive_and_applies_across_media_types(self):
         self.write_upstream()

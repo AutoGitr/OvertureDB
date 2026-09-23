@@ -10,6 +10,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
+
+from catalog import art_urls, check_art_destination
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "schema"))
@@ -17,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from contract import validate_entry  # noqa: E402
 from import_bulk_export import find_existing_entry, index_existing_entries  # noqa: E402
+from import_themerrdb import extract_youtube_id  # noqa: E402
 
 MODIFICATION_PLACEHOLDER = (
     "If this modifies an existing entry, replace this text with a reason "
@@ -49,10 +53,10 @@ def _first_non_empty_line(val: str | None) -> str | None:
     return None
 
 
-def clean_art_url(url: str | None) -> str | None:
-    if not url:
+def clean_art_url(raw_url: str | None) -> str | None:
+    if not raw_url:
         return None
-    url = url.strip()
+    url = raw_url.strip()
     if not url or url == "_No response_":
         return None
     # Strip quotes
@@ -101,17 +105,14 @@ def clean_youtube_id(raw_id: str | None) -> str | None:
         val = val[1:-1].strip()
     if val.startswith("<") and val.endswith(">"):
         val = val[1:-1].strip()
+    markdown = re.fullmatch(r"\[[^\]]*\]\((https?://[^\s)]+)\)", val)
+    if markdown:
+        val = markdown[1]
 
     # Full YouTube URLs across domains: youtu.be, watch?v=, embed/, shorts/
-    yt_url_match = re.search(
-        r"(?:youtu\.be/|(?:[a-zA-Z0-9-]+\.)?youtube\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/))([a-zA-Z0-9_-]{11})",
-        val,
-    )
-    if yt_url_match:
-        return yt_url_match.group(1)
-
-    if re.match(r"^[a-zA-Z0-9_-]{11}$", val):
-        return val
+    video_id = extract_youtube_id(val)
+    if video_id:
+        return video_id
 
     raise ValueError(
         f"Invalid YouTube theme ID or URL: '{val}'. "
@@ -145,55 +146,51 @@ def extract_field(body: str, heading: str) -> str | None:
 
 
 def _extract_media_type(issue_title: str, labels: list[str]) -> str:
-    title_lower = issue_title.lower()
-    if "movie" in labels or title_lower.startswith("[movie"):
-        return "movie"
-    if "show" in labels or title_lower.startswith("[show"):
-        return "show"
-    raise ValueError("Issue must use the movie or show contribution form.")
+    media_labels = set(labels) & {"movie", "show", "bulk"}
+    if len(media_labels) != 1 or "bulk" in media_labels:
+        raise ValueError("Issue must have exactly one movie or show label.")
+    return media_labels.pop()
+
+
+def _numeric_id(body: str, provider: str, url_pattern: str) -> int | None:
+    raw = _first_non_empty_line(extract_field(body, f"{provider} ID"))
+    if raw is None:
+        return None
+    match = re.fullmatch(r"https?://(?:www\.)?" + url_pattern + r"/?(?:\?[^\s]*)?", raw)
+    digits = match[1] if match else raw
+    if not re.fullmatch(r"[0-9]+", digits):
+        raise ValueError(
+            f"{provider} ID must contain digits only or a valid {provider} URL."
+        )
+    value = int(digits)
+    if not 0 < value <= 9223372036854775807:
+        raise ValueError(f"{provider} ID must be a positive integer below 2^63.")
+    return value
 
 
 def _parse_external_ids(
     body: str, media_type: str
 ) -> tuple[int | None, int | None, str | None]:
-    tmdb_raw = extract_field(body, "TMDB ID")
-    tmdb_id = None
-    if tmdb_raw:
-        tmdb_str = _first_non_empty_line(tmdb_raw) or ""
-        tmdb_url_match = re.search(r"themoviedb\.org/(?:movie|tv)/(\d+)", tmdb_str)
-        if tmdb_url_match:
-            tmdb_id = int(tmdb_url_match.group(1))
-        elif not re.match(r"^\d+$", tmdb_str):
-            raise ValueError("TMDB ID must contain digits only.")
-        elif int(tmdb_str) < 1:
-            raise ValueError("TMDB ID must be a positive integer.")
-        else:
-            tmdb_id = int(tmdb_str)
-
-    tvdb_raw = extract_field(body, "TVDB ID")
-    tvdb_id = None
-    if tvdb_raw:
-        tvdb_str = _first_non_empty_line(tvdb_raw) or ""
-        tvdb_url_match = re.search(
-            r"thetvdb\.com/(?:dereferrer/)?(?:series|movie)s?/(\d+)", tvdb_str
-        )
-        if tvdb_url_match:
-            tvdb_id = int(tvdb_url_match.group(1))
-        elif not re.match(r"^\d+$", tvdb_str):
-            raise ValueError("TVDB ID must contain digits only.")
-        elif int(tvdb_str) < 1:
-            raise ValueError("TVDB ID must be a positive integer.")
-        else:
-            tvdb_id = int(tvdb_str)
-
-    imdb_raw = extract_field(body, "IMDb ID")
+    tmdb_id = _numeric_id(
+        body, "TMDB", r"themoviedb\.org/(?:movie|tv)/([0-9]+)(?:-[^/?#\s]+)?"
+    )
+    tvdb_id = _numeric_id(
+        body, "TVDB", r"thetvdb\.com/(?:dereferrer/)?(?:series|movies?)/([0-9]+)"
+    )
+    imdb_raw = _first_non_empty_line(extract_field(body, "IMDb ID"))
     imdb_id = None
     if imdb_raw:
-        imdb_str = _first_non_empty_line(imdb_raw) or ""
-        imdb_match = re.search(r"(tt\d+)", imdb_str, flags=re.IGNORECASE)
-        if not imdb_match:
-            raise ValueError("IMDb ID must use the format tt followed by digits.")
-        imdb_id = imdb_match.group(1).lower()
+        match = re.fullmatch(
+            r"(?:https?://(?:www\.)?imdb\.com/title/)?(tt[0-9]+)(?:/)?(?:\?[^\s]*)?",
+            imdb_raw,
+            flags=re.IGNORECASE,
+        )
+        if not match:
+            raise ValueError(
+                "IMDb ID must use the format tt followed by digits "
+                "or an IMDb title URL."
+            )
+        imdb_id = match[1].lower()
 
     if tmdb_id is None and tvdb_id is None and imdb_id is None:
         raise ValueError(
@@ -368,11 +365,8 @@ def _update_external_ids(updated: dict[str, Any], parsed: ParsedContribution) ->
 def _update_seasons(updated: dict[str, Any], seasons: list[dict[str, Any]]) -> None:
     if not seasons:
         return
-    exist_seasons = {
-        s["season_num"]: dict(s)
-        for s in (updated.get("seasons") or [])
-        if isinstance(s, dict) and "season_num" in s
-    }
+    seasons_before: list[dict[str, Any]] = updated.get("seasons", [])
+    exist_seasons = {s["season_num"]: dict(s) for s in seasons_before}
     for s in seasons:
         exist_seasons[s["season_num"]] = {
             "season_num": s["season_num"],
@@ -413,10 +407,11 @@ def is_media_replacement(
         return True
 
     if parsed.media_type == "show" and parsed.seasons:
+        seasons_before: list[dict[str, Any]] = existing.get("seasons", [])
         exist_seasons = {
             s["season_num"]: s.get("poster_url")
-            for s in (existing.get("seasons") or [])
-            if isinstance(s, dict) and "season_num" in s and s.get("poster_url")
+            for s in seasons_before
+            if s.get("poster_url")
         }
         for s in parsed.seasons:
             s_num = s.get("season_num")
@@ -467,51 +462,31 @@ def format_media_comparison(
     updated: dict[str, Any],
 ) -> str:
     """Format markdown comparing changed artwork and theme fields inline."""
+
+    def selections(entry: dict[str, Any]) -> dict[str, str | None]:
+        theme = entry.get("youtube_id_overturedb")
+        values = {
+            "Poster": entry.get("poster_url"),
+            "Background": entry.get("background_url"),
+            "YouTube Theme": f"https://www.youtube.com/watch?v={theme}"
+            if theme
+            else None,
+        }
+        for season in entry.get("seasons", []):
+            values[f"Season {season['season_num']} Poster"] = season["poster_url"]
+        return values
+
+    old, new = selections(existing), selections(updated)
     lines: list[str] = []
-
-    old_poster = existing.get("poster_url")
-    new_poster = updated.get("poster_url")
-    if old_poster != new_poster:
-        old_val = f"[Old]({old_poster})" if old_poster else "_None_"
-        new_val = f"[New]({new_poster})" if new_poster else "_None_"
-        lines.append(f"- **Poster:** {old_val} | {new_val}")
-
-    old_bg = existing.get("background_url")
-    new_bg = updated.get("background_url")
-    if old_bg != new_bg:
-        old_val = f"[Old]({old_bg})" if old_bg else "_None_"
-        new_val = f"[New]({new_bg})" if new_bg else "_None_"
-        lines.append(f"- **Background:** {old_val} | {new_val}")
-
-    old_yt = existing.get("youtube_id_overturedb")
-    new_yt = updated.get("youtube_id_overturedb")
-    if old_yt and old_yt != new_yt:
-        old_val = (
-            f"[Old](https://www.youtube.com/watch?v={old_yt})" if old_yt else "_None_"
-        )
-        new_val = (
-            f"[New](https://www.youtube.com/watch?v={new_yt})" if new_yt else "_None_"
-        )
-        lines.append(f"- **YouTube Theme:** {old_val} | {new_val}")
-
-    exist_seasons = {
-        s["season_num"]: s.get("poster_url")
-        for s in (existing.get("seasons") or [])
-        if isinstance(s, dict) and "season_num" in s
-    }
-    updated_seasons = {
-        s["season_num"]: s.get("poster_url")
-        for s in (updated.get("seasons") or [])
-        if isinstance(s, dict) and "season_num" in s
-    }
-    for s_num in sorted(set(exist_seasons) | set(updated_seasons)):
-        old_s = exist_seasons.get(s_num)
-        new_s = updated_seasons.get(s_num)
-        if old_s != new_s:
-            old_val = f"[Old]({old_s})" if old_s else "_None_"
-            new_val = f"[New]({new_s})" if new_s else "_None_"
-            lines.append(f"- **Season {s_num} Poster:** {old_val} | {new_val}")
-
+    for label in dict.fromkeys([*old, *new]):
+        before, after = old.get(label), new.get(label)
+        if before == after:
+            continue
+        links = [
+            f"[{name}]({quote(url, safe='/:?=&%#+,.-_~')})" if url else "_None_"
+            for name, url in (("Old", before), ("New", after))
+        ]
+        lines.append(f"- **{label}:** {' | '.join(links)}")
     return "\n".join(lines)
 
 
@@ -575,8 +550,7 @@ def process_contribution(
                 f"No changes or additions detected for `{target_rel}`. "
                 "All submitted values match the existing entry."
             )
-        if is_modification:
-            media_comparison = format_media_comparison(existing_entry, validated)
+        media_comparison = format_media_comparison(existing_entry, validated)
     else:
         target_path = determine_canonical_path(
             parsed.media_type,
@@ -588,6 +562,7 @@ def process_contribution(
         target_rel = target_path.relative_to(repo_root).as_posix()
         validated = validate_entry(candidate)
         is_modification = False
+        media_comparison = format_media_comparison({}, validated)
         new_content = json.dumps(validated, indent=2, ensure_ascii=False) + "\n"
         diff_lines = difflib.unified_diff(
             [],
@@ -598,12 +573,15 @@ def process_contribution(
         diff = "".join(diff_lines)
 
     new_content = json.dumps(validated, indent=2, ensure_ascii=False) + "\n"
+    for url in art_urls([validated]):
+        check_art_destination(url, resolve=False)
     if not dry_run:
         target_path.parent.mkdir(parents=True, exist_ok=True)
         target_path.write_text(new_content, encoding="utf-8", newline="\n")
 
     return {
         "status": "ok",
+        "entry": validated,
         "target": target_rel,
         "is_modification": is_modification,
         "is_addition": existing_path is not None and not is_modification,

@@ -1,11 +1,13 @@
 name: Contribution Preview
-run-name: "Contribution #${{ github.event.issue.number }} preview"
+run-name: 'Contribution #${{ github.event.issue.number }} preview'
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [opened, edited, labeled, reopened]
 
-permissions: {}
+permissions:
+  contents: read
+  issues: write
 
 concurrency:
   group: contribution-preview-${{ github.event.issue.number }}
@@ -13,227 +15,24 @@ concurrency:
 
 jobs:
   preview:
-    if: |
+    if: >-
       !github.event.issue.pull_request &&
       github.event.issue.state == 'open' &&
       contains(github.event.issue.labels.*.name, 'contribution') &&
-      !contains(github.event.issue.labels.*.name, 'rejected')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: write
-
+      !contains(github.event.issue.labels.*.name, 'rejected') &&
+      (github.event.action != 'labeled' ||
+       contains(fromJSON('["contribution", "movie", "show", "bulk"]'), github.event.label.name))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          version: "latest"
-          enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14.7
-
-      - name: Build and comment preview
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: '0.12.17'
+          python-version-file: .python-version
+      - name: Validate and update preview
+        run: uv run --locked python .github/scripts/automation.py preview
         env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          marker="<!-- overturedb-contribution-preview -->"
-          body_file="$(mktemp)"
-          labels_file="$(mktemp)"
-          comment_file="$(mktemp)"
-          payload_file="$(mktemp)"
-          error_file="$(mktemp)"
-
-          printf '%s' "$ISSUE_BODY" > "$body_file"
-          gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' > "$labels_file"
-
-          if grep -qx "rejected" "$labels_file"; then
-            echo "Issue has 'rejected' label. Skipping preview."
-            exit 0
-          fi
-
-          is_bulk="false"
-          if grep -qx "bulk" "$labels_file"; then
-            is_bulk="true"
-          fi
-
-          if [ "$is_bulk" = "true" ]; then
-            zip_url="$(printf '%s' "$ISSUE_BODY" | grep -Eo 'https://github\.com/(user-attachments/(assets/[a-zA-Z0-9_.~-]+|files/[0-9]+/[a-zA-Z0-9_.~-]+)|[^/ ]+/[^/ ]+/files/[0-9]+/[a-zA-Z0-9_.~-]+)' | head -n1 || true)"
-
-            {
-              echo "$marker"
-              echo "### OvertureDB Bulk Contribution Preview"
-              echo
-
-              if [ -z "$zip_url" ]; then
-                echo "[Warning] No valid GitHub-attached \`.zip\` archive found in the issue description."
-                echo "Please attach your \`overturedb-selections.zip\` by editing the issue and dragging the file into the description area."
-              else
-                echo "Archive: \`$zip_url\`"
-                echo
-                archive_file="$(mktemp --suffix=.zip)"
-                if curl -fSL --max-filesize 10485760 "$zip_url" -o "$archive_file" 2>/dev/null; then
-                  report="$(uv run python .github/scripts/import_bulk_export.py --archive "$archive_file" --dry-run 2>&1 || true)"
-                  echo '```text'
-                  printf '%s\n' "$report"
-                  echo '```'
-
-                  review_section="$(uv run python .github/scripts/import_bulk_export.py --archive "$archive_file" --dry-run --review-markdown 2>/dev/null || true)"
-                  if [ -n "$review_section" ]; then
-                    echo
-                    printf '%s\n' "$review_section"
-                  fi
-                else
-                  echo "[Warning] Could not download attached archive file (must be a valid GitHub attachment under 10 MB)."
-                fi
-              fi
-
-              echo
-              cat .github/bot_commands.md
-            } > "$comment_file"
-
-          else
-            result_file="$(mktemp)"
-            status="ok"
-            target=""
-            message=""
-            is_modification="false"
-            mod_reason=""
-            diff=""
-
-            if ! uv run python .github/scripts/contribution.py \
-                --issue-body-file "$body_file" \
-                --issue-title "$ISSUE_TITLE" \
-                --labels-file "$labels_file" \
-                --repo-root . \
-                --json > "$result_file" 2>"$error_file"; then
-              status="error"
-              if [ -s "$result_file" ] && jq -e .error "$result_file" >/dev/null 2>&1; then
-                message="$(jq -r .error "$result_file")"
-              else
-                message="$(cat "$error_file")"
-              fi
-            else
-              target="$(jq -r .target "$result_file")"
-              is_modification="$(jq -r .is_modification "$result_file")"
-              is_addition="$(jq -r '.is_addition // false' "$result_file")"
-              mod_reason="$(jq -r '.modification_reason // ""' "$result_file")"
-              diff="$(jq -r .diff "$result_file")"
-              media_comparison="$(jq -r '.media_comparison // ""' "$result_file")"
-
-              # Validate remote image URLs
-              if ! message="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
-                status="error"
-              fi
-
-              # Clean up working tree so git stays pristine on the runner
-              git checkout -- "$target" 2>/dev/null || rm -f "$target"
-            fi
-
-            if [ "$status" = "ok" ]; then
-              if [ "$is_modification" = "true" ]; then
-                gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label "modification" || true
-              else
-                gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --remove-label "modification" || true
-              fi
-            fi
-
-            {
-              echo "$marker"
-              echo "### OvertureDB contribution preview"
-              echo
-
-              if [ "$status" = "ok" ]; then
-                if [ "$is_modification" = "true" ]; then
-                  echo "Proposed target: \`$target\` (Modification)"
-                  echo
-                  echo "> **Reason for modification:**"
-                  echo "> $mod_reason"
-                elif [ "$is_addition" = "true" ]; then
-                  echo "Proposed target: \`$target\` (Addition)"
-                else
-                  echo "Proposed target: \`$target\` (New entry)"
-                fi
-                echo
-                echo "Identifiers:"
-
-                media_type="$(jq -r '.media_type // ""' "$result_file")"
-                tmdb_id="$(jq -r '.tmdb_id // ""' "$result_file")"
-                tvdb_id="$(jq -r '.tvdb_id // ""' "$result_file")"
-                imdb_id="$(jq -r '.imdb_id // ""' "$result_file")"
-                youtube_id="$(jq -r '.youtube_id // ""' "$result_file")"
-
-                if [ -n "$tmdb_id" ]; then
-                  if [ "$media_type" = "show" ]; then
-                    echo "- TMDB: [$tmdb_id](https://www.themoviedb.org/tv/$tmdb_id)"
-                  else
-                    echo "- TMDB: [$tmdb_id](https://www.themoviedb.org/movie/$tmdb_id)"
-                  fi
-                fi
-
-                if [ -n "$tvdb_id" ]; then
-                  if [ "$media_type" = "show" ]; then
-                    echo "- TVDB: [$tvdb_id](https://thetvdb.com/dereferrer/series/$tvdb_id)"
-                  else
-                    echo "- TVDB: [$tvdb_id](https://thetvdb.com/dereferrer/movie/$tvdb_id)"
-                  fi
-                fi
-
-                if [ -n "$imdb_id" ]; then
-                  echo "- IMDb: [$imdb_id](https://www.imdb.com/title/$imdb_id/)"
-                fi
-
-                if [ -n "$youtube_id" ]; then
-                  echo "- YouTube: [$youtube_id](https://www.youtube.com/watch?v=$youtube_id)"
-                fi
-
-                if [ -n "$media_comparison" ]; then
-                  echo
-                  echo "Artwork & Theme changes:"
-                  printf '%s\n' "$media_comparison"
-                fi
-
-                echo
-                echo '```diff'
-                printf '%s\n' "$diff"
-                echo '```'
-              else
-                echo "Could not build or validate this contribution:"
-                echo
-                echo '```text'
-                printf '%s\n' "$message"
-                echo '```'
-              fi
-
-              echo
-              cat .github/bot_commands.md
-            } > "$comment_file"
-          fi
-
-          jq -n --rawfile body "$comment_file" '{body: $body}' > "$payload_file"
-
-          comment_id="$(
-            gh api "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" --paginate \
-              --jq '.[] | select(.body | contains("<!-- overturedb-contribution-preview -->") or contains("<!-- overturedb-bulk-contribution-preview -->")) | .id' \
-              | tail -n1
-          )"
-
-          if [ -n "$comment_id" ]; then
-            gh api "repos/${REPO}/issues/comments/${comment_id}" \
-              --method PATCH \
-              --input "$payload_file" >/dev/null
-          else
-            gh api "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
-              --method POST \
-              --input "$payload_file" >/dev/null
-          fi

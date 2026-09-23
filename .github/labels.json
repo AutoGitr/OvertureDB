@@ -1,0 +1,14 @@
+[
+  {"name": "contribution", "color": "3c8d31", "description": "Artwork or theme contribution"},
+  {"name": "movie", "color": "1d76db", "description": "Movie contribution"},
+  {"name": "show", "color": "5319e7", "description": "Show contribution"},
+  {"name": "bulk", "color": "77afbe", "description": "Bulk export from Overture"},
+  {"name": "modification", "color": "49c0a8", "description": "Replaces an existing artwork or theme selection"},
+  {"name": "rejected", "color": "b60205", "description": "Rejected contribution; bot commands disabled"},
+  {"name": "dependencies", "color": "0366d6", "description": "Dependency update"},
+  {"name": "security", "color": "b60205", "description": "Security fix; report vulnerabilities privately"},
+  {"name": "ci", "color": "ededed", "description": "Repository scripts and GitHub Actions"},
+  {"name": "bug", "color": "d73a4a", "description": "Incorrect behavior"},
+  {"name": "documentation", "color": "0075ca", "description": "Documentation change"},
+  {"name": "enhancement", "color": "a2eeef", "description": "New capability"}
+]

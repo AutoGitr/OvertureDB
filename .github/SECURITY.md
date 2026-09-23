@@ -7,9 +7,9 @@ private **Report a vulnerability** form or a
 Do not disclose exploit details or private information in a contribution issue.
 
 Include the affected revision or artifact `source_revision`, impact, reproduction,
-and any known mitigation. You should receive an acknowledgement within three
-working days. Existing public artifacts are never silently replaced: a correction
-is published from a new reviewed commit and documented when consumers must act.
+and any known mitigation. Corrections are published from reviewed commits; each
+catalog's `source_revision` identifies its source. Consumer action is documented
+when needed.
 
 Content corrections, dead URLs, attribution disputes, and rights-holder removal
 requests that do not reveal a security weakness use the public correction process

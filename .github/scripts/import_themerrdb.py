@@ -12,25 +12,22 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import parse_qs, urlparse
+
+from catalog import write_changes
+from import_bulk_export import index_existing_entries
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "schema"))
 
-from contract import validate_entries, validate_entry  # noqa: E402
+from contract import validate_entry  # noqa: E402
 
 YOUTUBE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 IMDB_ID_RE = re.compile(r"^tt[0-9]+$")
 
-type ExistingIndex = tuple[
-    dict[tuple[str, int], Path],
-    dict[tuple[str, str], Path],
-    dict[Path, dict[str, Any]],
-]
 
-
-def extract_youtube_id(value: str | None) -> str | None:
+def extract_youtube_id(value: object) -> str | None:
     """Extract an 11-character YouTube video ID from a URL or raw ID string."""
     if not value or not isinstance(value, str):
         return None
@@ -46,14 +43,16 @@ def extract_youtube_id(value: str | None) -> str | None:
 
     host = parsed.hostname or ""
     path = parsed.path
+    if parsed.scheme not in {"https", "http"} or parsed.username or parsed.password:
+        return None
 
-    if host in {"www.youtube.com", "youtube.com", "m.youtube.com"}:
+    if host in {"www.youtube.com", "youtube.com", "m.youtube.com", "music.youtube.com"}:
         if path == "/watch":
             params = parse_qs(parsed.query)
             video_ids = params.get("v")
             if video_ids and YOUTUBE_ID_RE.fullmatch(video_ids[0]):
                 return video_ids[0]
-        elif path.startswith(("/embed/", "/v/")):
+        elif path.startswith(("/embed/", "/v/", "/shorts/")):
             parts = path.split("/")
             if len(parts) > 2 and YOUTUBE_ID_RE.fullmatch(parts[2]):
                 return parts[2]
@@ -65,7 +64,7 @@ def extract_youtube_id(value: str | None) -> str | None:
     return None
 
 
-def parse_year(date_str: str | None) -> int | None:
+def parse_year(date_str: object) -> int | None:
     """Extract a 4-digit integer year from an ISO-8601 date string."""
     if not date_str or not isinstance(date_str, str):
         return None
@@ -75,31 +74,6 @@ def parse_year(date_str: str | None) -> int | None:
         if 1000 <= year <= 9999:
             return year
     return None
-
-
-def index_existing_entries(data_dir: Path) -> ExistingIndex:
-    """Index existing OvertureDB entries by TMDB and IMDb identities."""
-    by_tmdb: dict[tuple[str, int], Path] = {}
-    by_imdb: dict[tuple[str, str], Path] = {}
-    loaded: dict[Path, dict[str, Any]] = {}
-
-    if not data_dir.is_dir():
-        raise ValueError(f"Dataset directory does not exist: {data_dir}")
-    paths = sorted(data_dir.rglob("*.json"))
-    entries = validate_entries(
-        [json.loads(path.read_text(encoding="utf-8")) for path in paths]
-    )
-    for path, entry in zip(paths, entries, strict=True):
-        media_type = entry["media_type"]
-        tmdb_id = entry["tmdb_id"]
-        imdb_id = entry["imdb_id"]
-        if tmdb_id is not None:
-            by_tmdb[(media_type, tmdb_id)] = path
-        if imdb_id is not None:
-            by_imdb[(media_type, imdb_id)] = path
-        loaded[path] = entry
-
-    return by_tmdb, by_imdb, loaded
 
 
 def _update_existing(
@@ -268,7 +242,8 @@ def import_themerrdb(
         if not folder.is_dir():
             raise ValueError(f"ThemerrDB directory does not exist: {folder}")
     data_dir = overture_dir / "data"
-    by_tmdb, by_imdb, loaded_entries = index_existing_entries(data_dir)
+    by_tmdb, _, by_imdb, loaded_entries = index_existing_entries(data_dir)
+    original_entries = dict(loaded_entries)
 
     stats: dict[str, int] = {
         "scanned": 0,
@@ -291,13 +266,13 @@ def import_themerrdb(
                 if not isinstance(item_data, dict):
                     raise ValueError("ThemerrDB record must be an object")
                 outcome = process_themerr_item(
-                    item_data,
+                    cast("dict[str, Any]", item_data),
                     media_type,
                     by_tmdb,
                     by_imdb,
                     loaded_entries,
                     data_dir,
-                    dry_run=dry_run,
+                    dry_run=True,
                 )
             except (OSError, ValueError) as exc:
                 print(  # noqa: T201
@@ -309,6 +284,8 @@ def import_themerrdb(
 
             stats[outcome] += 1
 
+    if not dry_run and not stats["skipped_error"]:
+        write_changes(original_entries, loaded_entries, overture_dir)
     return stats
 
 

@@ -646,7 +646,9 @@ overture111
         self.assertEqual(res["status"], "ok")
         self.assertFalse(res["is_modification"])
         self.assertTrue(res["is_addition"])
-        self.assertEqual(res["media_comparison"], "")
+        self.assertIn(
+            "https://www.youtube.com/watch?v=overture111", res["media_comparison"]
+        )
         self.assertEqual(res["youtube_id"], "overture111")
 
         saved = json.loads(existing_file.read_text(encoding="utf-8"))

@@ -1,7 +1,3 @@
-# Match all files in repo root
-/* @AutoGitr
-
-# Match all directories except /data/
-/.github/ @AutoGitr
-/licenses/ @AutoGitr
-/schema/ @AutoGitr
+* @AutoGitr
+# Dataset PRs are approved through the contribution workflow.
+/data/

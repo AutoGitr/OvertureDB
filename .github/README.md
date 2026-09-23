@@ -14,7 +14,7 @@
 
 ## Overview
 
-OvertureDB provides consistent posters, backgrounds, and theme music for your media library. The public catalog stores curated selections as metadata, image URLs, and YouTube IDs for Overture to match against your movies and shows. The catalog validates and publishes daily to GitHub Pages.
+OvertureDB provides consistent posters, backgrounds, and theme music for your media library. The public catalog stores curated selections as metadata, image URLs, and YouTube IDs for Overture to match against your movies and shows. The catalog validates and publishes to GitHub Pages after relevant merges, with a daily fallback.
 
 ## Highlights
 

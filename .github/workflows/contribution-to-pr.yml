@@ -1,337 +1,93 @@
 name: Contribution to Pull Request
-run-name: "Contribution #${{ github.event.issue.number }} processed by @${{ github.actor }}"
+run-name: 'Contribution #${{ github.event.issue.number }} processed by @${{ github.actor }}'
 
 on:
   issue_comment:
     types: [created]
 
-permissions: {}
+permissions:
+  contents: read
+  issues: write
 
 concurrency:
   group: contribution-to-pr-${{ github.event.issue.number }}
   cancel-in-progress: false
 
 jobs:
-  approve-gate:
-    if: |
+  contribute:
+    if: >-
       !github.event.issue.pull_request &&
-      contains(github.event.issue.labels.*.name, 'contribution')
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    outputs:
-      approved: ${{ steps.gate.outputs.approved }}
-      is_bulk: ${{ steps.gate.outputs.is_bulk }}
-
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'contribution') &&
+      startsWith(github.event.comment.body, '@OvertureDB-bot ')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - name: Check command and permission
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: '0.12.17'
+          python-version-file: .python-version
+      - name: Authorize command against current issue
         id: gate
+        run: uv run --locked python .github/scripts/automation.py gate
         env:
-          ACTOR: ${{ github.actor }}
-          COMMAND_BODY: ${{ github.event.comment.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
-        shell: bash
+      - name: Prepare approved changes
+        if: steps.gate.outputs.approved == 'true'
         run: |
-          set -euo pipefail
-
-          command_body="$(
-            printf '%s' "$COMMAND_BODY" \
-              | tr -d '\r' \
-              | sed 's/^[[:space:]]*//; s/[[:space:]]*$//'
-          )"
-
-          labels="$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name')"
-
-          if ! echo "$labels" | grep -qx "contribution"; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring command from @${ACTOR}: issue must have the \`contribution\` label."
-            fi
-            exit 0
-          fi
-
-          if echo "$labels" | grep -qx "rejected"; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring command from @${ACTOR}: this contribution has already been rejected."
-            fi
-            exit 0
-          fi
-
-          issue_state="$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json state --jq '.state')"
-          if [ "$issue_state" != "OPEN" ]; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring command from @${ACTOR}: issue #${ISSUE_NUMBER} is not open."
-            fi
-            exit 0
-          fi
-
-          is_bulk="false"
-          if echo "$labels" | grep -qx "bulk"; then
-            is_bulk="true"
-          elif ! echo "$labels" | grep -Eqx "movie|show"; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring command from @${ACTOR}: issue must use a contribution form (movie, show, or bulk)."
-            fi
-            exit 0
-          fi
-
-          echo "is_bulk=${is_bulk}" >> "$GITHUB_OUTPUT"
-
-          actor_permission="$(
-            gh api "repos/${REPO}/collaborators/${ACTOR}/permission" \
-              --jq '.permission' 2>/dev/null || true
-          )"
-
-          if [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            case "$actor_permission" in
-              admin|maintain|write)
-                reason="$(printf '%s' "$command_body" | sed -E 's/^@OvertureDB-bot reject[[:space:]]*//; s/^[[:space:]]+|[[:space:]]+$//g')"
-                if [[ "$reason" == '<'*'>' || "$reason" == '['*']' ]]; then
-                  reason="${reason:1:-1}"
-                  reason="$(printf '%s' "$reason" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-                fi
-                if [ "$reason" = "optional reason" ] || [ "$reason" = "reason" ]; then
-                  reason=""
-                fi
-                gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label "rejected"
-                gh issue close "$ISSUE_NUMBER" --repo "$REPO" --reason "not_planned"
-                if [ -n "$reason" ]; then
-                  printf -v comment_body "Contribution rejected by @%s.\n\n**Reason:** %s" "$ACTOR" "$reason"
-                  gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$comment_body"
-                else
-                  gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                    --body "Contribution rejected by @${ACTOR}."
-                fi
-                exit 0
-                ;;
-              *)
-                gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                  --body "Ignoring reject command from @${ACTOR}: owner or maintainer access is required to reject contributions."
-                exit 0
-                ;;
-            esac
-          fi
-
-          if [ "$command_body" != "@OvertureDB-bot approve" ]; then
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          case "$actor_permission" in
-            admin|maintain|write)
-              echo "approved=true" >> "$GITHUB_OUTPUT"
-              ;;
-            *)
-              echo "approved=false" >> "$GITHUB_OUTPUT"
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                --body "Ignoring approval command from @${ACTOR}: owner or maintainer access is required to approve contributions."
-              ;;
-          esac
-
-  create-contribution-pr:
-    needs: approve-gate
-    if: needs.approve-gate.outputs.approved == 'true'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-
-    steps:
+          uv run --locked python .github/scripts/automation.py prepare --output "$RUNNER_TEMP/contribution.json"
+          uv run --locked python .github/scripts/catalog.py validate
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Generate bot token
+        if: steps.gate.outputs.approved == 'true'
         id: bot-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
           private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
-
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: main
-          token: ${{ steps.bot-token.outputs.token }}
-          persist-credentials: true
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
-        with:
-          version: "latest"
-          enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14.7
-
-      - name: Create contribution PR from issue
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+      - name: Create contribution pull request
+        if: steps.gate.outputs.approved == 'true'
         env:
-          IS_BULK: ${{ needs.approve-gate.outputs.is_bulk }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          REPO: ${{ github.repository }}
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         shell: bash
         run: |
           set -euo pipefail
-
-          fail() {
-            message="${1:-Unknown contribution build error}"
-            echo "$message" >&2
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Could not create contribution pull request: ${message}"
-            exit 1
-          }
-
-          if [ "$IS_BULK" = "true" ]; then
-            zip_url="$(printf '%s' "$ISSUE_BODY" | grep -Eo 'https://github\.com/(user-attachments/(assets/[a-zA-Z0-9_.~-]+|files/[0-9]+/[a-zA-Z0-9_.~-]+)|[^/ ]+/[^/ ]+/files/[0-9]+/[a-zA-Z0-9_.~-]+)' | head -n1 || true)"
-            [ -n "$zip_url" ] || fail "No valid GitHub-attached \`.zip\` archive found in the issue description."
-
-            archive_file="$(mktemp --suffix=.zip)"
-            curl -fSL --max-filesize 10485760 "$zip_url" -o "$archive_file" 2>/dev/null || fail "Could not download attached archive from ${zip_url} (file may exceed 10 MB limit or be inaccessible)."
-
-            if ! import_output="$(uv run python .github/scripts/import_bulk_export.py --archive "$archive_file" 2>&1)"; then
-              fail "$import_output"
-            fi
-
-            if ! validation_output="$(uv run python .github/scripts/catalog.py validate 2>&1)"; then
-              fail "$validation_output"
-            fi
-
-            branch="contribution/bulk-issue-${ISSUE_NUMBER}"
-            if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-              fail "Contribution branch already exists: \`${branch}\`. Please review the existing branch or pull request."
-            fi
-
-            git switch -c "$branch"
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add data
-
-            if git diff --cached --quiet; then
-              fail "No new dataset changes were produced (all records were already populated or unchanged)."
-            fi
-
-            git commit -m "Bulk dataset contribution from issue #${ISSUE_NUMBER}"
-            git push origin "$branch"
-
-            pr_title="Bulk contribution from #${ISSUE_NUMBER}"
-            pr_body="$(
-              printf '%s\n\n' "Closes #${ISSUE_NUMBER}"
-              echo '### Summary of Import'
-              echo '```text'
-              printf '%s\n' "$import_output"
-              echo '```'
-            )"
-
-            pr_url="$(
-              gh pr create \
-                --repo "$REPO" \
-                --base main \
-                --head "$branch" \
-                --title "$pr_title" \
-                --body "$pr_body" \
-                --label "contribution" \
-                --label "bulk"
-            )"
-
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-              --body "Created pull request for this bulk contribution: ${pr_url}"
-
-          else
-            body_file="$(mktemp)"
-            printf '%s' "$ISSUE_BODY" > "$body_file"
-
-            labels_file="$(mktemp)"
-            gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' > "$labels_file"
-
-            result_json="$(mktemp)"
-            error_file="$(mktemp)"
-            if ! uv run python .github/scripts/contribution.py \
-                --issue-body-file "$body_file" \
-                --issue-title "$ISSUE_TITLE" \
-                --labels-file "$labels_file" \
-                --repo-root . \
-                --json > "$result_json" 2>"$error_file"; then
-              if [ -s "$result_json" ] && jq -e .error "$result_json" >/dev/null 2>&1; then
-                fail "$(jq -r .error "$result_json")"
-              else
-                fail "$(cat "$error_file")"
-              fi
-            fi
-
-            if [ "$(jq -r '.status // ""' "$result_json")" != "ok" ]; then
-              fail "$(jq -r '.error // "Unknown contribution build error"' "$result_json")"
-            fi
-
-            target="$(jq -r .target "$result_json")"
-            is_modification="$(jq -r .is_modification "$result_json")"
-            is_addition="$(jq -r '.is_addition // false' "$result_json")"
-
-            if ! validation_output="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
-              git checkout -- "$target" 2>/dev/null || rm -f "$target"
-              fail "$validation_output"
-            fi
-
-            branch="contribution/issue-${ISSUE_NUMBER}"
-            if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-              fail "Contribution branch already exists: \`${branch}\`. Please review the existing branch or pull request."
-            fi
-
-            git switch -c "$branch"
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add "$target"
-
-            if git diff --cached --quiet; then
-              fail "No dataset changes were produced."
-            fi
-
-            if [ "$is_modification" = "true" ] || [ "$is_addition" = "true" ]; then
-              commit_action="Update"
-              pr_desc="Updates"
-            else
-              commit_action="Add"
-              pr_desc="Adds"
-            fi
-
-            git commit -m "${commit_action} dataset entry from contribution #${ISSUE_NUMBER}"
-            git push origin "$branch"
-
-            printf -v pr_body "Closes #%s\n\n%s \`%s\` from the approved contribution." "$ISSUE_NUMBER" "$pr_desc" "$target"
-
-            pr_label_args=(--label "contribution")
-            media_type="$(jq -r '.media_type // ""' "$result_json")"
-            if [ -n "$media_type" ]; then
-              pr_label_args+=(--label "$media_type")
-            fi
-            if [ "$is_modification" = "true" ]; then
-              pr_label_args+=(--label "modification")
-            fi
-
-            pr_url="$(
-              gh pr create \
-                --repo "$REPO" \
-                --base main \
-                --head "$branch" \
-                --title "${commit_action} dataset entry from contribution #${ISSUE_NUMBER}" \
-                --body "$pr_body" \
-                "${pr_label_args[@]}"
-            )"
-
-            if ! gh pr merge "$pr_url" --repo "$REPO" --auto --squash --delete-branch; then
-              printf -v failure_body "Created pull request for \`%s\`: %s\n\nAuto-merge could not be enabled. Check that repository auto-merge is enabled and that the GitHub App has pull request write access." "$target" "$pr_url"
-              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$failure_body"
-              exit 1
-            fi
-
-            printf -v success_body "Created pull request for \`%s\`: %s\n\nAuto-merge is enabled. The pull request will merge after required checks pass." "$target" "$pr_url"
-            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$success_body"
+          result="$RUNNER_TEMP/contribution.json"
+          branch="$(jq -r .branch "$result")"
+          title="$(jq -r .title "$result")"
+          jq -r .body "$result" > "$RUNNER_TEMP/pr-body.md"
+          mapfile -t files < <(jq -r '.files[]' "$result")
+          mapfile -t labels < <(jq -r '.labels[]' "$result")
+          label_args=()
+          for label in "${labels[@]}"; do label_args+=(--label "$label"); done
+          gh auth setup-git
+          existing="$(gh pr list --repo "$REPO" --head "$branch" --state all --json url --jq '.[0].url // ""')"
+          if [ -n "$existing" ]; then
+            echo "Contribution already has a pull request: $existing"
+            exit 0
           fi
+          git switch -c "$branch"
+          git config user.name 'overturedb[bot]'
+          git config user.email 'overturedb[bot]@users.noreply.github.com'
+          git add -- "${files[@]}"
+          if git diff --cached --quiet; then
+            echo 'No dataset changes.'
+            exit 0
+          fi
+          git commit -m "$title"
+          git push origin "$branch"
+          pr_url="$(gh pr create --repo "$REPO" --base main --head "$branch" --title "$title" --body-file "$RUNNER_TEMP/pr-body.md" "${label_args[@]}")"
+          if ! jq -e '.labels | index("bulk")' "$result" >/dev/null; then
+            uv run --locked python .github/scripts/automation.py auto-merge --pr "$pr_url"
+          fi
+          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Contribution pull request: $pr_url"

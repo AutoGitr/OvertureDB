@@ -31,8 +31,8 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://img.test/existing_poster.jpg",
-            "background_url": "https://img.test/existing_bg.jpg",
+            "poster_url": "https://image.tmdb.org/existing_poster.jpg",
+            "background_url": "https://image.tmdb.org/existing_bg.jpg",
             "youtube_id_overturedb": "existing111",
             "youtube_id_themerrdb": None,
         }
@@ -43,15 +43,19 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://img.test/new_poster.jpg",
-            "background_url": "https://img.test/new_bg.jpg",
+            "poster_url": "https://image.tmdb.org/new_poster.jpg",
+            "background_url": "https://image.tmdb.org/new_bg.jpg",
             "youtube_id_overturedb": "new11111111",
             "youtube_id_themerrdb": None,
         }
         updated, changed, _changes = merge_entry(existing, incoming)
         self.assertFalse(changed)
-        self.assertEqual(updated["poster_url"], "https://img.test/existing_poster.jpg")
-        self.assertEqual(updated["background_url"], "https://img.test/existing_bg.jpg")
+        self.assertEqual(
+            updated["poster_url"], "https://image.tmdb.org/existing_poster.jpg"
+        )
+        self.assertEqual(
+            updated["background_url"], "https://image.tmdb.org/existing_bg.jpg"
+        )
         self.assertEqual(updated["youtube_id_overturedb"], "existing111")
 
     def test_rule_1_backfills_missing_artwork_and_theme(self) -> None:
@@ -74,15 +78,15 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://img.test/new_poster.jpg",
-            "background_url": "https://img.test/new_bg.jpg",
+            "poster_url": "https://image.tmdb.org/new_poster.jpg",
+            "background_url": "https://image.tmdb.org/new_bg.jpg",
             "youtube_id_overturedb": "new11111111",
             "youtube_id_themerrdb": None,
         }
         updated, changed, changes = merge_entry(existing, incoming)
         self.assertTrue(changed)
-        self.assertEqual(updated["poster_url"], "https://img.test/new_poster.jpg")
-        self.assertEqual(updated["background_url"], "https://img.test/new_bg.jpg")
+        self.assertEqual(updated["poster_url"], "https://image.tmdb.org/new_poster.jpg")
+        self.assertEqual(updated["background_url"], "https://image.tmdb.org/new_bg.jpg")
         self.assertEqual(updated["youtube_id_overturedb"], "new11111111")
         self.assertIn("backfilled poster_url", changes)
         self.assertIn("backfilled background_url", changes)
@@ -101,7 +105,10 @@ class BulkImportTests(unittest.TestCase):
             "youtube_id_overturedb": None,
             "youtube_id_themerrdb": None,
             "seasons": [
-                {"season_num": 1, "poster_url": "https://img.test/season1_exist.jpg"}
+                {
+                    "season_num": 1,
+                    "poster_url": "https://image.tmdb.org/season1_exist.jpg",
+                }
             ],
         }
         incoming = {
@@ -116,8 +123,14 @@ class BulkImportTests(unittest.TestCase):
             "youtube_id_overturedb": None,
             "youtube_id_themerrdb": None,
             "seasons": [
-                {"season_num": 1, "poster_url": "https://img.test/season1_new.jpg"},
-                {"season_num": 2, "poster_url": "https://img.test/season2_new.jpg"},
+                {
+                    "season_num": 1,
+                    "poster_url": "https://image.tmdb.org/season1_new.jpg",
+                },
+                {
+                    "season_num": 2,
+                    "poster_url": "https://image.tmdb.org/season2_new.jpg",
+                },
             ],
         }
         updated, changed, _changes = merge_entry(existing, incoming)
@@ -125,11 +138,13 @@ class BulkImportTests(unittest.TestCase):
         self.assertEqual(len(updated["seasons"]), 2)
         # Season 1 preserved:
         self.assertEqual(
-            updated["seasons"][0]["poster_url"], "https://img.test/season1_exist.jpg"
+            updated["seasons"][0]["poster_url"],
+            "https://image.tmdb.org/season1_exist.jpg",
         )
         # Season 2 added:
         self.assertEqual(
-            updated["seasons"][1]["poster_url"], "https://img.test/season2_new.jpg"
+            updated["seasons"][1]["poster_url"],
+            "https://image.tmdb.org/season2_new.jpg",
         )
 
     def test_rule_2_preserves_youtube_id_themerrdb(self) -> None:
@@ -152,7 +167,7 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://img.test/p.jpg",
+            "poster_url": "https://image.tmdb.org/p.jpg",
             "background_url": None,
             "youtube_id_overturedb": "primary1111",
             "youtube_id_themerrdb": None,
@@ -170,7 +185,7 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 999,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://img.test/p.jpg",
+            "poster_url": "https://image.tmdb.org/p.jpg",
             "background_url": None,
             "youtube_id_overturedb": "primary1111",
             "youtube_id_themerrdb": "should_be_ignored",
@@ -249,7 +264,7 @@ class BulkImportTests(unittest.TestCase):
                     "tmdb_id": 100,
                     "tvdb_id": 200,
                     "imdb_id": None,
-                    "poster_url": "https://img.test/show_poster.jpg",
+                    "poster_url": "https://image.tmdb.org/show_poster.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
@@ -272,12 +287,12 @@ class BulkImportTests(unittest.TestCase):
                     "tmdb_id": 100,
                     "tvdb_id": 200,
                     "imdb_id": None,
-                    "poster_url": "https://img.test/ignored_new_poster.jpg",
-                    "background_url": "https://img.test/new_bg.jpg",
+                    "poster_url": "https://image.tmdb.org/ignored_new_poster.jpg",
+                    "background_url": "https://image.tmdb.org/new_bg.jpg",
                     "youtube_id_overturedb": "showtheme11",
                     "youtube_id_themerrdb": None,
                     "seasons": [
-                        {"season_num": 1, "poster_url": "https://img.test/s1.jpg"}
+                        {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"}
                     ],
                 },
                 indent=2,
@@ -297,8 +312,12 @@ class BulkImportTests(unittest.TestCase):
 
         # Assert tvdb-200.json was updated in place with Rule 1 applied
         final_show = json.loads(show_path.read_text())
-        self.assertEqual(final_show["poster_url"], "https://img.test/show_poster.jpg")
-        self.assertEqual(final_show["background_url"], "https://img.test/new_bg.jpg")
+        self.assertEqual(
+            final_show["poster_url"], "https://image.tmdb.org/show_poster.jpg"
+        )
+        self.assertEqual(
+            final_show["background_url"], "https://image.tmdb.org/new_bg.jpg"
+        )
         self.assertEqual(final_show["youtube_id_overturedb"], "showtheme11")
         self.assertEqual(len(final_show["seasons"]), 1)
 
@@ -377,10 +396,10 @@ class BulkImportTests(unittest.TestCase):
         self.assertTrue(idx_avatar < idx_bb < idx_zoolander)
 
         # Check clickable links
-        self.assertIn("[View image](https://image.tmdb.org/avatar_bg.jpg)", md)
-        self.assertIn("[View image](https://image.tmdb.org/zoolander.jpg)", md)
+        self.assertIn("[View image](<https://image.tmdb.org/avatar_bg.jpg>)", md)
+        self.assertIn("[View image](<https://image.tmdb.org/zoolander.jpg>)", md)
         self.assertIn("[Watch video](https://www.youtube.com/watch?v=zoo12345678)", md)
-        self.assertIn("[View image](https://image.tmdb.org/bb_s1.jpg)", md)
+        self.assertIn("[View image](<https://image.tmdb.org/bb_s1.jpg>)", md)
 
 
 if __name__ == "__main__":

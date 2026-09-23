@@ -1,99 +1,77 @@
 # Contributing to OvertureDB
 
-This document covers code, schemas, automated workflows, and local validation.
+For artwork and themes, use the [selection guidelines](../docs/selection-guidelines.md).
+For GitHub permissions, labels and rollout, see [repository setup](SETUP.md).
 
-> [!TIP]
-> **Contributing artwork or theme music?**
-> See the **[Selection Guidelines](../docs/selection-guidelines.md)**.
+## Development
 
----
-
-## Tooling & Setup
-
-Code and scripts use Python 3.14.7 managed with `uv`. Do not invoke `pip` directly.
+Use Python 3.14.7 and uv. The same read-only gate runs locally and in CI:
 
 ```sh
-uv sync
+uv sync --locked
+bash scripts/pre-commit-check.sh
 ```
 
----
+It checks the lockfile, Ruff lint/formatting, strict Pyright types, unit tests,
+workflow invariants, and every dataset entry. On Windows, run it in Git Bash.
+To format changes, use `uv run --locked ruff format .github/scripts schema`.
 
-## Local Validation
-
-Run checks before opening a pull request:
+Optional network checks and publication from a clean checkout:
 
 ```sh
-# Verify lockfile
-uv lock --check
-
-# Lint and format
-uv run ruff check .github/scripts
-uv run ruff format --check .github/scripts
-
-# Run unit tests
-uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
-
-# Validate catalog data and schema
-uv run python .github/scripts/catalog.py validate
-
-# (Optional) Check live URLs for an entry
-uv run python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
-
-# Test catalog build
-uv run python .github/scripts/catalog.py build
+uv run --locked python .github/scripts/catalog.py validate --check-urls --entry data/movies/tmdb-123.json
+uv run --locked python .github/scripts/catalog.py build
 ```
 
----
+The build produces catalog JSON/gzip, schemas, licenses, checksums, and statistics
+in `public/`. Its revision and timestamp come from the source commit. Tests verify
+reproducibility without requiring a clean working tree. Pages updates after
+relevant merges and daily as a fallback.
 
-## README statistics
+## Contributions
 
-The catalog build also publishes `stats.json`, `stats-light.svg`, and
-`stats-dark.svg`. The README loads the SVGs from GitHub Pages, so statistics
-refresh with the existing daily publication without committing generated files.
-All statistics use the same validated entries and source revision as the catalog,
-and their checksums are included in `SHA256SUMS`.
+Use exactly one `movie`, `show`, or `bulk` label together with `contribution`.
+Preview comments show validation failures, clickable selections and the proposed
+diff. Replacing curated media requires a reason. Bulk archives add only missing
+values and never modify imported ThemerrDB themes. If any record fails validation,
+no files are written. Limits are 10 MB downloaded, 1,000 JSON entries, 1 MB per
+entry, and 50 MB of uncompressed JSON.
 
-Counting and presentation live in `.github/scripts/catalog_stats.py`. Theme
-totals count both source selections; theme coverage counts each title once.
-Season totals include specials, but do not claim completeness because expected
-season counts are not stored. No historical growth is inferred from release years
-or commit dates. After a clean-checkout build, open `public/stats-light.svg` and
-`public/stats-dark.svg` to preview both themes.
+A collaborator with write, maintain or admin permission can comment:
 
----
+```text
+@OvertureDB-bot approve
+@OvertureDB-bot reject optional reason
+```
 
-## Schema Contracts
+Approval creates a bot PR. Single-entry and ThemerrDB PRs request auto-merge only
+when `contribution-guard` is enforced on main; bulk PRs require manual merging.
+Edits after approval require a fresh command. Labels alone never authorize a PR.
+One open ThemerrDB import PR is allowed at a time; review it before the next import.
+The import PR records the exact upstream commit.
 
-OvertureDB defines canonical JSON schemas shared with [Overture](https://github.com/AutoGitr/Overture):
-- `schema/entry.schema.json`
-- `schema/catalog.schema.json`
-- `schema/contract.py`
+Code, schema, documentation and workflow changes use ordinary reviewed PRs.
+Dataset PRs may only contain canonical JSON files from the bot's internal branches.
 
-When changing schemas:
-1. Update schema files in `schema/`.
-2. Run unit tests and validate existing entries.
-3. Increment `SCHEMA_VERSION` for breaking changes.
-4. Regenerate Overture's copy (`uv run python scripts/dataset_contract.py` in the Overture repo) and submit both PRs together.
-5. Do not add backwards-compatibility shims for unreleased formats.
+## Shared schema
 
----
+`schema/entry.schema.json`, `schema/catalog.schema.json` and `schema/contract.py`
+are shared with Overture. After changing them, validate existing data and run,
+from the sibling Overture checkout:
 
-## Bot Commands & Maintainer Workflows
+```sh
+uv run python scripts/dataset_contract.py ../OvertureDB
+```
 
-Dataset submissions are converted into pull requests by `@OvertureDB-bot`.
+Submit both repositories' changes together. Increment `SCHEMA_VERSION` for
+breaking changes; do not introduce compatibility shims for unreleased formats.
 
-Maintainers can trigger bot actions in issue comments:
-- `@OvertureDB-bot approve` - Generates a bot PR and merges the selection.
-- `@OvertureDB-bot reject <optional reason>` - Closes the issue with the given reason.
+## Corrections and removal requests
 
-Maintainers can edit issue descriptions directly to correct URLs or IDs. Saving re-runs validation before approval.
-
-Non-dataset changes (code, workflows, docs) use standard pull requests.
-
----
-
-## Corrections & Removals
-
-To report dead links, wrong IDs, or request removal of an entry:
-1. Open an issue with the entry filename and reason.
-2. Maintainers will review and update or remove the file. The live catalog is updated on merge.
+Use a movie/show contribution to replace artwork or themes. For wrong identifiers,
+rights-holder requests, or entry removal, open a
+[correction request](https://github.com/AutoGitr/OvertureDB/issues/new?template=correction.yml)
+with the file path and reason. Identifier replacement and deletion are deliberately
+blocked by the contribution guard: maintainers must handle them as a separately
+reviewed maintenance/policy change, not an approval-command shortcut.
+Report security vulnerabilities privately using [SECURITY.md](SECURITY.md).

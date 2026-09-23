@@ -1,16 +1,4 @@
----
+A maintainer with write access can comment:
 
-<details>
-<summary>OvertureDB-bot commands and options</summary>
-<br />
-
-A maintainer can trigger OvertureDB-bot actions by commenting on this issue:
-
-```text
-@OvertureDB-bot approve
-```
-```text
-@OvertureDB-bot reject <optional reason>
-```
-
-</details>
+- `@OvertureDB-bot approve` - create a reviewed contribution PR.
+- `@OvertureDB-bot reject optional reason` - reject and close.

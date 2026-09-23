@@ -15,8 +15,8 @@ on:
         default: ""
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 concurrency:
   group: themerrdb-import
@@ -24,23 +24,16 @@ concurrency:
 
 jobs:
   import:
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
 
     steps:
-      - name: Generate bot token
-        id: bot-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
-          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
-
       - name: Checkout OvertureDB
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
-          token: ${{ steps.bot-token.outputs.token }}
-          persist-credentials: true
-          fetch-depth: 0
+          persist-credentials: false
 
       - name: Checkout ThemerrDB database branch
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -57,11 +50,8 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          version: "latest"
-          enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14.7
+          version: "0.12.17"
+          python-version-file: .python-version
 
       - name: Run ThemerrDB import
         env:
@@ -75,14 +65,20 @@ jobs:
           if [ -n "$LIMIT" ]; then
             ARGS+=(--limit "$LIMIT")
           fi
-          uv run python .github/scripts/import_themerrdb.py "${ARGS[@]}"
+          uv run --locked python .github/scripts/import_themerrdb.py "${ARGS[@]}"
 
       - name: Run test suite
-        run: |
-          uv run ruff check .github/scripts
-          uv run ruff format --check .github/scripts
-          uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
-          uv run python .github/scripts/catalog.py validate
+        run: bash scripts/pre-commit-check.sh
+
+      - name: Generate bot token
+        if: inputs.dry_run != true
+        id: bot-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Create pull request for imported changes
         if: ${{ inputs.dry_run != true }}
@@ -98,12 +94,15 @@ jobs:
             exit 0
           fi
 
-          date_stamp="$(date -u +'%Y-%m-%d')"
-          branch="automation/themerrdb-${date_stamp}"
-
-          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-            branch="automation/themerrdb-${date_stamp}-${{ github.run_id }}"
+          pending="$(gh pr list --repo "$REPO" --state open --limit 1000 --json headRefName,url --jq '.[] | select(.headRefName | startswith("automation/themerrdb-")) | .url')"
+          if [ -n "$pending" ]; then
+            echo "Review the pending import before creating another: $pending"
+            exit 0
           fi
+          gh auth setup-git
+
+          date_stamp="$(date -u +'%Y-%m-%d')"
+          branch="automation/themerrdb-${date_stamp}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
 
           git switch -c "$branch"
           git config user.name "github-actions[bot]"
@@ -113,7 +112,7 @@ jobs:
           git push origin "$branch"
 
           pr_title="chore: daily import from themerrdb ${date_stamp}"
-          pr_body="Automated daily import from ThemerrDB for ${date_stamp}."
+          printf 'Import from ThemerrDB commit `%s`.\n' "$(git -C themerrdb rev-parse HEAD)" > "$RUNNER_TEMP/pr-body.md"
 
           pr_url="$(
             gh pr create \
@@ -121,12 +120,9 @@ jobs:
               --base main \
               --head "$branch" \
               --title "$pr_title" \
-              --body "$pr_body"
+              --body-file "$RUNNER_TEMP/pr-body.md"
           )"
 
           echo "Created pull request: $pr_url"
 
-          if ! gh pr merge "$pr_url" --repo "$REPO" --auto --squash --delete-branch; then
-            echo "Auto-merge could not be enabled for $pr_url" >&2
-            exit 1
-          fi
+          uv run --locked python .github/scripts/automation.py auto-merge --pr "$pr_url"

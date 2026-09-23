@@ -1,0 +1,22 @@
+name: Correction or removal request
+description: Report incorrect identifiers, attribution problems, or a removal request.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 'For artwork/theme replacements, use the movie or show form. Report security issues privately: https://github.com/AutoGitr/OvertureDB/security/advisories/new.'
+  - type: input
+    id: entry
+    attributes:
+      label: Dataset entry
+      description: File path or catalog identifiers.
+      placeholder: data/movies/tmdb-123.json
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Correction or removal reason
+      description: Explain the problem and requested change. Do not include private information.
+    validations:
+      required: true

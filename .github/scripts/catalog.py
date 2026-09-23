@@ -7,6 +7,7 @@ import gzip
 import hashlib
 import ipaddress
 import json
+import re
 import shutil
 import socket
 import subprocess
@@ -15,11 +16,15 @@ import time
 from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from typing import IO, TYPE_CHECKING, Any
 from urllib.error import HTTPError
 from urllib.parse import SplitResult, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from catalog_stats import dashboard, statistics_json, summarize
+
+if TYPE_CHECKING:
+    from http.client import HTTPMessage
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "schema"))
@@ -36,8 +41,14 @@ ART_HOSTS = {
 }
 
 
-def dataset(root: Path = ROOT) -> list[dict]:
+def dataset(root: Path = ROOT) -> list[dict[str, Any]]:
+    if not (root / "data").is_dir():
+        raise ValueError("Dataset directory does not exist")
     paths = sorted((root / "data").rglob("*.json"))
+    resolved_data = root.resolve() / "data"
+    for path in paths:
+        if path.is_symlink() or not path.resolve().is_relative_to(resolved_data):
+            raise ValueError(f"Dataset entry must be a regular local file: {path}")
     entries = validate_entries(
         [json.loads(path.read_text(encoding="utf-8")) for path in paths]
     )
@@ -46,7 +57,7 @@ def dataset(root: Path = ROOT) -> list[dict]:
     return entries
 
 
-def validate_entry_path(path: Path, entry: dict, root: Path) -> None:
+def validate_entry_path(path: Path, entry: dict[str, Any], root: Path) -> None:
     folder = "movies" if entry["media_type"] == "movie" else "shows"
     if path.parent != root / "data" / folder:
         raise ValueError(f"{path.name} belongs in data/{folder}")
@@ -56,7 +67,26 @@ def validate_entry_path(path: Path, entry: dict, root: Path) -> None:
         raise ValueError(f"{path.name} does not match an entry identifier")
 
 
-def art_urls(entries: list[dict]) -> set[str]:
+def write_changes(
+    original: dict[Path, dict[str, Any]],
+    planned: dict[Path, dict[str, Any]],
+    root: Path,
+) -> None:
+    """Validate the whole plan before writing any changed entry."""
+    validate_entries(list(planned.values()))
+    for path, entry in planned.items():
+        validate_entry_path(path, entry, root)
+    for path, entry in planned.items():
+        if entry != original.get(path):
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps(entry, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+
+
+def art_urls(entries: list[dict[str, Any]]) -> set[str]:
     return {
         url
         for entry in entries
@@ -70,7 +100,7 @@ def art_urls(entries: list[dict]) -> set[str]:
 
 
 def public_https_destination(
-    url: str, *, allowed_hosts: set[str] | None = None
+    url: str, *, allowed_hosts: set[str] | None = None, resolve: bool = True
 ) -> SplitResult:
     try:
         parsed = urlsplit(url)
@@ -85,30 +115,32 @@ def public_https_destination(
         or port not in (None, 443)
         or parsed.username is not None
         or parsed.password is not None
+        or any(ord(char) < 33 for char in url)
+        or "\\" in url
     ):
         raise ValueError(
             "URL must use public HTTPS on an allowed host without credentials"
         )
-    addresses = socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)
-    if not addresses or any(
-        not ipaddress.ip_address(row[4][0]).is_global for row in addresses
-    ):
-        raise ValueError("URL host does not resolve exclusively to public addresses")
+    if resolve:
+        addresses = socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)
+        if not addresses or any(
+            not ipaddress.ip_address(row[4][0]).is_global for row in addresses
+        ):
+            raise ValueError(
+                "URL host does not resolve exclusively to public addresses"
+            )
     return parsed
 
 
-def check_art_destination(url: str) -> None:
-    parsed = public_https_destination(url, allowed_hosts=ART_HOSTS)
+def check_art_destination(url: str, *, resolve: bool = True) -> None:
+    parsed = public_https_destination(url, allowed_hosts=ART_HOSTS, resolve=resolve)
     if parsed.fragment:
         raise ValueError("Artwork URL must not contain a fragment")
     if parsed.hostname in {
         "theposterdb.com",
         "www.theposterdb.com",
-    }:
-        if not parsed.path.startswith("/api/"):
-            raise ValueError("ThePosterDB artwork must use its /api/ path")
-        if parsed.path.rstrip("/").endswith("/view"):
-            raise ValueError("ThePosterDB artwork must not include trailing /view")
+    } and not re.fullmatch(r"/api/assets/[0-9]+", parsed.path):
+        raise ValueError("ThePosterDB artwork must use /api/assets/<id>")
     suffix = Path(parsed.path).suffix.lower()
     if suffix and suffix not in {".jpg", ".jpeg", ".png"}:
         raise ValueError("Artwork must be a JPEG or PNG")
@@ -117,7 +149,15 @@ def check_art_destination(url: str) -> None:
 class ArtRedirectHandler(HTTPRedirectHandler):
     max_redirections = 3
 
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
+    def redirect_request(
+        self,
+        req: Request,
+        fp: IO[bytes],
+        code: int,
+        msg: str,
+        headers: HTTPMessage,
+        newurl: str,
+    ) -> Request | None:
         check_art_destination(newurl)
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
@@ -132,7 +172,7 @@ def parse_retry_after(header: str | None, default: float = 2.0) -> float:
     try:
         dt = parsedate_to_datetime(header)
         return max(0.5, (dt - datetime.now(UTC)).total_seconds())
-    except Exception:
+    except ValueError, TypeError, OverflowError:
         return default
 
 
@@ -149,6 +189,7 @@ def check_art_url(url: str, *, max_retries: int = 5) -> None:
                 signature = response.read(16)
             break
         except HTTPError as exc:
+            exc.close()
             if exc.code == 429 and attempt < max_retries - 1:
                 delay = parse_retry_after(
                     exc.headers.get("Retry-After"), default=2.0**attempt
@@ -188,6 +229,8 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
         "entries": entries,
     }
     validate_catalog(payload)
+    for url in art_urls(entries):
+        check_art_destination(url, resolve=False)
     notices = root / "licenses" / "THIRD_PARTY_NOTICES.md"
     if not notices.is_file():
         raise ValueError("Third-party notices are required for publication")
@@ -287,6 +330,8 @@ def main() -> int:
                     validate_entry_path(path, entry, root)
             else:
                 entries = dataset()
+            for url in art_urls(entries):
+                check_art_destination(url, resolve=False)
             if args.check_urls:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)

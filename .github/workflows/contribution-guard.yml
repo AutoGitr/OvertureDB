@@ -2,100 +2,31 @@ name: Contribution Guard
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: contribution-guard-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   contribution-guard:
     name: contribution-guard
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
-          version: "latest"
-          enable-cache: true
-
-      - name: Set up Python
-        run: uv python install 3.14.7
-
-      - name: Test and validate the complete dataset
-        run: |
-          uv run ruff check .github/scripts
-          uv run ruff format --check .github/scripts
-          uv run python -m unittest discover -s .github/scripts -p 'test_*.py'
-          uv run python .github/scripts/catalog.py validate
-
-      - name: Validate contribution changes
-        shell: bash
-        env:
-          BOT_LOGIN: overturedb[bot]
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          set -euo pipefail
-
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            changed_files="$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}")"
-            deleted_dataset_files="$(git diff --name-only --diff-filter=D "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- 'data/**/*.json' || true)"
-          else
-            if [ -d data ]; then
-              changed_files="$(find data -name '*.json' | sort)"
-            else
-              changed_files=""
-            fi
-            deleted_dataset_files=""
-          fi
-
-          if [ -n "$deleted_dataset_files" ]; then
-            echo "Dataset entries may not be deleted in pull requests:"
-            echo "$deleted_dataset_files"
-            exit 1
-          fi
-
-          dataset_files="$(printf '%s\n' "$changed_files" | grep -E '^data/.+\.json$' | sort || true)"
-
-          if [ "${{ github.event_name }}" = "pull_request" ] && [ -n "$dataset_files" ]; then
-            if [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]; then
-              echo "Dataset changes must come from an internal OvertureDB bot branch."
-              exit 1
-            fi
-
-            if [[ "$HEAD_REF" != contribution/issue-* && "$HEAD_REF" != contribution/bulk-issue-* && "$HEAD_REF" != automation/themerrdb-* ]]; then
-              echo "Dataset changes must come from a contribution/issue-*, contribution/bulk-issue-*, or automation/themerrdb-* branch."
-              exit 1
-            fi
-
-            if [ "${{ github.event.pull_request.user.login }}" != "$BOT_LOGIN" ]; then
-              echo "Dataset changes must be opened by ${BOT_LOGIN}."
-              echo "Actual PR author: ${{ github.event.pull_request.user.login }}"
-              exit 1
-            fi
-
-            non_dataset_files="$(printf '%s\n' "$changed_files" | grep -Ev '^data/.+\.json$' || true)"
-            if [ -n "$non_dataset_files" ]; then
-              echo "Bot contribution pull requests may only change dataset JSON files:"
-              echo "$non_dataset_files"
-              exit 1
-            fi
-          fi
-
-          if [ -z "$dataset_files" ]; then
-            echo "No dataset files changed"
-          elif [[ "$HEAD_REF" == automation/themerrdb-* || "$HEAD_REF" == contribution/bulk-issue-* ]]; then
-            echo "Skipping URL probes for bulk or automated import ($HEAD_REF)."
-          else
-            echo "Dataset files changed:"
-            echo "$dataset_files"
-
-            mapfile -t entries <<< "$dataset_files"
-            uv run python .github/scripts/catalog.py validate --check-urls --entry "${entries[@]}"
-          fi
+          version: '0.12.17'
+          python-version-file: .python-version
+      - name: Check code, contracts and complete dataset
+        run: bash scripts/pre-commit-check.sh
+      - name: Validate contribution provenance and changed URLs
+        run: uv run --locked python .github/scripts/guard.py

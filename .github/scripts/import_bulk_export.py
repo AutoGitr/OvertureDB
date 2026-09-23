@@ -1,11 +1,4 @@
-"""Import bulk exported selections into OvertureDB.
-
-Enforces:
-1. Rule 1: Existing poster_url, background_url, and youtube_id_overturedb are
-   never overwritten. Only missing/null fields are backfilled.
-2. Rule 2: youtube_id_themerrdb is managed exclusively by themerrdb and is never
-   altered or populated by bulk imports.
-"""
+"""Backfill bulk selections without replacing curated media or imported themes."""
 
 from __future__ import annotations
 
@@ -13,9 +6,12 @@ import argparse
 import json
 import sys
 from dataclasses import dataclass, field
+from html import escape
 from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
+
+from catalog import art_urls, check_art_destination, dataset, write_changes
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "schema"))
@@ -42,7 +38,7 @@ class ReviewItem:
     poster_url: str | None = None
     background_url: str | None = None
     youtube_id: str | None = None
-    seasons: list[tuple[int, str]] = field(default_factory=list)
+    seasons: list[tuple[int, str]] = field(default_factory=list[tuple[int, str]])
 
 
 def format_review_markdown(review_items: list[ReviewItem]) -> str:
@@ -64,18 +60,24 @@ def format_review_markdown(review_items: list[ReviewItem]) -> str:
     ]
     for item in sorted_items:
         year_str = f" ({item.year})" if item.year else ""
-        lines.append(f"#### {item.title}{year_str}")
+        title = escape(item.title).replace("\n", " ").replace("\r", " ")
+        title = title.replace("@", "&#64;").replace("[", "&#91;")
+        lines.append(f"#### {title}{year_str}")
         if item.poster_url:
-            lines.append(f"- **Poster:** [View image]({item.poster_url})")
+            lines.append(f"- **Poster:** [View image](<{escape(item.poster_url)}>)")
         if item.background_url:
-            lines.append(f"- **Background:** [View image]({item.background_url})")
+            lines.append(
+                f"- **Background:** [View image](<{escape(item.background_url)}>)"
+            )
         if item.youtube_id:
             yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
             lines.append(
                 f"- **YouTube Theme:** [Watch video]({yt_url}) (`{item.youtube_id}`)"
             )
         for s_num, s_url in sorted(item.seasons, key=lambda s: s[0]):
-            lines.append(f"- **Season {s_num} Poster:** [View image]({s_url})")
+            lines.append(
+                f"- **Season {s_num} Poster:** [View image](<{escape(s_url)}>)"
+            )
         lines.append("")
 
     lines.append("</details>")
@@ -93,8 +95,7 @@ def index_existing_entries(data_dir: Path) -> ExistingIndex:
         raise ValueError(f"Dataset directory does not exist: {data_dir}")
 
     paths = sorted(data_dir.rglob("*.json"))
-    for path in paths:
-        entry = json.loads(path.read_text(encoding="utf-8"))
+    for path, entry in zip(paths, dataset(data_dir.parent), strict=True):
         media_type = entry["media_type"]
         tmdb_id = entry.get("tmdb_id")
         tvdb_id = entry.get("tvdb_id")
@@ -270,65 +271,43 @@ def load_incoming_entries(
 ) -> list[tuple[str, dict[str, Any]]]:
     """Extract and parse candidate entries from an archive ZIP or folder."""
     entries: list[tuple[str, dict[str, Any]]] = []
+    if (archive_path is None) == (input_dir is None):
+        raise ValueError("Provide exactly one archive or input directory")
 
     if archive_path is not None:
         with ZipFile(archive_path) as archive:
             json_infos = [
                 info
                 for info in archive.infolist()
-                if info.filename.endswith(".json")
-                and not info.filename.endswith("EXPORT-REPORT.txt")
-                and not info.is_dir()
+                if info.filename.endswith(".json") and not info.is_dir()
             ]
-            if len(json_infos) > MAX_ARCHIVE_ENTRIES:
-                raise ValueError(
-                    f"Archive exceeds maximum allowed entries "
-                    f"({len(json_infos)} > {MAX_ARCHIVE_ENTRIES})"
-                )
-            total_size = sum(info.file_size for info in json_infos)
-            if total_size > MAX_TOTAL_UNCOMPRESSED_BYTES:
-                raise ValueError(
-                    f"Archive exceeds maximum allowed uncompressed size "
-                    f"({total_size} bytes > {MAX_TOTAL_UNCOMPRESSED_BYTES} bytes)"
-                )
+            _check_sizes([(info.filename, info.file_size) for info in json_infos])
             for info in json_infos:
-                if info.file_size > MAX_SINGLE_ENTRY_BYTES:
-                    raise ValueError(
-                        f"Entry {info.filename} exceeds maximum size "
-                        f"({info.file_size} bytes > {MAX_SINGLE_ENTRY_BYTES} bytes)"
-                    )
                 raw = archive.read(info).decode("utf-8")
                 entries.append((info.filename, json.loads(raw)))
     elif input_dir is not None:
-        json_paths = [
-            p
-            for p in sorted(input_dir.rglob("*.json"))
-            if not p.name.endswith("EXPORT-REPORT.txt")
-        ]
-        if len(json_paths) > MAX_ARCHIVE_ENTRIES:
-            raise ValueError(
-                f"Input directory exceeds maximum allowed entries "
-                f"({len(json_paths)} > {MAX_ARCHIVE_ENTRIES})"
-            )
-        total_size = sum(p.stat().st_size for p in json_paths)
-        if total_size > MAX_TOTAL_UNCOMPRESSED_BYTES:
-            raise ValueError(
-                f"Input directory exceeds maximum allowed uncompressed size "
-                f"({total_size} bytes > {MAX_TOTAL_UNCOMPRESSED_BYTES} bytes)"
-            )
+        if not input_dir.is_dir():
+            raise ValueError(f"Input directory does not exist: {input_dir}")
+        json_paths = sorted(input_dir.rglob("*.json"))
+        _check_sizes([(p.name, p.stat().st_size) for p in json_paths])
         for path in json_paths:
-            size = path.stat().st_size
-            if size > MAX_SINGLE_ENTRY_BYTES:
-                raise ValueError(
-                    f"File {path.name} exceeds maximum size "
-                    f"({size} bytes > {MAX_SINGLE_ENTRY_BYTES} bytes)"
-                )
             raw = path.read_text(encoding="utf-8")
             entries.append((path.name, json.loads(raw)))
-    else:
-        raise ValueError("Must provide either archive_path or input_dir")
-
     return entries
+
+
+def _check_sizes(sizes: list[tuple[str, int]]) -> None:
+    if not sizes:
+        raise ValueError("No JSON entries found")
+    if len(sizes) > MAX_ARCHIVE_ENTRIES:
+        raise ValueError(
+            f"Input exceeds maximum allowed entries ({MAX_ARCHIVE_ENTRIES})"
+        )
+    if sum(size for _, size in sizes) > MAX_TOTAL_UNCOMPRESSED_BYTES:
+        raise ValueError("Input exceeds maximum allowed uncompressed size (50 MB)")
+    for name, size in sizes:
+        if size > MAX_SINGLE_ENTRY_BYTES:
+            raise ValueError(f"{name} exceeds maximum size (1 MB)")
 
 
 def _collect_backfilled_review(
@@ -402,22 +381,14 @@ def _process_existing_item(
     existing_path: Path,
     entry: dict[str, Any],
     loaded_entries: dict[Path, dict[str, Any]],
-    *,
-    dry_run: bool,
 ) -> tuple[bool, str, ReviewItem | None]:
-    """Merge incoming entry into existing file and save if changed."""
+    """Plan a backfill without writing files."""
     existing = loaded_entries[existing_path]
     updated, changed, changes = merge_entry(existing, entry)
     if not changed:
         return False, "", None
 
     validate_entry(updated)
-    if not dry_run:
-        existing_path.write_text(
-            json.dumps(updated, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
     loaded_entries[existing_path] = updated
     review_item = _collect_backfilled_review(existing, updated)
     return True, f"BACKFILLED {existing_path.name}: {', '.join(changes)}", review_item
@@ -432,8 +403,6 @@ def _process_new_item(
         dict[tuple[str, int], Path],
         dict[tuple[str, str], Path],
     ],
-    *,
-    dry_run: bool,
 ) -> tuple[str, ReviewItem | None]:
     """Create a new entry file and update indices."""
     by_tmdb, by_tvdb, by_imdb = indices
@@ -443,13 +412,9 @@ def _process_new_item(
         raise ValueError(f"Target path already indexed - {target_path.name}")
 
     validate_entry(new_entry)
-    if not dry_run:
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        target_path.write_text(
-            json.dumps(new_entry, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
+    review_item = _collect_new_review(new_entry)
+    if review_item is None:
+        raise ValueError("New bulk entries must include artwork or an OvertureDB theme")
 
     loaded_entries[target_path] = new_entry
     m_type = new_entry["media_type"]
@@ -460,7 +425,6 @@ def _process_new_item(
     if new_entry.get("imdb_id") is not None:
         by_imdb[(m_type, new_entry["imdb_id"])] = target_path
 
-    review_item = _collect_new_review(new_entry)
     return f"CREATED {target_path.name}: {new_entry['title']}", review_item
 
 
@@ -474,6 +438,7 @@ def import_bulk_export(
     """Merge bulk export items into OvertureDB dataset enforcing Rules 1 & 2."""
     data_dir = overture_dir / "data"
     by_tmdb, by_tvdb, by_imdb, loaded_entries = index_existing_entries(data_dir)
+    original_entries = dict(loaded_entries)
     indices = (by_tmdb, by_tvdb, by_imdb)
 
     incoming_entries = load_incoming_entries(
@@ -491,12 +456,22 @@ def import_bulk_export(
     for name, raw_entry in incoming_entries:
         try:
             entry = validate_entry(raw_entry)
+            for url in art_urls([entry]):
+                check_art_destination(url, resolve=False)
             existing_path = find_existing_entry(entry, by_tmdb, by_tvdb, by_imdb)
 
             if existing_path is not None:
                 changed, detail, review = _process_existing_item(
-                    existing_path, entry, loaded_entries, dry_run=dry_run
+                    existing_path, entry, loaded_entries
                 )
+                updated = loaded_entries[existing_path]
+                for provider, index in zip(
+                    ("tmdb", "tvdb", "imdb"), indices, strict=True
+                ):
+                    if updated[f"{provider}_id"] is not None:
+                        index[(updated["media_type"], updated[f"{provider}_id"])] = (
+                            existing_path
+                        )
                 if changed:
                     backfilled_count += 1
                     details.append(detail)
@@ -506,7 +481,7 @@ def import_bulk_export(
                     unchanged_count += 1
             else:
                 detail, review = _process_new_item(
-                    entry, data_dir, loaded_entries, indices, dry_run=dry_run
+                    entry, data_dir, loaded_entries, indices
                 )
                 created_count += 1
                 details.append(detail)
@@ -518,6 +493,8 @@ def import_bulk_export(
 
     # Validate the full catalog consistency for all loaded entries
     validate_entries(list(loaded_entries.values()))
+    if not dry_run and not errors:
+        write_changes(original_entries, loaded_entries, overture_dir)
 
     return {
         "total_incoming": len(incoming_entries),
@@ -534,8 +511,9 @@ def import_bulk_export(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--archive", type=Path, help="Path to export ZIP archive")
-    parser.add_argument(
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--archive", type=Path, help="Path to export ZIP archive")
+    source.add_argument(
         "--input-dir", type=Path, help="Path to unzipped input directory"
     )
     parser.add_argument(
@@ -560,9 +538,6 @@ def main() -> int:
         help="Output review markdown section with clickable art and theme URLs",
     )
     args = parser.parse_args()
-
-    if not args.archive and not args.input_dir:
-        parser.error("Specify either --archive or --input-dir")
 
     try:
         results = import_bulk_export(
