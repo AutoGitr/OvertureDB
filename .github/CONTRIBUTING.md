@@ -84,7 +84,7 @@ Dataset submissions are converted into pull requests by `@OvertureDB-bot`.
 
 Maintainers can trigger bot actions in issue comments:
 - `@OvertureDB-bot approve` - Generates a bot PR and merges the selection.
-- `@OvertureDB-bot reject [reason]` - Closes the issue with the given reason.
+- `@OvertureDB-bot reject <optional reason>` - Closes the issue with the given reason.
 
 Maintainers can edit issue descriptions directly to correct URLs or IDs. Saving re-runs validation before approval.
 

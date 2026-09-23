@@ -53,6 +53,25 @@ jobs:
             exit 0
           fi
 
+          if echo "$labels" | grep -qx "rejected"; then
+            echo "approved=false" >> "$GITHUB_OUTPUT"
+            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
+              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+                --body "Ignoring command from @${ACTOR}: this contribution has already been rejected."
+            fi
+            exit 0
+          fi
+
+          issue_state="$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json state --jq '.state')"
+          if [ "$issue_state" != "OPEN" ]; then
+            echo "approved=false" >> "$GITHUB_OUTPUT"
+            if [ "$command_body" = "@OvertureDB-bot approve" ] || [[ "$command_body" == "@OvertureDB-bot reject"* ]]; then
+              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+                --body "Ignoring command from @${ACTOR}: issue #${ISSUE_NUMBER} is not open."
+            fi
+            exit 0
+          fi
+
           is_bulk="false"
           if echo "$labels" | grep -qx "bulk"; then
             is_bulk="true"
@@ -76,12 +95,19 @@ jobs:
             echo "approved=false" >> "$GITHUB_OUTPUT"
             case "$actor_permission" in
               admin|maintain|write)
-                reason="$(printf '%s' "$command_body" | sed -E 's/^@OvertureDB-bot reject[[:space:]]*//')"
+                reason="$(printf '%s' "$command_body" | sed -E 's/^@OvertureDB-bot reject[[:space:]]*//; s/^[[:space:]]+|[[:space:]]+$//g')"
+                if [[ "$reason" == '<'*'>' || "$reason" == '['*']' ]]; then
+                  reason="${reason:1:-1}"
+                  reason="$(printf '%s' "$reason" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+                fi
+                if [ "$reason" = "optional reason" ] || [ "$reason" = "reason" ]; then
+                  reason=""
+                fi
                 gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label "rejected"
                 gh issue close "$ISSUE_NUMBER" --repo "$REPO" --reason "not_planned"
                 if [ -n "$reason" ]; then
-                  gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
-                    --body "Contribution rejected by @${ACTOR}.\n\n**Reason:** ${reason}"
+                  printf -v comment_body "Contribution rejected by @%s.\n\n**Reason:** %s" "$ACTOR" "$reason"
+                  gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "$comment_body"
                 else
                   gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
                     --body "Contribution rejected by @${ACTOR}."

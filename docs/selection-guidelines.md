@@ -113,6 +113,6 @@ You can also open an issue directly:
 
 Submissions are validated by an automated preview workflow. Maintainers review the issue and can run these commands in a comment:
 - `@OvertureDB-bot approve` - Generates a bot PR and merges the change.
-- `@OvertureDB-bot reject [reason]` - Rejects the submission and closes the issue.
+- `@OvertureDB-bot reject <optional reason>` - Rejects the submission and closes the issue.
 
 Maintainers can also edit the issue description directly to adjust URLs or metadata before approving.

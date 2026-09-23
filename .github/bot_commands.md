@@ -10,7 +10,7 @@ A maintainer can trigger OvertureDB-bot actions by commenting on this issue:
 @OvertureDB-bot approve
 ```
 ```text
-@OvertureDB-bot reject [reason]
+@OvertureDB-bot reject <optional reason>
 ```
 
 </details>

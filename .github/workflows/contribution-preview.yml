@@ -15,7 +15,9 @@ jobs:
   preview:
     if: |
       !github.event.issue.pull_request &&
-      contains(github.event.issue.labels.*.name, 'contribution')
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'contribution') &&
+      !contains(github.event.issue.labels.*.name, 'rejected')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -54,6 +56,11 @@ jobs:
 
           printf '%s' "$ISSUE_BODY" > "$body_file"
           gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name' > "$labels_file"
+
+          if grep -qx "rejected" "$labels_file"; then
+            echo "Issue has 'rejected' label. Skipping preview."
+            exit 0
+          fi
 
           is_bulk="false"
           if grep -qx "bulk" "$labels_file"; then
