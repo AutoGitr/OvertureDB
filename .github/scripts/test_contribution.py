@@ -9,6 +9,7 @@ from pathlib import Path
 from contribution import (
     MODIFICATION_PLACEHOLDER,
     clean_art_url,
+    clean_youtube_id,
     determine_canonical_path,
     extract_field,
     format_media_comparison,
@@ -114,7 +115,7 @@ abc123abc12
         )
         with self.assertRaises(ValueError) as ctx:
             parse_issue_form(body_bad_yt, "[Movie]: Movie", ["movie"])
-        self.assertIn("YouTube video ID must be exactly 11", str(ctx.exception))
+        self.assertIn("Invalid YouTube theme ID or URL", str(ctx.exception))
 
     def test_determine_canonical_path(self) -> None:
         movie_path = determine_canonical_path("movie", 100, 200, "tt123", self.data_dir)
@@ -138,6 +139,10 @@ New Movie
 
 88888
 
+### Poster URL
+
+https://image.tmdb.org/t/p/original/new_movie.jpg
+
 ### Reason for modification (if replacing existing artwork or theme)
 
 "If this modifies an existing entry, replace this text with a reason "
@@ -150,6 +155,27 @@ New Movie
         self.assertFalse(res["is_modification"])
         self.assertEqual(res["target"], "data/movies/tmdb-88888.json")
         self.assertTrue((self.temp_dir / "data/movies/tmdb-88888.json").is_file())
+
+    def test_new_entry_without_media_rejected(self) -> None:
+        body = """### Title
+
+Empty Movie
+
+### Year
+
+2024
+
+### TMDB ID
+
+77777
+"""
+        parsed = parse_issue_form(body, "[Movie]: Empty Movie (2024)", ["movie"])
+        with self.assertRaises(ValueError) as ctx:
+            process_contribution(parsed, self.temp_dir, dry_run=False)
+        self.assertIn(
+            "New entry contributions must include at least one artwork URL",
+            str(ctx.exception),
+        )
 
     def test_existing_entry_blocks_without_modification_reason(self) -> None:
         # Create existing entry
@@ -809,6 +835,382 @@ https://image.tmdb.org/poster.jpg
         parsed = json.loads(res.stdout)
         self.assertEqual(parsed.get("status"), "error")
         self.assertIn("digits only", parsed.get("error", ""))
+
+    def test_clean_art_url_markdown_links_and_formatting(self) -> None:
+        self.assertIsNone(clean_art_url("   "))
+        self.assertIsNone(clean_art_url("_No response_"))
+
+        # Markdown link extraction
+        md_link = "[Movie Poster](https://image.tmdb.org/t/p/original/test.jpg)"
+        self.assertEqual(
+            clean_art_url(md_link), "https://image.tmdb.org/t/p/original/test.jpg"
+        )
+        md_spaced = "[Poster](  https://image.tmdb.org/t/p/original/spaced.jpg  )"
+        self.assertEqual(
+            clean_art_url(md_spaced), "https://image.tmdb.org/t/p/original/spaced.jpg"
+        )
+
+        # Quotes and angle brackets
+        self.assertEqual(
+            clean_art_url('"https://image.tmdb.org/t/p/original/quoted.jpg"'),
+            "https://image.tmdb.org/t/p/original/quoted.jpg",
+        )
+        self.assertEqual(
+            clean_art_url("'https://image.tmdb.org/t/p/original/single.jpg'"),
+            "https://image.tmdb.org/t/p/original/single.jpg",
+        )
+        self.assertEqual(
+            clean_art_url("<https://image.tmdb.org/t/p/original/angled.jpg>"),
+            "https://image.tmdb.org/t/p/original/angled.jpg",
+        )
+
+        # HTTP upgrade
+        self.assertEqual(
+            clean_art_url("http://image.tmdb.org/t/p/original/http.jpg"),
+            "https://image.tmdb.org/t/p/original/http.jpg",
+        )
+
+        # Fragment stripping
+        self.assertEqual(
+            clean_art_url("https://image.tmdb.org/t/p/original/frag.jpg#zoom=100"),
+            "https://image.tmdb.org/t/p/original/frag.jpg",
+        )
+
+        # ThePosterDB conversions and cleaning
+        self.assertEqual(
+            clean_art_url("https://theposterdb.com/poster/12345"),
+            "https://theposterdb.com/api/assets/12345",
+        )
+        self.assertEqual(
+            clean_art_url("https://www.theposterdb.com/poster/12345/"),
+            "https://www.theposterdb.com/api/assets/12345",
+        )
+        self.assertEqual(
+            clean_art_url("https://theposterdb.com/api/assets/12345/view"),
+            "https://theposterdb.com/api/assets/12345",
+        )
+        self.assertEqual(
+            clean_art_url("https://theposterdb.com/api/assets/12345/view/"),
+            "https://theposterdb.com/api/assets/12345",
+        )
+        self.assertEqual(
+            clean_art_url("https://theposterdb.com/api/assets/12345/"),
+            "https://theposterdb.com/api/assets/12345",
+        )
+
+    def test_clean_youtube_id_all_variants_and_errors(self) -> None:
+        self.assertIsNone(clean_youtube_id(None))
+        self.assertIsNone(clean_youtube_id(""))
+        self.assertIsNone(clean_youtube_id("   "))
+        self.assertIsNone(clean_youtube_id("_No response_"))
+
+        # Raw 11-char ID
+        self.assertEqual(clean_youtube_id("AB96CvvLZKc"), "AB96CvvLZKc")
+        self.assertEqual(clean_youtube_id('"AB96CvvLZKc"'), "AB96CvvLZKc")
+        self.assertEqual(clean_youtube_id("<AB96CvvLZKc>"), "AB96CvvLZKc")
+
+        # Full URL variations
+        self.assertEqual(
+            clean_youtube_id("https://www.youtube.com/watch?v=AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://youtube.com/watch?v=AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://m.youtube.com/watch?v=AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://music.youtube.com/watch?v=AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://youtu.be/AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://youtu.be/AB96CvvLZKc?si=xyz&t=15s"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://www.youtube.com/embed/AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("https://www.youtube.com/shorts/AB96CvvLZKc"),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id(
+                "https://www.youtube.com/watch?feature=shared&v=AB96CvvLZKc"
+            ),
+            "AB96CvvLZKc",
+        )
+        self.assertEqual(
+            clean_youtube_id("[Theme Song](https://youtu.be/AB96CvvLZKc)"),
+            "AB96CvvLZKc",
+        )
+
+        # Invalid IDs or URLs
+        with self.assertRaises(ValueError):
+            clean_youtube_id("short")
+        with self.assertRaises(ValueError):
+            clean_youtube_id("https://vimeo.com/12345678901")
+        with self.assertRaises(ValueError):
+            clean_youtube_id("https://youtube.com/watch")
+        with self.assertRaises(ValueError):
+            clean_youtube_id("invalid!characters@#$")
+
+    def test_parse_external_ids_urls_and_casing(self) -> None:
+        body = """### Title
+
+Test
+
+### TMDB ID
+
+https://www.themoviedb.org/movie/157336-interstellar
+
+### TVDB ID
+
+https://thetvdb.com/dereferrer/series/74205
+
+### IMDb ID
+
+https://www.imdb.com/title/TT0109424/?ref_=fn_al_tt_1
+"""
+        parsed = parse_issue_form(body, "[Movie]: Test", ["movie"])
+        self.assertEqual(parsed.tmdb_id, 157336)
+        self.assertEqual(parsed.tvdb_id, 74205)
+        self.assertEqual(parsed.imdb_id, "tt0109424")
+
+        # Zero or negative IDs
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form("### Title\nT\n### TMDB ID\n0", "[Movie]: T", ["movie"])
+        self.assertIn("positive integer", str(ctx.exception))
+
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form("### Title\nT\n### TVDB ID\n0", "[Show]: T", ["show"])
+        self.assertIn("positive integer", str(ctx.exception))
+
+        # No IDs provided
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form("### Title\nT", "[Movie]: T", ["movie"])
+        self.assertIn("need a TMDB, TVDB, or IMDb ID", str(ctx.exception))
+
+    def test_parse_seasons_complex_inputs(self) -> None:
+        body = """### Title
+
+Show
+
+### TVDB ID
+
+123
+
+### Season posters
+
+- Season 1 = https://image.tmdb.org/s1.jpg
+* s2 = https://image.tmdb.org/s2.jpg
+1. Season Specials = https://image.tmdb.org/s0.jpg
+"""
+        parsed = parse_issue_form(body, "[Show]: Show", ["show"])
+        self.assertEqual(len(parsed.seasons), 3)
+        self.assertEqual(
+            parsed.seasons,
+            [
+                {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"},
+                {"season_num": 2, "poster_url": "https://image.tmdb.org/s2.jpg"},
+                {"season_num": 0, "poster_url": "https://image.tmdb.org/s0.jpg"},
+            ],
+        )
+
+        # Duplicate seasons
+        dup_body = (
+            "### Title\nShow\n### TVDB ID\n123\n"
+            "### Season posters\n1=https://image.tmdb.org/a.jpg\n"
+            "Season 1=https://image.tmdb.org/b.jpg"
+        )
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form(dup_body, "[Show]: Show", ["show"])
+        self.assertIn("Duplicate season number in submission: 1", str(ctx.exception))
+
+        # Missing '='
+        bad_format_body = (
+            "### Title\nShow\n### TVDB ID\n123\n"
+            "### Season posters\nSeason 1 https://image.tmdb.org/a.jpg"
+        )
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form(bad_format_body, "[Show]: Show", ["show"])
+        self.assertIn("must use format season_num=url", str(ctx.exception))
+
+        # Season posters on movie
+        movie_with_seasons = (
+            "### Title\nMovie\n### TMDB ID\n123\n"
+            "### Season posters\n1=https://image.tmdb.org/a.jpg"
+        )
+        with self.assertRaises(ValueError) as ctx:
+            parse_issue_form(movie_with_seasons, "[Movie]: Movie", ["movie"])
+        self.assertIn("Season posters cannot be added to a movie", str(ctx.exception))
+
+    def test_modification_reason_validations(self) -> None:
+        existing_file = self.data_dir / "movies" / "tmdb-55555.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Movie",
+                    "year": 2024,
+                    "tmdb_id": 55555,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": "https://image.tmdb.org/old.jpg",
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": None,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        invalid_reasons = [
+            "   ",
+            '""',
+            f'"{MODIFICATION_PLACEHOLDER}"',
+            MODIFICATION_PLACEHOLDER,
+            "_No response_",
+            "none",
+            "N/A",
+        ]
+
+        for invalid_reason in invalid_reasons:
+            body = f"""### Title
+
+Movie
+
+### TMDB ID
+
+55555
+
+### Poster URL
+
+https://image.tmdb.org/new.jpg
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{invalid_reason}
+"""
+            parsed = parse_issue_form(body, "[Movie]: Movie (2024)", ["movie"])
+            with self.assertRaises(
+                ValueError, msg=f"Failed to reject reason: {invalid_reason!r}"
+            ) as ctx:
+                process_contribution(parsed, self.temp_dir, dry_run=False)
+            self.assertIn(
+                "Existing artwork or theme is being replaced", str(ctx.exception)
+            )
+
+    def test_empty_diff_on_existing_entry_rejected(self) -> None:
+        existing_file = self.data_dir / "movies" / "tmdb-66666.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Unchanged Movie",
+                    "year": 2024,
+                    "tmdb_id": 66666,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": "https://image.tmdb.org/p.jpg",
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": "themerr1234",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        # Identical submission
+        body_identical = """### Title
+
+Unchanged Movie
+
+### Year
+
+2024
+
+### TMDB ID
+
+66666
+
+### Poster URL
+
+https://image.tmdb.org/p.jpg
+"""
+        parsed = parse_issue_form(
+            body_identical, "[Movie]: Unchanged Movie (2024)", ["movie"]
+        )
+        with self.assertRaises(ValueError) as ctx:
+            process_contribution(parsed, self.temp_dir, dry_run=False)
+        self.assertIn("No changes or additions detected", str(ctx.exception))
+
+        # Submitting only matching themerrdb theme with no art changes
+        body_themerr_only = """### Title
+
+Unchanged Movie
+
+### Year
+
+2024
+
+### TMDB ID
+
+66666
+
+### YouTube theme video ID
+
+themerr1234
+"""
+        parsed_yt = parse_issue_form(
+            body_themerr_only, "[Movie]: Unchanged Movie (2024)", ["movie"]
+        )
+        with self.assertRaises(ValueError) as ctx:
+            process_contribution(parsed_yt, self.temp_dir, dry_run=False)
+        self.assertIn("already active via ThemerrDB", str(ctx.exception))
+
+    def test_field_leading_empty_lines_tolerated(self) -> None:
+        body = """### Title
+
+
+Spaced Movie
+
+### Year
+
+
+2024
+
+### TMDB ID
+
+
+123456
+
+### Poster URL
+
+
+https://image.tmdb.org/spaced_poster.jpg
+
+### YouTube theme video ID
+
+
+AB96CvvLZKc
+"""
+        parsed = parse_issue_form(body, "[Movie]: Spaced Movie (2024)", ["movie"])
+        self.assertEqual(parsed.title, "Spaced Movie")
+        self.assertEqual(parsed.year, 2024)
+        self.assertEqual(parsed.tmdb_id, 123456)
+        self.assertEqual(parsed.poster_url, "https://image.tmdb.org/spaced_poster.jpg")
+        self.assertEqual(parsed.youtube_id, "AB96CvvLZKc")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 ## 1. General Rules
 
 - **Preferred Source**: TMDB (`image.tmdb.org`) is the preferred and prioritised artwork source.
-- **Resolution**: The higher ther better, as long as it doesnt compromise other criteria.
+- **Resolution**: The higher the better, as long as it doesn't compromise other criteria.
 - **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the stated target aspect ratios:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
   - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
@@ -27,7 +27,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 
 - Must be a real scene or shot taken directly from the item.
 - No text unless it naturally appears in the scene.
-- **Never use "photoshopped" composite images** where main characters are cut out and placed together, or shown as floating heads.
+- Never use "photoshopped" composite images where main characters are cut out and placed together, or shown as floating heads.
 
 ### Season Posters
 
@@ -40,7 +40,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 ### Duration and Audio Quality
 
 - Preferred length is 1 to 2 minutes.
-- Avoid leading silence: theme audio should begin playing immediately upon start.
+- Music should begin immediately without leading silence or prolonged fade-ins.
 - Clean audio only: no dialogue intros, YouTube outro promotions, watermarks, or abrupt cutoffs.
 
 ### Do Not Duplicate ThemerrDB

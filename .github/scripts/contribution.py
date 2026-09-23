@@ -39,14 +39,83 @@ class ParsedContribution:
     modification_reason: str | None
 
 
+def _first_non_empty_line(val: str | None) -> str | None:
+    if not val:
+        return None
+    for line in val.splitlines():
+        line = line.strip()
+        if line:
+            return line
+    return None
+
+
 def clean_art_url(url: str | None) -> str | None:
     if not url:
         return None
     url = url.strip()
-    return re.sub(
-        r"^(https?://(?:www\.)?theposterdb\.com/api/assets/\d+)/view/?$",
+    if not url or url == "_No response_":
+        return None
+    # Strip quotes
+    if (url.startswith('"') and url.endswith('"')) or (
+        url.startswith("'") and url.endswith("'")
+    ):
+        url = url[1:-1].strip()
+    # Strip angle brackets <url>
+    if url.startswith("<") and url.endswith(">"):
+        url = url[1:-1].strip()
+    # Extract from markdown link [text](url)
+    md_match = re.match(r"^\[.*?\]\(\s*(https?://[^\s)]+)\s*\)$", url)
+    if md_match:
+        url = md_match.group(1).strip()
+    # Upgrade http to https
+    if url.startswith("http://"):
+        url = "https://" + url[7:]
+    # Strip fragment #...
+    url = url.split("#")[0].strip()
+    # Normalize ThePosterDB poster web URL to API asset URL
+    url = re.sub(
+        r"^(https?://(?:www\.)?theposterdb\.com/)poster/(\d+)/?$",
+        r"\1api/assets/\2",
+        url,
+    )
+    # Strip /view or trailing slash from ThePosterDB API assets
+    url = re.sub(
+        r"^(https?://(?:www\.)?theposterdb\.com/api/assets/\d+)(?:/view)?/?$",
         r"\1",
         url,
+    )
+    return url or None
+
+
+def clean_youtube_id(raw_id: str | None) -> str | None:
+    if not raw_id:
+        return None
+    val = raw_id.strip()
+    if not val or val == "_No response_":
+        return None
+
+    # Strip quotes and angle brackets
+    if (val.startswith('"') and val.endswith('"')) or (
+        val.startswith("'") and val.endswith("'")
+    ):
+        val = val[1:-1].strip()
+    if val.startswith("<") and val.endswith(">"):
+        val = val[1:-1].strip()
+
+    # Full YouTube URLs across domains: youtu.be, watch?v=, embed/, shorts/
+    yt_url_match = re.search(
+        r"(?:youtu\.be/|(?:[a-zA-Z0-9-]+\.)?youtube\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/))([a-zA-Z0-9_-]{11})",
+        val,
+    )
+    if yt_url_match:
+        return yt_url_match.group(1)
+
+    if re.match(r"^[a-zA-Z0-9_-]{11}$", val):
+        return val
+
+    raise ValueError(
+        f"Invalid YouTube theme ID or URL: '{val}'. "
+        "Expected an 11-character video ID or YouTube URL."
     )
 
 
@@ -76,9 +145,10 @@ def extract_field(body: str, heading: str) -> str | None:
 
 
 def _extract_media_type(issue_title: str, labels: list[str]) -> str:
-    if "movie" in labels or issue_title.startswith("[Movie]:"):
+    title_lower = issue_title.lower()
+    if "movie" in labels or title_lower.startswith("[movie"):
         return "movie"
-    if "show" in labels or issue_title.startswith("[Show]:"):
+    if "show" in labels or title_lower.startswith("[show"):
         return "show"
     raise ValueError("Issue must use the movie or show contribution form.")
 
@@ -89,26 +159,41 @@ def _parse_external_ids(
     tmdb_raw = extract_field(body, "TMDB ID")
     tmdb_id = None
     if tmdb_raw:
-        tmdb_str = tmdb_raw.splitlines()[0].strip()
-        if not re.match(r"^\d+$", tmdb_str):
+        tmdb_str = _first_non_empty_line(tmdb_raw) or ""
+        tmdb_url_match = re.search(r"themoviedb\.org/(?:movie|tv)/(\d+)", tmdb_str)
+        if tmdb_url_match:
+            tmdb_id = int(tmdb_url_match.group(1))
+        elif not re.match(r"^\d+$", tmdb_str):
             raise ValueError("TMDB ID must contain digits only.")
-        tmdb_id = int(tmdb_str)
+        elif int(tmdb_str) < 1:
+            raise ValueError("TMDB ID must be a positive integer.")
+        else:
+            tmdb_id = int(tmdb_str)
 
     tvdb_raw = extract_field(body, "TVDB ID")
     tvdb_id = None
     if tvdb_raw:
-        tvdb_str = tvdb_raw.splitlines()[0].strip()
-        if not re.match(r"^\d+$", tvdb_str):
+        tvdb_str = _first_non_empty_line(tvdb_raw) or ""
+        tvdb_url_match = re.search(
+            r"thetvdb\.com/(?:dereferrer/)?(?:series|movie)s?/(\d+)", tvdb_str
+        )
+        if tvdb_url_match:
+            tvdb_id = int(tvdb_url_match.group(1))
+        elif not re.match(r"^\d+$", tvdb_str):
             raise ValueError("TVDB ID must contain digits only.")
-        tvdb_id = int(tvdb_str)
+        elif int(tvdb_str) < 1:
+            raise ValueError("TVDB ID must be a positive integer.")
+        else:
+            tvdb_id = int(tvdb_str)
 
     imdb_raw = extract_field(body, "IMDb ID")
     imdb_id = None
     if imdb_raw:
-        imdb_str = imdb_raw.splitlines()[0].strip()
-        if not re.match(r"^tt\d+$", imdb_str):
+        imdb_str = _first_non_empty_line(imdb_raw) or ""
+        imdb_match = re.search(r"(tt\d+)", imdb_str, flags=re.IGNORECASE)
+        if not imdb_match:
             raise ValueError("IMDb ID must use the format tt followed by digits.")
-        imdb_id = imdb_str
+        imdb_id = imdb_match.group(1).lower()
 
     if tmdb_id is None and tvdb_id is None and imdb_id is None:
         raise ValueError(
@@ -119,19 +204,49 @@ def _parse_external_ids(
 
 
 def _parse_seasons(body: str, media_type: str) -> list[dict[str, Any]]:
-    seasons: list[dict[str, Any]] = []
     seasons_raw = extract_field(body, "Season posters")
+    if seasons_raw and media_type == "movie":
+        raise ValueError("Season posters cannot be added to a movie.")
+
+    seasons: list[dict[str, Any]] = []
     if seasons_raw and media_type == "show":
+        seen_seasons: set[int] = set()
         for line in seasons_raw.splitlines():
             line = line.strip()
-            if not line or "=" not in line:
+            if not line:
                 continue
+            line = re.sub(r"^(?:[-*•]|\d+\.)\s*", "", line).strip()
+            if not line:
+                continue
+            if "=" not in line:
+                raise ValueError(
+                    f"Season poster line must use format season_num=url: '{line}'"
+                )
             s_num_str, _, s_url = line.partition("=")
             s_num_str = s_num_str.strip()
+            s_num_clean = re.sub(
+                r"^(?:season|s)\s*", "", s_num_str, flags=re.IGNORECASE
+            ).strip()
+            if s_num_clean.lower() in ("specials", "special"):
+                s_num = 0
+            elif re.match(r"^\d+$", s_num_clean):
+                s_num = int(s_num_clean)
+            else:
+                raise ValueError(
+                    f"Invalid season number '{s_num_str}' in line: '{line}'"
+                )
+
             s_url = clean_art_url(s_url.strip())
-            if not re.match(r"^\d+$", s_num_str) or not s_url:
-                raise ValueError("Season posters must use season_num=url lines.")
-            seasons.append({"season_num": int(s_num_str), "poster_url": s_url})
+            if not s_url:
+                raise ValueError(
+                    f"Missing or invalid artwork URL in season poster line: '{line}'"
+                )
+
+            if s_num in seen_seasons:
+                raise ValueError(f"Duplicate season number in submission: {s_num}")
+            seen_seasons.add(s_num)
+
+            seasons.append({"season_num": s_num, "poster_url": s_url})
     return seasons
 
 
@@ -143,32 +258,28 @@ def parse_issue_form(
     media_type = _extract_media_type(issue_title, labels)
 
     title_raw = extract_field(body, "Title")
-    if not title_raw:
+    title = _first_non_empty_line(title_raw)
+    if not title:
         raise ValueError("Missing Title field.")
-    title = title_raw.splitlines()[0].strip()
 
     year_raw = extract_field(body, "Year")
     year = None
-    if year_raw:
-        year_str = year_raw.splitlines()[0].strip()
-        if not re.match(r"^\d{4}$", year_str):
+    year_line = _first_non_empty_line(year_raw)
+    if year_line:
+        if not re.match(r"^\d{4}$", year_line) or int(year_line) < 1000:
             raise ValueError("Year must be a four-digit release year.")
-        year = int(year_str)
+        year = int(year_line)
 
     tmdb_id, tvdb_id, imdb_id = _parse_external_ids(body, media_type)
 
     poster_raw = extract_field(body, "Poster URL")
-    poster_url = (
-        clean_art_url(poster_raw.splitlines()[0].strip()) if poster_raw else None
-    )
+    poster_url = clean_art_url(_first_non_empty_line(poster_raw))
 
     bg_raw = extract_field(body, "Background URL")
-    background_url = clean_art_url(bg_raw.splitlines()[0].strip()) if bg_raw else None
+    background_url = clean_art_url(_first_non_empty_line(bg_raw))
 
     yt_raw = extract_field(body, "YouTube theme video ID")
-    youtube_id = yt_raw.splitlines()[0].strip() if yt_raw else None
-    if youtube_id and not re.match(r"^[a-zA-Z0-9_-]{11}$", youtube_id):
-        raise ValueError("YouTube video ID must be exactly 11 characters (not a URL).")
+    youtube_id = clean_youtube_id(_first_non_empty_line(yt_raw))
 
     seasons = _parse_seasons(body, media_type)
 
@@ -257,7 +368,11 @@ def _update_external_ids(updated: dict[str, Any], parsed: ParsedContribution) ->
 def _update_seasons(updated: dict[str, Any], seasons: list[dict[str, Any]]) -> None:
     if not seasons:
         return
-    exist_seasons = {s["season_num"]: dict(s) for s in updated.get("seasons", [])}
+    exist_seasons = {
+        s["season_num"]: dict(s)
+        for s in (updated.get("seasons") or [])
+        if isinstance(s, dict) and "season_num" in s
+    }
     for s in seasons:
         exist_seasons[s["season_num"]] = {
             "season_num": s["season_num"],
@@ -288,14 +403,20 @@ def is_media_replacement(
         return True
 
     old_yt = existing.get("youtube_id_overturedb")
-    if old_yt and parsed.youtube_id and parsed.youtube_id.strip() != old_yt.strip():
+    themerr_yt = (existing.get("youtube_id_themerrdb") or "").strip()
+    if (
+        old_yt
+        and parsed.youtube_id
+        and parsed.youtube_id.strip() != old_yt.strip()
+        and parsed.youtube_id.strip() != themerr_yt
+    ):
         return True
 
     if parsed.media_type == "show" and parsed.seasons:
         exist_seasons = {
             s["season_num"]: s.get("poster_url")
             for s in (existing.get("seasons") or [])
-            if "season_num" in s and s.get("poster_url")
+            if isinstance(s, dict) and "season_num" in s and s.get("poster_url")
         }
         for s in parsed.seasons:
             s_num = s.get("season_num")
@@ -324,11 +445,8 @@ def _update_entry(
         updated["poster_url"] = parsed.poster_url
     if parsed.background_url:
         updated["background_url"] = parsed.background_url
-    if parsed.youtube_id:
-        if parsed.youtube_id == updated.get("youtube_id_themerrdb"):
-            updated["youtube_id_overturedb"] = None
-        else:
-            updated["youtube_id_overturedb"] = parsed.youtube_id
+    if parsed.youtube_id and parsed.youtube_id != updated.get("youtube_id_themerrdb"):
+        updated["youtube_id_overturedb"] = parsed.youtube_id
 
     if parsed.media_type == "show":
         _update_seasons(updated, parsed.seasons)
@@ -383,13 +501,13 @@ def format_media_comparison(
 
     exist_seasons = {
         s["season_num"]: s.get("poster_url")
-        for s in existing.get("seasons", [])
-        if "season_num" in s
+        for s in (existing.get("seasons") or [])
+        if isinstance(s, dict) and "season_num" in s
     }
     updated_seasons = {
         s["season_num"]: s.get("poster_url")
-        for s in updated.get("seasons", [])
-        if "season_num" in s
+        for s in (updated.get("seasons") or [])
+        if isinstance(s, dict) and "season_num" in s
     }
     for s_num in sorted(set(exist_seasons) | set(updated_seasons)):
         old_s = exist_seasons.get(s_num)
@@ -415,6 +533,18 @@ def process_contribution(
     candidate = build_candidate_entry(parsed)
     existing_path = find_existing_entry(candidate, by_tmdb, by_tvdb, by_imdb)
 
+    has_media = bool(
+        parsed.poster_url
+        or parsed.background_url
+        or parsed.youtube_id
+        or parsed.seasons
+    )
+    if existing_path is None and not has_media:
+        raise ValueError(
+            "New entry contributions must include at least one artwork URL "
+            "(poster, background, or season poster) or YouTube theme ID."
+        )
+
     media_comparison = ""
     if existing_path is not None:
         target_path = existing_path
@@ -423,7 +553,15 @@ def process_contribution(
         is_modification = is_media_replacement(existing_entry, parsed)
         if is_modification:
             reason = parsed.modification_reason
-            if not reason or reason.strip().lower() == MODIFICATION_PLACEHOLDER.lower():
+            clean_reason = reason.strip().strip("\"'").strip() if reason else ""
+            placeholder_clean = (
+                MODIFICATION_PLACEHOLDER.strip().strip("\"'").strip().lower()
+            )
+            if (
+                not clean_reason
+                or clean_reason.lower() == placeholder_clean
+                or clean_reason.lower() in ("_no response_", "none", "n/a")
+            ):
                 raise ValueError(
                     f"Existing artwork or theme is being replaced in `{target_rel}`. "
                     "To modify an existing entry, please edit the issue description "
@@ -431,6 +569,18 @@ def process_contribution(
                     "explanation of your changes."
                 )
         validated, diff = _update_entry(existing_entry, parsed, target_rel)
+        if not diff.strip():
+            themerr_id = existing_entry.get("youtube_id_themerrdb")
+            if parsed.youtube_id and parsed.youtube_id == themerr_id:
+                raise ValueError(
+                    f"No changes or additions detected for `{target_rel}`. "
+                    "The submitted YouTube theme is already active via ThemerrDB, "
+                    "and no other fields were modified."
+                )
+            raise ValueError(
+                f"No changes or additions detected for `{target_rel}`. "
+                "All submitted values match the existing entry."
+            )
         if is_modification:
             media_comparison = format_media_comparison(existing_entry, validated)
     else:
