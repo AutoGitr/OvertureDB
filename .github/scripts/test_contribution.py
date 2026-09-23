@@ -269,9 +269,68 @@ https://image.tmdb.org/bg.jpg
         self.assertEqual(saved["poster_url"], "https://image.tmdb.org/poster.jpg")
         self.assertEqual(saved["background_url"], "https://image.tmdb.org/bg.jpg")
         self.assertEqual(saved["youtube_id_themerrdb"], "xwGZvpRf1GA")
-        self.assertIsNone(saved["youtube_id_overturedb"])
         self.assertEqual(saved["tvdb_id"], 4982)
         self.assertEqual(saved["imdb_id"], "tt0109424")
+
+    def test_submitting_matching_themerrdb_theme_does_not_duplicate_or_fail(
+        self,
+    ) -> None:
+        existing_file = self.data_dir / "movies" / "tmdb-11104.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Chungking Express",
+                    "year": 1994,
+                    "tmdb_id": 11104,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": None,
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": "xwGZvpRf1GA",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        body = f"""### Title
+
+Chungking Express
+
+### Year
+
+1994
+
+### TMDB ID
+
+11104
+
+### Poster URL
+
+https://image.tmdb.org/poster.jpg
+
+### YouTube theme video ID
+
+xwGZvpRf1GA
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed = parse_issue_form(body, "[Movie]: Chungking Express (1994)", ["movie"])
+        res = process_contribution(parsed, self.temp_dir, dry_run=False)
+
+        self.assertEqual(res["status"], "ok")
+        self.assertFalse(res["is_modification"])
+        self.assertTrue(res["is_addition"])
+        self.assertEqual(res["youtube_id"], "xwGZvpRf1GA")
+
+        saved = json.loads(existing_file.read_text(encoding="utf-8"))
+        self.assertEqual(saved["poster_url"], "https://image.tmdb.org/poster.jpg")
+        self.assertEqual(saved["youtube_id_themerrdb"], "xwGZvpRf1GA")
+        self.assertIsNone(saved["youtube_id_overturedb"])
 
     def test_existing_entry_allows_with_modification_reason(self) -> None:
         existing_file = self.data_dir / "movies" / "tmdb-88888.json"

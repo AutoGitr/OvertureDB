@@ -327,7 +327,10 @@ def _update_entry(
     if parsed.background_url:
         updated["background_url"] = parsed.background_url
     if parsed.youtube_id:
-        updated["youtube_id_overturedb"] = parsed.youtube_id
+        if parsed.youtube_id == updated.get("youtube_id_themerrdb"):
+            updated["youtube_id_overturedb"] = None
+        else:
+            updated["youtube_id_overturedb"] = parsed.youtube_id
 
     if parsed.media_type == "show":
         _update_seasons(updated, parsed.seasons)
