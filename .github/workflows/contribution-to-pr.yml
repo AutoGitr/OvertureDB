@@ -211,7 +211,9 @@ jobs:
                 --base main \
                 --head "$branch" \
                 --title "$pr_title" \
-                --body "$pr_body"
+                --body "$pr_body" \
+                --label "contribution" \
+                --label "bulk"
             )"
 
             gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
@@ -279,13 +281,23 @@ jobs:
 
             printf -v pr_body "Closes #%s\n\n%s \`%s\` from the approved contribution." "$ISSUE_NUMBER" "$pr_desc" "$target"
 
+            pr_label_args=(--label "contribution")
+            media_type="$(jq -r '.media_type // ""' "$result_json")"
+            if [ -n "$media_type" ]; then
+              pr_label_args+=(--label "$media_type")
+            fi
+            if [ "$is_modification" = "true" ]; then
+              pr_label_args+=(--label "modification")
+            fi
+
             pr_url="$(
               gh pr create \
                 --repo "$REPO" \
                 --base main \
                 --head "$branch" \
                 --title "${commit_action} dataset entry from contribution #${ISSUE_NUMBER}" \
-                --body "$pr_body"
+                --body "$pr_body" \
+                "${pr_label_args[@]}"
             )"
 
             if ! gh pr merge "$pr_url" --repo "$REPO" --auto --squash --delete-branch; then

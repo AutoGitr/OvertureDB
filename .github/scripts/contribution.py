@@ -466,38 +466,33 @@ def format_media_comparison(
     existing: dict[str, Any],
     updated: dict[str, Any],
 ) -> str:
-    """Format markdown comparing changed artwork and theme fields."""
+    """Format markdown comparing changed artwork and theme fields inline."""
     lines: list[str] = []
 
     old_poster = existing.get("poster_url")
     new_poster = updated.get("poster_url")
     if old_poster != new_poster:
-        old_val = f"[View image]({old_poster})" if old_poster else "_None_"
-        new_val = f"[View image]({new_poster})" if new_poster else "_None_"
-        lines.append(f"- **Old Poster:** {old_val}")
-        lines.append(f"- **New Poster:** {new_val}")
+        old_val = f"[Old]({old_poster})" if old_poster else "_None_"
+        new_val = f"[New]({new_poster})" if new_poster else "_None_"
+        lines.append(f"- **Poster:** {old_val} | {new_val}")
 
     old_bg = existing.get("background_url")
     new_bg = updated.get("background_url")
     if old_bg != new_bg:
-        old_val = f"[View image]({old_bg})" if old_bg else "_None_"
-        new_val = f"[View image]({new_bg})" if new_bg else "_None_"
-        lines.append(f"- **Old Background:** {old_val}")
-        lines.append(f"- **New Background:** {new_val}")
+        old_val = f"[Old]({old_bg})" if old_bg else "_None_"
+        new_val = f"[New]({new_bg})" if new_bg else "_None_"
+        lines.append(f"- **Background:** {old_val} | {new_val}")
 
     old_yt = existing.get("youtube_id_overturedb")
     new_yt = updated.get("youtube_id_overturedb")
     if old_yt and old_yt != new_yt:
         old_val = (
-            f"[Watch video](https://www.youtube.com/watch?v={old_yt}) (`{old_yt}`)"
+            f"[Old](https://www.youtube.com/watch?v={old_yt})" if old_yt else "_None_"
         )
         new_val = (
-            f"[Watch video](https://www.youtube.com/watch?v={new_yt}) (`{new_yt}`)"
-            if new_yt
-            else "_None_"
+            f"[New](https://www.youtube.com/watch?v={new_yt})" if new_yt else "_None_"
         )
-        lines.append(f"- **Old YouTube Theme:** {old_val}")
-        lines.append(f"- **New YouTube Theme:** {new_val}")
+        lines.append(f"- **YouTube Theme:** {old_val} | {new_val}")
 
     exist_seasons = {
         s["season_num"]: s.get("poster_url")
@@ -513,10 +508,9 @@ def format_media_comparison(
         old_s = exist_seasons.get(s_num)
         new_s = updated_seasons.get(s_num)
         if old_s != new_s:
-            old_val = f"[View image]({old_s})" if old_s else "_None_"
-            new_val = f"[View image]({new_s})" if new_s else "_None_"
-            lines.append(f"- **Old Season {s_num} Poster:** {old_val}")
-            lines.append(f"- **New Season {s_num} Poster:** {new_val}")
+            old_val = f"[Old]({old_s})" if old_s else "_None_"
+            new_val = f"[New]({new_s})" if new_s else "_None_"
+            lines.append(f"- **Season {s_num} Poster:** {old_val} | {new_val}")
 
     return "\n".join(lines)
 

@@ -410,11 +410,8 @@ Upgrading to official 4K poster art.
         self.assertIn("new_higher_res_poster.jpg", res["diff"])
 
         self.assertIn(
-            "- **Old Poster:** [View image](https://image.tmdb.org/old_poster.jpg)",
-            res["media_comparison"],
-        )
-        self.assertIn(
-            "- **New Poster:** [View image](https://image.tmdb.org/new_higher_res_poster.jpg)",
+            "- **Poster:** [Old](https://image.tmdb.org/old_poster.jpg) | "
+            "[New](https://image.tmdb.org/new_higher_res_poster.jpg)",
             res["media_comparison"],
         )
         self.assertNotIn("Background", res["media_comparison"])
@@ -459,34 +456,22 @@ Upgrading to official 4K poster art.
 
         self.assertNotIn("Poster", markdown.splitlines()[0])  # Poster didn't change
         self.assertIn(
-            "- **Old Background:** [View image](https://image.tmdb.org/old_bg.jpg)",
+            "- **Background:** [Old](https://image.tmdb.org/old_bg.jpg) | "
+            "[New](https://image.tmdb.org/new_bg.jpg)",
             markdown,
         )
         self.assertIn(
-            "- **New Background:** [View image](https://image.tmdb.org/new_bg.jpg)",
+            "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldtheme123) | "
+            "[New](https://www.youtube.com/watch?v=newtheme456)",
             markdown,
         )
         self.assertIn(
-            "- **Old YouTube Theme:** [Watch video]"
-            "(https://www.youtube.com/watch?v=oldtheme123) (`oldtheme123`)",
+            "- **Season 1 Poster:** [Old](https://image.tmdb.org/old_s1.jpg) | "
+            "[New](https://image.tmdb.org/new_s1.jpg)",
             markdown,
         )
         self.assertIn(
-            "- **New YouTube Theme:** [Watch video]"
-            "(https://www.youtube.com/watch?v=newtheme456) (`newtheme456`)",
-            markdown,
-        )
-        self.assertIn(
-            "- **Old Season 1 Poster:** [View image](https://image.tmdb.org/old_s1.jpg)",
-            markdown,
-        )
-        self.assertIn(
-            "- **New Season 1 Poster:** [View image](https://image.tmdb.org/new_s1.jpg)",
-            markdown,
-        )
-        self.assertIn("- **Old Season 2 Poster:** _None_", markdown)
-        self.assertIn(
-            "- **New Season 2 Poster:** [View image](https://image.tmdb.org/new_s2.jpg)",
+            "- **Season 2 Poster:** _None_ | [New](https://image.tmdb.org/new_s2.jpg)",
             markdown,
         )
 
@@ -608,11 +593,8 @@ newTheme222
         self.assertTrue(res["is_modification"])
         self.assertEqual(res["youtube_id"], "newTheme222")
         self.assertIn(
-            "- **Old YouTube Theme:** [Watch video](https://www.youtube.com/watch?v=oldTheme111)",
-            res["media_comparison"],
-        )
-        self.assertIn(
-            "- **New YouTube Theme:** [Watch video](https://www.youtube.com/watch?v=newTheme222)",
+            "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldTheme111) | "
+            "[New](https://www.youtube.com/watch?v=newTheme222)",
             res["media_comparison"],
         )
 
