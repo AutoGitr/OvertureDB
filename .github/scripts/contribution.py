@@ -266,20 +266,54 @@ def _update_seasons(updated: dict[str, Any], seasons: list[dict[str, Any]]) -> N
     updated["seasons"] = [exist_seasons[num] for num in sorted(exist_seasons.keys())]
 
 
-def _apply_modification(
+def is_media_replacement(
+    existing: dict[str, Any],
+    parsed: ParsedContribution,
+) -> bool:
+    """Check if contribution replaces existing non-null artwork or active theme."""
+    old_poster = existing.get("poster_url")
+    if (
+        old_poster
+        and parsed.poster_url
+        and parsed.poster_url.strip() != old_poster.strip()
+    ):
+        return True
+
+    old_bg = existing.get("background_url")
+    if (
+        old_bg
+        and parsed.background_url
+        and parsed.background_url.strip() != old_bg.strip()
+    ):
+        return True
+
+    old_yt = existing.get("youtube_id_overturedb") or existing.get(
+        "youtube_id_themerrdb"
+    )
+    if old_yt and parsed.youtube_id and parsed.youtube_id.strip() != old_yt.strip():
+        return True
+
+    if parsed.media_type == "show" and parsed.seasons:
+        exist_seasons = {
+            s["season_num"]: s.get("poster_url")
+            for s in (existing.get("seasons") or [])
+            if "season_num" in s and s.get("poster_url")
+        }
+        for s in parsed.seasons:
+            s_num = s.get("season_num")
+            s_poster = s.get("poster_url")
+            old_s_poster = exist_seasons.get(s_num)
+            if old_s_poster and s_poster and s_poster.strip() != old_s_poster.strip():
+                return True
+
+    return False
+
+
+def _update_entry(
     existing_entry: dict[str, Any],
     parsed: ParsedContribution,
     rel_path: str,
 ) -> tuple[dict[str, Any], str]:
-    reason = parsed.modification_reason
-    if not reason or reason.strip().lower() == MODIFICATION_PLACEHOLDER.lower():
-        raise ValueError(
-            f"Dataset file already exists on main: `{rel_path}`. "
-            "To modify an existing entry, please edit the issue description and "
-            "replace the placeholder in 'Reason for modification' with an "
-            "explanation of your changes."
-        )
-
     orig_content = json.dumps(existing_entry, indent=2, ensure_ascii=False) + "\n"
     updated = dict(existing_entry)
     updated["title"] = parsed.title
@@ -389,9 +423,19 @@ def process_contribution(
         target_path = existing_path
         target_rel = target_path.relative_to(repo_root).as_posix()
         existing_entry = dict(loaded_entries[existing_path])
-        validated, diff = _apply_modification(existing_entry, parsed, target_rel)
-        media_comparison = format_media_comparison(existing_entry, validated)
-        is_modification = True
+        is_modification = is_media_replacement(existing_entry, parsed)
+        if is_modification:
+            reason = parsed.modification_reason
+            if not reason or reason.strip().lower() == MODIFICATION_PLACEHOLDER.lower():
+                raise ValueError(
+                    f"Existing artwork or theme is being replaced in `{target_rel}`. "
+                    "To modify an existing entry, please edit the issue description "
+                    "and replace the placeholder in 'Reason for modification' with an "
+                    "explanation of your changes."
+                )
+        validated, diff = _update_entry(existing_entry, parsed, target_rel)
+        if is_modification:
+            media_comparison = format_media_comparison(existing_entry, validated)
     else:
         target_path = determine_canonical_path(
             parsed.media_type,
@@ -421,16 +465,20 @@ def process_contribution(
         "status": "ok",
         "target": target_rel,
         "is_modification": is_modification,
+        "is_addition": existing_path is not None and not is_modification,
         "modification_reason": parsed.modification_reason if is_modification else None,
         "diff": diff,
         "media_comparison": media_comparison,
-        "media_type": parsed.media_type,
-        "title": parsed.title,
-        "year": parsed.year,
-        "tmdb_id": parsed.tmdb_id,
-        "tvdb_id": parsed.tvdb_id,
-        "imdb_id": parsed.imdb_id,
-        "youtube_id": parsed.youtube_id,
+        "media_type": validated["media_type"],
+        "title": validated["title"],
+        "year": validated.get("year"),
+        "tmdb_id": validated.get("tmdb_id"),
+        "tvdb_id": validated.get("tvdb_id"),
+        "imdb_id": validated.get("imdb_id"),
+        "youtube_id": (
+            validated.get("youtube_id_overturedb")
+            or validated.get("youtube_id_themerrdb")
+        ),
     }
 
 

@@ -119,6 +119,7 @@ jobs:
             else
               target="$(jq -r .target "$result_file")"
               is_modification="$(jq -r .is_modification "$result_file")"
+              is_addition="$(jq -r '.is_addition // false' "$result_file")"
               mod_reason="$(jq -r '.modification_reason // ""' "$result_file")"
               diff="$(jq -r .diff "$result_file")"
               media_comparison="$(jq -r '.media_comparison // ""' "$result_file")"
@@ -151,6 +152,8 @@ jobs:
                   echo
                   echo "> **Reason for modification:**"
                   echo "> $mod_reason"
+                elif [ "$is_addition" = "true" ]; then
+                  echo "Proposed target: \`$target\` (Addition)"
                 else
                   echo "Proposed target: \`$target\` (New entry)"
                 fi

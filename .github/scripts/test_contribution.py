@@ -173,7 +173,7 @@ New Movie
             + "\n"
         )
 
-        # Attempt contribution with default placeholder
+        # Attempt contribution replacing existing poster with default placeholder
         body = f"""### Title
 
 Existing Movie
@@ -186,6 +186,10 @@ Existing Movie
 
 88888
 
+### Poster URL
+
+https://image.tmdb.org/new_p.jpg
+
 ### Reason for modification (if replacing existing artwork or theme)
 
 {MODIFICATION_PLACEHOLDER}
@@ -193,8 +197,81 @@ Existing Movie
         parsed = parse_issue_form(body, "[Movie]: Existing Movie (2024)", ["movie"])
         with self.assertRaises(ValueError) as ctx:
             process_contribution(parsed, self.temp_dir, dry_run=False)
-        self.assertIn("Dataset file already exists on main", str(ctx.exception))
+        self.assertIn("Existing artwork or theme is being replaced", str(ctx.exception))
         self.assertIn("replace the placeholder", str(ctx.exception))
+
+    def test_backfill_stub_without_modification_reason(self) -> None:
+        # Create existing ThemerrDB stub with no art
+        existing_file = self.data_dir / "movies" / "tmdb-11104.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Chungking Express",
+                    "year": 1994,
+                    "tmdb_id": 11104,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": None,
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": "xwGZvpRf1GA",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        body = f"""### Title
+
+Chungking Express
+
+### Year
+
+1994
+
+### TMDB ID
+
+11104
+
+### TVDB ID
+
+4982
+
+### IMDb ID
+
+tt0109424
+
+### Poster URL
+
+https://image.tmdb.org/poster.jpg
+
+### Background URL
+
+https://image.tmdb.org/bg.jpg
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed = parse_issue_form(body, "[Movie]: Chungking Express (1994)", ["movie"])
+        res = process_contribution(parsed, self.temp_dir, dry_run=False)
+
+        self.assertEqual(res["status"], "ok")
+        self.assertFalse(res["is_modification"])
+        self.assertTrue(res["is_addition"])
+        self.assertEqual(res["target"], "data/movies/tmdb-11104.json")
+        self.assertEqual(res["tvdb_id"], 4982)
+        self.assertEqual(res["imdb_id"], "tt0109424")
+        self.assertEqual(res["youtube_id"], "xwGZvpRf1GA")
+
+        saved = json.loads(existing_file.read_text(encoding="utf-8"))
+        self.assertEqual(saved["poster_url"], "https://image.tmdb.org/poster.jpg")
+        self.assertEqual(saved["background_url"], "https://image.tmdb.org/bg.jpg")
+        self.assertEqual(saved["youtube_id_themerrdb"], "xwGZvpRf1GA")
+        self.assertIsNone(saved["youtube_id_overturedb"])
+        self.assertEqual(saved["tvdb_id"], 4982)
+        self.assertEqual(saved["imdb_id"], "tt0109424")
 
     def test_existing_entry_allows_with_modification_reason(self) -> None:
         existing_file = self.data_dir / "movies" / "tmdb-88888.json"
@@ -375,7 +452,8 @@ Adding missing backdrop.
         parsed = parse_issue_form(body, "[Show]: My Show", ["show"])
         res = process_contribution(parsed, self.temp_dir, dry_run=False)
 
-        self.assertTrue(res["is_modification"])
+        self.assertFalse(res["is_modification"])
+        self.assertTrue(res["is_addition"])
         self.assertEqual(res["target"], "data/shows/tvdb-500.json")
 
         # No duplicate tmdb-1234.json created
@@ -386,6 +464,141 @@ Adding missing backdrop.
             updated["background_url"], "https://image.tmdb.org/new_background.jpg"
         )
         self.assertEqual(updated["tvdb_id"], 500)
+
+    def test_replacing_theme_requires_reason(self) -> None:
+        existing_file = self.data_dir / "movies" / "tmdb-999.json"
+        existing_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "movie",
+                    "title": "Theme Movie",
+                    "year": 2020,
+                    "tmdb_id": 999,
+                    "tvdb_id": None,
+                    "imdb_id": None,
+                    "poster_url": None,
+                    "background_url": None,
+                    "youtube_id_overturedb": "oldTheme111",
+                    "youtube_id_themerrdb": None,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        # Replacing theme without reason blocks
+        body = f"""### Title
+
+Theme Movie
+
+### Year
+
+2020
+
+### TMDB ID
+
+999
+
+### YouTube theme video ID
+
+newTheme222
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed = parse_issue_form(body, "[Movie]: Theme Movie (2020)", ["movie"])
+        with self.assertRaises(ValueError) as ctx:
+            process_contribution(parsed, self.temp_dir, dry_run=False)
+        self.assertIn("Existing artwork or theme is being replaced", str(ctx.exception))
+
+        # Replacing theme with reason succeeds
+        body_with_reason = body.replace(
+            MODIFICATION_PLACEHOLDER, "Better audio quality theme."
+        )
+        parsed_ok = parse_issue_form(
+            body_with_reason, "[Movie]: Theme Movie (2020)", ["movie"]
+        )
+        res = process_contribution(parsed_ok, self.temp_dir, dry_run=False)
+        self.assertTrue(res["is_modification"])
+        self.assertEqual(res["youtube_id"], "newTheme222")
+
+    def test_show_season_poster_replacement_vs_addition(self) -> None:
+        show_file = self.data_dir / "shows" / "tvdb-600.json"
+        show_file.write_text(
+            json.dumps(
+                {
+                    "media_type": "show",
+                    "title": "Season Show",
+                    "year": 2022,
+                    "tmdb_id": None,
+                    "tvdb_id": 600,
+                    "imdb_id": None,
+                    "poster_url": None,
+                    "background_url": None,
+                    "youtube_id_overturedb": None,
+                    "youtube_id_themerrdb": None,
+                    "seasons": [
+                        {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"}
+                    ],
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        # Replacing Season 1 poster without reason blocks
+        body_replace = f"""### Title
+
+Season Show
+
+### TVDB ID
+
+600
+
+### Season posters
+
+1=https://image.tmdb.org/s1_new.jpg
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed = parse_issue_form(body_replace, "[Show]: Season Show", ["show"])
+        with self.assertRaises(ValueError) as ctx:
+            process_contribution(parsed, self.temp_dir, dry_run=False)
+        self.assertIn("Existing artwork or theme is being replaced", str(ctx.exception))
+
+        # Adding Season 2 poster without reason succeeds
+        body_add = f"""### Title
+
+Season Show
+
+### TVDB ID
+
+600
+
+### Season posters
+
+2=https://image.tmdb.org/s2.jpg
+
+### Reason for modification (if replacing existing artwork or theme)
+
+{MODIFICATION_PLACEHOLDER}
+"""
+        parsed_add = parse_issue_form(body_add, "[Show]: Season Show", ["show"])
+        res = process_contribution(parsed_add, self.temp_dir, dry_run=False)
+        self.assertFalse(res["is_modification"])
+        self.assertTrue(res["is_addition"])
+
+        updated = json.loads(show_file.read_text())
+        self.assertEqual(len(updated["seasons"]), 2)
+        self.assertEqual(
+            updated["seasons"][0]["poster_url"], "https://image.tmdb.org/s1.jpg"
+        )
+        self.assertEqual(
+            updated["seasons"][1]["poster_url"], "https://image.tmdb.org/s2.jpg"
+        )
 
     def test_cli_json_success(self) -> None:
         import subprocess

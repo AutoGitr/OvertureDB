@@ -245,6 +245,7 @@ jobs:
 
             target="$(jq -r .target "$result_json")"
             is_modification="$(jq -r .is_modification "$result_json")"
+            is_addition="$(jq -r '.is_addition // false' "$result_json")"
 
             if ! validation_output="$(uv run python .github/scripts/catalog.py validate --check-urls --entry "$target" 2>&1)"; then
               git checkout -- "$target" 2>/dev/null || rm -f "$target"
@@ -265,7 +266,7 @@ jobs:
               fail "No dataset changes were produced."
             fi
 
-            if [ "$is_modification" = "true" ]; then
+            if [ "$is_modification" = "true" ] || [ "$is_addition" = "true" ]; then
               commit_action="Update"
               pr_desc="Updates"
             else
