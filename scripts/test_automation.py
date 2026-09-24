@@ -184,10 +184,103 @@ class PreviewTests(unittest.TestCase):
         automation.preview({"issue": issue()}, "owner/repo")
         gh.assert_not_called()
 
+    @patch.object(automation, "gh")
+    @patch.object(automation, "api")
+    @patch.object(automation, "prepare")
+    def test_preview_formats_body_and_bot_commands_divider(
+        self, prepare: MagicMock, api: MagicMock, gh: MagicMock
+    ) -> None:
+        bulk_issue = issue(labels=[{"name": "contribution"}, {"name": "bulk"}])
+        prepare.return_value = {
+            "body": (
+                "### Bulk Contribution Preview\n\n- **10** new entries\n\n"
+                "<details><summary><b>Review Artwork & Theme URLs (10 items)</b>"
+                "</summary>\n\n#### Movie (2020)\n</details>"
+            ),
+            "labels": ["contribution", "bulk"],
+        }
+        api.side_effect = [bulk_issue, bulk_issue, {}]
+        gh.return_value = "[]"
+        automation.preview({"issue": bulk_issue}, "owner/repo")
+        published_body = api.call_args_list[-1].args[1]["body"]
+        self.assertIn("### Bulk Contribution Preview", published_body)
+        self.assertIn("- **10** new entries", published_body)
+        self.assertIn("Review Artwork & Theme URLs (10 items)", published_body)
+        self.assertIn(
+            "\n\n---\n\n<details>\n"
+            "<summary>OvertureDB-bot commands and options</summary>",
+            published_body,
+        )
+
     def test_user_text_cannot_close_code_fence(self) -> None:
         result = automation.fenced("```\n@someone\n````")
         self.assertTrue(result.startswith("`````text\n"))
         self.assertTrue(result.endswith("\n`````"))
+
+    @patch.object(automation, "download_archive")
+    @patch.object(automation, "import_bulk_export")
+    def test_bulk_errors_are_bounded_for_both_preview_and_pr(
+        self, bulk_import: MagicMock, _download: MagicMock
+    ) -> None:
+        review = "<details>\n" + "Artwork review\n" * 3000 + "</details>"
+        for errors in (["x" * 70_000], ["x" * 1000] * 100, ["Invalid entry"] * 101):
+            bulk_import.return_value = {
+                "created": 1,
+                "backfilled": 0,
+                "unchanged": 0,
+                "errors": errors,
+                "review_markdown": review,
+            }
+            for dry_run in (True, False):
+                with self.subTest(errors=len(errors), dry_run=dry_run):
+                    result = automation.prepare(
+                        issue(labels=[{"name": "contribution"}, {"name": "bulk"}]),
+                        dry_run=dry_run,
+                    )
+                    body = result["body"]
+                    self.assertLessEqual(len(body), 50_000)
+                    self.assertIn(review, body)
+                    self.assertIn(f"**{len(errors)}** skipped", body)
+                    self.assertEqual(body.count("<details>"), body.count("</details>"))
+                    if len(errors) == 101:
+                        self.assertIn("and 1 more errors", body)
+                    else:
+                        self.assertIn("omitted error details", body)
+
+    @patch.object(automation, "gh", return_value="[]")
+    @patch.object(automation, "api")
+    @patch.object(automation, "prepare")
+    def test_large_validation_error_keeps_commands_outside_code_fence(
+        self, prepare: MagicMock, api: MagicMock, _gh: MagicMock
+    ) -> None:
+        prepare.side_effect = ValueError("Invalid value: " + "x" * 100_000)
+        api.side_effect = [issue(), issue(), {}]
+        automation.preview({"issue": issue()}, "owner/repo")
+        body = api.call_args_list[-1].args[1]["body"]
+        self.assertLess(len(body), 60_000)
+        self.assertIn("Could not validate this contribution", body)
+        self.assertIn(
+            "... error details truncated due to length.\n```\n\n---\n\n<details>",
+            body,
+        )
+
+    @patch.object(automation, "gh", return_value="[]")
+    @patch.object(automation, "api")
+    @patch.object(automation, "prepare")
+    def test_oversized_preview_does_not_leave_unclosed_markdown(
+        self, prepare: MagicMock, api: MagicMock, _gh: MagicMock
+    ) -> None:
+        prepare.return_value = {
+            "body": "<details>\n\n```text\n" + "x" * 70_000 + "\n```\n</details>",
+            "labels": ["contribution", "movie"],
+        }
+        api.side_effect = [issue(), issue(), {}]
+        automation.preview({"issue": issue()}, "owner/repo")
+        body = api.call_args_list[-1].args[1]["body"]
+        self.assertLess(len(body), 60_000)
+        self.assertIn("Preview exceeds the comment limit", body)
+        self.assertEqual(body.count("<details>"), body.count("</details>"))
+        self.assertIn("\n\n---\n\n<details>", body)
 
     @patch.object(automation, "api", return_value=[])
     @patch.object(automation, "gh")

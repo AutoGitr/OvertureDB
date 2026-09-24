@@ -199,15 +199,17 @@ def prepare(issue: dict[str, Any], *, dry_run: bool) -> dict[str, Any]:
             if result["errors"]:
                 raise ValueError("\n".join(result["errors"]))
             raise ValueError("No new or backfilled entries in this contribution.")
-        summary = (
-            f"{result['created']} new, {result['backfilled']} backfilled, "
-            f"{result['unchanged']} unchanged."
-        )
+        stats = [
+            f"- **{result['created']:,}** new entries",
+            f"- **{result['backfilled']:,}** backfilled",
+            f"- **{result['unchanged']:,}** unchanged",
+        ]
         if result["errors"]:
-            summary += f" ({len(result['errors'])} skipped due to errors)"
+            stats.append(
+                f"- **{len(result['errors']):,}** skipped (due to validation errors)"
+            )
+        summary = "### Bulk Contribution Preview\n\n" + "\n".join(stats)
         review = result["review_markdown"]
-        if len(review) > 40000:
-            review = "Review all selections in the attached archive and PR diff."
         if result["errors"]:
             count = len(result["errors"])
             error_lines = [
@@ -216,13 +218,17 @@ def prepare(issue: dict[str, Any], *, dry_run: bool) -> dict[str, Any]:
                 "<br />",
                 "",
             ]
-            error_lines.extend(f"- `{escape(err)}`" for err in result["errors"])
+            error_lines.extend(f"- `{escape(err)}`" for err in result["errors"][:100])
+            if count > 100:
+                error_lines.append(f"- *... and {count - 100:,} more errors.*")
             error_lines.append("</details>")
             error_section = "\n".join(error_lines)
+            # Error messages can include entire invalid values, so a count cap
+            # alone does not bound the issue preview or pull request body.
             if len(error_section) > 5000:
                 error_section = (
-                    f"Skipped {count} entries due to validation errors. "
-                    "Review the attached archive."
+                    f"Skipped {count:,} entries due to validation errors. "
+                    "Review the attached archive for the omitted error details."
                 )
             review = f"{review}\n\n{error_section}" if review else error_section
         return {
@@ -280,12 +286,16 @@ def preview(event: dict[str, Any], repo: str) -> None:
         elif not modification and "modification" in labels:
             gh("api", f"{path}/labels/modification", "--method", "DELETE")
     except (ValueError, OSError, BadZipFile, RuntimeError) as exc:
-        body = "Could not validate this contribution:\n\n" + fenced(str(exc))
-    if len(body) > 50000:
+        message = str(exc)
+        if len(message) > 5000:
+            message = message[:5000] + "\n... error details truncated due to length."
+        body = "Could not validate this contribution:\n\n" + fenced(message)
+    if len(body) > 60000:
+        # Never slice rendered Markdown: an open fence or details section would
+        # swallow the commands appended below.
         body = "Preview exceeds the comment limit. Review the attached archive."
-    body = f"{MARKER}\n{body}\n\n" + (ROOT / ".github/bot_commands.md").read_text(
-        encoding="utf-8"
-    )
+    commands = (ROOT / ".github/bot_commands.md").read_text(encoding="utf-8")
+    body = f"{MARKER}\n{body}\n\n---\n\n{commands}"
     current = api(path)
     if (
         current["body"] != issue["body"]

@@ -445,6 +445,27 @@ class BulkImportTests(unittest.TestCase):
         self.assertIn("[Watch video](https://www.youtube.com/watch?v=zoo12345678)", md)
         self.assertIn("[View image](<https://image.tmdb.org/bb_s1.jpg>)", md)
 
+    def test_format_review_markdown_truncates_exceeding_max_chars(self) -> None:
+        from import_bulk_export import ReviewItem, format_review_markdown
+
+        items = [
+            ReviewItem(
+                title=f"Movie {i:03d}",
+                year=2020,
+                media_type="movie",
+                poster_url=f"https://image.tmdb.org/poster_{i}.jpg",
+            )
+            for i in range(50)
+        ]
+        # Restrict max_chars to 500, which can fit only a couple items
+        md = format_review_markdown(items, max_chars=500)
+        self.assertIn("<details>", md)
+        self.assertIn("Review Artwork & Theme URLs (50 items)", md)
+        self.assertIn("Movie 000 (2020)", md)
+        self.assertIn("more items (review full list in the PR diff).", md)
+        self.assertLessEqual(len(md), 500)
+        self.assertTrue(md.endswith("</details>"))
+
 
 if __name__ == "__main__":
     unittest.main()

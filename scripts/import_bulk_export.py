@@ -42,7 +42,9 @@ class ReviewItem:
     seasons: list[tuple[int, str]] = field(default_factory=list[tuple[int, str]])
 
 
-def format_review_markdown(review_items: list[ReviewItem]) -> str:
+def format_review_markdown(
+    review_items: list[ReviewItem], *, max_chars: int = 45_000
+) -> str:
     """Render collapsible, alphabetically sorted review section with clickable links."""
     if not review_items:
         return ""
@@ -59,27 +61,42 @@ def format_review_markdown(review_items: list[ReviewItem]) -> str:
         "<br />",
         "",
     ]
-    for item in sorted_items:
+    current_len = sum(len(line) + 1 for line in lines)
+    for index, item in enumerate(sorted_items):
+        item_lines: list[str] = []
         year_str = f" ({item.year})" if item.year else ""
         title = escape(item.title).replace("\n", " ").replace("\r", " ")
         title = title.replace("@", "&#64;").replace("[", "&#91;")
-        lines.append(f"#### {title}{year_str}")
+        item_lines.append(f"#### {title}{year_str}")
         if item.poster_url:
-            lines.append(f"- **Poster:** [View image](<{escape(item.poster_url)}>)")
+            item_lines.append(
+                f"- **Poster:** [View image](<{escape(item.poster_url)}>)"
+            )
         if item.background_url:
-            lines.append(
+            item_lines.append(
                 f"- **Background:** [View image](<{escape(item.background_url)}>)"
             )
         if item.youtube_id:
             yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
-            lines.append(
+            item_lines.append(
                 f"- **YouTube Theme:** [Watch video]({yt_url}) (`{item.youtube_id}`)"
             )
         for s_num, s_url in sorted(item.seasons, key=lambda s: s[0]):
-            lines.append(
+            item_lines.append(
                 f"- **Season {s_num} Poster:** [View image](<{escape(s_url)}>)"
             )
-        lines.append("")
+        item_lines.append("")
+
+        item_len = sum(len(line) + 1 for line in item_lines)
+        if current_len + item_len + 150 > max_chars:
+            remaining = count - index
+            lines.append(
+                f"*... and {remaining:,} more items"
+                " (review full list in the PR diff).*\n"
+            )
+            break
+        lines.extend(item_lines)
+        current_len += item_len
 
     lines.append("</details>")
     return "\n".join(lines)
