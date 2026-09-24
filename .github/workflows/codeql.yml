@@ -1,0 +1,118 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/**'
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '27 5 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codeql-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect-changes:
+    name: detect-changes
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    outputs:
+      run_codeql: ${{ steps.filter.outputs.run_codeql }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check changed paths
+        id: filter
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ "$EVENT_NAME" != "pull_request" ]; then
+            echo "run_codeql=true" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet --no-renames "$BASE_SHA...$HEAD_SHA" -- . ':!data/**'; then
+            echo "run_codeql=false" >> "$GITHUB_OUTPUT"
+          else
+            status=$?
+            if [ "$status" -ne 1 ]; then
+              echo "Could not determine changed paths."
+              exit "$status"
+            fi
+            echo "run_codeql=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    needs: detect-changes
+    if: needs.detect-changes.outputs.run_codeql == 'true'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: python
+            build-mode: none
+          - language: actions
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@3ea06614dafe36dec890db3446326e0d40ce53d4 # v3.38.1
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@3ea06614dafe36dec890db3446326e0d40ce53d4 # v3.38.1
+        with:
+          category: "/language:${{ matrix.language }}"
+
+  codeql-gate:
+    name: codeql-gate
+    needs: [detect-changes, analyze]
+    if: always()
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - name: Evaluate CodeQL outcome
+        shell: bash
+        env:
+          DETECT_RESULT: ${{ needs.detect-changes.result }}
+          RUN_CODEQL: ${{ needs.detect-changes.outputs.run_codeql }}
+          ANALYZE_RESULT: ${{ needs.analyze.result }}
+        run: |
+          if [ "$DETECT_RESULT" != "success" ]; then
+            echo "CodeQL change detection did not succeed."
+            exit 1
+          fi
+          if [ "$RUN_CODEQL" = "false" ] && [ "$ANALYZE_RESULT" = "skipped" ]; then
+            echo "Only /data/ modified. CodeQL analysis was skipped."
+            exit 0
+          fi
+          if [ "$RUN_CODEQL" != "true" ] || [ "$ANALYZE_RESULT" != "success" ]; then
+            echo "CodeQL analysis did not succeed."
+            exit 1
+          fi
+          # Alert severity is enforced separately by GitHub's code scanning results check.
+          echo "CodeQL analysis completed successfully."
+          exit 0
