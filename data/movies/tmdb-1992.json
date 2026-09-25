@@ -1,13 +1,12 @@
 {
-  "media_type": "show",
-  "title": "The Big Bang Theory",
+  "media_type": "movie",
+  "title": "Planet Terror",
   "year": 2007,
-  "tmdb_id": 1418,
+  "tmdb_id": 1992,
   "tvdb_id": null,
   "imdb_id": null,
   "poster_url": null,
   "background_url": null,
   "youtube_id_overturedb": null,
-  "youtube_id_themerrdb": "20i5eqwK178",
-  "seasons": []
+  "youtube_id_themerrdb": "eTffO0FjmsU"
 }
