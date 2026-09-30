@@ -11,7 +11,14 @@ from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
 
-from catalog import art_urls, check_art_destination, dataset, write_changes
+from catalog import (
+    art_urls,
+    check_art_destination,
+    determine_canonical_path,
+    find_existing_entry,
+    index_existing_entries,
+    write_changes,
+)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
@@ -22,13 +29,6 @@ ROOT = Path(__file__).resolve().parents[1]
 MAX_ARCHIVE_ENTRIES = 100_000
 MAX_SINGLE_ENTRY_BYTES = 1 * 1024 * 1024  # 1 MB
 MAX_TOTAL_UNCOMPRESSED_BYTES = 50 * 1024 * 1024  # 50 MB
-
-type ExistingIndex = tuple[
-    dict[tuple[str, int], Path],
-    dict[tuple[str, int], Path],
-    dict[tuple[str, str], Path],
-    dict[Path, dict[str, Any]],
-]
 
 
 @dataclass
@@ -100,61 +100,6 @@ def format_review_markdown(
 
     lines.append("</details>")
     return "\n".join(lines)
-
-
-def index_existing_entries(data_dir: Path) -> ExistingIndex:
-    """Index existing OvertureDB entries by TMDB, TVDB, and IMDb identities."""
-    by_tmdb: dict[tuple[str, int], Path] = {}
-    by_tvdb: dict[tuple[str, int], Path] = {}
-    by_imdb: dict[tuple[str, str], Path] = {}
-    loaded: dict[Path, dict[str, Any]] = {}
-
-    if not data_dir.is_dir():
-        raise ValueError(f"Dataset directory does not exist: {data_dir}")
-
-    paths = sorted(data_dir.rglob("*.json"))
-    for path, entry in zip(paths, dataset(data_dir.parent), strict=True):
-        media_type = entry["media_type"]
-        tmdb_id = entry.get("tmdb_id")
-        tvdb_id = entry.get("tvdb_id")
-        imdb_id = entry.get("imdb_id")
-
-        if tmdb_id is not None:
-            by_tmdb[(media_type, tmdb_id)] = path
-        if tvdb_id is not None:
-            by_tvdb[(media_type, tvdb_id)] = path
-        if imdb_id is not None:
-            by_imdb[(media_type, imdb_id)] = path
-        loaded[path] = entry
-
-    return by_tmdb, by_tvdb, by_imdb, loaded
-
-
-def find_existing_entry(
-    entry: dict[str, Any],
-    by_tmdb: dict[tuple[str, int], Path],
-    by_tvdb: dict[tuple[str, int], Path],
-    by_imdb: dict[tuple[str, str], Path],
-) -> Path | None:
-    """Locate an existing entry file across TMDB, TVDB, or IMDb identifiers."""
-    media_type = entry["media_type"]
-    tmdb_id = entry.get("tmdb_id")
-    tvdb_id = entry.get("tvdb_id")
-    imdb_id = entry.get("imdb_id")
-
-    matches: set[Path] = set()
-    if tmdb_id is not None and (media_type, tmdb_id) in by_tmdb:
-        matches.add(by_tmdb[(media_type, tmdb_id)])
-    if tvdb_id is not None and (media_type, tvdb_id) in by_tvdb:
-        matches.add(by_tvdb[(media_type, tvdb_id)])
-    if imdb_id is not None and (media_type, imdb_id) in by_imdb:
-        matches.add(by_imdb[(media_type, imdb_id)])
-
-    if len(matches) > 1:
-        raise ValueError(
-            f"Conflicting existing files matched for entry: {[p.name for p in matches]}"
-        )
-    return next(iter(matches), None)
 
 
 def _merge_seasons(
@@ -250,18 +195,13 @@ def create_new_entry(
 ) -> tuple[Path, dict[str, Any]]:
     """Build a new entry following canonical conventions and Rule 2."""
     media_type = incoming["media_type"]
-    folder = "movies" if media_type == "movie" else "shows"
-
-    # Canonical prefixes: tvdb preferred for shows; tmdb preferred for movies
-    providers = (
-        ("tvdb", "tmdb", "imdb") if media_type == "show" else ("tmdb", "tvdb", "imdb")
+    target_path = determine_canonical_path(
+        media_type,
+        incoming.get("tmdb_id"),
+        incoming.get("tvdb_id"),
+        incoming.get("imdb_id"),
+        data_dir,
     )
-    identity = next(
-        f"{p}-{incoming[f'{p}_id']}"
-        for p in providers
-        if incoming.get(f"{p}_id") is not None
-    )
-    target_path = data_dir / folder / f"{identity}.json"
 
     entry: dict[str, Any] = {
         "media_type": media_type,
@@ -286,9 +226,9 @@ def load_incoming_entries(
     *,
     archive_path: Path | None = None,
     input_dir: Path | None = None,
-) -> list[tuple[str, dict[str, Any]]]:
-    """Extract and parse candidate entries from an archive ZIP or folder."""
-    entries: list[tuple[str, dict[str, Any]]] = []
+) -> list[tuple[str, bytes]]:
+    """Read bounded candidate records; parse each within its validation boundary."""
+    entries: list[tuple[str, bytes]] = []
     if (archive_path is None) == (input_dir is None):
         raise ValueError("Provide exactly one archive or input directory")
 
@@ -300,17 +240,16 @@ def load_incoming_entries(
                 if info.filename.endswith(".json") and not info.is_dir()
             ]
             _check_sizes([(info.filename, info.file_size) for info in json_infos])
-            for info in json_infos:
-                raw = archive.read(info).decode("utf-8")
-                entries.append((info.filename, json.loads(raw)))
+            entries.extend((info.filename, archive.read(info)) for info in json_infos)
     elif input_dir is not None:
         if not input_dir.is_dir():
             raise ValueError(f"Input directory does not exist: {input_dir}")
         json_paths = sorted(input_dir.rglob("*.json"))
         _check_sizes([(p.name, p.stat().st_size) for p in json_paths])
-        for path in json_paths:
-            raw = path.read_text(encoding="utf-8")
-            entries.append((path.name, json.loads(raw)))
+        entries.extend(
+            (path.relative_to(input_dir).as_posix(), path.read_bytes())
+            for path in json_paths
+        )
     return entries
 
 
@@ -473,7 +412,7 @@ def import_bulk_export(
 
     for name, raw_entry in incoming_entries:
         try:
-            entry = validate_entry(raw_entry)
+            entry = validate_entry(json.loads(raw_entry))
             for url in art_urls([entry]):
                 check_art_destination(url, resolve=False)
             existing_path = find_existing_entry(entry, by_tmdb, by_tvdb, by_imdb)
@@ -505,7 +444,7 @@ def import_bulk_export(
                 details.append(detail)
                 if review:
                     review_items.append(review)
-        except (ValueError, StopIteration) as exc:
+        except ValueError as exc:
             errors.append(f"{name}: {exc}")
             skipped_count += 1
 

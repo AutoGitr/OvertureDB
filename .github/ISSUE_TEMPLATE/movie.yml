@@ -27,21 +27,21 @@ body:
     id: tmdb_id
     attributes:
       label: TMDB ID
-      description: Required if available on TMDB.
+      description: TMDB ID or title URL. Provide at least one of the three identifiers.
       placeholder: "389"
 
   - type: input
     id: tvdb_id
     attributes:
       label: TVDB ID
-      description: Required if available on TVDB.
+      description: TVDB ID or title URL. Provide at least one of the three identifiers.
       placeholder: "572"
 
   - type: input
     id: imdb_id
     attributes:
       label: IMDb ID
-      description: Required if available on IMDb.
+      description: IMDb ID or title URL. Provide at least one of the three identifiers.
       placeholder: "tt0050083"
 
   - type: input
@@ -60,13 +60,12 @@ body:
     id: youtube_id
     attributes:
       label: YouTube theme video ID
-      description: Use only the 11-character video ID, not the full URL.
+      description: YouTube URL or 11-character video ID.
       placeholder: abc123abc12
 
   - type: textarea
     id: modification_reason
     attributes:
       label: Reason for modification (if replacing existing artwork or theme)
-      value: "If this modifies an existing entry, replace this text with a reason for the change (e.g. higher resolution, textless, dead link, corrected ID)."
-    validations:
-      required: true
+      description: Required only when replacing existing artwork or a theme.
+      placeholder: "For example: higher resolution, textless artwork, or a corrected link."

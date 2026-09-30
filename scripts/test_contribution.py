@@ -6,11 +6,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from catalog import determine_canonical_path
 from contribution import (
     MODIFICATION_PLACEHOLDER,
     clean_art_url,
     clean_youtube_id,
-    determine_canonical_path,
     extract_field,
     format_media_comparison,
     parse_issue_form,
@@ -473,6 +473,15 @@ Upgrading to official 4K poster art.
         self.assertIn(
             "- **Season 2 Poster:** _None_ | [New](https://image.tmdb.org/new_s2.jpg)",
             markdown,
+        )
+
+    def test_theme_comparison_shows_active_imported_theme(self) -> None:
+        existing = {"youtube_id_themerrdb": "oldtheme123"}
+        updated = {**existing, "youtube_id_overturedb": "newtheme456"}
+        self.assertEqual(
+            format_media_comparison(existing, updated),
+            "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldtheme123) | "
+            "[New](https://www.youtube.com/watch?v=newtheme456)",
         )
 
     def test_cross_provider_matching_for_shows(self) -> None:

@@ -5,6 +5,7 @@ import json
 import unittest
 from unittest.mock import MagicMock, patch
 
+import github
 import sync_labels
 from sync_labels import Label
 
@@ -30,13 +31,13 @@ class LabelTests(unittest.TestCase):
         self.assertIn("ci", names)
         self.assertNotIn("github_actions", names)
 
-    @patch.object(sync_labels, "gh")
+    @patch.object(github, "gh")
     def test_pagination_preserves_every_page(self, gh: MagicMock) -> None:
         gh.return_value = json.dumps([[{"number": 1}], [{"number": 2}]])
-        self.assertEqual(sync_labels.pages("endpoint"), [{"number": 1}, {"number": 2}])
+        self.assertEqual(github.pages("endpoint"), [{"number": 1}, {"number": 2}])
         gh.assert_called_once_with("api", "endpoint", "--paginate", "--slurp")
 
-    @patch.object(sync_labels, "gh")
+    @patch.object(github, "gh")
     def test_preview_only_reads_and_includes_closed_issues_and_prs(
         self, gh: MagicMock
     ) -> None:

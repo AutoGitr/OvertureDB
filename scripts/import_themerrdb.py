@@ -15,8 +15,7 @@ from pathlib import Path
 from typing import Any, cast
 from urllib.parse import parse_qs, urlparse
 
-from catalog import write_changes
-from import_bulk_export import index_existing_entries
+from catalog import index_existing_entries, write_changes
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
@@ -81,8 +80,6 @@ def _update_existing(
     existing_path: Path,
     loaded_entries: dict[Path, dict[str, Any]],
     youtube_id: str,
-    *,
-    dry_run: bool,
 ) -> str:
     """Update the imported theme, preserving curated fields."""
     existing = loaded_entries[existing_path]
@@ -94,12 +91,6 @@ def _update_existing(
         return "skipped_unchanged"
     validate_entry(updated)
 
-    if not dry_run:
-        existing_path.write_text(
-            json.dumps(updated, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
     loaded_entries[existing_path] = updated
     return "updated"
 
@@ -112,10 +103,8 @@ def _create_new_entry(
     by_tmdb: dict[tuple[str, int], Path],
     loaded_entries: dict[Path, dict[str, Any]],
     data_dir: Path,
-    *,
-    dry_run: bool,
 ) -> str:
-    """Build and write a new entry with only secondary theme populated."""
+    """Plan a new entry with only the imported theme populated."""
     if media_type == "movie":
         raw_title = item_data.get("title") or item_data.get("original_title") or ""
         year = parse_year(item_data.get("release_date"))
@@ -154,13 +143,6 @@ def _create_new_entry(
     if target_path.exists():
         raise ValueError(f"Refusing to overwrite unmatched entry: {target_path}")
 
-    if not dry_run:
-        target_dir.mkdir(parents=True, exist_ok=True)
-        target_path.write_text(
-            json.dumps(new_entry, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
     loaded_entries[target_path] = new_entry
     by_tmdb[(media_type, tmdb_id)] = target_path
 
@@ -174,8 +156,6 @@ def process_themerr_item(
     by_imdb: dict[tuple[str, str], Path],
     loaded_entries: dict[Path, dict[str, Any]],
     data_dir: Path,
-    *,
-    dry_run: bool = False,
 ) -> str:
     """Process a single ThemerrDB JSON record."""
     raw_theme_url = item_data.get("youtube_theme_url")
@@ -210,7 +190,6 @@ def process_themerr_item(
             existing_path,
             loaded_entries,
             youtube_id,
-            dry_run=dry_run,
         )
 
     return _create_new_entry(
@@ -221,7 +200,6 @@ def process_themerr_item(
         by_tmdb,
         loaded_entries,
         data_dir,
-        dry_run=dry_run,
     )
 
 
@@ -273,7 +251,6 @@ def import_themerrdb(
                     by_imdb,
                     loaded_entries,
                     data_dir,
-                    dry_run=True,
                 )
             except (OSError, ValueError) as exc:
                 print(
@@ -315,6 +292,7 @@ def main() -> int:
         action="store_true",
         help="Validate and count without writing files to disk",
     )
+    parser.add_argument("--output", type=Path, help="Write import counts as JSON")
     args = parser.parse_args()
 
     print(f"Starting ThemerrDB import (dry_run={args.dry_run})...")
@@ -328,6 +306,9 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         print(f"Import failed: {exc}", file=sys.stderr)
         return 1
+
+    if args.output:
+        args.output.write_text(json.dumps(stats), encoding="utf-8")
 
     print("\n--- ThemerrDB Import Summary ---")
     for key, count in stats.items():

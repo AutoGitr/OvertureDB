@@ -56,37 +56,4 @@ jobs:
         if: steps.gate.outputs.approved == 'true'
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
-          REPO: ${{ github.repository }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          result="$RUNNER_TEMP/contribution.json"
-          branch="$(jq -r .branch "$result")"
-          title="$(jq -r .title "$result")"
-          jq -r .body "$result" > "$RUNNER_TEMP/pr-body.md"
-          mapfile -t files < <(jq -r '.files[]' "$result")
-          mapfile -t labels < <(jq -r '.labels[]' "$result")
-          label_args=()
-          for label in "${labels[@]}"; do label_args+=(--label "$label"); done
-          gh auth setup-git
-          existing="$(gh pr list --repo "$REPO" --head "$branch" --state all --json url --jq '.[0].url // ""')"
-          if [ -n "$existing" ]; then
-            echo "Contribution already has a pull request: $existing"
-            exit 0
-          fi
-          git switch -c "$branch"
-          git config user.name 'overturedb[bot]'
-          git config user.email 'overturedb[bot]@users.noreply.github.com'
-          git add -- "${files[@]}"
-          if git diff --cached --quiet; then
-            echo 'No dataset changes.'
-            exit 0
-          fi
-          git commit -m "$title"
-          git push origin "$branch"
-          pr_url="$(gh pr create --repo "$REPO" --base main --head "$branch" --title "$title" --body-file "$RUNNER_TEMP/pr-body.md" "${label_args[@]}")"
-          if ! jq -e '.labels | index("bulk")' "$result" >/dev/null; then
-            uv run --locked python scripts/automation.py auto-merge --pr "$pr_url"
-          fi
-          gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body "Contribution pull request: $pr_url"
+        run: uv run --locked python scripts/automation.py publish --input "$RUNNER_TEMP/contribution.json"

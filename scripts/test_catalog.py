@@ -209,9 +209,7 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(len(catalog.dataset(self.root)), 2)
 
     @patch.object(catalog, "build")
-    @patch.object(
-        catalog.subprocess, "check_output", return_value=" M data/movies/tmdb-1.json"
-    )
+    @patch.object(catalog, "git", return_value=" M data/movies/tmdb-1.json")
     def test_cli_requires_source_to_match_its_revision(
         self, git_output: MagicMock, build: MagicMock
     ) -> None:
@@ -224,7 +222,7 @@ class BuildTests(unittest.TestCase):
         git_output.assert_called_once()
 
     @patch.object(catalog, "build")
-    @patch.object(catalog.subprocess, "check_output", side_effect=["", "a" * 40, "0"])
+    @patch.object(catalog, "git", side_effect=["", "a" * 40, "0"])
     def test_cli_uses_commit_metadata(
         self, git_output: MagicMock, build: MagicMock
     ) -> None:

@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CodeQLTests(unittest.TestCase):
     def run_script(
-        self, job: str, env: dict[str, str], setup: str = ""
+        self, env: dict[str, str], setup: str = ""
     ) -> tuple[subprocess.CompletedProcess[str], str]:
         bash = shutil.which("bash")
         if bash is None:
@@ -26,7 +26,11 @@ class CodeQLTests(unittest.TestCase):
         workflow = yaml.safe_load(
             (ROOT / ".github/workflows/codeql.yml").read_text(encoding="utf-8")
         )
-        script = workflow["jobs"][job]["steps"][-1]["run"]
+        script = next(
+            step["run"]
+            for step in workflow["jobs"]["codeql-gate"]["steps"]
+            if step.get("id") == "filter"
+        )
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "output"
             # Execute only checked-in workflow code and fixed test setup in an
@@ -51,30 +55,24 @@ class CodeQLTests(unittest.TestCase):
             )
             return result, output.read_text() if output.exists() else ""
 
-    def test_gate_only_accepts_successful_analysis_or_explicit_data_skip(self) -> None:
-        for detect in ("success", "failure", "cancelled", "skipped"):
-            for run in ("true", "false", ""):
-                for analyze in ("success", "failure", "cancelled", "skipped"):
-                    with self.subTest(detect=detect, run=run, analyze=analyze):
-                        result, _ = self.run_script(
-                            "codeql-gate",
-                            {
-                                "DETECT_RESULT": detect,
-                                "RUN_CODEQL": run,
-                                "ANALYZE_RESULT": analyze,
-                            },
-                        )
-                        accepted = detect == "success" and (run, analyze) in {
-                            ("true", "success"),
-                            ("false", "skipped"),
-                        }
-                        self.assertEqual(
-                            result.returncode == 0, accepted, result.stdout
-                        )
+    def test_analysis_failures_use_native_job_status(self) -> None:
+        workflow = yaml.safe_load(
+            (ROOT / ".github/workflows/codeql.yml").read_text(encoding="utf-8")
+        )
+        self.assertEqual(set(workflow["jobs"]), {"codeql-gate"})
+        job = workflow["jobs"]["codeql-gate"]
+        self.assertNotIn("if", job)
+        for step in job["steps"]:
+            self.assertFalse(step.get("continue-on-error", False))
+            if step.get("uses", "").startswith("github/codeql-action/"):
+                self.assertEqual(
+                    step["if"], "steps.filter.outputs.run_codeql == 'true'"
+                )
+                if "/init@" in step["uses"]:
+                    self.assertEqual(step["with"]["languages"], "python, actions")
 
     def test_change_detection_fails_when_git_diff_fails(self) -> None:
         result, output = self.run_script(
-            "detect-changes",
             {
                 "EVENT_NAME": "pull_request",
                 "BASE_SHA": "missing",
@@ -105,7 +103,6 @@ BASE_SHA=$(git rev-parse HEAD)
         ):
             with self.subTest(change=change):
                 result, output = self.run_script(
-                    "detect-changes",
                     {"EVENT_NAME": "pull_request"},
                     setup + change + "\ngit add .\ngit commit -qm change\n"
                     "HEAD_SHA=$(git rev-parse HEAD)\n",
@@ -114,11 +111,9 @@ BASE_SHA=$(git rev-parse HEAD)
                 self.assertEqual(output.strip(), f"run_codeql={expected}")
 
     def test_non_pr_events_always_run_analysis(self) -> None:
-        for event in ("push", "schedule"):
+        for event in ("push", "schedule", "workflow_dispatch"):
             with self.subTest(event=event):
-                result, output = self.run_script(
-                    "detect-changes", {"EVENT_NAME": event}
-                )
+                result, output = self.run_script({"EVENT_NAME": event})
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertEqual(output.strip(), "run_codeql=true")
 

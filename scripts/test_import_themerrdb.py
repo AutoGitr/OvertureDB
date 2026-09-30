@@ -11,6 +11,7 @@ from typing import Any
 from unittest.mock import patch
 
 import import_themerrdb as importer
+from catalog import index_existing_entries
 from contract import validate_entry
 from test_catalog import movie
 
@@ -76,7 +77,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             }
             existing_file.write_text(json.dumps(existing_data), encoding="utf-8")
 
-            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 252178,
@@ -94,12 +95,14 @@ class ImportThemerrdbTests(unittest.TestCase):
                 by_imdb,
                 loaded,
                 data_dir,
-                dry_run=False,
             )
 
             self.assertEqual(status, "updated")
 
-            updated_data = json.loads(existing_file.read_text(encoding="utf-8"))
+            self.assertEqual(
+                json.loads(existing_file.read_text(encoding="utf-8")), existing_data
+            )
+            updated_data = loaded[existing_file]
             self.assertEqual(updated_data["youtube_id_overturedb"], "original_yt")
             self.assertEqual(updated_data["youtube_id_themerrdb"], "themerr_sec")
             # Must NOT touch imdb_id or poster_url
@@ -115,7 +118,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 99999,
@@ -134,15 +137,14 @@ class ImportThemerrdbTests(unittest.TestCase):
                 by_imdb,
                 loaded,
                 data_dir,
-                dry_run=False,
             )
 
             self.assertEqual(status, "added")
 
             target_file = data_dir / "movies" / "tmdb-99999.json"
-            self.assertTrue(target_file.exists())
+            self.assertFalse(target_file.exists())
 
-            saved = json.loads(target_file.read_text(encoding="utf-8"))
+            saved = loaded[target_file]
             self.assertEqual(saved["media_type"], "movie")
             self.assertEqual(saved["title"], "New Film")
             self.assertEqual(saved["year"], 2023)
@@ -160,7 +162,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = index_existing_entries(data_dir)
 
             themerr_record = {
                 "id": 88888,
@@ -182,15 +184,14 @@ class ImportThemerrdbTests(unittest.TestCase):
                 by_imdb,
                 loaded,
                 data_dir,
-                dry_run=False,
             )
 
             self.assertEqual(status, "added")
 
             target_file = data_dir / "shows" / "tmdb-88888.json"
-            self.assertTrue(target_file.exists())
+            self.assertFalse(target_file.exists())
 
-            saved = json.loads(target_file.read_text(encoding="utf-8"))
+            saved = loaded[target_file]
             self.assertEqual(saved["media_type"], "show")
             self.assertEqual(saved["title"], "New Anime Show")
             self.assertEqual(saved["year"], 2021)
@@ -208,7 +209,7 @@ class ImportThemerrdbTests(unittest.TestCase):
             data_dir = Path(temp_dir) / "data"
             data_dir.mkdir(parents=True)
 
-            by_tmdb, _, by_imdb, loaded = importer.index_existing_entries(data_dir)
+            by_tmdb, _, by_imdb, loaded = index_existing_entries(data_dir)
 
             self.assertEqual(
                 importer.process_themerr_item(

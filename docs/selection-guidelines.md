@@ -107,7 +107,7 @@ You can also open an issue directly:
 
 ### Modifying an Existing Entry
 
-- If you are changing an existing catalog entry, you **must replace the placeholder text in "Reason for modification"** with an explanation (such as higher resolution, textless artwork, or fixing a dead link). If the placeholder is left unchanged, the submission is paused to prevent accidental overwrites.
+- If you replace existing curated artwork or a theme, fill in "Reason for modification" with an explanation (such as higher resolution, corrected artwork, or fixing a dead link). Adding missing selections does not require a reason.
 
 ### Review and Bot Commands
 

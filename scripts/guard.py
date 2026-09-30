@@ -5,12 +5,11 @@ from __future__ import annotations
 import json
 import os
 import re
-import shutil
-import subprocess
 from pathlib import Path
 from typing import Any
 
 from catalog import art_urls, check_art_url
+from github import git
 
 
 def validate_changes(
@@ -52,25 +51,18 @@ def main() -> None:
         Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8")
     )
     pr = event["pull_request"]
-    git = shutil.which("git")
-    if git is None:
-        raise OSError("git is required")
-    diff = [
-        git,
+    fields = git(
         "diff",
-        "--name-only",
+        "--name-status",
         "--no-renames",
         "-z",
         f"{pr['base']['sha']}...{pr['head']['sha']}",
-    ]
-    # Fixed git executable and GitHub commit SHAs passed as arguments, no shell.
-    changed = subprocess.check_output(diff, text=True).rstrip("\0").split("\0")  # noqa: S603
-    deleted = (
-        subprocess.check_output([*diff, "--diff-filter=D"], text=True)  # noqa: S603
-        .rstrip("\0")
-        .split("\0")
+    ).split("\0")[:-1]
+    changes = dict(zip(fields[1::2], fields[::2], strict=True))
+    deleted = [path for path, status in changes.items() if status == "D"]
+    entries = validate_changes(
+        pr, os.environ["GITHUB_REPOSITORY"], list(changes), deleted
     )
-    entries = validate_changes(pr, os.environ["GITHUB_REPOSITORY"], changed, deleted)
     if pr["head"]["ref"].startswith("contribution/issue-"):
         values = [
             json.loads(Path(path).read_text(encoding="utf-8")) for path in entries

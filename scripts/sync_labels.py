@@ -5,10 +5,10 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, NotRequired, TypedDict
+from typing import NotRequired, TypedDict
 from urllib.parse import quote, urlencode
 
-from automation import gh
+from github import gh, pages
 
 
 class Label(TypedDict):
@@ -37,13 +37,6 @@ def load_labels() -> list[Label]:
     if not labels:
         raise ValueError("The label manifest must not be empty")
     return labels
-
-
-def pages(path: str) -> list[dict[str, Any]]:
-    result: list[list[dict[str, Any]]] = json.loads(
-        gh("api", path, "--paginate", "--slurp")
-    )
-    return [item for page in result for item in page]
 
 
 def sync(repo: str, labels: list[Label], *, apply: bool) -> bool:

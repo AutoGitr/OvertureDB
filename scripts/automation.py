@@ -6,11 +6,11 @@ import argparse
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
 import time
+from datetime import UTC, datetime
 from html import escape
 from pathlib import Path
 from typing import IO, TYPE_CHECKING, Any
@@ -23,6 +23,7 @@ from catalog import (
     public_https_destination,
 )
 from contribution import parse_issue_form, process_contribution
+from github import api, create_pull_request, gh, git, pages
 from import_bulk_export import import_bulk_export
 
 if TYPE_CHECKING:
@@ -41,31 +42,6 @@ ATTACHMENT_HOSTS = {
     "github-production-user-asset-6210df.s3.amazonaws.com",
 }
 MAX_ARCHIVE_BYTES = 10 * 1024 * 1024
-
-
-def gh(*args: str, payload: dict[str, Any] | None = None) -> str:
-    executable = shutil.which("gh")
-    if executable is None:
-        raise OSError("GitHub CLI is required")
-    command = [executable, *args]
-    if payload is not None:
-        command += ["--input", "-"]
-    # Fixed gh executable, argument array and JSON stdin; no shell evaluation.
-    result = subprocess.run(  # noqa: S603
-        command,
-        input=json.dumps(payload) if payload is not None else None,
-        text=True,
-        capture_output=True,
-        check=False,
-        timeout=60,
-    )
-    if result.returncode:
-        raise RuntimeError(result.stderr.strip() or "GitHub CLI request failed")
-    return result.stdout.strip()
-
-
-def api(path: str, payload: dict[str, Any] | None = None) -> Any:
-    return json.loads(gh("api", path, payload=payload))
 
 
 def issue_labels(issue: dict[str, Any]) -> set[str]:
@@ -303,12 +279,10 @@ def preview(event: dict[str, Any], repo: str) -> None:
         or "rejected" in issue_labels(current)
     ):
         return
-    pages = json.loads(gh("api", f"{path}/comments", "--paginate", "--slurp"))
     existing = next(
         (
             c
-            for page in pages
-            for c in page
+            for c in pages(f"{path}/comments?per_page=100")
             if c["user"]["login"] == "github-actions[bot]"
             and c["body"].startswith(MARKER)
         ),
@@ -366,20 +340,72 @@ def enable_auto_merge(repo: str, pr_url: str) -> None:
     )
 
 
+def publish_contribution(repo: str, result: dict[str, Any], number: int) -> None:
+    url = create_pull_request(repo, **result)
+    if url:
+        # Bulk selections always get a final human review of the complete diff.
+        if "bulk" not in result["labels"]:
+            enable_auto_merge(repo, url)
+        api(
+            f"repos/{repo}/issues/{number}/comments",
+            {"body": f"Contribution pull request: {url}"},
+        )
+
+
+def publish_import(repo: str, stats: dict[str, int]) -> None:
+    if stats["skipped_error"]:
+        raise ValueError("Resolve import errors before publishing")
+    if not stats["added"] and not stats["updated"]:
+        print("No imported changes to publish.")
+        return
+    pending = next(
+        (
+            pr
+            for pr in pages(f"repos/{repo}/pulls?state=open&base=main&per_page=100")
+            if pr["head"]["repo"] is not None
+            and pr["head"]["repo"]["full_name"] == repo
+            and pr["head"]["ref"].startswith("automation/themerrdb-")
+        ),
+        None,
+    )
+    if pending:
+        print(
+            f"Review the pending import before creating another: {pending['html_url']}"
+        )
+        return
+    date = datetime.now(UTC).strftime("%Y-%m-%d")
+    revision = git("-C", "themerrdb", "rev-parse", "HEAD")
+    url = create_pull_request(
+        repo,
+        branch=f"automation/themerrdb-{date}-{os.environ['GITHUB_RUN_ID']}"
+        f"-{os.environ['GITHUB_RUN_ATTEMPT']}",
+        title=f"chore: daily import from themerrdb {date}",
+        body=f"Import from ThemerrDB commit `{revision}`.\n\n"
+        f"- **{stats['added']:,}** new entries\n"
+        f"- **{stats['updated']:,}** updated themes\n"
+        f"- **{stats['skipped_unchanged']:,}** unchanged\n"
+        f"- **{stats['skipped_no_theme']:,}** without a theme\n"
+        f"- **{stats['skipped_invalid']:,}** invalid records skipped\n",
+        files=["data"],
+        labels=[],
+    )
+    if url:
+        enable_auto_merge(repo, url)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["gate", "preview", "prepare", "auto-merge"])
-    parser.add_argument("--pr")
-    parser.add_argument("--output", type=Path)
+    commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("gate")
+    commands.add_parser("preview")
+    commands.add_parser("prepare").add_argument("--output", type=Path, required=True)
+    for command in ("publish", "import-pr"):
+        commands.add_parser(command).add_argument("--input", type=Path, required=True)
     args = parser.parse_args()
-    if args.command == "auto-merge" and not args.pr:
-        parser.error("auto-merge requires --pr")
-    if args.command == "prepare" and args.output is None:
-        parser.error("prepare requires --output")
     repo = os.environ["GITHUB_REPOSITORY"]
     try:
-        if args.command == "auto-merge":
-            enable_auto_merge(repo, args.pr)
+        if args.command == "import-pr":
+            publish_import(repo, json.loads(args.input.read_text(encoding="utf-8")))
             return 0
         event: dict[str, Any] = json.loads(
             Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8")
@@ -390,9 +416,13 @@ def main() -> int:
             preview(event, repo)
         else:
             issue = approved_issue(event, repo)
-            result = prepare(issue, dry_run=False)
-            result["body"] = f"Closes #{issue['number']}\n\n{result['body']}"
-            args.output.write_text(json.dumps(result), encoding="utf-8")
+            if args.command == "publish":
+                result = json.loads(args.input.read_text(encoding="utf-8"))
+                publish_contribution(repo, result, issue["number"])
+            else:
+                result = prepare(issue, dry_run=False)
+                result["body"] = f"Closes #{issue['number']}\n\n{result['body']}"
+                args.output.write_text(json.dumps(result), encoding="utf-8")
     except (
         ValueError,
         OSError,

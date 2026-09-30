@@ -22,6 +22,7 @@ from urllib.parse import SplitResult, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from catalog_stats import dashboard, statistics_json, summarize
+from github import git
 
 if TYPE_CHECKING:
     from http.client import HTTPMessage
@@ -31,6 +32,98 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 from contract import ART_HOSTS, SCHEMA_VERSION, validate_catalog, validate_entries
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+type ExistingIndex = tuple[
+    dict[tuple[str, int], Path],
+    dict[tuple[str, int], Path],
+    dict[tuple[str, str], Path],
+    dict[Path, dict[str, Any]],
+]
+
+
+def index_existing_entries(data_dir: Path) -> ExistingIndex:
+    """Index existing OvertureDB entries by TMDB, TVDB, and IMDb identities."""
+    by_tmdb: dict[tuple[str, int], Path] = {}
+    by_tvdb: dict[tuple[str, int], Path] = {}
+    by_imdb: dict[tuple[str, str], Path] = {}
+    loaded: dict[Path, dict[str, Any]] = {}
+
+    if not data_dir.is_dir():
+        raise ValueError(f"Dataset directory does not exist: {data_dir}")
+
+    paths = sorted(data_dir.rglob("*.json"))
+    for path, entry in zip(paths, dataset(data_dir.parent), strict=True):
+        media_type = entry["media_type"]
+        tmdb_id = entry.get("tmdb_id")
+        tvdb_id = entry.get("tvdb_id")
+        imdb_id = entry.get("imdb_id")
+
+        if tmdb_id is not None:
+            by_tmdb[(media_type, tmdb_id)] = path
+        if tvdb_id is not None:
+            by_tvdb[(media_type, tvdb_id)] = path
+        if imdb_id is not None:
+            by_imdb[(media_type, imdb_id)] = path
+        loaded[path] = entry
+
+    return by_tmdb, by_tvdb, by_imdb, loaded
+
+
+def find_existing_entry(
+    entry: dict[str, Any],
+    by_tmdb: dict[tuple[str, int], Path],
+    by_tvdb: dict[tuple[str, int], Path],
+    by_imdb: dict[tuple[str, str], Path],
+) -> Path | None:
+    """Locate an existing entry file across TMDB, TVDB, or IMDb identifiers."""
+    media_type = entry["media_type"]
+    tmdb_id = entry.get("tmdb_id")
+    tvdb_id = entry.get("tvdb_id")
+    imdb_id = entry.get("imdb_id")
+
+    matches: set[Path] = set()
+    if tmdb_id is not None and (media_type, tmdb_id) in by_tmdb:
+        matches.add(by_tmdb[(media_type, tmdb_id)])
+    if tvdb_id is not None and (media_type, tvdb_id) in by_tvdb:
+        matches.add(by_tvdb[(media_type, tvdb_id)])
+    if imdb_id is not None and (media_type, imdb_id) in by_imdb:
+        matches.add(by_imdb[(media_type, imdb_id)])
+
+    if len(matches) > 1:
+        raise ValueError(
+            f"Conflicting existing files matched for entry: {[p.name for p in matches]}"
+        )
+    return next(iter(matches), None)
+
+
+def determine_canonical_path(
+    media_type: str,
+    tmdb_id: int | None,
+    tvdb_id: int | None,
+    imdb_id: str | None,
+    data_dir: Path,
+) -> Path:
+    folder = "movies" if media_type == "movie" else "shows"
+    providers = (
+        (
+            ("tvdb", tvdb_id),
+            ("tmdb", tmdb_id),
+            ("imdb", imdb_id),
+        )
+        if media_type == "show"
+        else (
+            ("tmdb", tmdb_id),
+            ("tvdb", tvdb_id),
+            ("imdb", imdb_id),
+        )
+    )
+
+    for prefix, val in providers:
+        if val is not None:
+            return data_dir / folder / f"{prefix}-{val}.json"
+
+    raise ValueError(f"No valid identifier found to construct {media_type} filename.")
 
 
 def dataset(root: Path = ROOT) -> list[dict[str, Any]]:
@@ -285,16 +378,6 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
     )
 
 
-def git_output(*args: str) -> str:
-    git = shutil.which("git")
-    if git is None:
-        raise OSError("git is required to build the catalog")
-    # Fixed git executable with internal arguments, never a shell command string.
-    return subprocess.check_output(  # noqa: S603
-        [git, *args], cwd=ROOT, text=True
-    ).strip()
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -333,18 +416,18 @@ def main() -> int:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)
         else:
-            if git_output("status", "--porcelain", "--untracked-files=all"):
+            if git("status", "--porcelain", "--untracked-files=all"):
                 raise ValueError(
                     "Build from a clean checkout so source_revision identifies "
                     "the complete source"
                 )
-            revision = git_output("rev-parse", "HEAD")
-            timestamp = git_output("show", "-s", "--format=%ct", "HEAD")
+            revision = git("rev-parse", "HEAD")
+            timestamp = git("show", "-s", "--format=%ct", "HEAD")
             generated_at = datetime.fromtimestamp(int(timestamp), UTC).strftime(
                 "%Y-%m-%dT%H:%M:%SZ"
             )
             build(args.output, revision=revision, generated_at=generated_at)
-    except (ValueError, OSError, subprocess.CalledProcessError) as exc:
+    except (ValueError, OSError, RuntimeError, subprocess.SubprocessError) as exc:
         print(f"Dataset validation failed: {exc}", file=sys.stderr)
         return 1
     return 0

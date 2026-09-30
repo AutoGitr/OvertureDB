@@ -1,7 +1,7 @@
 # Contributing to OvertureDB
 
 For artwork and themes, use the [selection guidelines](../docs/selection-guidelines.md).
-For GitHub permissions, labels and rollout, see [repository setup](SETUP.md).
+The workflow overview and required repository settings are below.
 
 ## Development
 
@@ -58,9 +58,10 @@ relevant merges and daily as a fallback.
 Use exactly one `movie`, `show`, or `bulk` label together with `contribution`.
 Preview comments show validation failures, clickable selections and the proposed
 diff. Replacing curated media requires a reason. Bulk archives add only missing
-values and never modify imported ThemerrDB themes. If any record fails validation,
-no files are written. Limits are 10 MB downloaded, 1,000 JSON entries, 1 MB per
-entry, and 50 MB of uncompressed JSON.
+values and never modify imported ThemerrDB themes. Invalid bulk records are
+skipped and reported; valid records remain available for review. Limits are
+10 MB downloaded, 100,000 JSON entries, 1 MB per entry, and 50 MB of uncompressed
+JSON. Large previews keep the first selections; the PR diff contains every change.
 
 A collaborator with write, maintain or admin permission can comment:
 
@@ -78,10 +79,45 @@ Approval creates a bot PR. Single-entry and ThemerrDB PRs request auto-merge onl
 when `contribution-guard` is enforced on main; bulk PRs require manual merging.
 Edits after approval require a fresh command. Labels alone never authorize a PR.
 One open ThemerrDB import PR is allowed at a time; review it before the next import.
-The import PR records the exact upstream commit.
+The import PR records the exact upstream commit and counts of added, updated,
+unchanged and skipped records. Import errors prevent all writes. Its manual
+workflow supports dry runs and an optional item limit.
 
 Code, schema, documentation and workflow changes use ordinary reviewed PRs.
 Dataset PRs may only contain canonical JSON files from the bot's internal branches.
+
+## Workflows and repository settings
+
+| Workflow | Purpose |
+| --- | --- |
+| Contribution Preview | Update one issue comment with validation, media links, diff and reviewer commands. |
+| Contribution to Pull Request | Authorize the reviewer, prepare changes, recheck approval and create a bot PR. |
+| Contribution Guard | Run the full checks, dependency audit and dataset provenance/URL checks. |
+| CodeQL | Scan Python and Actions together; data-only PRs keep a successful `codeql-gate` without a redundant scan. |
+| Import ThemerrDB | Plan and validate daily imports, then open one reviewable PR at a time. |
+| Publish Catalog | Validate and build reproducible artifacts, then deploy them to Pages. |
+
+Keep `contribution-guard` required on `main`, with GitHub Actions as its source.
+`codeql-gate` verifies that analysis completed; use GitHub's code scanning merge
+protection to block alerts at the desired severity. Enable auto-merge if single
+contributions and imports should merge after their required checks and reviews.
+Bulk contributions always require a manual merge.
+
+Configure GitHub Pages to deploy with GitHub Actions. For bot PRs, install the
+OvertureDB GitHub App on this repository and set `OVERTUREDB_CLIENT_ID` and
+`OVERTUREDB_APP_PRIVATE_KEY`. The app needs contents and pull requests write
+access, plus issues write access for contribution labels and comments. Workflow
+job permissions remain separate from that app token.
+
+Repository labels are defined in `.github/labels.json`. Preview changes with
+`uv run --locked python scripts/sync_labels.py`; use `--apply` to reconcile them
+or `--check` to detect drift. Unknown labels require a manifest decision before
+anything is changed.
+
+The workflows keep triggers, permissions and token creation in YAML. Tested
+Python scripts own validation, review formatting and PR creation. Both PR paths
+use `scripts/github.py`; dataset identities and writes live in `scripts/catalog.py`.
+Local review and tests never publish a PR or push a branch.
 
 ## Shared schema
 

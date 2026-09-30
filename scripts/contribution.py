@@ -12,12 +12,17 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
-from catalog import art_urls, check_art_destination
+from catalog import (
+    art_urls,
+    check_art_destination,
+    determine_canonical_path,
+    find_existing_entry,
+    index_existing_entries,
+)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
 from contract import validate_entry
-from import_bulk_export import find_existing_entry, index_existing_entries
 from import_themerrdb import extract_youtube_id
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -318,35 +323,6 @@ def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
     return entry
 
 
-def determine_canonical_path(
-    media_type: str,
-    tmdb_id: int | None,
-    tvdb_id: int | None,
-    imdb_id: str | None,
-    data_dir: Path,
-) -> Path:
-    folder = "movies" if media_type == "movie" else "shows"
-    providers = (
-        (
-            ("tvdb", tvdb_id),
-            ("tmdb", tmdb_id),
-            ("imdb", imdb_id),
-        )
-        if media_type == "show"
-        else (
-            ("tmdb", tmdb_id),
-            ("tvdb", tvdb_id),
-            ("imdb", imdb_id),
-        )
-    )
-
-    for prefix, val in providers:
-        if val is not None:
-            return data_dir / folder / f"{prefix}-{val}.json"
-
-    raise ValueError(f"No valid identifier found to construct {media_type} filename.")
-
-
 def _update_external_ids(updated: dict[str, Any], parsed: ParsedContribution) -> None:
     for id_field, val in (
         ("tmdb_id", parsed.tmdb_id),
@@ -464,7 +440,7 @@ def format_media_comparison(
     """Format markdown comparing changed artwork and theme fields inline."""
 
     def selections(entry: dict[str, Any]) -> dict[str, str | None]:
-        theme = entry.get("youtube_id_overturedb")
+        theme = entry.get("youtube_id_overturedb") or entry.get("youtube_id_themerrdb")
         values = {
             "Poster": entry.get("poster_url"),
             "Background": entry.get("background_url"),
