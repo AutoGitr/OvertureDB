@@ -3,10 +3,10 @@
   "title": "Citizen Kane",
   "year": 1941,
   "tmdb_id": 15,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 1747,
+  "imdb_id": "tt0033467",
+  "poster_url": "https://image.tmdb.org/t/p/original/sWxrumhDUV3qzIoHQXM7MPZrPxx.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/lwJhOZmYelDlDXhGqOgqMVcUOne.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "vINmw-FTuZM"
 }
