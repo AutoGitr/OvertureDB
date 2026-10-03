@@ -1,0 +1,30 @@
+{
+  "media_type": "show",
+  "title": "Atlanta",
+  "year": 2016,
+  "tmdb_id": 65495,
+  "tvdb_id": 313999,
+  "imdb_id": "tt4288182",
+  "poster_url": "https://image.tmdb.org/t/p/original/tCeTU943Edni7MtJPkVb1uNxJUD.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/j9UW47U95CDGgLJttkhrHDbdkvL.jpg",
+  "youtube_id_overturedb": null,
+  "youtube_id_themerrdb": null,
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/aKBjowc84UIfU4OybEC3TcKVJ6d.jpg"
+    },
+    {
+      "season_num": 2,
+      "poster_url": "https://image.tmdb.org/t/p/original/sY6KUpCPvFMV5U4oAyfyk0Yc9Id.jpg"
+    },
+    {
+      "season_num": 3,
+      "poster_url": "https://image.tmdb.org/t/p/original/Dv759Fy18Zb7dvEjLmzt3oaPEk.jpg"
+    },
+    {
+      "season_num": 4,
+      "poster_url": "https://image.tmdb.org/t/p/original/bCIxWZmggj2xAsi27j6LAJGVrcQ.jpg"
+    }
+  ]
+}
