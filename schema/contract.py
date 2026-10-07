@@ -1,4 +1,4 @@
-"""The version 4 catalog contract, shared with Overture by dataset_contract.py."""
+"""The version 5 catalog contract, shared with Overture by dataset_contract.py."""
 
 from __future__ import annotations
 
@@ -12,9 +12,11 @@ from urllib.parse import urlsplit
 from jsonschema import Draft202012Validator, ValidationError, validators
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable, Iterator
+
     from jsonschema import TypeChecker
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 ART_HOSTS: frozenset[str] = frozenset(
@@ -64,10 +66,7 @@ def _schema(name: str) -> dict[str, Any]:
 
 ENTRY_SCHEMA = _schema("entry.schema.json")
 CATALOG_SCHEMA = _schema("catalog.schema.json")
-# Keep the strict type checker when descending into the embedded entry schema.
-CATALOG_SCHEMA["properties"]["entries"]["items"] = {
-    key: value for key, value in ENTRY_SCHEMA.items() if key not in {"$schema", "$id"}
-}
+Draft202012Validator.check_schema(ENTRY_SCHEMA)
 Draft202012Validator.check_schema(CATALOG_SCHEMA)
 
 
@@ -146,18 +145,46 @@ def _identities(entries: list[dict[str, Any]]) -> None:
             identities.add(key)
 
 
-def validate_catalog(value: object) -> list[dict[str, Any]]:
-    # Validate the envelope first so unsupported versions have a clear error.
+def validate_header(value: object) -> dict[str, Any]:
+    # Check the version first so unsupported catalogs have a clear error.
     if not isinstance(value, dict):
         raise ValueError("Payload is not a OvertureDB catalog")
-    payload = cast("dict[str, Any]", value)
-    if payload.get("schema_version") != SCHEMA_VERSION:
+    header = cast("dict[str, Any]", value)
+    if header.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("Unsupported public dataset schema_version")
-    _validate(payload, catalog=True)
-    datetime.fromisoformat(payload["generated_at"])
-    entries: list[dict[str, Any]] = payload["entries"]
-    for entry in entries:
-        _seasons(entry)
-        _youtube_ids(entry)
-    _identities(entries)
-    return entries
+    _validate(header, catalog=True)
+    datetime.fromisoformat(header["generated_at"])
+    return header
+
+
+def dump_catalog(header: dict[str, Any], entries: Iterable[dict[str, Any]]) -> bytes:
+    """Serialize JSON Lines: the header record, then one entry per line."""
+    return b"".join(
+        json.dumps(
+            record, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode()
+        + b"\n"
+        for record in (header, *entries)
+    )
+
+
+def read_catalog(lines: Iterable[bytes]) -> Iterator[dict[str, Any]]:
+    """Validate the header line, then yield each entry line once it is valid.
+
+    Identity uniqueness spans the whole catalog, so callers enforce it.
+    """
+    records = iter(lines)
+    validate_header(_record(next(records, b"")))
+    for line in records:
+        yield validate_entry(_record(line))
+
+
+def _record(line: bytes) -> object:
+    return json.loads(line, object_pairs_hook=_unique_keys)
+
+
+def _unique_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    record = dict(pairs)
+    if len(record) != len(pairs):
+        raise ValueError("Catalog record repeats a key")
+    return record

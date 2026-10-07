@@ -16,7 +16,13 @@ from unittest.mock import MagicMock, patch
 from urllib.request import Request
 
 import catalog
-from contract import SCHEMA_VERSION, validate_catalog, validate_entries, validate_entry
+from contract import (
+    SCHEMA_VERSION,
+    dump_catalog,
+    read_catalog,
+    validate_entries,
+    validate_entry,
+)
 
 
 def movie(**changes: Any) -> dict[str, Any]:
@@ -35,14 +41,18 @@ def movie(**changes: Any) -> dict[str, Any]:
     }
 
 
-def envelope(entries: list[dict[str, Any]]) -> dict[str, Any]:
+def header(**changes: Any) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "source_revision": "a" * 40,
         "generated_at": "2026-09-04T12:00:00Z",
         "third_party_notices": "THIRD_PARTY_NOTICES.md",
-        "entries": entries,
+        **changes,
     }
+
+
+def lines(head: dict[str, Any], entries: list[dict[str, Any]]) -> list[bytes]:
+    return dump_catalog(head, entries).splitlines()
 
 
 class ContractTests(unittest.TestCase):
@@ -113,22 +123,37 @@ class ContractTests(unittest.TestCase):
                     [movie(**{field: value}), movie(tmdb_id=2) | {field: value}]
                 )
 
-    def test_catalog_envelope_and_every_entry_are_validated(self) -> None:
-        good = envelope([movie()])
-        self.assertEqual(validate_catalog(good), [movie()])
-        for change in (
-            {"schema_version": 999},
-            {"schema_version": True},
-            {"generated_at": "2026-02-30T12:00:00Z"},
-            {"generated_at": "2026-09-04"},
-            {"source_revision": "unknown"},
-            {"third_party_notices": "elsewhere"},
-            {"entries": [movie(), movie(tmdb_id=2, year=False)]},
-            {"entries": [movie(year=2026.0)]},
-            {"entries": [movie(tmdb_id=1.0)]},
-        ):
-            with self.subTest(change=change), self.assertRaises(ValueError):
-                validate_catalog(good | change)
+    def test_catalog_header_and_every_entry_line_are_validated(self) -> None:
+        self.assertEqual(list(read_catalog(lines(header(), [movie()]))), [movie()])
+        invalid: list[list[bytes]] = [
+            [],
+            *(
+                lines(header(**change), [])
+                for change in (
+                    {"schema_version": 999},
+                    {"schema_version": True},
+                    {"generated_at": "2026-02-30T12:00:00Z"},
+                    {"generated_at": "2026-09-04"},
+                    {"source_revision": "unknown"},
+                    {"third_party_notices": "elsewhere"},
+                    {"entries": [movie()]},
+                )
+            ),
+            *(
+                lines(header(), entries)
+                for entries in (
+                    [movie(), movie(tmdb_id=2, year=False)],
+                    [movie(year=2026.0)],
+                    [movie(tmdb_id=1.0)],
+                )
+            ),
+            [b'{"schema_version":5,"schema_version":5}'],
+            [*lines(header(), []), b'{"title":"A","title":"B"}'],
+            [*lines(header(), [movie()]), b""],
+        ]
+        for catalog_lines in invalid:
+            with self.subTest(lines=catalog_lines), self.assertRaises(ValueError):
+                list(read_catalog(catalog_lines))
 
 
 class BuildTests(unittest.TestCase):
@@ -163,14 +188,15 @@ class BuildTests(unittest.TestCase):
                 self.assertEqual(
                     path.read_bytes(), (second / path.relative_to(first)).read_bytes()
                 )
-        raw = (first / "catalog.json").read_bytes()
-        self.assertEqual(gzip.decompress((first / "catalog.json.gz").read_bytes()), raw)
-        payload = json.loads(raw)
-        self.assertEqual(payload, envelope([movie()]))
-        validate_catalog(payload)
+        raw = (first / "catalog.jsonl").read_bytes()
+        self.assertEqual(
+            gzip.decompress((first / "catalog.jsonl.gz").read_bytes()), raw
+        )
+        self.assertEqual(raw, dump_catalog(header(), [movie()]))
+        self.assertEqual(list(read_catalog(raw.splitlines())), [movie()])
         stats = json.loads((first / "stats.json").read_text(encoding="utf-8"))
-        self.assertEqual(stats["source_revision"], payload["source_revision"])
-        self.assertEqual(stats["generated_at"], payload["generated_at"])
+        self.assertEqual(stats["source_revision"], header()["source_revision"])
+        self.assertEqual(stats["generated_at"], header()["generated_at"])
         self.assertEqual(stats["counts"]["movies"]["titles"], 1)
         self.assertEqual(stats["counts"]["total"]["posters"], 1)
         self.assertEqual(stats["counts"]["shows"]["titles"], 0)

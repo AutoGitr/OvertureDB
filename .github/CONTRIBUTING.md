@@ -48,8 +48,9 @@ uv run --locked python scripts/catalog.py validate --check-urls --entry data/mov
 uv run --locked python scripts/catalog.py build
 ```
 
-The build produces catalog JSON/gzip, schemas, licenses, checksums, and statistics
-in `public/`. Its revision and timestamp come from the source commit. Tests verify
+The build produces the JSON Lines catalog (a header line, then one entry per
+line; plain and gzip), schemas, licenses, checksums, and statistics in
+`public/`. Its revision and timestamp come from the source commit. Tests verify
 reproducibility without requiring a clean working tree. Pages updates after
 relevant merges and daily as a fallback.
 

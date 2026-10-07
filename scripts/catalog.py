@@ -29,7 +29,13 @@ if TYPE_CHECKING:
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import ART_HOSTS, SCHEMA_VERSION, validate_catalog, validate_entries
+from contract import (
+    ART_HOSTS,
+    SCHEMA_VERSION,
+    dump_catalog,
+    validate_entries,
+    validate_header,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -310,27 +316,24 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
             entry["imdb_id"] or "",
         ),
     )
-    payload = {
-        "schema_version": SCHEMA_VERSION,
-        "generated_at": generated_at,
-        "source_revision": revision,
-        "third_party_notices": "THIRD_PARTY_NOTICES.md",
-        "entries": entries,
-    }
-    validate_catalog(payload)
+    header = validate_header(
+        {
+            "schema_version": SCHEMA_VERSION,
+            "generated_at": generated_at,
+            "source_revision": revision,
+            "third_party_notices": "THIRD_PARTY_NOTICES.md",
+        }
+    )
     for url in art_urls(entries):
         check_art_destination(url, resolve=False)
     notices = root / "licenses" / "THIRD_PARTY_NOTICES.md"
     if not notices.is_file():
         raise ValueError("Third-party notices are required for publication")
-    content = (
-        json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-        + "\n"
-    ).encode("utf-8")
+    content = dump_catalog(header, entries)
     output.mkdir(parents=True, exist_ok=True)
     artifacts = {
-        "catalog.json": content,
-        "catalog.json.gz": gzip.compress(content, mtime=0),
+        "catalog.jsonl": content,
+        "catalog.jsonl.gz": gzip.compress(content, mtime=0),
     }
     groups = summarize(entries)
     artifacts["stats.json"] = (
