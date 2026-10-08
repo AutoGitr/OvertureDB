@@ -5,7 +5,7 @@ The workflow overview and required repository settings are below.
 
 ## Development
 
-Use Python 3.14.7 and uv. The same read-only gate runs locally and in CI:
+Use the pinned Python and uv versions. The same read-only gate runs locally and in CI:
 
 ```sh
 uv sync --locked
@@ -17,7 +17,7 @@ bash scripts/pre-commit-check.sh
 
 It checks the lockfile, Ruff lint/formatting, strict Pyright types, unit tests,
 workflow invariants, and every dataset entry. On Windows, run it in Git Bash.
-To format changes, use `uv run --locked ruff format scripts schema`.
+To format changes, use `uv run --locked ruff format scripts schema tests`.
 
 PR checks and a daily scheduled guard also run `uv audit --locked`, covering
 direct, transitive and development dependencies. Run it locally when changing

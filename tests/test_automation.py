@@ -17,7 +17,8 @@ import catalog
 from contribution import clean_youtube_id, parse_issue_form
 from guard import validate_changes
 from import_bulk_export import import_bulk_export, load_incoming_entries
-from test_catalog import movie
+
+from tests.test_catalog import movie
 
 
 def issue(**changes: Any) -> dict[str, Any]:
