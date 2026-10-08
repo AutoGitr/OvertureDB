@@ -49,16 +49,17 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs. 
 
 ## 4. Allowed Sources & URL Formats
 
-| Source | Priority | Allowed Host | Required Format |
+| Source | Priority | Stored Link | Also Accepted (automatically converted on submission) |
 | :--- | :--- | :--- | :--- |
-| **TMDB** | Preferred | `image.tmdb.org` | Direct image path (e.g. `/t/p/original/...`). |
-| **ThePosterDB** | Secondary | `theposterdb.com`<br>`www.theposterdb.com` | Must use the direct API path: `/api/assets/<id>`.<br>Do not include trailing `/view` or URL fragments (`#`). |
-| **Fanart.tv** | Secondary | `assets.fanart.tv` | Direct image path. |
-| **TheTVDB** | Secondary | `artworks.thetvdb.com` | Direct image path. |
-| **Plex Static** | Secondary | `metadata-static.plex.tv` | Direct static image path. |
+| **TMDB** | Primary & Preferred | `https://image.tmdb.org/t/p/original/<file>` | Any other size (`w342`, `w780`, ...) and `themoviedb.org` image links. |
+| **ThePosterDB** | Secondary | `https://theposterdb.com/api/assets/<id>` | Poster pages (`/poster/<id>`), `/view` links and `www.theposterdb.com`. |
+| **Fanart.tv** | Secondary | `https://assets.fanart.tv/fanart/<path>` | `/preview/` thumbnails and `fanart.tv` links. |
+| **TheTVDB** | Secondary | `https://artworks.thetvdb.com/banners/<path>` | `_t` thumbnails, `_cache/` links and `thetvdb.com` links. |
+| **Plex Static** | Secondary | `https://metadata-static.plex.tv/<path>` | |
 
-- Images must be direct JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
-- Use HTTPS URLs.
+- Every entry stores the full-size original over HTTPS, without query strings or fragments. Submitted links are converted to that form; links on these hosts that do not name an image (sets, pages, viewers) are rejected.
+- Images must be JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
+- The rules live in `schema/contract.py`, which Overture uses too.
 
 ## 5. Established Poster Sets
 
@@ -91,7 +92,7 @@ Using [Overture](https://github.com/AutoGitr/Overture) helps you find gaps in th
 - **Aspect ratio limits**: Automatically verifies pixel dimensions to ensure candidates strictly conform to target aspect ratios within the 1% margin (2:3 for posters, 16:9 for backgrounds).
 - **Known resolutions & sorting**: Detects exact dimensions and automatically sorts candidates by resolution, surfacing the highest-quality artwork first.
 - **True image validation**: Checks image file headers to ensure authentic JPEG and PNG files, filtering out corrupt files or unsupported formats.
-- **Guaranteed direct links**: Formats URLs directly to allowed providers using valid public HTTPS endpoints (such as direct ThePosterDB API paths and TMDB image links).
+- **Guaranteed direct links**: Converts every artwork link to the same full-size original form the catalog stores (such as ThePosterDB API paths and TMDB `original` images).
 - **Accurate external IDs**: Automatically pairs TMDB, TVDB, and IMDb IDs from your media server match, eliminating typos and identity errors.
 - **Prefilled submissions**: Clicking the GitHub contribution link opens a labeled issue form with title, year, external IDs, and URLs already populated, saving you from looking up IDs or copying links manually.
 

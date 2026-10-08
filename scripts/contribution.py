@@ -13,8 +13,6 @@ from typing import Any
 from urllib.parse import quote
 
 from catalog import (
-    art_urls,
-    check_art_destination,
     determine_canonical_path,
     find_existing_entry,
     index_existing_entries,
@@ -22,7 +20,7 @@ from catalog import (
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
-from contract import validate_entry
+from contract import catalog_art_url, validate_entry
 from import_themerrdb import extract_youtube_id
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -59,41 +57,23 @@ def _first_non_empty_line(val: str | None) -> str | None:
 
 
 def clean_art_url(raw_url: str | None) -> str | None:
+    """Unwrap a submitted artwork link and return its canonical form.
+
+    Raises:
+        ValueError: When the link is not catalog artwork.
+    """
     if not raw_url:
         return None
     url = raw_url.strip()
     if not url or url == "_No response_":
         return None
-    # Strip quotes
-    if (url.startswith('"') and url.endswith('"')) or (
-        url.startswith("'") and url.endswith("'")
-    ):
+    if url[0] == url[-1] and url[0] in "\"'":
         url = url[1:-1].strip()
-    # Strip angle brackets <url>
     if url.startswith("<") and url.endswith(">"):
         url = url[1:-1].strip()
-    # Extract from markdown link [text](url)
-    md_match = re.match(r"^\[.*?\]\(\s*(https?://[^\s)]+)\s*\)$", url)
-    if md_match:
-        url = md_match.group(1).strip()
-    # Upgrade http to https
-    if url.startswith("http://"):
-        url = "https://" + url[7:]
-    # Strip fragment #...
-    url = url.split("#")[0].strip()
-    # Normalize ThePosterDB poster web URL to API asset URL
-    url = re.sub(
-        r"^(https?://(?:www\.)?theposterdb\.com/)poster/(\d+)/?$",
-        r"\1api/assets/\2",
-        url,
-    )
-    # Strip /view or trailing slash from ThePosterDB API assets
-    url = re.sub(
-        r"^(https?://(?:www\.)?theposterdb\.com/api/assets/\d+)(?:/view)?/?$",
-        r"\1",
-        url,
-    )
-    return url or None
+    if md_match := re.fullmatch(r"\[.*?\]\(\s*(https?://[^\s)]+)\s*\)", url):
+        url = md_match.group(1)
+    return catalog_art_url(url) if url else None
 
 
 def clean_youtube_id(raw_id: str | None) -> str | None:
@@ -549,8 +529,6 @@ def process_contribution(
         diff = "".join(diff_lines)
 
     new_content = json.dumps(validated, indent=2, ensure_ascii=False) + "\n"
-    for url in art_urls([validated]):
-        check_art_destination(url, resolve=False)
     if not dry_run:
         target_path.parent.mkdir(parents=True, exist_ok=True)
         target_path.write_text(new_content, encoding="utf-8", newline="\n")
