@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, cast
@@ -19,45 +20,184 @@ if TYPE_CHECKING:
 SCHEMA_VERSION = 5
 SCHEMA_DIR = Path(__file__).resolve().parent
 
+
+@dataclass(frozen=True, slots=True)
+class _ArtSource:
+    """One art source and the shape of the links it serves.
+
+    ``path`` matches every link form the source serves for one image (sizes,
+    thumbnails, page and viewer links); ``canonical`` rebuilds the full-size
+    image path from its named groups.
+    """
+
+    name: str
+    label: str
+    host: str
+    aliases: frozenset[str]
+    path: re.Pattern[str]
+    canonical: str
+    example: str
+    catalog: bool = True
+
+
+_IMAGE_FILE = r"[^/]+\.(?:jpe?g|png)"
+_ART_SOURCES = (
+    _ArtSource(
+        name="tmdb",
+        label="TMDB",
+        host="image.tmdb.org",
+        aliases=frozenset(
+            {"themoviedb.org", "www.themoviedb.org", "media.themoviedb.org"}
+        ),
+        # Every size (w342, w600_and_h900_bestv2, ...) is the same file.
+        path=re.compile(rf"/t/p/[^/]+/(?P<file>{_IMAGE_FILE})", re.IGNORECASE),
+        canonical="/t/p/original/{file}",
+        example="https://image.tmdb.org/t/p/original/<file>.jpg",
+    ),
+    _ArtSource(
+        name="tpdb",
+        label="ThePosterDB",
+        host="theposterdb.com",
+        aliases=frozenset({"www.theposterdb.com"}),
+        path=re.compile(r"/(?:poster|api/assets)/(?P<id>[0-9]+)(?:/view)?/?"),
+        canonical="/api/assets/{id}",
+        example="https://theposterdb.com/api/assets/<id>",
+    ),
+    _ArtSource(
+        name="fanart",
+        label="fanart.tv",
+        host="assets.fanart.tv",
+        aliases=frozenset({"fanart.tv", "www.fanart.tv"}),
+        # /preview/ serves a thumbnail of the /fanart/ original.
+        path=re.compile(
+            rf"/(?:fanart|preview)/(?P<file>(?:[^/]+/)*{_IMAGE_FILE})", re.IGNORECASE
+        ),
+        canonical="/fanart/{file}",
+        example="https://assets.fanart.tv/fanart/<file>.jpg",
+    ),
+    _ArtSource(
+        name="tvdb",
+        label="TheTVDB",
+        host="artworks.thetvdb.com",
+        aliases=frozenset({"thetvdb.com", "www.thetvdb.com"}),
+        # A _t suffix or the _cache/ folder serves a thumbnail of the original.
+        path=re.compile(
+            r"/banners/(?:_cache/)?(?P<folder>(?:[^/]+/)*)"
+            r"(?P<stem>[^/]+?)(?:_t)?(?P<ext>\.(?:jpe?g|png))",
+            re.IGNORECASE,
+        ),
+        canonical="/banners/{folder}{stem}{ext}",
+        example="https://artworks.thetvdb.com/banners/<path>.jpg",
+    ),
+    _ArtSource(
+        name="plex",
+        label="Plex",
+        host="metadata-static.plex.tv",
+        aliases=frozenset(),
+        path=re.compile(rf"/(?P<file>(?:[^/]+/)*{_IMAGE_FILE})", re.IGNORECASE),
+        canonical="/{file}",
+        example="https://metadata-static.plex.tv/<path>.jpg",
+    ),
+    _ArtSource(
+        name="amazon",
+        label="Amazon",
+        host="m.media-amazon.com",
+        aliases=frozenset({"images-na.ssl-images-amazon.com", "ia.media-imdb.com"}),
+        # Size and crop modifiers sit between the id and the extension.
+        path=re.compile(
+            r"/images/M/(?P<id>[^/.]+)(?:\.[^/]*)?(?P<ext>\.(?:jpe?g|png))",
+            re.IGNORECASE,
+        ),
+        canonical="/images/M/{id}{ext}",
+        example="https://m.media-amazon.com/images/M/<id>.jpg",
+        catalog=False,
+    ),
+)
+_ART_SOURCE_BY_HOST: dict[str, _ArtSource] = {
+    host: source for source in _ART_SOURCES for host in (source.host, *source.aliases)
+}
+#: Hosts of the art sources catalog entries may link to.
 ART_HOSTS: frozenset[str] = frozenset(
-    {
-        "image.tmdb.org",
-        "assets.fanart.tv",
-        "theposterdb.com",
-        "www.theposterdb.com",
-        "artworks.thetvdb.com",
-        "metadata-static.plex.tv",
-    }
+    source.host for source in _ART_SOURCES if source.catalog
 )
 
-_TPDB_API_RE = re.compile(r"^/api/assets/[0-9]+$")
-_IMAGE_EXTENSIONS = frozenset({".jpg", ".jpeg", ".png"})
 
-
-def is_allowed_art_url(url: str | None) -> bool:
-    """Return True if url is a valid direct artwork destination for OvertureDB."""
-    if not url:
-        return False
+def _art_source_of(url: str) -> _ArtSource | None:
     try:
-        parsed = urlsplit(url)
-        port = parsed.port
+        hostname = urlsplit(url.strip()).hostname
     except ValueError:
-        return False
-    if (
-        parsed.scheme != "https"
-        or not parsed.hostname
-        or parsed.hostname not in ART_HOSTS
-        or port not in (None, 443)
-        or parsed.username is not None
-        or parsed.password is not None
-        or parsed.fragment
-        or any(ord(char) < 33 for char in url)
-        or "\\" in url
-    ):
-        return False
-    if parsed.hostname in {"theposterdb.com", "www.theposterdb.com"}:
-        return bool(_TPDB_API_RE.fullmatch(parsed.path))
-    return Path(parsed.path).suffix.lower() in _IMAGE_EXTENSIONS
+        return None
+    return _ART_SOURCE_BY_HOST.get((hostname or "").rstrip("."))
+
+
+def art_source(url: str) -> str | None:
+    """Return the name of the known art source a link points at, if any."""
+    source = _art_source_of(url)
+    return source.name if source else None
+
+
+def canonical_art_url(url: str) -> str:
+    """Return the one canonical form of an artwork link.
+
+    A link to a known art source, in any form it serves an image under
+    (resized, thumbnail, alias host, viewer or page link), becomes that
+    image's full-size URL on the source's own host over HTTPS. Links to other
+    hosts are returned unchanged once they pass the general checks.
+
+    Raises:
+        ValueError: When the link is not a usable http(s) URL, or points at
+            a known art source without naming one of its images.
+    """
+    url = url.strip()
+    if any(ord(char) < 33 or char == "\\" for char in url):
+        raise ValueError("Artwork link must not contain spaces or backslashes")
+    try:
+        parts = urlsplit(url)
+        port = parts.port
+    except ValueError as exc:
+        raise ValueError("Artwork link is not a valid URL") from exc
+    if parts.scheme.lower() not in {"http", "https"} or not parts.hostname:
+        raise ValueError("Artwork link must be an http(s) URL")
+    if parts.username is not None or parts.password is not None:
+        raise ValueError("Artwork link must not contain credentials")
+    source = _ART_SOURCE_BY_HOST.get(parts.hostname.rstrip("."))
+    if source is None:
+        return url
+    if port not in (None, 80, 443):
+        raise ValueError(f"{source.label} artwork links must use the standard port")
+    match = source.path.fullmatch(parts.path)
+    if match is None:
+        raise ValueError(
+            f"{source.label} artwork links must point at an image, "
+            f"like {source.example}"
+        )
+    return f"https://{source.host}{source.canonical.format_map(match.groupdict())}"
+
+
+def catalog_art_url(url: str) -> str:
+    """Return the canonical form of an artwork link the catalog accepts.
+
+    Raises:
+        ValueError: When the link is unusable or its source is not one the
+            catalog links to.
+    """
+    canonical = canonical_art_url(url)
+    source = _art_source_of(canonical)
+    if source is None or not source.catalog:
+        *others, last = (item.label for item in _ART_SOURCES if item.catalog)
+        raise ValueError(f"Artwork must come from {', '.join(others)} or {last}")
+    return canonical
+
+
+def check_catalog_art_url(url: str) -> None:
+    """Require *url* to be the canonical link of catalog artwork.
+
+    Raises:
+        ValueError: When it is not, naming the canonical form when one exists.
+    """
+    canonical = catalog_art_url(url)
+    if canonical != url:
+        raise ValueError(f"Artwork link must use its canonical form {canonical}")
 
 
 def _schema(name: str) -> dict[str, Any]:
@@ -104,7 +244,26 @@ def validate_entry(value: object) -> dict[str, Any]:
     entry = cast("dict[str, Any]", value)
     _seasons(entry)
     _youtube_ids(entry)
+    _art_urls(entry)
     return entry
+
+
+def _art_urls(entry: dict[str, Any]) -> None:
+    fields = [
+        ("poster_url", entry["poster_url"]),
+        ("background_url", entry["background_url"]),
+        *(
+            (f"seasons.{index}.poster_url", season["poster_url"])
+            for index, season in enumerate(entry.get("seasons", []))
+        ),
+    ]
+    for path, url in fields:
+        if url is None:
+            continue
+        try:
+            check_catalog_art_url(url)
+        except ValueError as exc:
+            raise ValueError(f"Dataset contract violation at {path}: {exc}") from exc
 
 
 def _youtube_ids(entry: dict[str, Any]) -> None:

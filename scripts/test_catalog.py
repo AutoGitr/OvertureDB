@@ -79,8 +79,8 @@ class ContractTests(unittest.TestCase):
             {"youtube_id_themerrdb": "https://youtube.com/watch?v=abc"},
             {"youtube_id_overturedb": "3U6PSWyv5sc\n"},
             {"youtube_id_themerrdb": "3U6PSWyv5sc\n"},
-            {"poster_url": "http://image.tmdb.org/a.jpg"},
-            {"poster_url": "https://user:password@image.tmdb.org/a.jpg"},
+            {"poster_url": "http://image.tmdb.org/t/p/original/a.jpg"},
+            {"poster_url": "https://user:password@image.tmdb.org/t/p/original/a.jpg"},
             {"unrecognised": True},
         ]
         for change in invalid:
@@ -100,11 +100,20 @@ class ContractTests(unittest.TestCase):
             validate_entry(entry)
 
     def test_seasons_require_unique_nonnegative_numbers_and_posters(self) -> None:
-        season = {"season_num": 0, "poster_url": "https://image.tmdb.org/s.jpg"}
+        season = {
+            "season_num": 0,
+            "poster_url": "https://image.tmdb.org/t/p/original/s.jpg",
+        }
         show = movie(media_type="show", seasons=[season])
         self.assertEqual(validate_entry(show), show)
         for seasons in (
-            [season, {**season, "poster_url": "https://image.tmdb.org/other.jpg"}],
+            [
+                season,
+                {
+                    **season,
+                    "poster_url": "https://image.tmdb.org/t/p/original/other.jpg",
+                },
+            ],
             [{**season, "season_num": -1}],
             [{"season_num": 1}],
         ):
@@ -333,23 +342,23 @@ class ArtworkTests(unittest.TestCase):
     def test_destination_and_redirects_require_public_allowlisted_https(
         self, lookup: MagicMock
     ) -> None:
-        catalog.check_art_destination("https://image.tmdb.org/a.jpg")
+        catalog.check_art_destination("https://image.tmdb.org/t/p/original/a.jpg")
         self.assertEqual(lookup.call_count, 1)
         for url in (
-            "http://image.tmdb.org/a.jpg",
+            "http://image.tmdb.org/t/p/original/a.jpg",
             "https://attacker.test/a.jpg",
-            "https://image.tmdb.org:8443/a.jpg",
-            "https://image.tmdb.org/a.svg",
+            "https://image.tmdb.org:8443/t/p/original/a.jpg",
+            "https://image.tmdb.org/t/p/original/a.svg",
             "https://theposterdb.com/poster/123",
             "https://theposterdb.com/api/assets/123/view",
             "https://theposterdb.com/api/assets/123/view/",
-            "https://image.tmdb.org/a.jpg#fragment",
+            "https://image.tmdb.org/t/p/original/a.jpg#fragment",
         ):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 catalog.check_art_destination(url)
         with self.assertRaises(ValueError):
             catalog.ArtRedirectHandler().redirect_request(
-                Request("https://image.tmdb.org/a.jpg"),
+                Request("https://image.tmdb.org/t/p/original/a.jpg"),
                 io.BytesIO(),
                 302,
                 "Found",
@@ -358,7 +367,7 @@ class ArtworkTests(unittest.TestCase):
             )
         lookup.return_value.append((2, 1, 6, "", ("127.0.0.1", 443)))
         with self.assertRaises(ValueError):
-            catalog.check_art_destination("https://image.tmdb.org/a.jpg")
+            catalog.check_art_destination("https://image.tmdb.org/t/p/original/a.jpg")
 
     @patch.object(catalog, "check_art_destination")
     @patch.object(catalog, "build_opener")
@@ -370,12 +379,12 @@ class ArtworkTests(unittest.TestCase):
         response.headers["Content-Type"] = "image/jpeg"
         response.read.return_value = b"\xff\xd8\xff" + b"x" * 13
         opener.return_value.open.return_value.__enter__.return_value = response
-        catalog.check_art_url("https://image.tmdb.org/a.jpg")
+        catalog.check_art_url("https://image.tmdb.org/t/p/original/a.jpg")
         response.read.assert_called_once_with(16)
         destination.assert_called_once()
         response.read.return_value = b"<html>Error"
         with self.assertRaises(ValueError):
-            catalog.check_art_url("https://image.tmdb.org/a.jpg")
+            catalog.check_art_url("https://image.tmdb.org/t/p/original/a.jpg")
 
     def test_art_urls_are_deduplicated(self) -> None:
         entries = [movie(), movie(tmdb_id=2)]
@@ -393,7 +402,7 @@ class ArtworkTests(unittest.TestCase):
         self, opener: MagicMock, destination: MagicMock, mock_sleep: MagicMock
     ) -> None:
         rate_error = catalog.HTTPError(
-            "https://image.tmdb.org/a.jpg",
+            "https://image.tmdb.org/t/p/original/a.jpg",
             429,
             "Too Many Requests",
             Message(),
@@ -410,7 +419,7 @@ class ArtworkTests(unittest.TestCase):
         cm.__enter__.return_value = good_response
         opener.return_value.open.side_effect = [rate_error, cm]
 
-        catalog.check_art_url("https://image.tmdb.org/a.jpg")
+        catalog.check_art_url("https://image.tmdb.org/t/p/original/a.jpg")
         mock_sleep.assert_called_once_with(5.0)
 
     @patch.object(catalog.time, "sleep")
@@ -420,7 +429,7 @@ class ArtworkTests(unittest.TestCase):
         self, opener: MagicMock, destination: MagicMock, mock_sleep: MagicMock
     ) -> None:
         rate_error = catalog.HTTPError(
-            "https://image.tmdb.org/a.jpg",
+            "https://image.tmdb.org/t/p/original/a.jpg",
             429,
             "Too Many Requests",
             Message(),
@@ -429,7 +438,9 @@ class ArtworkTests(unittest.TestCase):
         self.addCleanup(rate_error.close)
         opener.return_value.open.side_effect = rate_error
         with self.assertRaises(catalog.HTTPError):
-            catalog.check_art_url("https://image.tmdb.org/a.jpg", max_retries=3)
+            catalog.check_art_url(
+                "https://image.tmdb.org/t/p/original/a.jpg", max_retries=3
+            )
         self.assertEqual(mock_sleep.call_count, 2)
 
 

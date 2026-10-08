@@ -189,7 +189,7 @@ Empty Movie
                     "tmdb_id": 88888,
                     "tvdb_id": None,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/p.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/p.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
@@ -214,7 +214,7 @@ Existing Movie
 
 ### Poster URL
 
-https://image.tmdb.org/new_p.jpg
+https://image.tmdb.org/t/p/original/new_p.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -270,11 +270,11 @@ tt0109424
 
 ### Poster URL
 
-https://image.tmdb.org/poster.jpg
+https://image.tmdb.org/t/p/original/poster.jpg
 
 ### Background URL
 
-https://image.tmdb.org/bg.jpg
+https://image.tmdb.org/t/p/original/bg.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -292,8 +292,12 @@ https://image.tmdb.org/bg.jpg
         self.assertEqual(res["youtube_id"], "xwGZvpRf1GA")
 
         saved = json.loads(existing_file.read_text(encoding="utf-8"))
-        self.assertEqual(saved["poster_url"], "https://image.tmdb.org/poster.jpg")
-        self.assertEqual(saved["background_url"], "https://image.tmdb.org/bg.jpg")
+        self.assertEqual(
+            saved["poster_url"], "https://image.tmdb.org/t/p/original/poster.jpg"
+        )
+        self.assertEqual(
+            saved["background_url"], "https://image.tmdb.org/t/p/original/bg.jpg"
+        )
         self.assertEqual(saved["youtube_id_themerrdb"], "xwGZvpRf1GA")
         self.assertEqual(saved["tvdb_id"], 4982)
         self.assertEqual(saved["imdb_id"], "tt0109424")
@@ -335,7 +339,7 @@ Chungking Express
 
 ### Poster URL
 
-https://image.tmdb.org/poster.jpg
+https://image.tmdb.org/t/p/original/poster.jpg
 
 ### YouTube theme video ID
 
@@ -354,7 +358,9 @@ xwGZvpRf1GA
         self.assertEqual(res["youtube_id"], "xwGZvpRf1GA")
 
         saved = json.loads(existing_file.read_text(encoding="utf-8"))
-        self.assertEqual(saved["poster_url"], "https://image.tmdb.org/poster.jpg")
+        self.assertEqual(
+            saved["poster_url"], "https://image.tmdb.org/t/p/original/poster.jpg"
+        )
         self.assertEqual(saved["youtube_id_themerrdb"], "xwGZvpRf1GA")
         self.assertIsNone(saved["youtube_id_overturedb"])
 
@@ -369,7 +375,7 @@ xwGZvpRf1GA
                     "tmdb_id": 88888,
                     "tvdb_id": None,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/old_poster.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/old_poster.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": "themerr1111",
@@ -393,7 +399,7 @@ Existing Movie
 
 ### Poster URL
 
-https://image.tmdb.org/new_higher_res_poster.jpg
+https://image.tmdb.org/t/p/original/new_higher_res_poster.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -410,8 +416,8 @@ Upgrading to official 4K poster art.
         self.assertIn("new_higher_res_poster.jpg", res["diff"])
 
         self.assertIn(
-            "- **Poster:** [Old](https://image.tmdb.org/old_poster.jpg) | "
-            "[New](https://image.tmdb.org/new_higher_res_poster.jpg)",
+            "- **Poster:** [Old](https://image.tmdb.org/t/p/original/old_poster.jpg) | "
+            "[New](https://image.tmdb.org/t/p/original/new_higher_res_poster.jpg)",
             res["media_comparison"],
         )
         self.assertNotIn("Background", res["media_comparison"])
@@ -421,34 +427,39 @@ Upgrading to official 4K poster art.
         updated_data = json.loads(existing_file.read_text())
         self.assertEqual(
             updated_data["poster_url"],
-            "https://image.tmdb.org/new_higher_res_poster.jpg",
+            "https://image.tmdb.org/t/p/original/new_higher_res_poster.jpg",
         )
         # Verify themerrdb youtube id preserved untouched
         self.assertEqual(updated_data["youtube_id_themerrdb"], "themerr1111")
 
     def test_format_media_comparison_all_types(self) -> None:
         existing = {
-            "poster_url": "https://image.tmdb.org/old_poster.jpg",
-            "background_url": "https://image.tmdb.org/old_bg.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/old_poster.jpg",
+            "background_url": "https://image.tmdb.org/t/p/original/old_bg.jpg",
             "youtube_id_themerrdb": None,
             "youtube_id_overturedb": "oldtheme123",
             "seasons": [
-                {"season_num": 1, "poster_url": "https://image.tmdb.org/old_s1.jpg"},
+                {
+                    "season_num": 1,
+                    "poster_url": "https://image.tmdb.org/t/p/original/old_s1.jpg",
+                },
             ],
         }
         updated = {
-            "poster_url": "https://image.tmdb.org/old_poster.jpg",  # Unchanged
-            "background_url": "https://image.tmdb.org/new_bg.jpg",  # Changed
+            # Unchanged
+            "poster_url": "https://image.tmdb.org/t/p/original/old_poster.jpg",
+            # Changed
+            "background_url": "https://image.tmdb.org/t/p/original/new_bg.jpg",
             "youtube_id_themerrdb": "oldtheme123",
             "youtube_id_overturedb": "newtheme456",  # Changed
             "seasons": [
                 {
                     "season_num": 1,
-                    "poster_url": "https://image.tmdb.org/new_s1.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/new_s1.jpg",
                 },  # Changed
                 {
                     "season_num": 2,
-                    "poster_url": "https://image.tmdb.org/new_s2.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/new_s2.jpg",
                 },  # Added
             ],
         }
@@ -456,8 +467,8 @@ Upgrading to official 4K poster art.
 
         self.assertNotIn("Poster", markdown.splitlines()[0])  # Poster didn't change
         self.assertIn(
-            "- **Background:** [Old](https://image.tmdb.org/old_bg.jpg) | "
-            "[New](https://image.tmdb.org/new_bg.jpg)",
+            "- **Background:** [Old](https://image.tmdb.org/t/p/original/old_bg.jpg) | "
+            "[New](https://image.tmdb.org/t/p/original/new_bg.jpg)",
             markdown,
         )
         self.assertIn(
@@ -466,12 +477,13 @@ Upgrading to official 4K poster art.
             markdown,
         )
         self.assertIn(
-            "- **Season 1 Poster:** [Old](https://image.tmdb.org/old_s1.jpg) | "
-            "[New](https://image.tmdb.org/new_s1.jpg)",
+            "- **Season 1 Poster:** "
+            "[Old](https://image.tmdb.org/t/p/original/old_s1.jpg) | "
+            "[New](https://image.tmdb.org/t/p/original/new_s1.jpg)",
             markdown,
         )
         self.assertIn(
-            "- **Season 2 Poster:** _None_ | [New](https://image.tmdb.org/new_s2.jpg)",
+            "- **Season 2 Poster:** _None_ | [New](https://image.tmdb.org/t/p/original/new_s2.jpg)",
             markdown,
         )
 
@@ -496,7 +508,7 @@ Upgrading to official 4K poster art.
                     "tmdb_id": 1234,
                     "tvdb_id": 500,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/show.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/show.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
@@ -522,7 +534,7 @@ My Show
 
 ### Background URL
 
-https://image.tmdb.org/new_background.jpg
+https://image.tmdb.org/t/p/original/new_background.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -540,7 +552,8 @@ Adding missing backdrop.
 
         updated = json.loads(show_file.read_text())
         self.assertEqual(
-            updated["background_url"], "https://image.tmdb.org/new_background.jpg"
+            updated["background_url"],
+            "https://image.tmdb.org/t/p/original/new_background.jpg",
         )
         self.assertEqual(updated["tvdb_id"], 500)
 
@@ -680,7 +693,10 @@ overture111
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
                     "seasons": [
-                        {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"}
+                        {
+                            "season_num": 1,
+                            "poster_url": "https://image.tmdb.org/t/p/original/s1.jpg",
+                        }
                     ],
                 },
                 indent=2,
@@ -699,7 +715,7 @@ Season Show
 
 ### Season posters
 
-1=https://image.tmdb.org/s1_new.jpg
+1=https://image.tmdb.org/t/p/original/s1_new.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -721,7 +737,7 @@ Season Show
 
 ### Season posters
 
-2=https://image.tmdb.org/s2.jpg
+2=https://image.tmdb.org/t/p/original/s2.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -735,10 +751,12 @@ Season Show
         updated = json.loads(show_file.read_text())
         self.assertEqual(len(updated["seasons"]), 2)
         self.assertEqual(
-            updated["seasons"][0]["poster_url"], "https://image.tmdb.org/s1.jpg"
+            updated["seasons"][0]["poster_url"],
+            "https://image.tmdb.org/t/p/original/s1.jpg",
         )
         self.assertEqual(
-            updated["seasons"][1]["poster_url"], "https://image.tmdb.org/s2.jpg"
+            updated["seasons"][1]["poster_url"],
+            "https://image.tmdb.org/t/p/original/s2.jpg",
         )
 
     def test_cli_json_success(self) -> None:
@@ -761,7 +779,7 @@ Test Movie
 
 ### Poster URL
 
-https://image.tmdb.org/poster.jpg
+https://image.tmdb.org/t/p/original/poster.jpg
 """,
             encoding="utf-8",
         )
@@ -878,7 +896,7 @@ https://image.tmdb.org/poster.jpg
         )
         self.assertEqual(
             clean_art_url("https://www.theposterdb.com/poster/12345/"),
-            "https://www.theposterdb.com/api/assets/12345",
+            "https://theposterdb.com/api/assets/12345",
         )
         self.assertEqual(
             clean_art_url("https://theposterdb.com/api/assets/12345/view"),
@@ -892,6 +910,18 @@ https://image.tmdb.org/poster.jpg
             clean_art_url("https://theposterdb.com/api/assets/12345/"),
             "https://theposterdb.com/api/assets/12345",
         )
+
+        # Resized and non-catalog links
+        self.assertEqual(
+            clean_art_url("https://image.tmdb.org/t/p/w342/resized.jpg"),
+            "https://image.tmdb.org/t/p/original/resized.jpg",
+        )
+        for url in (
+            "https://theposterdb.com/set/12345",
+            "https://example.com/poster.jpg",
+        ):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                clean_art_url(url)
 
     def test_clean_youtube_id_all_variants_and_errors(self) -> None:
         self.assertIsNone(clean_youtube_id(None))
@@ -1005,26 +1035,35 @@ Show
 
 ### Season posters
 
-- Season 1 = https://image.tmdb.org/s1.jpg
-* s2 = https://image.tmdb.org/s2.jpg
-1. Season Specials = https://image.tmdb.org/s0.jpg
+- Season 1 = https://image.tmdb.org/t/p/original/s1.jpg
+* s2 = https://image.tmdb.org/t/p/original/s2.jpg
+1. Season Specials = https://image.tmdb.org/t/p/original/s0.jpg
 """
         parsed = parse_issue_form(body, "[Show]: Show", ["show"])
         self.assertEqual(len(parsed.seasons), 3)
         self.assertEqual(
             parsed.seasons,
             [
-                {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"},
-                {"season_num": 2, "poster_url": "https://image.tmdb.org/s2.jpg"},
-                {"season_num": 0, "poster_url": "https://image.tmdb.org/s0.jpg"},
+                {
+                    "season_num": 1,
+                    "poster_url": "https://image.tmdb.org/t/p/original/s1.jpg",
+                },
+                {
+                    "season_num": 2,
+                    "poster_url": "https://image.tmdb.org/t/p/original/s2.jpg",
+                },
+                {
+                    "season_num": 0,
+                    "poster_url": "https://image.tmdb.org/t/p/original/s0.jpg",
+                },
             ],
         )
 
         # Duplicate seasons
         dup_body = (
             "### Title\nShow\n### TVDB ID\n123\n"
-            "### Season posters\n1=https://image.tmdb.org/a.jpg\n"
-            "Season 1=https://image.tmdb.org/b.jpg"
+            "### Season posters\n1=https://image.tmdb.org/t/p/original/a.jpg\n"
+            "Season 1=https://image.tmdb.org/t/p/original/b.jpg"
         )
         with self.assertRaises(ValueError) as ctx:
             parse_issue_form(dup_body, "[Show]: Show", ["show"])
@@ -1033,7 +1072,7 @@ Show
         # Missing '='
         bad_format_body = (
             "### Title\nShow\n### TVDB ID\n123\n"
-            "### Season posters\nSeason 1 https://image.tmdb.org/a.jpg"
+            "### Season posters\nSeason 1 https://image.tmdb.org/t/p/original/a.jpg"
         )
         with self.assertRaises(ValueError) as ctx:
             parse_issue_form(bad_format_body, "[Show]: Show", ["show"])
@@ -1042,7 +1081,7 @@ Show
         # Season posters on movie
         movie_with_seasons = (
             "### Title\nMovie\n### TMDB ID\n123\n"
-            "### Season posters\n1=https://image.tmdb.org/a.jpg"
+            "### Season posters\n1=https://image.tmdb.org/t/p/original/a.jpg"
         )
         with self.assertRaises(ValueError) as ctx:
             parse_issue_form(movie_with_seasons, "[Movie]: Movie", ["movie"])
@@ -1059,7 +1098,7 @@ Show
                     "tmdb_id": 55555,
                     "tvdb_id": None,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/old.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/old.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
@@ -1090,7 +1129,7 @@ Movie
 
 ### Poster URL
 
-https://image.tmdb.org/new.jpg
+https://image.tmdb.org/t/p/original/new.jpg
 
 ### Reason for modification (if replacing existing artwork or theme)
 
@@ -1116,7 +1155,7 @@ https://image.tmdb.org/new.jpg
                     "tmdb_id": 66666,
                     "tvdb_id": None,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/p.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/p.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": "themerr1234",
@@ -1141,7 +1180,7 @@ Unchanged Movie
 
 ### Poster URL
 
-https://image.tmdb.org/p.jpg
+https://image.tmdb.org/t/p/original/p.jpg
 """
         parsed = parse_issue_form(
             body_identical, "[Movie]: Unchanged Movie (2024)", ["movie"]
@@ -1193,7 +1232,7 @@ Spaced Movie
 ### Poster URL
 
 
-https://image.tmdb.org/spaced_poster.jpg
+https://image.tmdb.org/t/p/original/spaced_poster.jpg
 
 ### YouTube theme video ID
 
@@ -1204,7 +1243,9 @@ AB96CvvLZKc
         self.assertEqual(parsed.title, "Spaced Movie")
         self.assertEqual(parsed.year, 2024)
         self.assertEqual(parsed.tmdb_id, 123456)
-        self.assertEqual(parsed.poster_url, "https://image.tmdb.org/spaced_poster.jpg")
+        self.assertEqual(
+            parsed.poster_url, "https://image.tmdb.org/t/p/original/spaced_poster.jpg"
+        )
         self.assertEqual(parsed.youtube_id, "AB96CvvLZKc")
 
 

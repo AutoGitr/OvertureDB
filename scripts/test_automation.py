@@ -515,7 +515,7 @@ class ArchiveTests(unittest.TestCase):
             movie(
                 tmdb_id=None,
                 imdb_id="tt1",
-                background_url="https://image.tmdb.org/background.jpg",
+                background_url="https://image.tmdb.org/t/p/original/background.jpg",
             ),
         )
         result = import_bulk_export(overture_dir=self.root, archive_path=self.archive)
@@ -524,7 +524,7 @@ class ArchiveTests(unittest.TestCase):
         self.assertEqual(len(list((self.root / "data").rglob("*.json"))), 1)
         self.assertEqual(
             json.loads(path.read_text())["background_url"],
-            "https://image.tmdb.org/background.jpg",
+            "https://image.tmdb.org/t/p/original/background.jpg",
         )
 
     def test_existing_duplicate_identity_is_rejected_before_writing(self) -> None:

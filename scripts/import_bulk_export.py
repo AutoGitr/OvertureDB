@@ -12,8 +12,6 @@ from typing import Any
 from zipfile import ZipFile
 
 from catalog import (
-    art_urls,
-    check_art_destination,
     determine_canonical_path,
     find_existing_entry,
     index_existing_entries,
@@ -413,8 +411,6 @@ def import_bulk_export(
     for name, raw_entry in incoming_entries:
         try:
             entry = validate_entry(json.loads(raw_entry))
-            for url in art_urls([entry]):
-                check_art_destination(url, resolve=False)
             existing_path = find_existing_entry(entry, by_tmdb, by_tvdb, by_imdb)
 
             if existing_path is not None:

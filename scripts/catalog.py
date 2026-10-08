@@ -7,7 +7,6 @@ import gzip
 import hashlib
 import ipaddress
 import json
-import re
 import shutil
 import socket
 import subprocess
@@ -30,8 +29,8 @@ if TYPE_CHECKING:
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "schema"))
 
 from contract import (
-    ART_HOSTS,
     SCHEMA_VERSION,
+    check_catalog_art_url,
     dump_catalog,
     validate_entries,
     validate_header,
@@ -194,7 +193,6 @@ def public_https_destination(
     url: str,
     *,
     allowed_hosts: set[str] | frozenset[str] | None = None,
-    resolve: bool = True,
 ) -> SplitResult:
     try:
         parsed = urlsplit(url)
@@ -215,29 +213,18 @@ def public_https_destination(
         raise ValueError(
             "URL must use public HTTPS on an allowed host without credentials"
         )
-    if resolve:
-        addresses = socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)
-        if not addresses or any(
-            not ipaddress.ip_address(row[4][0]).is_global for row in addresses
-        ):
-            raise ValueError(
-                "URL host does not resolve exclusively to public addresses"
-            )
+    addresses = socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)
+    if not addresses or any(
+        not ipaddress.ip_address(row[4][0]).is_global for row in addresses
+    ):
+        raise ValueError("URL host does not resolve exclusively to public addresses")
     return parsed
 
 
-def check_art_destination(url: str, *, resolve: bool = True) -> None:
-    parsed = public_https_destination(url, allowed_hosts=ART_HOSTS, resolve=resolve)
-    if parsed.fragment:
-        raise ValueError("Artwork URL must not contain a fragment")
-    if parsed.hostname in {
-        "theposterdb.com",
-        "www.theposterdb.com",
-    } and not re.fullmatch(r"/api/assets/[0-9]+", parsed.path):
-        raise ValueError("ThePosterDB artwork must use /api/assets/<id>")
-    suffix = Path(parsed.path).suffix.lower()
-    if suffix and suffix not in {".jpg", ".jpeg", ".png"}:
-        raise ValueError("Artwork must be a JPEG or PNG")
+def check_art_destination(url: str) -> None:
+    """Require catalog artwork whose host resolves only to public addresses."""
+    check_catalog_art_url(url)
+    public_https_destination(url)
 
 
 class ArtRedirectHandler(HTTPRedirectHandler):
@@ -324,8 +311,6 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
             "third_party_notices": "THIRD_PARTY_NOTICES.md",
         }
     )
-    for url in art_urls(entries):
-        check_art_destination(url, resolve=False)
     notices = root / "licenses" / "THIRD_PARTY_NOTICES.md"
     if not notices.is_file():
         raise ValueError("Third-party notices are required for publication")
@@ -413,8 +398,6 @@ def main() -> int:
                     validate_entry_path(path, entry, root)
             else:
                 entries = dataset()
-            for url in art_urls(entries):
-                check_art_destination(url, resolve=False)
             if args.check_urls:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)

@@ -32,8 +32,8 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://image.tmdb.org/existing_poster.jpg",
-            "background_url": "https://image.tmdb.org/existing_bg.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/existing_poster.jpg",
+            "background_url": "https://image.tmdb.org/t/p/original/existing_bg.jpg",
             "youtube_id_overturedb": "existing111",
             "youtube_id_themerrdb": None,
         }
@@ -44,18 +44,20 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://image.tmdb.org/new_poster.jpg",
-            "background_url": "https://image.tmdb.org/new_bg.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/new_poster.jpg",
+            "background_url": "https://image.tmdb.org/t/p/original/new_bg.jpg",
             "youtube_id_overturedb": "new11111111",
             "youtube_id_themerrdb": None,
         }
         updated, changed, _changes = merge_entry(existing, incoming)
         self.assertFalse(changed)
         self.assertEqual(
-            updated["poster_url"], "https://image.tmdb.org/existing_poster.jpg"
+            updated["poster_url"],
+            "https://image.tmdb.org/t/p/original/existing_poster.jpg",
         )
         self.assertEqual(
-            updated["background_url"], "https://image.tmdb.org/existing_bg.jpg"
+            updated["background_url"],
+            "https://image.tmdb.org/t/p/original/existing_bg.jpg",
         )
         self.assertEqual(updated["youtube_id_overturedb"], "existing111")
 
@@ -79,15 +81,19 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://image.tmdb.org/new_poster.jpg",
-            "background_url": "https://image.tmdb.org/new_bg.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/new_poster.jpg",
+            "background_url": "https://image.tmdb.org/t/p/original/new_bg.jpg",
             "youtube_id_overturedb": "new11111111",
             "youtube_id_themerrdb": None,
         }
         updated, changed, changes = merge_entry(existing, incoming)
         self.assertTrue(changed)
-        self.assertEqual(updated["poster_url"], "https://image.tmdb.org/new_poster.jpg")
-        self.assertEqual(updated["background_url"], "https://image.tmdb.org/new_bg.jpg")
+        self.assertEqual(
+            updated["poster_url"], "https://image.tmdb.org/t/p/original/new_poster.jpg"
+        )
+        self.assertEqual(
+            updated["background_url"], "https://image.tmdb.org/t/p/original/new_bg.jpg"
+        )
         self.assertEqual(updated["youtube_id_overturedb"], "new11111111")
         self.assertIn("backfilled poster_url", changes)
         self.assertIn("backfilled background_url", changes)
@@ -108,7 +114,7 @@ class BulkImportTests(unittest.TestCase):
             "seasons": [
                 {
                     "season_num": 1,
-                    "poster_url": "https://image.tmdb.org/season1_exist.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/season1_exist.jpg",
                 }
             ],
         }
@@ -126,11 +132,11 @@ class BulkImportTests(unittest.TestCase):
             "seasons": [
                 {
                     "season_num": 1,
-                    "poster_url": "https://image.tmdb.org/season1_new.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/season1_new.jpg",
                 },
                 {
                     "season_num": 2,
-                    "poster_url": "https://image.tmdb.org/season2_new.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/season2_new.jpg",
                 },
             ],
         }
@@ -140,12 +146,12 @@ class BulkImportTests(unittest.TestCase):
         # Season 1 preserved:
         self.assertEqual(
             updated["seasons"][0]["poster_url"],
-            "https://image.tmdb.org/season1_exist.jpg",
+            "https://image.tmdb.org/t/p/original/season1_exist.jpg",
         )
         # Season 2 added:
         self.assertEqual(
             updated["seasons"][1]["poster_url"],
-            "https://image.tmdb.org/season2_new.jpg",
+            "https://image.tmdb.org/t/p/original/season2_new.jpg",
         )
 
     def test_rule_2_preserves_youtube_id_themerrdb(self) -> None:
@@ -168,7 +174,7 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 1,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://image.tmdb.org/p.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/p.jpg",
             "background_url": None,
             "youtube_id_overturedb": "primary1111",
             "youtube_id_themerrdb": None,
@@ -186,7 +192,7 @@ class BulkImportTests(unittest.TestCase):
             "tmdb_id": 999,
             "tvdb_id": None,
             "imdb_id": None,
-            "poster_url": "https://image.tmdb.org/p.jpg",
+            "poster_url": "https://image.tmdb.org/t/p/original/p.jpg",
             "background_url": None,
             "youtube_id_overturedb": "primary1111",
             "youtube_id_themerrdb": "should_be_ignored",
@@ -265,7 +271,7 @@ class BulkImportTests(unittest.TestCase):
                     "tmdb_id": 100,
                     "tvdb_id": 200,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/show_poster.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/show_poster.jpg",
                     "background_url": None,
                     "youtube_id_overturedb": None,
                     "youtube_id_themerrdb": None,
@@ -288,12 +294,15 @@ class BulkImportTests(unittest.TestCase):
                     "tmdb_id": 100,
                     "tvdb_id": 200,
                     "imdb_id": None,
-                    "poster_url": "https://image.tmdb.org/ignored_new_poster.jpg",
-                    "background_url": "https://image.tmdb.org/new_bg.jpg",
+                    "poster_url": "https://image.tmdb.org/t/p/original/ignored_new_poster.jpg",
+                    "background_url": "https://image.tmdb.org/t/p/original/new_bg.jpg",
                     "youtube_id_overturedb": "showtheme11",
                     "youtube_id_themerrdb": None,
                     "seasons": [
-                        {"season_num": 1, "poster_url": "https://image.tmdb.org/s1.jpg"}
+                        {
+                            "season_num": 1,
+                            "poster_url": "https://image.tmdb.org/t/p/original/s1.jpg",
+                        }
                     ],
                 },
                 indent=2,
@@ -314,10 +323,12 @@ class BulkImportTests(unittest.TestCase):
         # Assert tvdb-200.json was updated in place with Rule 1 applied
         final_show = json.loads(show_path.read_text())
         self.assertEqual(
-            final_show["poster_url"], "https://image.tmdb.org/show_poster.jpg"
+            final_show["poster_url"],
+            "https://image.tmdb.org/t/p/original/show_poster.jpg",
         )
         self.assertEqual(
-            final_show["background_url"], "https://image.tmdb.org/new_bg.jpg"
+            final_show["background_url"],
+            "https://image.tmdb.org/t/p/original/new_bg.jpg",
         )
         self.assertEqual(final_show["youtube_id_overturedb"], "showtheme11")
         self.assertEqual(len(final_show["seasons"]), 1)
@@ -411,20 +422,20 @@ class BulkImportTests(unittest.TestCase):
                 title="Zoolander",
                 year=2001,
                 media_type="movie",
-                poster_url="https://image.tmdb.org/zoolander.jpg",
+                poster_url="https://image.tmdb.org/t/p/original/zoolander.jpg",
                 youtube_id="zoo12345678",
             ),
             ReviewItem(
                 title="Avatar",
                 year=2009,
                 media_type="movie",
-                background_url="https://image.tmdb.org/avatar_bg.jpg",
+                background_url="https://image.tmdb.org/t/p/original/avatar_bg.jpg",
             ),
             ReviewItem(
                 title="Breaking Bad",
                 year=2008,
                 media_type="show",
-                seasons=[(1, "https://image.tmdb.org/bb_s1.jpg")],
+                seasons=[(1, "https://image.tmdb.org/t/p/original/bb_s1.jpg")],
             ),
         ]
         md = format_review_markdown(items)
@@ -440,10 +451,16 @@ class BulkImportTests(unittest.TestCase):
         self.assertTrue(idx_avatar < idx_bb < idx_zoolander)
 
         # Check clickable links
-        self.assertIn("[View image](<https://image.tmdb.org/avatar_bg.jpg>)", md)
-        self.assertIn("[View image](<https://image.tmdb.org/zoolander.jpg>)", md)
+        self.assertIn(
+            "[View image](<https://image.tmdb.org/t/p/original/avatar_bg.jpg>)", md
+        )
+        self.assertIn(
+            "[View image](<https://image.tmdb.org/t/p/original/zoolander.jpg>)", md
+        )
         self.assertIn("[Watch video](https://www.youtube.com/watch?v=zoo12345678)", md)
-        self.assertIn("[View image](<https://image.tmdb.org/bb_s1.jpg>)", md)
+        self.assertIn(
+            "[View image](<https://image.tmdb.org/t/p/original/bb_s1.jpg>)", md
+        )
 
     def test_format_review_markdown_truncates_exceeding_max_chars(self) -> None:
         from import_bulk_export import ReviewItem, format_review_markdown
@@ -453,7 +470,7 @@ class BulkImportTests(unittest.TestCase):
                 title=f"Movie {i:03d}",
                 year=2020,
                 media_type="movie",
-                poster_url=f"https://image.tmdb.org/poster_{i}.jpg",
+                poster_url=f"https://image.tmdb.org/t/p/original/poster_{i}.jpg",
             )
             for i in range(50)
         ]

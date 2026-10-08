@@ -11,7 +11,7 @@ class StatisticsTests(unittest.TestCase):
     def test_totals_count_both_theme_sources_and_shared_assets(self) -> None:
         entries = [
             movie(
-                background_url="https://image.tmdb.org/background.jpg",
+                background_url="https://image.tmdb.org/t/p/original/background.jpg",
                 youtube_id_overturedb="aaaaaaaaaaa",
                 youtube_id_themerrdb="bbbbbbbbbbb",
             ),
@@ -21,8 +21,14 @@ class StatisticsTests(unittest.TestCase):
                 poster_url=None,
                 youtube_id_overturedb="ccccccccccc",
                 seasons=[
-                    {"season_num": 0, "poster_url": "https://image.tmdb.org/s.jpg"},
-                    {"season_num": 1, "poster_url": "https://image.tmdb.org/s.jpg"},
+                    {
+                        "season_num": 0,
+                        "poster_url": "https://image.tmdb.org/t/p/original/s.jpg",
+                    },
+                    {
+                        "season_num": 1,
+                        "poster_url": "https://image.tmdb.org/t/p/original/s.jpg",
+                    },
                 ],
             ),
             movie(media_type="show", tmdb_id=2, poster_url=None, seasons=[]),
