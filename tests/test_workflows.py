@@ -171,7 +171,9 @@ class WorkflowTests(unittest.TestCase):
             ):
                 referenced.update(json.loads(group))
             self.assertTrue(referenced <= names, referenced - names)
-        renovate = json.loads((ROOT / "renovate.json").read_text(encoding="utf-8"))
+        renovate = json.loads(
+            (ROOT / ".github" / "renovate.json").read_text(encoding="utf-8")
+        )
         self.assertTrue(set(renovate["labels"]) <= names)
         self.assertTrue(set(renovate["vulnerabilityAlerts"]["labels"]) <= names)
         for rule in renovate["packageRules"]:
@@ -210,7 +212,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertTrue(emitted <= names, emitted - names)
 
     def test_runner_updates_are_enabled_without_automatic_os_upgrades(self) -> None:
-        renovate = json.loads((ROOT / "renovate.json").read_text())
+        renovate = json.loads((ROOT / ".github" / "renovate.json").read_text())
         rule = next(
             rule
             for rule in renovate["packageRules"]

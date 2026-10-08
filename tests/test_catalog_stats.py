@@ -4,7 +4,8 @@ import unittest
 from xml.etree import ElementTree
 
 from catalog_stats import dashboard, statistics_json, summarize
-from test_catalog import movie
+
+from tests.test_catalog import movie
 
 
 class StatisticsTests(unittest.TestCase):

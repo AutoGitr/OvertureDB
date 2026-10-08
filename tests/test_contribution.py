@@ -17,6 +17,8 @@ from contribution import (
     process_contribution,
 )
 
+CONTRIBUTION_CLI = Path(__file__).resolve().parents[1] / "scripts" / "contribution.py"
+
 
 class ContributionTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -786,7 +788,7 @@ https://image.tmdb.org/t/p/original/poster.jpg
         labels_file = self.temp_dir / "labels.txt"
         labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
 
-        script_path = Path(__file__).resolve().parent / "contribution.py"
+        script_path = CONTRIBUTION_CLI
         # Execute this checkout's CLI with the current interpreter; no shell.
         res = subprocess.run(  # noqa: S603
             [
@@ -823,7 +825,7 @@ https://image.tmdb.org/t/p/original/poster.jpg
         labels_file = self.temp_dir / "labels.txt"
         labels_file.write_text("contribution\nmovie\n", encoding="utf-8")
 
-        script_path = Path(__file__).resolve().parent / "contribution.py"
+        script_path = CONTRIBUTION_CLI
         # Execute this checkout's CLI with the current interpreter; no shell.
         res = subprocess.run(  # noqa: S603
             [

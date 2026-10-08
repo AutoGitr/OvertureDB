@@ -13,7 +13,8 @@ from unittest.mock import patch
 import import_themerrdb as importer
 from catalog import index_existing_entries
 from contract import validate_entry
-from test_catalog import movie
+
+from tests.test_catalog import movie
 
 
 class ImportThemerrdbTests(unittest.TestCase):
