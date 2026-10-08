@@ -5,7 +5,7 @@ The workflow overview and required repository settings are below.
 
 ## Development
 
-Use Python 3.14.7 and uv. The same read-only gate runs locally and in CI:
+Use the pinned Python and uv versions. The same read-only gate runs locally and in CI:
 
 ```sh
 uv sync --locked
