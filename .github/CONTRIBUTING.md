@@ -17,6 +17,8 @@ bash scripts/pre-commit-check.sh
 
 It checks the lockfile, Ruff lint/formatting, strict Pyright types, unit tests,
 workflow invariants, and every dataset entry. On Windows, run it in Git Bash.
+To run it on every commit, enable the Git hooks once per clone with
+`git config core.hooksPath .githooks`.
 To format changes, use `uv run --locked ruff format scripts schema tests`.
 
 PR checks and a daily scheduled guard also run `uv audit --locked`, covering
