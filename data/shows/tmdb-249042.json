@@ -3,11 +3,16 @@
   "title": "Adolescence",
   "year": 2025,
   "tmdb_id": 249042,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
+  "tvdb_id": 452467,
+  "imdb_id": "tt31806037",
+  "poster_url": "https://image.tmdb.org/t/p/original/20i4nShZZg1g1VFHSB8xpaYM4r7.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/eFsS6vnEdR1cIoFFVOfLopqJWrG.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "9N1xDowNWSo",
-  "seasons": []
+  "seasons": [
+    {
+      "season_num": 1,
+      "poster_url": "https://image.tmdb.org/t/p/original/a1HS9BlU9y5hGPyiimevLhsA3mf.jpg"
+    }
+  ]
 }
