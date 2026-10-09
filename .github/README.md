@@ -15,14 +15,17 @@
 
 ## Why OvertureDB?
 
-Every poster, background and season poster in OvertureDB was chosen by a contributor and approved by a maintainer, following the [selection guidelines](../docs/selection-guidelines.md). With Overture, you can use them in your own library:
+Every poster, background and season poster in OvertureDB was chosen by a contributor and approved by a maintainer, following the [selection guidelines](../docs/selection-guidelines.md). With Overture, you can use all of them in just a few clicks in your own media server library and get:
 
-- **Consistent sets** for franchises, studios, documentary series and TV seasons.
-- **Real background scenes** from the movie or show, not cut-out character collages.
-- **Criterion posters** for Criterion releases.
-- **Clean themes**, chosen and reviewed the same way, that start straight away without dialogue intros, promotions or watermarks. Themes from ThemerrDB are also available as an alternative.
+- **Posters** selected based on their design design and how accurately they represent the movie or show.
+- **Backgrounds** that capture the look of the movie or show with a real scene from it, never a photoshopped collage of characters or floating heads.
+- **Season posters** that belong together, so a show's seasons look like one set.
+- **Posters** and **Backgrounds** that are visually distinct from each other for every movie and show.
+- **Themes** that sound like an opening: music from the first second, with no dialogue intros, promotions or watermarks. They are picked and reviewed the same way, with ThemerrDB's themes available as an alternative.
+- **Consistent sets**, so franchises, select studios and documentary series look and feel cohesive in your library.
+- **Criterion releases** with their authentic Criterion cover art.
 
-Accepted picks are shared with everyone who uses the catalog, so a title only has to be chosen once.
+Accepted picks are available for anyone to use, so a title only has to be chosen once.
 
 The catalog stores metadata, links to artwork on TMDB, ThePosterDB, Fanart.tv, TheTVDB and Plex, and YouTube IDs for themes. It does not host image or audio files.
 
