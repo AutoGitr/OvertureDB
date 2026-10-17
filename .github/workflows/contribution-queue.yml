@@ -1,0 +1,67 @@
+name: Contribution Queue
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, reopened, closed]
+  issue_comment:
+    types: [created, edited, deleted]
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [Contribution Guard, CodeQL]
+    types: [completed]
+  schedule:
+    - cron: '*/5 * * * *'
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    inputs:
+      retry:
+        description: Full request digest to retry after fixing failed checks
+        type: string
+        default: ''
+      import:
+        description: Queue the current pinned ThemerrDB revision
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# This reduces contention; state/contributions and CAS provide durability.
+concurrency:
+  group: contribution-queue
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    if: vars.DATASET_QUEUE_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.1'
+      - name: Generate installed app token
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-checks: read
+      - name: Reconcile durable requests using trusted main code
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          QUEUE_BOT_ID: ${{ vars.OVERTUREDB_BOT_ID }}
+          QUEUE_APP_ID: ${{ vars.OVERTUREDB_APP_ID }}
+          QUEUE_APP_SLUG: ${{ steps.bot-token.outputs.app-slug }}
+          QUEUE_PUBLISH: ${{ vars.DATASET_QUEUE_PUBLISH }}
+          QUEUE_RETRY: ${{ inputs.retry }}
+          QUEUE_IMPORT: ${{ inputs.import == true || github.event.schedule == '0 14 * * *' }}
+        run: uv run --locked python -m scripts.contribution_queue

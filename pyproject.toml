@@ -1,0 +1,100 @@
+[project]
+name = "overturedb"
+version = "1.0.0"
+description = "Curated dataset of clean artwork, verified themes, and franchise sets"
+readme = ".github/README.md"
+requires-python = "==3.15.0"
+dependencies = [
+    "jsonschema==4.26.0",
+]
+
+[dependency-groups]
+dev = [
+    "pyright==1.1.414",
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "pyyaml==6.0.3",
+    "ruff==0.17.1",
+]
+
+[tool.uv]
+required-version = "0.13.1"
+
+# PyYAML publishes no CPython 3.15 wheels yet; its pure-Python build needs no compiler.
+[tool.uv.extra-build-variables]
+pyyaml = { PYYAML_FORCE_LIBYAML = "0" }
+
+[tool.pytest]
+minversion = "9.1"
+testpaths = ["tests"]
+addopts = ["-q", "-ra", "--tb=short"]
+strict = true
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["schema", "scripts"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+precision = 1
+fail_under = 90
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportUnnecessaryTypeIgnoreComment = "error"
+pythonVersion = "3.15"
+include = ["scripts", "schema", "tests"]
+
+[tool.ruff]
+target-version = "py315"
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "B",
+    "C4",
+    "C90",
+    "E",
+    "F",
+    "I",
+    "N",
+    "PERF",
+    "PTH",
+    "RUF",
+    "S",
+    "SIM",
+    "T20",
+    "TC",
+    "TID",
+    "UP",
+    "W",
+]
+
+# These entry points intentionally report results and errors to the terminal.
+[tool.ruff.lint.per-file-ignores]
+"scripts/automation.py" = ["T201"]
+"scripts/github.py" = ["T201"]
+"scripts/catalog.py" = ["T201"]
+"scripts/dataset_health.py" = ["T201"]
+"scripts/import_themerrdb.py" = ["T201"]
+"scripts/sync_labels.py" = ["T201"]
+# Tests validate with assertions.
+"tests/**" = ["S101"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+# Every module-level import is deferred to first use (PEP 810), which also makes
+# TYPE_CHECKING blocks unnecessary: an import used only in annotations never loads.
+require-lazy = "all"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-format = true

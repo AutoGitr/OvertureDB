@@ -1,0 +1,32 @@
+name: Bulk contribution
+description: Submit bulk exported artwork and theme selections from Overture.
+title: "[Bulk]: Contribution from Overture"
+labels: ["bulk"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Export saved library selections from Overture (**OvertureDB -> Export selections**).
+        Attach the downloaded `overturedb-selections.zip` to this issue.
+
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/.github/CONTRIBUTING.md#selection-guidelines). All contributions must follow these guidelines.
+
+        **How Bulk Contributions Work**:
+        - Bulk contributions add missing items and values.
+        - To change or remove an existing item or value, use the movie or show form.
+
+  - type: textarea
+    id: archive
+    attributes:
+      label: OvertureDB Selections Archive
+      placeholder: Attach or drag and drop overturedb-selections.zip here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+    validations:
+      required: false

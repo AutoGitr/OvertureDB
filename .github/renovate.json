@@ -1,0 +1,74 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "abandonments:recommended",
+    ":configMigration"
+  ],
+  "pinDigests": true,
+  "dependencyDashboard": true,
+  "rangeStrategy": "pin",
+  "labels": ["deps"],
+  "prConcurrentLimit": 2,
+  "prHourlyLimit": 2,
+  "minimumReleaseAge": "3 days",
+  "schedule": ["* 5 * * 2"],
+  "internalChecksFilter": "strict",
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["* 5 * * 1"]
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "minimumReleaseAge": null,
+    "schedule": ["at any time"],
+    "vulnerabilityFixStrategy": "lowest"
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["python"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "Python Version"
+    },
+    {
+      "description": "setup-uv accepts a release version, not a Git commit digest",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["astral-sh/uv"],
+      "pinDigests": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["ci"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions Updates",
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "matchDatasources": ["github-runners"],
+      "enabled": true,
+      "groupName": "GitHub runners",
+      "minimumReleaseAge": null,
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["pin", "patch", "digest", "pinDigest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true,
+      "schedule": ["at any time"]
+    },
+    {
+      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
+      "minimumReleaseAge": null
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": "7 days"
+    }
+  ]
+}

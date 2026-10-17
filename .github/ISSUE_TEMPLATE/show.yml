@@ -1,0 +1,85 @@
+name: Contribute show metadata
+description: Add, modify or remove a show's identifiers, artwork and theme.
+title: "[Show]: Title (Year)"
+labels: ["show"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/.github/CONTRIBUTING.md#selection-guidelines). All contributions must follow these guidelines.
+
+  - type: input
+    id: item_title
+    attributes:
+      label: Title
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      description: Four-digit first-air year.
+      placeholder: "2001"
+
+  - type: input
+    id: tmdb_id
+    attributes:
+      label: TMDB ID
+      description: TMDB ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "4613"
+
+  - type: input
+    id: tvdb_id
+    attributes:
+      label: TVDB ID
+      description: TVDB ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "74205"
+
+  - type: input
+    id: imdb_id
+    attributes:
+      label: IMDb ID
+      description: IMDb ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "tt0185906"
+
+  - type: input
+    id: poster_url
+    attributes:
+      label: Poster URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: background_url
+    attributes:
+      label: Background URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: youtube_id
+    attributes:
+      label: YouTube theme video ID
+      description: YouTube URL or 11-character video ID.
+      placeholder: AB96CvvLZKc
+
+  - type: textarea
+    id: season_posters
+    attributes:
+      label: Season posters
+      description: One image link per line, format season_num=url. Links follow the same rules as the poster URL.
+      placeholder: 1=https://image.tmdb.org/t/p/original/example.jpg
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification
+      description: Why an existing identifier, artwork or theme is replaced, or the entry removed.
+      placeholder: "For example: wrong TMDB ID, higher resolution, textless artwork, or a dead link."
+
+  - type: checkboxes
+    id: remove
+    attributes:
+      label: Removal
+      options:
+        - label: Remove this entry from the dataset

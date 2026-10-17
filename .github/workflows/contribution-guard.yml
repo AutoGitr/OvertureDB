@@ -1,0 +1,46 @@
+name: Contribution Guard
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: '27 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: contribution-guard-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contribution-guard:
+    name: contribution-guard
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.1'
+      - name: Check code, contracts and complete dataset
+        run: bash scripts/pre-commit-check.sh
+      - name: Audit locked dependencies, including development and transitive packages
+        run: uv audit --locked
+      - name: Scan repository files for secrets
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: secret
+          exit-code: '1'
+      - name: Validate pull request dataset provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: uv run --locked python -m scripts.guard

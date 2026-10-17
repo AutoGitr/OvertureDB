@@ -1,0 +1,10 @@
+name: Bug report or suggestion
+description: Report a bug or suggest an improvement to OvertureDB's automation, catalog or documentation.
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, or what you suggest.
+    validations:
+      required: true
