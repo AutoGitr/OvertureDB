@@ -166,7 +166,7 @@ To run it on every commit, enable the Git hooks once per clone with
 `git config core.hooksPath .githooks`.
 To format changes, use `uv run --locked ruff format scripts schema tests`.
 
-PR checks and a daily scheduled guard also run `uv audit --locked`, covering
+PR checks and a weekly scheduled guard also run `uv audit --locked`, covering
 direct, transitive and development dependencies. Run it locally when changing
 dependencies; it requires network access and currently emits uv's experimental
 feature notice. No vulnerabilities are ignored.
@@ -239,11 +239,14 @@ actions. Use GitHub's code scanning merge protection to block alerts at the
 desired severity.
 
 Configure GitHub Pages to deploy with GitHub Actions. Install the OvertureDB
-GitHub App on this repository and set `OVERTUREDB_CLIENT_ID` and
-`OVERTUREDB_APP_PRIVATE_KEY`. The app needs contents, issues and pull requests write access, and checks read access.
+GitHub App on this repository and set `OVERTUREDB_CLIENT_ID`,
+`OVERTUREDB_APP_PRIVATE_KEY`, `OVERTUREDB_APP_ID` and `OVERTUREDB_BOT_ID`. The app needs contents, issues and pull requests write access, and checks read access.
 Protect `state/contributions` and `automation/dataset/**` against other non-admin writers.
-Queue ingestion and publication are disabled by default; follow the rollout guide.
 Workflow job permissions remain separate from that app token.
+
+The queue reconciles on contribution events and completed checks, with an hourly
+recovery run for missed events or pending mergeability. The daily 14:00 UTC run
+also enqueues the current ThemerrDB revision.
 
 Repository labels are defined in `.github/labels.json`. Preview changes with
 `uv run --locked python -m scripts.sync_labels`; use `--apply` to reconcile them

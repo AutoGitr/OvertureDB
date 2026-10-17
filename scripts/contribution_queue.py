@@ -1,4 +1,4 @@
-"""Trusted main-only queue dispatcher. Disabled publication is the default."""
+"""Trusted main-only queue dispatcher."""
 
 lazy import os
 
@@ -29,9 +29,8 @@ def main() -> None:
     if os.environ.get("QUEUE_IMPORT") == "true":
         revision = github.api("repos/LizardByte/ThemerrDB/commits/database")["sha"]
         store.enqueue("import", {"upstream": revision})
-    if os.environ.get("QUEUE_PUBLISH") == "true":
-        queue_prs.protections(repo, app_id)
-        queue_prs.tick(repo, store, bot_id)
+    queue_prs.protections(repo, app_id)
+    queue_prs.tick(repo, store, bot_id)
 
 
 if __name__ == "__main__":

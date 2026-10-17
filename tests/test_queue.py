@@ -541,7 +541,7 @@ def test_guard_requires_verified_queue_not_bot_name(
         guard.validate_changes(pr, ["data/movies/tmdb-1.json"])
 
 
-def test_publication_disabled_by_default_and_main_only(
+def test_queue_main_requires_main_ref_and_publishes(
     remote: GitHub, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setenv("GITHUB_REPOSITORY", REPO)
@@ -553,10 +553,6 @@ def test_publication_disabled_by_default_and_main_only(
         contribution_queue.main()
     monkeypatch.setenv("GITHUB_REF", "refs/heads/main")
     monkeypatch.setenv("QUEUE_IMPORT", "true")
-    contribution_queue.main()
-    assert remote.state["requests"][0]["status"] == "queued"
-    assert not remote.prs
-    monkeypatch.setenv("QUEUE_PUBLISH", "true")
     monkeypatch.setattr(queue_prs, "protections", MagicMock())
     monkeypatch.setattr(
         queue_git, "import_snapshot", MagicMock(side_effect=unchanged_entries)

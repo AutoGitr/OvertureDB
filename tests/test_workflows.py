@@ -135,11 +135,15 @@ def test_privileged_queue_runs_only_main_and_never_executes_pr_artifacts() -> No
     source = (ROOT / ".github/workflows/contribution-queue.yml").read_text()
     workflow = yaml.safe_load(source)
     assert workflow["concurrency"]["cancel-in-progress"] is False
-    assert workflow[True]["schedule"][0]["cron"] == "*/5 * * * *"
+    assert workflow[True]["schedule"] == [
+        {"cron": "17 * * * *"},
+        {"cron": "0 14 * * *"},
+    ]
     job = workflow["jobs"]["reconcile"]
-    assert "DATASET_QUEUE_ENABLED == 'true'" in job["if"]
+    assert "github.ref == 'refs/heads/main'" in job["if"]
     assert job["steps"][0]["with"]["ref"] == "main"
-    assert "DATASET_QUEUE_PUBLISH" in source
+    assert "secrets.OVERTUREDB_BOT_ID" in source
+    assert "secrets.OVERTUREDB_APP_ID" in source
     assert "head_sha" not in source
     assert "download-artifact" not in source
     assert "pull_request_target" not in source

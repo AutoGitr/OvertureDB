@@ -3,10 +3,6 @@ name: Import ThemerrDB
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Validation only; publication uses the contribution queue"
-        type: boolean
-        default: true
       limit:
         description: "Maximum items to process (optional)"
         type: string
@@ -51,7 +47,6 @@ jobs:
 
       - name: Run ThemerrDB import
         env:
-          DRY_RUN: ${{ inputs.dry_run }}
           LIMIT: ${{ inputs.limit }}
         run: |
           ARGS=(--themerr-dir themerrdb --output "$RUNNER_TEMP/import.json")

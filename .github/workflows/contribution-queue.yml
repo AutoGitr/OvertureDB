@@ -11,7 +11,8 @@ on:
     workflows: [Contribution Guard, CodeQL]
     types: [completed]
   schedule:
-    - cron: '*/5 * * * *'
+    # Recover missed events and checks completed before mergeability is ready.
+    - cron: '17 * * * *'
     - cron: '0 14 * * *'
   workflow_dispatch:
     inputs:
@@ -34,7 +35,15 @@ concurrency:
 
 jobs:
   reconcile:
-    if: vars.DATASET_QUEUE_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (
+        (github.event_name != 'issues' && github.event_name != 'issue_comment') ||
+        contains(fromJSON('["movie", "show", "bulk"]'), github.event.label.name) ||
+        contains(github.event.issue.labels.*.name, 'movie') ||
+        contains(github.event.issue.labels.*.name, 'show') ||
+        contains(github.event.issue.labels.*.name, 'bulk')
+      )
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
@@ -58,10 +67,9 @@ jobs:
       - name: Reconcile durable requests using trusted main code
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
-          QUEUE_BOT_ID: ${{ vars.OVERTUREDB_BOT_ID }}
-          QUEUE_APP_ID: ${{ vars.OVERTUREDB_APP_ID }}
+          QUEUE_BOT_ID: ${{ secrets.OVERTUREDB_BOT_ID }}
+          QUEUE_APP_ID: ${{ secrets.OVERTUREDB_APP_ID }}
           QUEUE_APP_SLUG: ${{ steps.bot-token.outputs.app-slug }}
-          QUEUE_PUBLISH: ${{ vars.DATASET_QUEUE_PUBLISH }}
           QUEUE_RETRY: ${{ inputs.retry }}
           QUEUE_IMPORT: ${{ inputs.import == true || github.event.schedule == '0 14 * * *' }}
         run: uv run --locked python -m scripts.contribution_queue
