@@ -6,7 +6,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '27 5 * * 1'
+    - cron: '37 4 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
       - name: Install secret scanner
         uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
         with:
-          version: v0.70.0
+          version: v0.75.0
       - name: Check code, contracts, complete dataset, dependencies and secrets
         run: bash scripts/contribution-check.sh
       - name: Validate pull request dataset provenance

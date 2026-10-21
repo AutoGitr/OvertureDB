@@ -46,11 +46,11 @@ In Overture, open the menu in the header, choose **OvertureDB**, check **Enable 
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
 3. Click the GitHub button on the title to open a prefilled issue, add a reason if replacing existing selections, review it and submit it. The bot shows the dataset diff directly in its preview.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). You can also fill in the [movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml) or [show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml) form yourself. A maintainer reviews every submission before it is published.
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). You can also fill in the [movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml) or [show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml) form yourself. A maintainer reviews every submission; approved ones reach the catalog with its next daily update.
 
 Coverage grows with contributions, and linked artwork or videos can disappear from their sources. Correct wrong IDs, replace dead links or remove an entry with the movie or show form. Report bugs and suggestions with the [report form](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
 
-The daily health check reports broken artwork and themes. Changed entries with reported problems are rechecked on the next daily run outside the 200-entry rotation, so accepted fixes clear from the report promptly.
+The daily health check reports broken artwork and themes, and artwork below the recommended resolution. Changed entries with reported findings are rechecked on the next daily run outside the 200-entry rotation, so accepted fixes clear from the report promptly.
 
 ## License
 

@@ -3,15 +3,11 @@ name: CodeQL
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - 'data/**'
   pull_request:
     branches: [main]
-    paths-ignore:
-      - 'data/**'
   workflow_dispatch:
   schedule:
-    - cron: '27 5 * * 1'
+    - cron: '7 4 * * 1'
 
 permissions:
   contents: read
@@ -21,14 +17,65 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  languages:
+    name: Detect changed languages
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    outputs:
+      languages: ${{ steps.detect.outputs.languages }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Each language is analysed only when its code changes, so dataset
+      # contributions start no analysis; the weekly run and a manual run
+      # analyse both.
+      - name: Select the languages to analyse
+        id: detect
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE_SHA: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          all='["python","actions"]'
+          if [ "$EVENT_NAME" = pull_request ]; then
+            changed=$(git diff --name-only "origin/$BASE_REF"...HEAD)
+          elif [ "$EVENT_NAME" = push ] && git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
+            changed=$(git diff --name-only "$BEFORE_SHA" HEAD)
+          else
+            echo "languages=$all" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if grep -Eq '^\.github/workflows/codeql\.yml$' <<< "$changed"; then
+            echo "languages=$all" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          languages=()
+          if grep -Eq '^(scripts|schema)/.+\.py$' <<< "$changed"; then
+            languages+=('"python"')
+          fi
+          if grep -Eq '^\.github/workflows/' <<< "$changed"; then
+            languages+=('"actions"')
+          fi
+          echo "languages=[$(IFS=,; echo "${languages[*]}")]" >> "$GITHUB_OUTPUT"
+
   codeql:
-    name: codeql
+    name: codeql (${{ matrix.language }})
+    needs: languages
+    if: needs.languages.outputs.languages != '[]'
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     permissions:
       contents: read
       security-events: write
       actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{ fromJSON(needs.languages.outputs.languages) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -37,8 +84,14 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
         with:
-          languages: python, actions
+          languages: ${{ matrix.language }}
           build-mode: none
+          # Tests are not shipped, so they are left out of the analysis.
+          config: |
+            paths-ignore:
+              - tests/**
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        with:
+          category: "/language:${{ matrix.language }}"

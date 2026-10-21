@@ -18,12 +18,15 @@ lazy from schema.contract import IDENTITY_FIELDS
 lazy from . import github, publication
 lazy from .catalog import (
     ROOT,
+    TransientError,
     art_fields,
     art_urls,
     aspect_problem,
     check_art_url,
     entry_json,
     public_https_destination,
+    resolution_warning,
+    theme_problem,
 )
 lazy from .contribution import (
     NoChangesError,
@@ -135,8 +138,15 @@ def fenced(value: str, language: str = "text") -> str:
     return f"{fence}{language}\n{value}\n{fence}"
 
 
-def check_artwork(entry: dict[str, Any], previous: dict[str, Any] | None) -> None:
-    """Check that all artwork is reachable and new artwork follows the 1% rule."""
+def check_submission(
+    entry: dict[str, Any], previous: dict[str, Any] | None
+) -> list[str]:
+    """Reject what Dataset Health would report, and return its warnings.
+
+    All artwork must be reachable. New artwork must follow the 1% rule and is
+    warned about below the recommended resolution, and a new theme must play.
+    """
+    warnings: list[str] = []
     existing: set[str] = art_urls([previous]) if previous else set()
     for art_kind, url in sorted(set(art_fields(entry))):
         size = check_art_url(url)
@@ -147,6 +157,20 @@ def check_artwork(entry: dict[str, Any], previous: dict[str, Any] | None) -> Non
                 f"The {art_kind} {url} is {problem}. "
                 "See the 1% rule in the selection guidelines in CONTRIBUTING.md."
             )
+        if warning := resolution_warning(art_kind, *size):
+            warnings.append(f"The {art_kind} {url} is {warning}.")
+    theme = entry["youtube_id_overturedb"]
+    if theme and theme != (previous or {}).get("youtube_id_overturedb"):
+        try:
+            problem = theme_problem(theme)
+        except TransientError as exc:
+            raise ValueError(
+                f"YouTube could not confirm the theme {theme} ({exc}). "
+                "Edit the issue to check again."
+            ) from exc
+        if problem:
+            raise ValueError(f"The theme {theme} is {problem} on YouTube.")
+    return warnings
 
 
 def _digest(value: Any) -> str:
@@ -189,8 +213,9 @@ def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
         issue["body"] or "", issue["title"], sorted(issue_labels(issue))
     )
     result = process_contribution(parsed, root, dry_run=True)
-    if result["entry"]:
-        check_artwork(result["entry"], result["previous"])
+    warnings = (
+        check_submission(result["entry"], result["previous"]) if result["entry"] else []
+    )
     target: str = result["target"]
     previous_target: str | None = result.get("previous_target")
     if result["removed"]:
@@ -210,6 +235,17 @@ def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
         f"{action} {parsed.media_type}: {subject['title']}{year} (#{issue['number']})"
     )
     sections: list[str] = []
+    if warnings:
+        sections.append(
+            "\n".join(
+                [
+                    "> [!WARNING]",
+                    "> Below the recommended resolution. Approve only if nothing "
+                    "better exists; see the selection guidelines in CONTRIBUTING.md.",
+                    *(f"> - {warning}" for warning in warnings),
+                ]
+            )
+        )
     if reason := result.get("modification_reason"):
         sections.append(f"**Reason:** {reason}")
     if comparison := result.get("media_comparison"):

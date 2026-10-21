@@ -1,7 +1,8 @@
 """Check the least recently checked entries and report problems in one issue.
 
-Checks artwork reachability, the 1% rule, resolution and theme availability.
-Results are kept on the ``state/health`` branch.
+Checks artwork reachability, the 1% rule and theme availability, and warns about
+artwork below the recommended resolution. Results are kept on the
+``state/health`` branch.
 """
 
 lazy import argparse
@@ -9,18 +10,19 @@ lazy import hashlib
 lazy import os
 lazy import sys
 lazy from datetime import UTC, datetime
-lazy from typing import Any, TypedDict, cast
+lazy from typing import Any, NamedTuple, TypedDict, cast
 lazy from urllib.error import HTTPError
 lazy from urllib.parse import urlencode
-lazy from urllib.request import Request, urlopen
 
 lazy from .catalog import (
-    MIN_RESOLUTIONS,
     ROOT,
+    TransientError,
     art_fields,
     aspect_problem,
     check_art_url,
     dataset,
+    resolution_warning,
+    theme_problem,
 )
 lazy from .github import BOT_LOGIN, api, load_state, pages, save_state
 
@@ -36,14 +38,18 @@ class EntryState(TypedDict, closed=True):
     checked: str
     hash: str
     problems: list[str]
+    warnings: list[str]
 
 
 class State(TypedDict, closed=True):
     entries: dict[str, EntryState]
 
 
-class TransientError(Exception):
-    """A check could not finish; the entry is retried on the next run."""
+class Findings(NamedTuple):
+    """What is broken in an entry, and what is only below the recommendation."""
+
+    problems: list[str]
+    warnings: list[str]
 
 
 def empty_state() -> State:
@@ -53,13 +59,15 @@ def empty_state() -> State:
 def select_entries(
     hashes: dict[str, str], known: dict[str, EntryState], limit: int
 ) -> list[str]:
-    """Recheck changed problem entries, plus *limit* entries from the rotation."""
+    """Recheck changed entries with findings, plus *limit* from the rotation."""
     if limit < 0:
         raise ValueError("The health check limit must be zero or greater.")
     fixes = {
         path
         for path, entry in known.items()
-        if path in hashes and entry["problems"] and entry["hash"] != hashes[path]
+        if path in hashes
+        and (entry["problems"] or entry["warnings"])
+        and entry["hash"] != hashes[path]
     }
 
     def priority(path: str) -> tuple[bool, str, str]:
@@ -71,30 +79,8 @@ def select_entries(
     return sorted(fixes) + sorted(hashes.keys() - fixes, key=priority)[:limit]
 
 
-def theme_problem(youtube_id: str) -> str | None:
-    """Ask YouTube's keyless oEmbed endpoint whether a video is still available."""
-    video = f"https://www.youtube.com/watch?v={youtube_id}"
-    url = "https://www.youtube.com/oembed?" + urlencode(
-        {"format": "json", "url": video}
-    )
-    request = Request(url, headers={"User-Agent": "OvertureDB"})
-    try:
-        # Fixed HTTPS host; only the validated video ID varies.
-        with urlopen(request, timeout=20):  # noqa: S310
-            return None
-    except HTTPError as exc:
-        exc.close()
-        if exc.code == 404:
-            return "removed"
-        if exc.code in {401, 403}:
-            return "private or not embeddable"
-        raise TransientError(f"YouTube answered HTTP {exc.code}") from exc
-    except OSError as exc:
-        raise TransientError(str(exc)) from exc
-
-
-def artwork_problems(entry: dict[str, Any]) -> list[str]:
-    problems: list[str] = []
+def artwork_findings(entry: dict[str, Any]) -> Findings:
+    findings = Findings([], [])
     for kind, url in sorted(set(art_fields(entry))):
         try:
             size = check_art_url(url)
@@ -102,32 +88,29 @@ def artwork_problems(entry: dict[str, Any]) -> list[str]:
             exc.close()
             if exc.code == 429 or exc.code >= 500:
                 raise TransientError(f"{url} answered HTTP {exc.code}") from exc
-            problems.append(f"{kind} {url}: HTTP {exc.code}")
+            findings.problems.append(f"{kind} {url}: HTTP {exc.code}")
             continue
         except OSError as exc:
             raise TransientError(str(exc)) from exc
         except ValueError as exc:
-            problems.append(f"{kind} {url}: {exc}")
+            findings.problems.append(f"{kind} {url}: {exc}")
             continue
         if size is None:
             continue
-        min_width, min_height = MIN_RESOLUTIONS[kind]
         if problem := aspect_problem(kind, *size):
-            problems.append(f"{kind} {url}: {problem}")
-        elif size[0] < min_width or size[1] < min_height:
-            problems.append(
-                f"{kind} {url}: {size[0]}x{size[1]} is below {min_width}x{min_height}"
-            )
-    return problems
+            findings.problems.append(f"{kind} {url}: {problem}")
+        elif warning := resolution_warning(kind, *size):
+            findings.warnings.append(f"{kind} {url}: {warning}")
+    return findings
 
 
-def entry_problems(entry: dict[str, Any]) -> list[str]:
-    """Return what is wrong with *entry*; TransientError means try again later."""
-    problems = artwork_problems(entry)
+def entry_findings(entry: dict[str, Any]) -> Findings:
+    """Return what *entry* has wrong; TransientError means try again later."""
+    findings = artwork_findings(entry)
     for field in ("youtube_id_overturedb", "youtube_id_themerrdb"):
         if (youtube_id := entry[field]) and (problem := theme_problem(youtube_id)):
-            problems.append(f"{field} {youtube_id}: {problem}")
-    return problems
+            findings.problems.append(f"{field} {youtube_id}: {problem}")
+    return findings
 
 
 def check_health(
@@ -144,14 +127,15 @@ def check_health(
     ):
         digest, entry = files[path]
         try:
-            problems = entry_problems(entry)
+            findings = entry_findings(entry)
         except TransientError as exc:
             print(f"Retrying {path} next run: {exc}", file=sys.stderr)
             continue
         known[path] = {
             "checked": now.date().isoformat(),
             "hash": digest,
-            "problems": problems,
+            "problems": findings.problems,
+            "warnings": findings.warnings,
         }
     return {"entries": known}
 
@@ -169,24 +153,29 @@ def render(
     lines = [
         HEALTH_MARKER,
         "Updated by the Dataset Health workflow. This run checks all changed "
-        f"entries with reported problems, plus up to {limit} entries from the "
+        f"entries with reported findings, plus up to {limit} entries from the "
         "rotation (new and changed first, then least recently checked). "
         f"{checked:,} of {len(entries):,} entries have been checked so far.",
-        "",
     ]
-    problems = [
-        (path, record["problems"])
-        for path, record in sorted(state["entries"].items())
-        if record["problems"]
-    ]
-    for index, (path, found) in enumerate(problems):
-        item = [f"- {describe(path, entries)}", *(f"  - {p}" for p in found)]
-        if sum(len(line) + 1 for line in [*lines, *item]) > MAX_ISSUE_BODY - 200:
-            lines.append(f"- ... and {len(problems) - index:,} more entries")
-            break
-        lines.extend(item)
-    if not problems:
-        lines.append("None found.")
+    records = sorted(state["entries"].items())
+    sections = (
+        ("Problems", [(path, record["problems"]) for path, record in records]),
+        (
+            "Below the recommended resolution",
+            [(path, record["warnings"]) for path, record in records],
+        ),
+    )
+    for heading, findings in sections:
+        found = [(path, items) for path, items in findings if items]
+        lines.extend(["", f"### {heading}", ""])
+        for index, (path, items) in enumerate(found):
+            item = [f"- {describe(path, entries)}", *(f"  - {i}" for i in items)]
+            if sum(len(line) + 1 for line in [*lines, *item]) > MAX_ISSUE_BODY - 400:
+                lines.append(f"- ... and {len(found) - index:,} more entries")
+                break
+            lines.extend(item)
+        if not found:
+            lines.append("None found.")
     return "\n".join(lines) + "\n"
 
 
@@ -225,7 +214,15 @@ def main() -> int:
     now = datetime.now(UTC)
     try:
         saved, parent = load_state(STATE_BRANCH)
-        initial = cast("State", {**empty_state(), **saved})
+        fields = set(EntryState.__annotations__)
+        # A record that lacks a field is checked again instead of being read.
+        initial: State = {
+            "entries": {
+                path: cast("EntryState", record)
+                for path, record in saved.get("entries", {}).items()
+                if set(record) == fields
+            }
+        }
         files = {
             path.relative_to(ROOT).as_posix(): (
                 hashlib.sha1(path.read_bytes(), usedforsecurity=False).hexdigest(),

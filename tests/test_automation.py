@@ -13,12 +13,21 @@ lazy from zipfile import ZipFile
 lazy import pytest
 
 lazy from scripts import automation
+lazy from scripts.catalog import TransientError
 lazy from scripts.contribution import (
     clean_youtube_id,
     parse_issue_form,
 )
 lazy from scripts.import_bulk_export import import_bulk_export, load_incoming_entries
 lazy from tests.test_catalog import movie
+
+
+@pytest.fixture(autouse=True)
+def theme_problem(monkeypatch: pytest.MonkeyPatch) -> MagicMock:
+    """Every contributed theme plays, unless a test says otherwise."""
+    check = MagicMock(return_value=None)
+    monkeypatch.setattr(automation, "theme_problem", check)
+    return check
 
 
 def issue(**changes: Any) -> dict[str, Any]:
@@ -332,15 +341,45 @@ def test_only_submitted_artwork_must_follow_the_one_percent_rule(
     new = movie(background_url="https://image.tmdb.org/t/p/original/new.jpg")
     sizes = {old["poster_url"]: (1000, 1000), new["background_url"]: (1920, 1080)}
     probe.side_effect = sizes.get
-    automation.check_artwork(new, old)
+    assert automation.check_submission(new, old) == []
     assert probe.call_count == 2
     with pytest.raises(ValueError, match="1% rule"):
-        automation.check_artwork(new, None)
+        automation.check_submission(new, None)
+
+
+@patch.object(automation, "check_art_url")
+def test_submitted_artwork_below_the_recommended_resolution_is_a_warning(
+    probe: MagicMock,
+) -> None:
+    old = movie()
+    new = movie(background_url="https://image.tmdb.org/t/p/original/new.jpg")
+    sizes = {old["poster_url"]: (800, 1200), new["background_url"]: (1280, 720)}
+    probe.side_effect = sizes.get
+    assert automation.check_submission(new, old) == [
+        f"The background {new['background_url']} is 1280x720 is below the "
+        "recommended 1600x900."
+    ]
 
 
 @patch.object(automation, "check_art_url", return_value=None)
 def test_unmeasured_artwork_is_not_rejected(_probe: MagicMock) -> None:
-    automation.check_artwork(movie(), None)
+    automation.check_submission(movie(), None)
+
+
+@patch.object(automation, "check_art_url", return_value=None)
+def test_a_submitted_theme_must_play_on_youtube(
+    _probe: MagicMock, theme_problem: MagicMock
+) -> None:
+    old = movie(youtube_id_overturedb="AB96CvvLZKc")
+    automation.check_submission(old, old)
+    theme_problem.assert_not_called()
+    new = movie(youtube_id_overturedb="4xdyx5NVUhI")
+    theme_problem.return_value = "removed"
+    with pytest.raises(ValueError, match="4xdyx5NVUhI is removed on YouTube"):
+        automation.check_submission(new, old)
+    theme_problem.side_effect = TransientError("HTTP 500")
+    with pytest.raises(ValueError, match="Edit the issue to check again"):
+        automation.check_submission(new, None)
 
 
 @patch.object(automation, "check_art_url", return_value=None)

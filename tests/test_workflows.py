@@ -13,33 +13,74 @@ lazy from scripts.sync_labels import load_labels
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_dataset_only_changes_never_start_analysis(subtests: pytest.Subtests) -> None:
+NONE: frozenset[str] = frozenset()
+_LANGUAGE_FILTER = re.compile(
+    r"grep -Eq '([^']+)' <<< \"\$changed\"; then\s+languages\+=\('\"([\w-]+)\"'\)"
+)
+
+
+@pytest.mark.parametrize(
+    ("path", "languages"),
+    [
+        ("data/movies/603.json", NONE),
+        ("schema/entry.schema.json", NONE),
+        ("tests/test_catalog.py", NONE),
+        (".github/README.md", NONE),
+        ("scripts/catalog.py", frozenset({"python"})),
+        ("schema/contract.py", frozenset({"python"})),
+        (".github/workflows/contributions.yml", frozenset({"actions"})),
+    ],
+)
+def test_codeql_analyses_only_the_languages_a_change_touches(
+    path: str, languages: frozenset[str]
+) -> None:
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    # PyYAML reads the bare `on` key as True.
-    triggers = workflow[True]
-    for event in ("push", "pull_request"):
-        with subtests.test(event=event):
-            assert triggers[event]["paths-ignore"] == ["data/**"]
+    script = workflow["jobs"]["languages"]["steps"][1]["run"]
+    filters = _LANGUAGE_FILTER.findall(script)
+    assert {name for pattern, name in filters if re.search(pattern, path)} == languages
+    assert """all='["python","actions"]'""" in script
 
 
 def test_analysis_failures_use_native_job_status() -> None:
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    assert set(workflow["jobs"]) == {"codeql"}
+    assert set(workflow["jobs"]) == {"languages", "codeql"}
     job = workflow["jobs"]["codeql"]
-    assert "if" not in job
+    assert job["if"] == "needs.languages.outputs.languages != '[]'"
     for step in job["steps"]:
         assert not step.get("continue-on-error", False)
         assert "if" not in step
-        if "github/codeql-action/init@" in step.get("uses", ""):
-            assert step["with"]["languages"] == "python, actions"
 
 
-def test_health_runs_on_schedule_and_manual_dispatch_only() -> None:
+def _triggers(name: str) -> dict[str, object]:
+    workflow = yaml.safe_load((ROOT / f".github/workflows/{name}").read_text())
+    # PyYAML reads the bare `on` key as True.
+    return workflow[True]
+
+
+def test_the_daily_pipeline_starts_with_the_import() -> None:
+    assert set(_triggers("import-themerrdb.yml")) == {"schedule", "workflow_dispatch"}
+    for name in ("dataset-health.yml", "publish-catalog.yml"):
+        triggers = _triggers(name)
+        assert set(triggers) == {"workflow_run", "workflow_dispatch"}, name
+        assert triggers["workflow_run"] == {
+            "workflows": ["Import ThemerrDB"],
+            "types": ["completed"],
+        }, name
+
+
+def test_every_daily_run_validates_builds_and_deploys_the_catalog() -> None:
+    workflow = yaml.safe_load(
+        (ROOT / ".github/workflows/publish-catalog.yml").read_text()
+    )
+    assert "if" not in workflow["jobs"]["deploy"]
+    for step in workflow["jobs"]["build"]["steps"]:
+        assert "if" not in step
+
+
+def test_health_steps_behave_the_same_for_every_trigger() -> None:
     workflow = yaml.safe_load(
         (ROOT / ".github/workflows/dataset-health.yml").read_text()
     )
-    triggers = workflow[True]
-    assert set(triggers) == {"schedule", "workflow_dispatch"}
     step = workflow["jobs"]["health"]["steps"][-1]
     assert "EVENT_NAME" not in step["env"]
 

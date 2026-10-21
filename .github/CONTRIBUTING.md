@@ -10,13 +10,14 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 ### General rules
 
 - **Preferred Source**: TMDB is the preferred and prioritised artwork source. TPDb is good for franchise and collection artwork sets.
-- **Resolution**: The higher the better, as long as it doesn't compromise other criteria. The general recommendation for lowest allowed resolution is 1000x1500 for posters and season posters, and 1600x900 for backgrounds.
+- **Resolution**: The higher the better, as long as it doesn't compromise other criteria. Posters and season posters should be at least 1000x1500 and backgrounds at least 1600x900.
 - **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the target aspect ratio:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
   - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
 - **Represent the Item**: The artwork and theme should match the tone, genre, and aesthetic of the movie or show (to some degree).
 - **Visual Consistency**: Keep artwork consistent across a franchise, collection or a show's seasons. When you pick artwork from a poster set, such as one of the [example poster sets](#example-poster-sets), aim to contribute that set's artwork for every item it covers.
 - **Criterion Collection Films**: Any Criterion film must use a properly formatted Criterion poster. It must use modern Criterion formatting (clean layout), correct aspect ratio (not stretched or distorted), and authentic Criterion cover art.
+- **Exceptions**: Can be made to any of the rules above when a good reason is given or in special cases.
 - **No Spoilers or Explicit/Malicious Content**: Submissions must not contain spoilers to major plot points, adult or explicit (NSFW) imagery, nudity, gore, or deceptive/malicious links.
 
 ### Artwork requirements
@@ -113,9 +114,14 @@ A preview comment shows validation results, the selections and the diff. A maint
 
 Use `movie`, `show`, or `bulk`.
 Preview comments show validation failures, clickable selections and the proposed
-diff. Replacing a value or removing an entry requires a reason. Bulk archives add
-missing values and keep imported ThemerrDB themes. Invalid bulk records block the whole contribution; fix the archive before review. Limits are
-10 MB downloaded, 100,000 JSON entries, 1 MB per entry, and 50 MB of uncompressed
+diff. Single-entry submissions are rejected for unreachable artwork, new artwork
+outside the 1% rule, or a new theme that is removed or private on YouTube, and
+warn about new artwork below the recommended resolution. Bulk archives are not
+fetched; Dataset Health reports the same findings for them. Replacing a value
+or removing an entry requires a reason. Bulk archives add
+missing values and keep imported ThemerrDB themes. Invalid bulk records block
+the whole contribution; fix the archive before review. Limits are 10 MB
+downloaded, 100,000 JSON entries, 1 MB per entry, and 50 MB of uncompressed
 JSON. These are archive safety limits. Review size is based on the final changed
 entries, excluding unchanged records and consolidating repeated records for the
 same entry. A large export with few changes can fit; a large set of actual changes
@@ -230,14 +236,16 @@ Only the workflows push.
 | --- | --- |
 | Contributions | Validate contribution issues, post preview comments, and commit approved changes to `main`. |
 | Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer dataset PRs. |
-| CodeQL | Scan Python and Actions on code changes (never required for dataset contributions). |
-| Import ThemerrDB | Import new and updated ThemerrDB themes daily (or on manual dispatch with optional dry-run). |
-| Dataset Health | Check entries daily and update the `health` issue. |
-| Publish Catalog | Validate, build and deploy the catalog to Pages daily. |
+| CodeQL | Scan Python and Actions code when it changes, and both weekly; dataset contributions start no analysis. |
+| Import ThemerrDB | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch with optional dry-run). |
+| Dataset Health | Check entries after each import and update the `health` issue. |
+| Publish Catalog | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
 
 Dataset Health checks 200 entries per daily run, new and changed ones first:
-artwork reachability, the 1% rule, resolution and theme availability. Every run
-also rechecks all entries with reported problems whose content has changed since
+artwork reachability, the 1% rule and theme availability as problems, and
+artwork below the recommended resolution as warnings, each in its own section of
+the `health` issue. Every run also rechecks all entries with reported findings
+whose content has changed since
 their last completed check, outside that limit. Changes older than 24 hours are
 included too, so a missed run cannot leave a fix behind. Transient failures keep
 the previous findings and are retried on a later run. Its state lives on the

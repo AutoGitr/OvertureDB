@@ -19,8 +19,8 @@ lazy from http.client import HTTPMessage
 lazy from pathlib import Path
 lazy from typing import IO, Any
 lazy from urllib.error import HTTPError
-lazy from urllib.parse import SplitResult, urlsplit
-lazy from urllib.request import HTTPRedirectHandler, Request, build_opener
+lazy from urllib.parse import SplitResult, urlencode, urlsplit
+lazy from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 
 lazy from schema.contract import (
     IDENTITY_FIELDS,
@@ -300,6 +300,40 @@ def aspect_problem(kind: str, width: int, height: int) -> str | None:
     if abs(ratio - target) / target <= ASPECT_TOLERANCE:
         return None
     return f"{width}x{height} has ratio {ratio:.3f}, outside 1% of {target:.3f}"
+
+
+def resolution_warning(kind: str, width: int, height: int) -> str | None:
+    """Describe artwork below the recommended resolution for its *kind*, or None."""
+    min_width, min_height = MIN_RESOLUTIONS[kind]
+    if width >= min_width and height >= min_height:
+        return None
+    return f"{width}x{height} is below the recommended {min_width}x{min_height}"
+
+
+class TransientError(Exception):
+    """A check could not finish now and may succeed when tried again."""
+
+
+def theme_problem(youtube_id: str) -> str | None:
+    """Ask YouTube's keyless oEmbed endpoint whether a video is still available."""
+    video = f"https://www.youtube.com/watch?v={youtube_id}"
+    url = "https://www.youtube.com/oembed?" + urlencode(
+        {"format": "json", "url": video}
+    )
+    request = Request(url, headers={"User-Agent": "OvertureDB"})
+    try:
+        # Fixed HTTPS host; only the validated video ID varies.
+        with urlopen(request, timeout=20):  # noqa: S310
+            return None
+    except HTTPError as exc:
+        exc.close()
+        if exc.code == 404:
+            return "removed"
+        if exc.code in {401, 403}:
+            return "private or not embeddable"
+        raise TransientError(f"YouTube answered HTTP {exc.code}") from exc
+    except OSError as exc:
+        raise TransientError(str(exc)) from exc
 
 
 def public_https_destination(

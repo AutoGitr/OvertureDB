@@ -1,8 +1,11 @@
 name: Publish Catalog
 
+# Once a day, right after the import, so the day's approved contributions and
+# imported themes go out in one deploy. A manual run publishes at once.
 on:
-  schedule:
-    - cron: "0 15 * * *"
+  workflow_run:
+    workflows: [Import ThemerrDB]
+    types: [completed]
   workflow_dispatch:
 
 permissions:

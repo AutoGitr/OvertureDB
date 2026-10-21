@@ -2,7 +2,9 @@ name: Import ThemerrDB
 
 on:
   schedule:
-    - cron: "0 14 * * *"
+    # Starts the daily pipeline: Dataset Health and Publish Catalog follow it.
+    # Off the top of the hour, when GitHub delays scheduled runs the most.
+    - cron: "23 14 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -56,7 +58,7 @@ jobs:
         if: inputs.dry_run != true
         uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
         with:
-          version: v0.70.0
+          version: v0.75.0
 
       - name: Generate bot token
         if: inputs.dry_run != true

@@ -1,8 +1,11 @@
 name: Dataset Health
 
+# Daily, right after the import, so newly imported entries are checked the
+# same day.
 on:
-  schedule:
-    - cron: "0 15 * * *"
+  workflow_run:
+    workflows: [Import ThemerrDB]
+    types: [completed]
   workflow_dispatch:
     inputs:
       dry_run:

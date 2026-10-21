@@ -10,8 +10,8 @@ lazy from urllib.error import HTTPError
 
 lazy import pytest
 
+lazy from scripts import catalog, github
 lazy from scripts import dataset_health as health
-lazy from scripts import github
 lazy from tests.test_catalog import movie
 
 NOW = datetime(2026, 10, 13, 12, tzinfo=UTC)
@@ -30,15 +30,42 @@ def files(**entries: dict[str, Any]) -> dict[str, tuple[str, dict[str, Any]]]:
 
 def test_changed_problem_entries_are_extra_and_checked_even_with_zero_limit() -> None:
     known: dict[str, health.EntryState] = {
-        "fixed": {"checked": "2026-10-12", "hash": "before", "problems": ["dead"]},
+        "fixed": {
+            "checked": "2026-10-12",
+            "hash": "before",
+            "problems": ["dead"],
+            "warnings": [],
+        },
         "older_fix": {
             "checked": "2026-01-01",
             "hash": "before",
             "problems": ["dead"],
+            "warnings": [],
         },
-        "unchanged": {"checked": "2026-01-01", "hash": "h", "problems": ["dead"]},
-        "healthy": {"checked": "2026-01-01", "hash": "before", "problems": []},
-        "deleted": {"checked": "2026-01-01", "hash": "h", "problems": ["dead"]},
+        "unchanged": {
+            "checked": "2026-01-01",
+            "hash": "h",
+            "problems": ["dead"],
+            "warnings": [],
+        },
+        "healthy": {
+            "checked": "2026-01-01",
+            "hash": "before",
+            "problems": [],
+            "warnings": [],
+        },
+        "deleted": {
+            "checked": "2026-01-01",
+            "hash": "h",
+            "problems": ["dead"],
+            "warnings": [],
+        },
+        "upscaled": {
+            "checked": "2026-01-01",
+            "hash": "before",
+            "problems": [],
+            "warnings": ["low"],
+        },
     }
     hashes = {
         "new": "h",
@@ -46,14 +73,17 @@ def test_changed_problem_entries_are_extra_and_checked_even_with_zero_limit() ->
         "older_fix": "after",
         "unchanged": "h",
         "healthy": "after",
+        "upscaled": "after",
     }
     assert health.select_entries(hashes, known, 0) == [
         "fixed",
         "older_fix",
+        "upscaled",
     ]
     assert health.select_entries(hashes, known, 2) == [
         "fixed",
         "older_fix",
+        "upscaled",
         "healthy",
         "new",
     ]
@@ -66,62 +96,61 @@ def test_negative_limit_is_rejected() -> None:
 
 def test_new_and_changed_entries_come_before_the_oldest_checked() -> None:
     known: dict[str, health.EntryState] = {
-        "old": {"checked": "2026-01-01", "hash": "h", "problems": []},
-        "recent": {"checked": "2026-10-01", "hash": "h", "problems": []},
-        "changed": {"checked": "2026-10-12", "hash": "before", "problems": []},
+        "old": {"checked": "2026-01-01", "hash": "h", "problems": [], "warnings": []},
+        "recent": {
+            "checked": "2026-10-01",
+            "hash": "h",
+            "problems": [],
+            "warnings": [],
+        },
+        "changed": {
+            "checked": "2026-10-12",
+            "hash": "before",
+            "problems": [],
+            "warnings": [],
+        },
     }
     hashes = {"recent": "h", "old": "h", "changed": "after", "new": "h"}
     assert health.select_entries(hashes, known, 3) == ["changed", "new", "old"]
     assert health.select_entries(hashes, known, 10)[-1] == "recent"
 
 
+BACKGROUND_ONLY = {
+    "poster_url": None,
+    "background_url": "https://image.tmdb.org/t/p/original/bg.jpg",
+}
+
+
 @patch.object(health, "check_art_url")
-def test_artwork_reports_dead_links_ratio_and_resolution(
+def test_broken_artwork_is_a_problem_and_low_resolution_a_warning(
     probe: MagicMock,
     subtests: pytest.Subtests,
 ) -> None:
-    for entry, result, expected in (
-        (movie(), (2000, 3000), None),
-        (movie(), (1000, 1500), None),
-        (movie(), (800, 1200), "800x1200 is below 1000x1500"),
-        (movie(), (1000, 1490), "1000x1490 is below 1000x1500"),
-        (
-            movie(
-                poster_url=None,
-                background_url="https://image.tmdb.org/t/p/original/bg.jpg",
-            ),
-            (1600, 900),
-            None,
-        ),
-        (
-            movie(
-                poster_url=None,
-                background_url="https://image.tmdb.org/t/p/original/bg.jpg",
-            ),
-            (1280, 720),
-            "1280x720 is below 1600x900",
-        ),
-        (
-            movie(
-                poster_url=None,
-                background_url="https://image.tmdb.org/t/p/original/bg.jpg",
-            ),
-            (1600, 895),
-            "1600x895 is below 1600x900",
-        ),
-        (movie(), (1000, 1000), "outside 1%"),
-        (movie(), http_error(404), "HTTP 404"),
-        (movie(), ValueError("not a JPEG"), "not a JPEG"),
-        (movie(), None, None),
+    for entry, result, problem, warning in (
+        (movie(), (2000, 3000), None, None),
+        (movie(), (1000, 1500), None, None),
+        (movie(), (800, 1200), None, "800x1200 is below the recommended 1000x1500"),
+        (movie(), (1000, 1490), None, "1000x1490 is below the recommended"),
+        (movie(**BACKGROUND_ONLY), (1600, 900), None, None),
+        (movie(**BACKGROUND_ONLY), (1280, 720), None, "1280x720 is below"),
+        (movie(**BACKGROUND_ONLY), (1600, 895), None, "1600x895 is below"),
+        (movie(), (1000, 1000), "outside 1%", None),
+        (movie(), http_error(404), "HTTP 404", None),
+        (movie(), ValueError("not a JPEG"), "not a JPEG", None),
+        (movie(), None, None, None),
     ):
-        with subtests.test(result=result, expected=expected):
+        with subtests.test(result=result):
             probe.side_effect = [result]
-            problems = health.artwork_problems(entry)
-            if expected is None:
-                assert problems == []
-            else:
-                assert len(problems) == 1
-                assert expected in problems[0]
+            findings = health.artwork_findings(entry)
+            for found, expected in (
+                (findings.problems, problem),
+                (findings.warnings, warning),
+            ):
+                if expected is None:
+                    assert found == []
+                else:
+                    assert len(found) == 1
+                    assert expected in found[0]
 
 
 @patch.object(health, "check_art_url")
@@ -132,25 +161,25 @@ def test_rate_limits_and_outages_are_retried_later(
         with subtests.test(error=error):
             probe.side_effect = [error]
             with pytest.raises(health.TransientError):
-                health.artwork_problems(movie())
+                health.artwork_findings(movie())
 
 
-@patch.object(health, "urlopen")
+@patch.object(catalog, "urlopen")
 def test_theme_availability_uses_oembed(urlopen: MagicMock) -> None:
-    assert health.theme_problem("4xdyx5NVUhI") is None
+    assert catalog.theme_problem("4xdyx5NVUhI") is None
     assert "4xdyx5NVUhI" in urlopen.call_args.args[0].full_url
     assert urlopen.call_args.args[0].full_url.startswith(
         "https://www.youtube.com/oembed?"
     )
     for code, expected in ((404, "removed"), (401, "private or not embeddable")):
         urlopen.side_effect = http_error(code)
-        assert health.theme_problem("4xdyx5NVUhI") == expected
+        assert catalog.theme_problem("4xdyx5NVUhI") == expected
     urlopen.side_effect = http_error(500)
-    with pytest.raises(health.TransientError):
-        health.theme_problem("4xdyx5NVUhI")
+    with pytest.raises(catalog.TransientError):
+        catalog.theme_problem("4xdyx5NVUhI")
 
 
-@patch.object(health, "entry_problems")
+@patch.object(health, "entry_findings")
 def test_fix_rechecks_clear_resolved_problems_and_keep_transient_failures(
     problems: MagicMock,
 ) -> None:
@@ -160,12 +189,13 @@ def test_fix_rechecks_clear_resolved_problems_and_keep_transient_failures(
                 "checked": "2026-01-01",
                 "hash": "before",
                 "problems": ["poster: HTTP 404"],
+                "warnings": [],
             }
             for name in ("a", "b")
         }
     }
     entries = files(a=movie(), b=movie(tmdb_id=2), c=movie(tmdb_id=3))
-    problems.side_effect = [[], health.TransientError("slow")]
+    problems.side_effect = [health.Findings([], []), health.TransientError("slow")]
     result = health.check_health(state, entries, NOW, limit=0)
     assert problems.call_count == 2
     assert result["entries"]["data/movies/a.json"]["problems"] == []
@@ -176,13 +206,13 @@ def test_fix_rechecks_clear_resolved_problems_and_keep_transient_failures(
     )
     assert "data/movies/c.json" not in result["entries"]
     problems.reset_mock(side_effect=True)
-    problems.return_value = []
+    problems.return_value = health.Findings([], [])
     retried = health.check_health(result, entries, NOW, limit=0)
     problems.assert_called_once_with(entries["data/movies/b.json"][1])
     assert retried["entries"]["data/movies/b.json"]["problems"] == []
 
 
-@patch.object(health, "entry_problems")
+@patch.object(health, "entry_findings")
 def test_health_records_results_and_keeps_retries_for_next_run(
     problems: MagicMock,
 ) -> None:
@@ -192,11 +222,20 @@ def test_health_records_results_and_keeps_retries_for_next_run(
             "checked": "2026-01-01",
             "hash": "hash-a",
             "problems": ["poster: HTTP 404"],
+            "warnings": [],
         },
-        "data/movies/gone.json": {"checked": "x", "hash": "y", "problems": []},
+        "data/movies/gone.json": {
+            "checked": "x",
+            "hash": "y",
+            "problems": [],
+            "warnings": [],
+        },
     }
     # b is new, so it is checked before a.
-    problems.side_effect = [["theme: removed"], health.TransientError("slow")]
+    problems.side_effect = [
+        health.Findings(["theme: removed"], ["poster: low"]),
+        health.TransientError("slow"),
+    ]
     result = health.check_health(
         state,
         files(a=movie(), b=movie(tmdb_id=2)),
@@ -211,15 +250,32 @@ def test_health_records_results_and_keeps_retries_for_next_run(
         "checked": "2026-10-13",
         "hash": "hash-b",
         "problems": ["theme: removed"],
+        "warnings": ["poster: low"],
     }
     assert "data/movies/gone.json" not in result["entries"]
 
 
 def test_report_describes_the_selected_rotation_limit() -> None:
     body = health.render(health.empty_state(), {}, limit=0)
-    assert "all changed entries with reported problems" in body
+    assert "all changed entries with reported findings" in body
     assert "up to 0 entries" in body
-    assert "None found." in body
+    assert body.count("None found.") == 2
+
+
+def test_report_lists_low_resolution_apart_from_problems() -> None:
+    state = health.empty_state()
+    state["entries"]["data/movies/a.json"] = {
+        "checked": "2026-10-13",
+        "hash": "h",
+        "problems": [],
+        "warnings": ["poster x: 800x1200 is below the recommended 1000x1500"],
+    }
+    body = health.render(state, {"data/movies/a.json": movie()})
+    problems, warnings = body.split("### Below the recommended resolution")
+    assert "### Problems" in problems
+    assert "None found." in problems
+    assert "`data/movies/a.json`" in warnings
+    assert "800x1200 is below the recommended 1000x1500" in warnings
 
 
 def test_report_lists_problems_and_stays_within_issue_limit() -> None:
@@ -232,6 +288,7 @@ def test_report_lists_problems_and_stays_within_issue_limit() -> None:
             "checked": "2026-10-13",
             "hash": "h",
             "problems": ["poster https://image.tmdb.org/t/p/original/x.jpg: " * 3],
+            "warnings": [],
         }
     body = health.render(state, entries)
     assert body.startswith(health.HEALTH_MARKER)
@@ -279,7 +336,9 @@ def run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, MagicMock]
     stubs = {
         "load_state": MagicMock(return_value=({}, "parent-sha")),
         "dataset": MagicMock(return_value=[(entry, movie())]),
-        "entry_problems": MagicMock(return_value=["poster: HTTP 404"]),
+        "entry_findings": MagicMock(
+            return_value=health.Findings(["poster: HTTP 404"], [])
+        ),
         "publish_report": MagicMock(),
         "save_state": MagicMock(),
     }
@@ -331,6 +390,23 @@ def test_a_run_that_learns_nothing_saves_no_state(
 
     run["publish_report"].assert_called_once()
     run["save_state"].assert_not_called()
+
+
+def test_a_saved_record_missing_a_field_is_checked_again(
+    run: dict[str, MagicMock], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    incomplete: dict[str, Any] = {"checked": "2026-10-12", "hash": "h", "problems": []}
+    run["load_state"].return_value = (
+        {"entries": {"data/movies/tmdb-1.json": incomplete}},
+        "parent-sha",
+    )
+    monkeypatch.setattr("sys.argv", ["dataset_health.py", "--limit", "1"])
+
+    assert health.main() == 0
+
+    run["entry_findings"].assert_called_once()
+    state = run["save_state"].call_args.args[1]
+    assert state["entries"]["data/movies/tmdb-1.json"]["warnings"] == []
 
 
 def test_a_failed_run_reports_why(
