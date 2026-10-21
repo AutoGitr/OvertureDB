@@ -30,11 +30,6 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["python"],
-      "matchUpdateTypes": ["minor"],
-      "groupName": "Python Version"
-    },
-    {
       "matchManagers": ["github-actions"],
       "addLabels": ["ci"]
     },
@@ -49,6 +44,11 @@
       "groupName": "GitHub runners",
       "minimumReleaseAge": null,
       "automerge": false
+    },
+    {
+      "description": "Python must be the same version in .python-version and the image that builds the container",
+      "matchPackageNames": ["python"],
+      "groupName": "Python Version"
     },
     {
       "matchUpdateTypes": ["pin", "patch", "digest", "pinDigest"],
