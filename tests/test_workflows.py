@@ -113,9 +113,10 @@ def test_workflows_pin_actions_bound_runtime_and_do_not_persist_credentials(
                     if step.get("uses", "").startswith("actions/checkout@"):
                         assert step["with"]["persist-credentials"] is False
                     if step.get("uses", "").startswith("astral-sh/setup-uv@"):
-                        assert re.search(r"^\d+\.\d+\.\d+$", step["with"]["version"])
-                        # uv reads Python's version from .python-version.
-                        assert set(step["with"]) == {"version"}
+                        # setup-uv installs the required-version from
+                        # pyproject.toml, and uv reads Python's version from
+                        # .python-version.
+                        assert "with" not in step
                     run = step.get("run", "")
                     assert "${{" not in run, (
                         "Pass expressions through env, not shell interpolation"

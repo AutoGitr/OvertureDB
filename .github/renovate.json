@@ -35,12 +35,6 @@
       "groupName": "Python Version"
     },
     {
-      "description": "setup-uv accepts a release version, not a Git commit digest",
-      "matchManagers": ["github-actions"],
-      "matchPackageNames": ["astral-sh/uv"],
-      "pinDigests": false
-    },
-    {
       "matchManagers": ["github-actions"],
       "addLabels": ["ci"]
     },
@@ -70,6 +64,16 @@
     {
       "matchUpdateTypes": ["major"],
       "minimumReleaseAge": "7 days"
+    }
+  ],
+  "customManagers": [
+    {
+      "description": "The uv version every uv command and setup-uv step requires",
+      "customType": "regex",
+      "managerFilePatterns": ["/^pyproject\\.toml$/"],
+      "matchStrings": ["required-version = \"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "uv",
+      "datasourceTemplate": "pypi"
     }
   ]
 }
