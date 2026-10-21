@@ -46,7 +46,7 @@
       "automerge": false
     },
     {
-      "description": "Python must be the same version in .python-version and the image that builds the container",
+      "description": "Python must be the same exact version in requires-python and .python-version",
       "matchPackageNames": ["python"],
       "groupName": "Python Version"
     },

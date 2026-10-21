@@ -2,6 +2,7 @@
 
 lazy import json
 lazy import re
+lazy import tomllib
 lazy from pathlib import Path
 
 lazy import pytest
@@ -11,6 +12,12 @@ lazy from scripts.automation import KINDS
 lazy from scripts.sync_labels import load_labels
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_python_requirement_matches_the_pinned_runtime() -> None:
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text())
+    python = (ROOT / ".python-version").read_text().strip()
+    assert project["project"]["requires-python"] == f"=={python}"
 
 
 NONE: frozenset[str] = frozenset()

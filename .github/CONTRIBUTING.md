@@ -165,7 +165,10 @@ smaller contributions so every change fits in the review comment.
 
 ## Development
 
-Use the pinned Python and uv versions. The same read-only gate runs locally and in CI:
+Use the pinned Python and uv versions. Python is pinned exactly in
+`requires-python` and `.python-version`; update both together with `uv.lock`,
+including for patch releases. Renovate's pinning policy is intentional.
+The same read-only gate runs locally and in CI:
 
 ```sh
 uv sync --locked
