@@ -7,7 +7,7 @@
 
 <br>
 
-*A hand-picked artwork and theme music catalog for [Overture](https://github.com/AutoGitr/Overture)*
+*Artwork and theme catalog for [Overture](https://github.com/AutoGitr/Overture)*
 
 [Use with Overture](#use-with-overture) • [Contribute selections](#contribute-selections)
 
