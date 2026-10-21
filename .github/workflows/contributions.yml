@@ -67,9 +67,9 @@ jobs:
           permission-issues: write
       - name: Install secret scanner for candidate validation
         if: github.event_name == 'issue_comment' && startsWith(github.event.comment.body, '@OvertureDB-bot approve')
-        uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
         with:
-          version: v0.75.0
+          version: v0.76.0
       - name: Process contribution event
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
