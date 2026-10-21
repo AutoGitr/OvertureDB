@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/entry.schema.json",
+  "title": "OvertureDB entry",
+  "description": "One movie or show in the version 1 OvertureDB catalog.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "media_type",
+    "title",
+    "year",
+    "tmdb_id",
+    "tvdb_id",
+    "imdb_id",
+    "poster_url",
+    "background_url",
+    "youtube_id_overturedb",
+    "youtube_id_themerrdb"
+  ],
+  "allOf": [
+    {
+      "anyOf": [
+        {"properties": {"tmdb_id": {"type": "integer"}}},
+        {"properties": {"tvdb_id": {"type": "integer"}}},
+        {"properties": {"imdb_id": {"type": "string"}}}
+      ]
+    },
+    {
+      "if": {
+        "properties": {
+          "media_type": {
+            "const": "show"
+          }
+        },
+        "required": ["media_type"]
+      },
+      "then": {
+        "required": ["seasons"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "media_type": {
+            "const": "movie"
+          }
+        },
+        "required": ["media_type"]
+      },
+      "then": {
+        "not": {
+          "required": ["seasons"]
+        }
+      }
+    }
+  ],
+  "properties": {
+    "media_type": {
+      "enum": ["movie", "show"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "\\S"
+    },
+    "year": {
+      "type": ["integer", "null"],
+      "minimum": 1000,
+      "maximum": 9999
+    },
+    "tmdb_id": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "maximum": 9223372036854775807
+    },
+    "tvdb_id": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "maximum": 9223372036854775807
+    },
+    "imdb_id": {
+      "type": ["string", "null"],
+      "pattern": "^tt[0-9]+$"
+    },
+    "poster_url": {
+      "type": ["string", "null"],
+      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+    },
+    "background_url": {
+      "type": ["string", "null"],
+      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+    },
+    "youtube_id_overturedb": {
+      "type": ["string", "null"],
+      "maxLength": 11,
+      "pattern": "^[A-Za-z0-9_-]{11}$"
+    },
+    "youtube_id_themerrdb": {
+      "type": ["string", "null"],
+      "maxLength": 11,
+      "pattern": "^[A-Za-z0-9_-]{11}$"
+    },
+    "seasons": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["season_num", "poster_url"],
+        "properties": {
+          "season_num": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9223372036854775807
+          },
+          "poster_url": {
+            "type": "string",
+            "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+          }
+        }
+      }
+    }
+  }
+}

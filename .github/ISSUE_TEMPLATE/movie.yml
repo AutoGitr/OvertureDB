@@ -1,0 +1,78 @@
+name: Contribute movie metadata
+description: Add, modify or remove a movie's identifiers, artwork and theme.
+title: "[Movie]: Title (Year)"
+labels: ["movie"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/.github/CONTRIBUTING.md#selection-guidelines). All contributions must follow these guidelines.
+
+  - type: input
+    id: item_title
+    attributes:
+      label: Title
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      description: Four-digit release year.
+      placeholder: "1957"
+
+  - type: input
+    id: tmdb_id
+    attributes:
+      label: TMDB ID
+      description: TMDB ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "389"
+
+  - type: input
+    id: tvdb_id
+    attributes:
+      label: TVDB ID
+      description: TVDB ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "572"
+
+  - type: input
+    id: imdb_id
+    attributes:
+      label: IMDb ID
+      description: IMDb ID or title URL. Provide at least one of the three identifiers.
+      placeholder: "tt0050083"
+
+  - type: input
+    id: poster_url
+    attributes:
+      label: Poster URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: background_url
+    attributes:
+      label: Background URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: youtube_id
+    attributes:
+      label: YouTube theme video ID
+      description: YouTube URL or 11-character video ID.
+      placeholder: abc123abc12
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification
+      description: Why an existing identifier, artwork or theme is replaced, or the entry removed.
+      placeholder: "For example: wrong TMDB ID, higher resolution, textless artwork, or a dead link."
+
+  - type: checkboxes
+    id: remove
+    attributes:
+      label: Removal
+      options:
+        - label: Remove this entry from the dataset

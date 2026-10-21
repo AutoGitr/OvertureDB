@@ -1,0 +1,15 @@
+[
+  {"name": "movie", "color": "1d76db", "description": "Movie contribution"},
+  {"name": "show", "color": "5319e7", "description": "Show contribution"},
+  {"name": "bulk", "color": "77afbe", "description": "Bulk export contribution from Overture"},
+  {"name": "edit", "color": "49c0a8", "description": "Replaces an existing artwork or theme selection"},
+  {"name": "health", "color": "fbca04", "description": "Daily dataset health report"},
+  {"name": "deps", "color": "0366d6", "description": "Dependency update"},
+  {"name": "security", "color": "b60205", "description": "Security fix; report vulnerabilities privately"},
+  {"name": "ci", "color": "ededed", "description": "Repository scripts and GitHub Actions"},
+  {"name": "bug", "color": "d73a4a", "description": "Incorrect behavior"},
+  {"name": "docs", "color": "0075ca", "description": "Documentation change"},
+  {"name": "feat", "color": "a2eeef", "description": "New capability"},
+  {"name": "refactor", "color": "f9d0c4", "description": "Code change that neither fixes a bug nor adds a feature"},
+  {"name": "test", "color": "c2e0c6", "description": "Adding missing tests or correcting existing tests"}
+]

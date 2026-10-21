@@ -1,0 +1,79 @@
+name: Contributions
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, reopened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number to preview or re-evaluate
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dataset-write
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  process:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (
+        github.event_name == 'workflow_dispatch' ||
+        (
+          github.event_name == 'issues' &&
+          (
+            (github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
+            contains(fromJSON('["movie", "show", "bulk"]'), github.event.label.name)
+          ) &&
+          (
+            contains(github.event.issue.labels.*.name, 'movie') ||
+            contains(github.event.issue.labels.*.name, 'show') ||
+            contains(github.event.issue.labels.*.name, 'bulk')
+          )
+        ) ||
+        (
+          github.event_name == 'issue_comment' &&
+          github.event.issue.pull_request == null &&
+          startsWith(github.event.comment.body, '@OvertureDB-bot ') &&
+          (
+            contains(github.event.issue.labels.*.name, 'movie') ||
+            contains(github.event.issue.labels.*.name, 'show') ||
+            contains(github.event.issue.labels.*.name, 'bulk')
+          )
+        )
+      )
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.1'
+      - name: Generate installed app token
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+      - name: Install secret scanner for candidate validation
+        if: github.event_name == 'issue_comment' && startsWith(github.event.comment.body, '@OvertureDB-bot approve')
+        uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
+        with:
+          version: v0.70.0
+      - name: Process contribution event
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          INPUT_ISSUE: ${{ inputs.issue }}
+        run: uv run --locked python -m scripts.automation

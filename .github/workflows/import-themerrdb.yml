@@ -1,0 +1,85 @@
+name: Import ThemerrDB
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (validate and count without committing)"
+        type: boolean
+        default: false
+      limit:
+        description: "Maximum items to process (optional)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dataset-write
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  import:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout OvertureDB
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Checkout ThemerrDB database branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: LizardByte/ThemerrDB
+          ref: database
+          path: themerrdb
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: |
+            movies/themoviedb
+            tv_shows/themoviedb
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.13.1"
+
+      - name: Install secret scanner for candidate validation
+        if: inputs.dry_run != true
+        uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
+        with:
+          version: v0.70.0
+
+      - name: Generate bot token
+        if: inputs.dry_run != true
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: Run ThemerrDB import
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token || github.token }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          ARGS=(--themerr-dir themerrdb --output "$RUNNER_TEMP/import.json")
+          if [ "$DRY_RUN" = "true" ]; then
+            ARGS+=(--dry-run)
+          else
+            ARGS+=(--commit)
+          fi
+          if [ -n "$LIMIT" ]; then
+            ARGS+=(--limit "$LIMIT")
+          fi
+          uv run --locked python -m scripts.import_themerrdb "${ARGS[@]}"
