@@ -23,14 +23,16 @@ lazy from urllib.parse import SplitResult, urlencode, urlsplit
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 
 lazy from schema.contract import (
+    ENTRY_FOLDERS,
     IDENTITY_FIELDS,
     IMDB_ID_PATTERN,
     SCHEMA_VERSION,
     Identity,
     check_catalog_art_url,
     dump_catalog,
-    entry_file_stem,
+    entry_fields,
     entry_identities,
+    entry_repo_path,
     validate_entries,
     validate_header,
 )
@@ -50,21 +52,6 @@ _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 _JPEG_SOF = {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE}
 
 
-#: The fields every entry carries, in the order entry files list them.
-ENTRY_FIELDS = (
-    "media_type",
-    "title",
-    "year",
-    "tmdb_id",
-    "tvdb_id",
-    "imdb_id",
-    "poster_url",
-    "background_url",
-    "youtube_id_overturedb",
-    "youtube_id_themerrdb",
-)
-#: The folder under ``data/`` each media type's entries live in.
-ENTRY_FOLDERS = frozendict({"movie": "movies", "show": "shows"})  # pyright: ignore[reportCallIssue] -- stale frozendict stub
 #: The repository path of a canonically named entry file.
 _FILE_ID_VALUES = frozendict(
     {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
@@ -84,10 +71,10 @@ ENTRY_FILE = re.compile(
 
 def new_entry(media_type: str, title: str, **fields: Any) -> dict[str, Any]:
     """Return an entry with every field set; *fields* fills the known ones."""
-    entry: dict[str, Any] = dict.fromkeys(ENTRY_FIELDS)
+    entry: dict[str, Any] = {
+        name: [] if name == "seasons" else None for name in entry_fields(media_type)
+    }
     entry.update(media_type=media_type, title=title, **fields)
-    if media_type == "show":
-        entry.setdefault("seasons", [])
     return entry
 
 
@@ -120,8 +107,7 @@ def entry_path(entry: dict[str, Any], data_dir: Path) -> Path:
     Raises:
         ValueError: When the entry has no identifier to name it after.
     """
-    folder = ENTRY_FOLDERS[entry["media_type"]]
-    return data_dir / folder / f"{entry_file_stem(entry)}.json"
+    return data_dir.parent / entry_repo_path(entry)
 
 
 def entry_json(entry: dict[str, Any]) -> str:
@@ -457,8 +443,8 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
             entry["media_type"],
             entry["title"],
             entry["tmdb_id"] or 0,
-            entry["tvdb_id"] or 0,
-            entry["imdb_id"] or "",
+            entry.get("tvdb_id") or 0,
+            entry.get("imdb_id") or "",
         ),
     )
     header = validate_header(

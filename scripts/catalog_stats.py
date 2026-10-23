@@ -4,6 +4,8 @@ lazy from dataclasses import asdict, dataclass
 lazy from html import escape
 lazy from typing import Any, TypedDict
 
+lazy from schema.contract import ENTRY_FOLDERS
+
 
 @dataclass
 class Counts:
@@ -21,14 +23,14 @@ class Counts:
 
 def summarize(entries: list[dict[str, Any]]) -> dict[str, Counts]:
     """Count selections per entry; shared URLs/IDs still count for each title."""
-    groups = {name: Counts() for name in ("movies", "shows", "total")}
+    groups = {name: Counts() for name in (*ENTRY_FOLDERS.values(), "total")}
     for entry in entries:
         poster = entry["poster_url"] is not None
         background = entry["background_url"] is not None
         overturedb = entry["youtube_id_overturedb"] is not None
         themerrdb = entry["youtube_id_themerrdb"] is not None
         seasons = len(entry.get("seasons", []))
-        group = "movies" if entry["media_type"] == "movie" else "shows"
+        group = ENTRY_FOLDERS[entry["media_type"]]
         for counts in (groups[group], groups["total"]):
             counts.titles += 1
             counts.posters += poster
@@ -85,9 +87,9 @@ def dashboard(
     metrics = (
         ("Movies", groups["movies"].titles, "catalog entries"),
         ("Shows", groups["shows"].titles, "catalog entries"),
-        ("Posters", total.posters, "movie + show selections"),
-        ("Backgrounds", total.backgrounds, "movie + show selections"),
-        ("Season posters", total.season_posters, "includes season 0 / specials"),
+        ("Collections", groups["collections"].titles, "catalog entries"),
+        ("Posters", total.posters, "selections across all entries"),
+        ("Backgrounds", total.backgrounds, "selections across all entries"),
         ("Themes", total.themes, "across both theme sources"),
     )
     description = "; ".join(f"{label}: {value:,}" for label, value, _ in metrics)
@@ -144,9 +146,9 @@ def dashboard(
         color=muted,
         anchor="end",
     )
-    for column, name in enumerate(("movies", "shows")):
+    for column, name in enumerate(ENTRY_FOLDERS.values()):
         counts = groups[name]
-        x = 32 + column * 400
+        x = 32 + column * 264
         text(x, 428, name.title(), size=18, weight=600)
         rows = (
             ("Poster", counts.posters),
@@ -160,7 +162,7 @@ def dashboard(
             percentage = f"{ratio:.1%}" if counts.titles else "n/a"
             text(x, y, label, size=13)
             text(
-                x + 376,
+                x + 248,
                 y,
                 f"{count:,} / {counts.titles:,} · {percentage}",
                 size=13,
@@ -168,12 +170,12 @@ def dashboard(
                 anchor="end",
             )
             parts.append(
-                f'<rect x="{x}" y="{y + 10}" width="376" '
+                f'<rect x="{x}" y="{y + 10}" width="248" '
                 f'height="6" rx="3" fill="{border}"/>'
             )
             if count:
                 parts.append(
-                    f'<rect x="{x}" y="{y + 10}" width="{376 * ratio:.2f}" '
+                    f'<rect x="{x}" y="{y + 10}" width="{248 * ratio:.2f}" '
                     f'height="6" rx="3" fill="{accent}"/>'
                 )
 
@@ -188,8 +190,9 @@ def dashboard(
     text(
         32,
         691,
-        f"Season artwork: {groups['shows'].shows_with_season_posters:,} of "
-        f"{groups['shows'].titles:,} shows have at least one season poster",
+        f"Season artwork: {total.season_posters:,} season posters; "
+        f"{groups['shows'].shows_with_season_posters:,} of "
+        f"{groups['shows'].titles:,} shows have at least one",
         size=13,
     )
     text(

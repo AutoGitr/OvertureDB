@@ -98,10 +98,11 @@ Review the details and click **Submit new issue**. To contribute all your select
 
 - **[Movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml)**: Title, year, external IDs, poster URL, background URL, and YouTube ID.
 - **[Show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml)**: Same as movie, plus season poster URLs (`season_number=url`).
+- **[Collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml)**: Title, TMDB collection ID, poster URL, background URL, and YouTube ID. Collections are identified by their TMDB collection ID only.
 
 #### Changing an existing entry
 
-Use the movie or show form. To replace an identifier, artwork or theme, or to remove the entry, explain why in "Reason for modification" (such as a wrong TMDB ID, higher resolution, or a dead link).
+Use the movie, show or collection form. To replace an identifier, artwork or theme, or to remove the entry, explain why in "Reason for modification" (such as a wrong TMDB ID, higher resolution, or a dead link).
 
 A preview comment shows validation results, the selections and the diff. A maintainer then approves or rejects the submission.
 
@@ -112,7 +113,7 @@ A preview comment shows validation results, the selections and the diff. A maint
 
 ## Review
 
-Use `movie`, `show`, or `bulk`.
+Use `movie`, `show`, `collection`, or `bulk`.
 Preview comments show validation failures, clickable selections and the proposed
 diff. Single-entry submissions are rejected for unreachable artwork, new artwork
 outside the 1% rule, or a new theme that is removed or private on YouTube, and

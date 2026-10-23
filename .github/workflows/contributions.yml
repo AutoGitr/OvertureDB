@@ -30,11 +30,12 @@ jobs:
           github.event_name == 'issues' &&
           (
             (github.event.action != 'labeled' && github.event.action != 'unlabeled') ||
-            contains(fromJSON('["movie", "show", "bulk"]'), github.event.label.name)
+            contains(fromJSON('["movie", "show", "collection", "bulk"]'), github.event.label.name)
           ) &&
           (
             contains(github.event.issue.labels.*.name, 'movie') ||
             contains(github.event.issue.labels.*.name, 'show') ||
+            contains(github.event.issue.labels.*.name, 'collection') ||
             contains(github.event.issue.labels.*.name, 'bulk')
           )
         ) ||
@@ -45,6 +46,7 @@ jobs:
           (
             contains(github.event.issue.labels.*.name, 'movie') ||
             contains(github.event.issue.labels.*.name, 'show') ||
+            contains(github.event.issue.labels.*.name, 'collection') ||
             contains(github.event.issue.labels.*.name, 'bulk')
           )
         )

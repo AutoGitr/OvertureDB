@@ -1,6 +1,7 @@
 [
   {"name": "movie", "color": "1d76db", "description": "Movie contribution"},
   {"name": "show", "color": "5319e7", "description": "Show contribution"},
+  {"name": "collection", "color": "c5def5", "description": "Movie collection contribution"},
   {"name": "bulk", "color": "77afbe", "description": "Bulk export contribution from Overture"},
   {"name": "edit", "color": "49c0a8", "description": "Replaces an existing artwork or theme selection"},
   {"name": "health", "color": "fbca04", "description": "Daily dataset health report"},

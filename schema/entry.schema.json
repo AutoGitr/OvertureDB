@@ -2,16 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/entry.schema.json",
   "title": "OvertureDB entry",
-  "description": "One movie or show in the version 1 OvertureDB catalog.",
+  "description": "One movie, show or movie collection in the version 1 OvertureDB catalog.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "media_type",
     "title",
-    "year",
     "tmdb_id",
-    "tvdb_id",
-    "imdb_id",
     "poster_url",
     "background_url",
     "youtube_id_overturedb",
@@ -29,34 +26,56 @@
       "if": {
         "properties": {
           "media_type": {
-            "const": "show"
-          }
-        },
-        "required": ["media_type"]
-      },
-      "then": {
-        "required": ["seasons"]
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "media_type": {
             "const": "movie"
           }
         },
         "required": ["media_type"]
       },
       "then": {
+        "required": ["year", "tvdb_id", "imdb_id"],
         "not": {
           "required": ["seasons"]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "media_type": {
+            "const": "show"
+          }
+        },
+        "required": ["media_type"]
+      },
+      "then": {
+        "required": ["year", "tvdb_id", "imdb_id", "seasons"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "media_type": {
+            "const": "collection"
+          }
+        },
+        "required": ["media_type"]
+      },
+      "then": {
+        "properties": {"tmdb_id": {"type": "integer"}},
+        "not": {
+          "anyOf": [
+            {"required": ["year"]},
+            {"required": ["tvdb_id"]},
+            {"required": ["imdb_id"]},
+            {"required": ["seasons"]}
+          ]
         }
       }
     }
   ],
   "properties": {
     "media_type": {
-      "enum": ["movie", "show"]
+      "enum": ["movie", "show", "collection"]
     },
     "title": {
       "type": "string",

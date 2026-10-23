@@ -12,6 +12,7 @@ lazy from schema.contract import (
     IDENTITY_FIELDS,
     MAX_EXTERNAL_ID,
     catalog_art_url,
+    entry_fields,
     validate_entry,
 )
 
@@ -127,9 +128,9 @@ def extract_field(body: str, heading: str) -> str | None:
 
 
 def _extract_media_type(issue_title: str, labels: list[str]) -> str:
-    media_labels = set(labels) & {"movie", "show", "bulk"}
+    media_labels = set(labels) & {"movie", "show", "collection", "bulk"}
     if len(media_labels) != 1 or "bulk" in media_labels:
-        raise ValueError("Issue must have exactly one movie or show label.")
+        raise ValueError("Issue must have exactly one movie, show or collection label.")
     return media_labels.pop()
 
 
@@ -153,7 +154,9 @@ def _parse_external_ids(
     body: str, media_type: str
 ) -> tuple[int | None, int | None, str | None]:
     tmdb_id = _numeric_id(
-        body, "TMDB", r"themoviedb\.org/(?:movie|tv)/([0-9]+)(?:-[^/?#\s]+)?"
+        body,
+        "TMDB",
+        r"themoviedb\.org/(?:movie|tv|collection)/([0-9]+)(?:-[^/?#\s]+)?",
     )
     tvdb_id = _numeric_id(
         body, "TVDB", r"thetvdb\.com/(?:dereferrer/)?(?:series|movies?)/([0-9]+)"
@@ -173,7 +176,10 @@ def _parse_external_ids(
             )
         imdb_id = match[1].lower()
 
-    if tmdb_id is None and tvdb_id is None and imdb_id is None:
+    if media_type == "collection":
+        if tmdb_id is None or tvdb_id is not None or imdb_id is not None:
+            raise ValueError("Collection contributions need a TMDB collection ID only.")
+    elif tmdb_id is None and tvdb_id is None and imdb_id is None:
         raise ValueError(
             f"{media_type.capitalize()} contributions need a TMDB, TVDB, or IMDb ID."
         )
@@ -183,8 +189,8 @@ def _parse_external_ids(
 
 def _parse_seasons(body: str, media_type: str) -> list[dict[str, Any]]:
     seasons_raw = extract_field(body, "Season posters")
-    if seasons_raw and media_type == "movie":
-        raise ValueError("Season posters cannot be added to a movie.")
+    if seasons_raw and media_type != "show":
+        raise ValueError(f"Season posters cannot be added to a {media_type}.")
 
     seasons: list[dict[str, Any]] = []
     if seasons_raw and media_type == "show":
@@ -247,6 +253,8 @@ def parse_issue_form(
         if not re.fullmatch(r"\d{4}", year_line) or int(year_line) < 1000:
             raise ValueError("Year must be a four-digit release year.")
         year = int(year_line)
+        if media_type == "collection":
+            raise ValueError("Collections have no release year.")
 
     tmdb_id, tvdb_id, imdb_id = _parse_external_ids(body, media_type)
 
@@ -288,20 +296,22 @@ def reason_text(reason: str | None) -> str:
 
 
 def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
-    entry = new_entry(
+    values: dict[str, Any] = {
+        "year": parsed.year,
+        "tmdb_id": parsed.tmdb_id,
+        "tvdb_id": parsed.tvdb_id,
+        "imdb_id": parsed.imdb_id,
+        "poster_url": parsed.poster_url,
+        "background_url": parsed.background_url,
+        "youtube_id_overturedb": parsed.youtube_id,
+        "seasons": parsed.seasons,
+    }
+    fields = entry_fields(parsed.media_type)
+    return new_entry(
         parsed.media_type,
         parsed.title,
-        year=parsed.year,
-        tmdb_id=parsed.tmdb_id,
-        tvdb_id=parsed.tvdb_id,
-        imdb_id=parsed.imdb_id,
-        poster_url=parsed.poster_url,
-        background_url=parsed.background_url,
-        youtube_id_overturedb=parsed.youtube_id,
+        **{name: value for name, value in values.items() if name in fields},
     )
-    if parsed.media_type == "show":
-        entry["seasons"] = parsed.seasons
-    return entry
 
 
 def _update_seasons(updated: dict[str, Any], seasons: list[dict[str, Any]]) -> None:
@@ -325,14 +335,15 @@ def is_replacement(
     if parsed.title != existing["title"]:
         return True
     if (
-        existing["year"] is not None
+        existing.get("year") is not None
         and parsed.year is not None
         and parsed.year != existing["year"]
     ):
         return True
     for field in IDENTITY_FIELDS:
         new = getattr(parsed, field)
-        if existing[field] is not None and new is not None and new != existing[field]:
+        current = existing.get(field)
+        if current is not None and new is not None and new != current:
             return True
     old_poster = existing.get("poster_url")
     if (

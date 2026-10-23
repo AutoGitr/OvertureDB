@@ -8,7 +8,7 @@ lazy from pathlib import Path
 lazy from typing import Any, cast
 lazy from zipfile import ZipFile
 
-lazy from schema.contract import IDENTITY_FIELDS, validate_entry
+lazy from schema.contract import IDENTITY_FIELDS, entry_fields, validate_entry
 
 lazy from .catalog import (
     EntryIndex,
@@ -204,13 +204,8 @@ def create_new_entry(
         incoming["title"],
         **{
             field: incoming.get(field)
-            for field in (
-                "year",
-                *IDENTITY_FIELDS,
-                "poster_url",
-                "background_url",
-                "youtube_id_overturedb",
-            )
+            for field in entry_fields(media_type)
+            if field not in {"media_type", "title", "youtube_id_themerrdb", "seasons"}
         },
         # Rule 2: Secondary theme is never populated by bulk import
         youtube_id_themerrdb=None,

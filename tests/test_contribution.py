@@ -24,6 +24,7 @@ def data_dir(tmp_path: Path) -> Path:
     data = tmp_path / "data"
     (data / "movies").mkdir(parents=True)
     (data / "shows").mkdir(parents=True)
+    (data / "collections").mkdir(parents=True)
     return data
 
 
@@ -1287,3 +1288,53 @@ AB96CvvLZKc
     assert parsed.tmdb_id == 123456
     assert parsed.poster_url == "https://image.tmdb.org/t/p/original/spaced_poster.jpg"
     assert parsed.youtube_id == "AB96CvvLZKc"
+
+
+def test_collection_form_adds_an_entry_named_after_its_tmdb_collection(
+    tmp_path: Path, data_dir: Path
+) -> None:
+    body = f"""### Title
+
+Star Wars Collection
+
+### TMDB ID
+
+https://www.themoviedb.org/collection/10-star-wars-collection
+
+### YouTube theme video ID
+
+abc123abc12
+
+### {REASON_HEADING}
+
+{EMPTY_REASON}
+"""
+    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
+    assert parsed.tmdb_id == 10
+    result = process_contribution(parsed, tmp_path)
+    assert result["target"] == "data/collections/tmdb-10.json"
+    assert json.loads((data_dir / "collections" / "tmdb-10.json").read_text()) == {
+        "media_type": "collection",
+        "title": "Star Wars Collection",
+        "tmdb_id": 10,
+        "poster_url": None,
+        "background_url": None,
+        "youtube_id_overturedb": "abc123abc12",
+        "youtube_id_themerrdb": None,
+    }
+
+
+def test_collection_form_rejects_title_only_fields(subtests: pytest.Subtests) -> None:
+    base = "### Title\n\nStar Wars Collection\n\n"
+    for extra, message in (
+        ("", "TMDB collection ID only"),
+        ("### TMDB ID\n\n10\n\n### IMDb ID\n\ntt1\n\n", "TMDB collection ID"),
+        ("### TMDB ID\n\n10\n\n### Year\n\n1977\n\n", "no release year"),
+        (
+            "### TMDB ID\n\n10\n\n### Season posters\n\n"
+            "1=https://image.tmdb.org/t/p/original/s.jpg\n\n",
+            "cannot be added to a collection",
+        ),
+    ):
+        with subtests.test(message=message), pytest.raises(ValueError, match=message):
+            parse_issue_form(base + extra, "[Collection]: X", ["collection"])

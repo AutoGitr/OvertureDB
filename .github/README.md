@@ -21,7 +21,7 @@ Every poster, background and season poster in OvertureDB was chosen by a contrib
 - **Backgrounds** that capture the look of the movie or show with a real scene from it, never a photoshopped collage of characters or floating heads.
 - **Season posters** that belong together, so a show's seasons look like one set.
 - **Posters** and **Backgrounds** that are visually distinct from each other for every movie and show.
-- **Themes** that sound like an opening: music from the first second, with no dialogue intros, promotions or watermarks. They are picked and reviewed the same way, with ThemerrDB's themes available as an alternative.
+- **Themes** for movies, shows and movie collections that sound like an opening: music from the first second, with no dialogue intros, promotions or watermarks. They are picked and reviewed the same way, with ThemerrDB's themes available as an alternative.
 - **Consistent sets**, so franchises, select studios and documentary series look and feel cohesive in your library.
 - **Criterion releases** with their authentic Criterion cover art.
 
@@ -32,7 +32,7 @@ The catalog stores metadata, links to artwork on TMDB, ThePosterDB, Fanart.tv, T
 <a href="https://autogitr.github.io/OvertureDB/">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://autogitr.github.io/OvertureDB/stats-dark.svg" />
-    <img src="https://autogitr.github.io/OvertureDB/stats-light.svg" alt="OvertureDB statistics: totals for movies, shows, posters, backgrounds, season posters and themes; movie and show coverage for posters, backgrounds, themes and core selections." width="840" />
+    <img src="https://autogitr.github.io/OvertureDB/stats-light.svg" alt="OvertureDB statistics: totals for movies, shows, collections, posters, backgrounds and themes; movie, show and collection coverage for posters, backgrounds, themes and core selections." width="840" />
   </picture>
 </a>
 
@@ -46,9 +46,9 @@ In Overture, open the menu in the header, choose **OvertureDB**, check **Enable 
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
 3. Click the GitHub button on the title to open a prefilled issue, add a reason if replacing existing selections, review it and submit it. The bot shows the dataset diff directly in its preview.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). You can also fill in the [movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml) or [show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml) form yourself. A maintainer reviews every submission; approved ones reach the catalog with its next daily update.
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). You can also fill in the [movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml), [show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml) or [collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml) form yourself. A maintainer reviews every submission; approved ones reach the catalog with its next daily update.
 
-Coverage grows with contributions, and linked artwork or videos can disappear from their sources. Correct wrong IDs, replace dead links or remove an entry with the movie or show form. Report bugs and suggestions with the [report form](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
+Coverage grows with contributions, and linked artwork or videos can disappear from their sources. Correct wrong IDs, replace dead links or remove an entry with the movie, show or collection form. Report bugs and suggestions with the [report form](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
 
 The daily health check reports broken artwork and themes, and artwork below the recommended resolution. Changed entries with reported findings are rechecked on the next daily run outside the 200-entry rotation, so accepted fixes clear from the report promptly.
 

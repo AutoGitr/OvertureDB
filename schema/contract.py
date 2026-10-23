@@ -254,6 +254,21 @@ IDENTITY_FIELDS = ("tmdb_id", "tvdb_id", "imdb_id")
 
 type Identity = tuple[str, str, str | int]
 
+#: The folder under ``data/`` each media type's entries live in.
+ENTRY_FOLDERS: frozendict[str, str] = frozendict(
+    {"movie": "movies", "show": "shows", "collection": "collections"}  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+)
+
+
+def entry_fields(media_type: str) -> tuple[str, ...]:
+    """Return the fields an entry of *media_type* carries, in schema order."""
+    required = set(ENTRY_SCHEMA["required"])
+    for rule in ENTRY_SCHEMA["allOf"]:
+        condition = rule.get("if", {}).get("properties", {}).get("media_type", {})
+        if condition.get("const") == media_type:
+            required.update(rule["then"].get("required", ()))
+    return tuple(name for name in _ENTRY_FIELDS if name in required)
+
 
 def entry_file_stem(entry: dict[str, Any]) -> str:
     """Return the name of an entry's file without ``.json``, such as ``tmdb-603``.
@@ -267,6 +282,32 @@ def entry_file_stem(entry: dict[str, Any]) -> str:
         if (value := entry.get(field)) is not None:
             return f"{field.removesuffix('_id')}-{value}"
     raise ValueError("An entry needs a TMDB, TVDB or IMDb ID to be named after")
+
+
+def parse_entry_file_stem(stem: str) -> tuple[str, str | int]:
+    """Return the ``(field, value)`` identity an entry file stem names.
+
+    Raises:
+        ValueError: When *stem* is not a name ``entry_file_stem`` produces.
+    """
+    prefix, _, value = stem.partition("-")
+    field = f"{prefix}_id"
+    if field == "imdb_id" and IMDB_ID_PATTERN.fullmatch(value):
+        return field, value
+    if field in {"tmdb_id", "tvdb_id"} and value.isascii() and value.isdigit():
+        number = int(value)
+        if 0 < number <= MAX_EXTERNAL_ID and str(number) == value:
+            return field, number
+    raise ValueError(f"Not an entry name: {stem}")
+
+
+def entry_repo_path(entry: dict[str, Any]) -> str:
+    """Return the repository path of an entry's file: ``data/movies/tmdb-603.json``.
+
+    Raises:
+        ValueError: When the entry has no identifier to name it after.
+    """
+    return f"data/{ENTRY_FOLDERS[entry['media_type']]}/{entry_file_stem(entry)}.json"
 
 
 def entry_identities(entry: dict[str, Any]) -> list[Identity]:

@@ -115,3 +115,14 @@ def test_command_timeout_is_a_publication_failure(
 ) -> None:
     with pytest.raises(RuntimeError, match="exceeded its 1 second timeout"):
         github.run("bash", "scripts/contribution-check.sh", timeout=1)
+
+
+def test_dataset_paths_cover_every_entry_folder() -> None:
+    for path in (
+        "data/movies/tmdb-1.json",
+        "data/shows/tvdb-2.json",
+        "data/collections/tmdb-10.json",
+    ):
+        github.validate_dataset_path(path)
+    with pytest.raises(ValueError, match="only modify dataset entries"):
+        github.validate_dataset_path("data/people/tmdb-1.json")

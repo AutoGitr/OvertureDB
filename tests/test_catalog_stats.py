@@ -3,7 +3,7 @@
 lazy from xml.etree import ElementTree
 
 lazy from scripts.catalog_stats import dashboard, statistics_json, summarize
-lazy from tests.test_catalog import movie
+lazy from tests.test_catalog import collection, movie
 
 
 def test_totals_count_both_theme_sources_and_shared_assets() -> None:
@@ -30,20 +30,23 @@ def test_totals_count_both_theme_sources_and_shared_assets() -> None:
             ],
         ),
         movie(media_type="show", tmdb_id=2, poster_url=None, seasons=[]),
+        collection(),
     ]
     counts = summarize(entries)
     assert counts["movies"].titles == 2
     assert counts["shows"].titles == 2
+    assert counts["collections"].titles == 1
+    assert counts["collections"].titles_with_themes == 1
     total = counts["total"]
-    assert total.titles == 4
+    assert total.titles == 5
     assert total.posters == 2
     assert total.backgrounds == 1
     assert total.season_posters == 2
     assert total.shows_with_season_posters == 1
-    assert total.themes == 4
+    assert total.themes == 5
     assert total.overturedb_themes == 2
-    assert total.themerrdb_themes == 2
-    assert total.titles_with_themes == 3
+    assert total.themerrdb_themes == 3
+    assert total.titles_with_themes == 4
     assert total.core_complete == 1
     assert counts["shows"].core_complete == 0
 

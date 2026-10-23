@@ -53,6 +53,19 @@ def movie(**changes: Any) -> dict[str, Any]:
     }
 
 
+def collection(**changes: Any) -> dict[str, Any]:
+    return {
+        "media_type": "collection",
+        "title": "A Collection",
+        "tmdb_id": 10,
+        "poster_url": None,
+        "background_url": None,
+        "youtube_id_overturedb": None,
+        "youtube_id_themerrdb": "4xdyx5NVUhI",
+        **changes,
+    }
+
+
 def header(**changes: Any) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,

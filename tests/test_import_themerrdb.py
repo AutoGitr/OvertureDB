@@ -245,6 +245,10 @@ class Checkout:
     def upstream_shows(self) -> Path:
         return self.upstream / "tv_shows" / "themoviedb"
 
+    @property
+    def upstream_collections(self) -> Path:
+        return self.upstream / "movie_collections" / "themoviedb"
+
     def write_existing(self, name: str = "tmdb-1.json", **changes: Any) -> Path:
         path = self.movies / name
         path.write_text(json.dumps(movie(**changes)))
@@ -277,6 +281,7 @@ def checkout(tmp_path: Path) -> Checkout:
     checkout.movies.mkdir(parents=True)
     checkout.upstream_movies.mkdir(parents=True)
     checkout.upstream_shows.mkdir(parents=True)
+    checkout.upstream_collections.mkdir(parents=True)
     return checkout
 
 
@@ -461,3 +466,34 @@ def test_failed_commit_preserves_local_dataset_for_retry(
     with pytest.raises(RuntimeError, match="head moved"):
         importer.import_themerrdb(checkout.upstream, checkout.root, commit=True)
     assert not list(checkout.movies.glob("*.json"))
+
+
+def test_collections_are_imported_by_tmdb_collection_id(checkout: Checkout) -> None:
+    (checkout.upstream_collections / "10.json").write_text(
+        json.dumps(
+            {
+                "id": 10,
+                "name": "Star Wars Collection",
+                "poster_path": "/poster.jpg",
+                "parts": [{"id": 11, "release_date": "1977-05-25"}],
+                "youtube_theme_url": "https://youtu.be/4xdyx5NVUhI",
+            }
+        )
+    )
+    checkout.write_upstream(id=10)
+
+    assert checkout.run_import()["added"] == 2
+
+    collection = json.loads(
+        (checkout.data / "collections" / "tmdb-10.json").read_text()
+    )
+    assert collection == {
+        "media_type": "collection",
+        "title": "Star Wars Collection",
+        "tmdb_id": 10,
+        "poster_url": None,
+        "background_url": None,
+        "youtube_id_overturedb": None,
+        "youtube_id_themerrdb": "4xdyx5NVUhI",
+    }
+    assert (checkout.movies / "tmdb-10.json").exists()

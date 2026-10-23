@@ -1,0 +1,59 @@
+name: Contribute movie collection metadata
+description: Add, modify or remove a TMDB movie collection's artwork and theme.
+title: "[Collection]: Title"
+labels: ["collection"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/.github/CONTRIBUTING.md#selection-guidelines). All contributions must follow these guidelines.
+
+  - type: input
+    id: item_title
+    attributes:
+      label: Title
+    validations:
+      required: true
+
+  - type: input
+    id: tmdb_id
+    attributes:
+      label: TMDB ID
+      description: TMDB collection ID or collection URL.
+      placeholder: "10"
+    validations:
+      required: true
+
+  - type: input
+    id: poster_url
+    attributes:
+      label: Poster URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: background_url
+    attributes:
+      label: Background URL
+      description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: youtube_id
+    attributes:
+      label: YouTube theme video ID
+      description: YouTube URL or 11-character video ID.
+      placeholder: abc123abc12
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification
+      description: Why an existing artwork or theme is replaced, or the entry removed.
+      placeholder: "For example: higher resolution, textless artwork, or a dead link."
+
+  - type: checkboxes
+    id: remove
+    attributes:
+      label: Removal
+      options:
+        - label: Remove this entry from the dataset

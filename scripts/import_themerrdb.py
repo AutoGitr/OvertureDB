@@ -1,6 +1,7 @@
 """Import theme metadata from LizardByte/ThemerrDB into OvertureDB.
 
-Ingests movies and tv shows from ThemerrDB's database branch, updating
+Ingests movies, tv shows and movie collections from ThemerrDB's database
+branch, updating
 existing entries' `youtube_id_themerrdb` or creating new entries when items
 do not yet exist in OvertureDB.
 """
@@ -108,12 +109,14 @@ def _create_new_entry(
     data_dir: Path,
 ) -> str:
     """Plan a new entry with only the imported theme populated."""
+    fields: dict[str, Any] = {}
     if media_type == "movie":
         raw_title = item_data.get("title") or item_data.get("original_title") or ""
-        year = parse_year(item_data.get("release_date"))
+        fields["year"] = parse_year(item_data.get("release_date"))
     else:
         raw_title = item_data.get("name") or item_data.get("original_name") or ""
-        year = parse_year(item_data.get("first_air_date"))
+        if media_type == "show":
+            fields["year"] = parse_year(item_data.get("first_air_date"))
 
     if not isinstance(raw_title, str):
         return "skipped_invalid"
@@ -124,7 +127,7 @@ def _create_new_entry(
         title = title[:TITLE_MAX_LENGTH].strip()
 
     entry = new_entry(
-        media_type, title, year=year, tmdb_id=tmdb_id, youtube_id_themerrdb=youtube_id
+        media_type, title, tmdb_id=tmdb_id, youtube_id_themerrdb=youtube_id, **fields
     )
     validate_entry(entry)
 
@@ -166,7 +169,7 @@ def process_themerr_item(
     if existing_path:
         existing = index.entries[existing_path]
         if existing["tmdb_id"] not in (None, tmdb_id) or (
-            clean_imdb_id and existing["imdb_id"] not in (None, clean_imdb_id)
+            clean_imdb_id and existing.get("imdb_id") not in (None, clean_imdb_id)
         ):
             raise ValueError(f"Conflicting identifiers for {existing_path}")
         return _update_existing(existing_path, index, youtube_id)
@@ -205,6 +208,7 @@ def plan_import(
     targets = [
         ("movie", themerr_dir / "movies" / "themoviedb"),
         ("show", themerr_dir / "tv_shows" / "themoviedb"),
+        ("collection", themerr_dir / "movie_collections" / "themoviedb"),
     ]
     for _, folder in targets:
         if not folder.is_dir():
@@ -291,7 +295,7 @@ def main() -> int:
         "--themerr-dir",
         type=Path,
         required=True,
-        help="Path to ThemerrDB checkout (containing movies/ and tv_shows/)",
+        help="Path to a checkout of ThemerrDB's database branch",
     )
     parser.add_argument(
         "--overture-dir",

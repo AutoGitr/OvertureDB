@@ -9,6 +9,8 @@ lazy import tempfile
 lazy from pathlib import Path
 lazy from typing import Any
 
+lazy from schema.contract import ENTRY_FOLDERS
+
 ROOT = Path(__file__).resolve().parents[1]
 
 #: The account that commits every automated dataset change.
@@ -81,7 +83,8 @@ def git(*args: str) -> str:
 
 
 def validate_dataset_path(path: str) -> None:
-    if not re.fullmatch(r"data/(movies|shows)/[\w-]+\.json", path):
+    folders = "|".join(ENTRY_FOLDERS.values())
+    if not re.fullmatch(rf"data/({folders})/[\w-]+\.json", path):
         raise ValueError(f"Bot commits may only modify dataset entries: {path}")
 
 

@@ -35,7 +35,7 @@ lazy from .contribution import (
 )
 lazy from .import_bulk_export import import_bulk_export
 
-KINDS = frozenset({"movie", "show", "bulk"})
+KINDS = frozenset({"movie", "show", "collection", "bulk"})
 MARKER = "<!-- overturedb-preview -->"
 FINGERPRINT_RE = re.compile(r"<!-- fingerprint: ([0-9a-f]{64}) -->")
 ATTACHMENT = re.compile(
@@ -71,7 +71,9 @@ def contribution_kind(issue: dict[str, Any]) -> str:
     labels = issue_labels(issue)
     kinds = labels & KINDS
     if issue["state"] != "open" or "pull_request" in issue or len(kinds) != 1:
-        raise ValueError("Use one open movie, show or bulk contribution issue.")
+        raise ValueError(
+            "Use one open movie, show, collection or bulk contribution issue."
+        )
     return next(iter(kinds))
 
 

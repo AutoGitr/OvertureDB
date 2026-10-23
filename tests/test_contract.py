@@ -4,13 +4,19 @@ lazy import pytest
 
 lazy from schema.contract import (
     ART_HOSTS,
+    ENTRY_FOLDERS,
+    ENTRY_SCHEMA,
     art_source,
     canonical_art_url,
     catalog_art_url,
     check_catalog_art_url,
+    entry_fields,
     entry_file_stem,
+    entry_repo_path,
+    parse_entry_file_stem,
     validate_entry,
 )
+lazy from tests.test_catalog import collection, movie
 
 TMDB = "https://image.tmdb.org/t/p/original/zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg"
 TPDB = "https://theposterdb.com/api/assets/207889"
@@ -181,3 +187,41 @@ def test_entries_are_named_tmdb_first_for_every_media_type(
             assert entry_file_stem({"imdb_id": "tt3"}) == "imdb-tt3"
     with pytest.raises(ValueError):
         entry_file_stem({"media_type": "movie"})
+
+
+def test_every_media_type_has_a_folder_and_its_own_fields() -> None:
+    assert set(ENTRY_FOLDERS) == set(ENTRY_SCHEMA["properties"]["media_type"]["enum"])
+    assert entry_fields("movie") == tuple(movie())
+    assert entry_fields("show") == (*movie(), "seasons")
+    assert entry_fields("collection") == tuple(collection())
+
+
+def test_collections_are_identified_by_a_tmdb_collection_id_only(
+    subtests: pytest.Subtests,
+) -> None:
+    assert validate_entry(collection()) == collection()
+    assert entry_repo_path(collection()) == "data/collections/tmdb-10.json"
+    invalid_changes: tuple[dict[str, object], ...] = (
+        {"tmdb_id": None},
+        {"year": 1977},
+        {"tvdb_id": None},
+        {"imdb_id": "tt1"},
+        {"seasons": []},
+    )
+    for invalid in invalid_changes:
+        with subtests.test(invalid=invalid), pytest.raises(ValueError):
+            validate_entry(collection(**invalid))
+    with pytest.raises(ValueError, match="'year' is a required property"):
+        validate_entry({k: v for k, v in movie().items() if k != "year"})
+
+
+def test_entry_file_stems_parse_back_to_their_identity(
+    subtests: pytest.Subtests,
+) -> None:
+    for entry in ({"tmdb_id": 603}, {"tvdb_id": 81189}, {"imdb_id": "tt0133093"}):
+        with subtests.test(entry=entry):
+            field, value = next(iter(entry.items()))
+            assert parse_entry_file_stem(entry_file_stem(entry)) == (field, value)
+    for stem in ("tmdb-0", "tmdb-01", "tmdb-x", "imdb-123", "plex-1", "tmdb-", ""):
+        with subtests.test(stem=stem), pytest.raises(ValueError):
+            parse_entry_file_stem(stem)

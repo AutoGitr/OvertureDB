@@ -142,7 +142,7 @@ def check_health(
 
 def describe(path: str, entries: dict[str, dict[str, Any]]) -> str:
     entry = entries[path]
-    year = f" ({entry['year']})" if entry["year"] else ""
+    year = f" ({entry['year']})" if entry.get("year") else ""
     return f"`{path}` {entry['title']}{year}"
 
 
