@@ -3,7 +3,7 @@ name = "overturedb"
 version = "1.0.0"
 description = "Artwork and theme catalog for Overture"
 readme = ".github/README.md"
-requires-python = "==3.15.0"
+requires-python = "==3.15.1"
 dependencies = [
     "jsonschema==4.26.0",
 ]
@@ -18,7 +18,7 @@ dev = [
 ]
 
 [tool.uv]
-required-version = "0.13.4"
+required-version = "0.13.5"
 
 # PyYAML publishes no CPython 3.15 wheels yet; its pure-Python build needs no compiler.
 [tool.uv.extra-build-variables]
