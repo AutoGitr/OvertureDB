@@ -44,6 +44,13 @@ body:
       description: YouTube URL or 11-character video ID.
       placeholder: abc123abc12
 
+  - type: checkboxes
+    id: no_theme
+    attributes:
+      label: No theme
+      options:
+        - label: This title has no theme
+
   - type: textarea
     id: modification_reason
     attributes:

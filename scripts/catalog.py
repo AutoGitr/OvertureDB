@@ -23,6 +23,8 @@ lazy from urllib.parse import SplitResult, urlencode, urlsplit
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 
 lazy from schema.contract import (
+    ASPECT_RATIOS,
+    ASPECT_TOLERANCE,
     ENTRY_FOLDERS,
     IDENTITY_FIELDS,
     IMDB_ID_PATTERN,
@@ -42,9 +44,6 @@ lazy from .github import git
 
 ROOT = Path(__file__).resolve().parents[1]
 
-#: Width-to-height ratios artwork must match within ASPECT_TOLERANCE.
-ASPECT_RATIOS = frozendict({"poster": 2 / 3, "background": 16 / 9})  # pyright: ignore[reportCallIssue] -- stale frozendict stub
-ASPECT_TOLERANCE = 0.01
 MIN_RESOLUTIONS = frozendict({"poster": (1000, 1500), "background": (1600, 900)})  # pyright: ignore[reportCallIssue] -- stale frozendict stub
 MAX_PROBE_BYTES = 256 * 1024
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"

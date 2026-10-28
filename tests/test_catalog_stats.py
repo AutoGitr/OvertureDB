@@ -72,3 +72,8 @@ def test_json_preserves_provenance_and_svg_escapes_text() -> None:
         parsed = ElementTree.fromstring(svg)  # noqa: S314 - locally generated SVG
         assert "1 / 1 · 100.0%" in "".join(parsed.itertext())
         assert revision[:7] in "".join(parsed.itertext())
+
+
+def test_titles_flagged_without_a_theme_count_as_themed() -> None:
+    total = summarize([movie(no_theme=True)])["total"]
+    assert (total.themes, total.titles_with_themes) == (0, 1)

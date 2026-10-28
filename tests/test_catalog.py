@@ -17,6 +17,7 @@ lazy from urllib.request import Request
 lazy import pytest
 
 lazy from schema.contract import (
+    ASPECT_TOLERANCE,
     SCHEMA_VERSION,
     dump_catalog,
     read_catalog,
@@ -611,3 +612,9 @@ def test_entry_file_names_follow_the_identifier_rules() -> None:
 def test_missing_dataset_cannot_publish_empty_catalog(tmp_path: Path) -> None:
     with pytest.raises(ValueError):
         catalog.dataset(tmp_path)
+
+
+def test_aspect_tolerance_is_the_contracts_and_bounds_at_one_percent() -> None:
+    assert catalog.ASPECT_TOLERANCE is ASPECT_TOLERANCE == 0.01
+    assert catalog.aspect_problem("poster", 990, 1500) is None
+    assert catalog.aspect_problem("poster", 989, 1500) is not None

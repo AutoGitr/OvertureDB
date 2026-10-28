@@ -6,6 +6,7 @@ lazy from schema.contract import (
     ART_HOSTS,
     ENTRY_FOLDERS,
     ENTRY_SCHEMA,
+    OPTIONAL_ENTRY_FIELDS,
     art_source,
     canonical_art_url,
     catalog_art_url,
@@ -225,3 +226,14 @@ def test_entry_file_stems_parse_back_to_their_identity(
     for stem in ("tmdb-0", "tmdb-01", "tmdb-x", "imdb-123", "plex-1", "tmdb-", ""):
         with subtests.test(stem=stem), pytest.raises(ValueError):
             parse_entry_file_stem(stem)
+
+
+def test_no_theme_flags_an_entry_without_an_overturedb_theme() -> None:
+    assert validate_entry(movie(no_theme=True))["no_theme"] is True
+    for invalid in (
+        movie(no_theme=True, youtube_id_overturedb="aaaaaaaaaaa"),
+        movie(no_theme=False),
+    ):
+        with pytest.raises(ValueError, match="contract"):
+            validate_entry(invalid)
+    assert "no_theme" in OPTIONAL_ENTRY_FIELDS

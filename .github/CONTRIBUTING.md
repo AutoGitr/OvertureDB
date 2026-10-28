@@ -14,6 +14,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 - **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the target aspect ratio:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
   - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
+- **No Theme**: When a title has no theme music, check **This title has no theme** instead of giving a video. The entry is then flagged `no_theme` and counts as theme-complete; a later theme contribution clears the flag.
 - **Represent the Item**: The artwork and theme should match the tone, genre, and aesthetic of the movie or show (to some degree).
 - **Visual Consistency**: Keep artwork consistent across a franchise, collection or a show's seasons. When you pick artwork from a poster set, such as one of the [example poster sets](#example-poster-sets), aim to contribute that set's artwork for every item it covers.
 - **Criterion Collection Films**: Any Criterion film must use a properly formatted Criterion poster. It must use modern Criterion formatting (clean layout), correct aspect ratio (not stretched or distorted), and authentic Criterion cover art.

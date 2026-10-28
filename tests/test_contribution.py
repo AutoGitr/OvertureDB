@@ -1338,3 +1338,92 @@ def test_collection_form_rejects_title_only_fields(subtests: pytest.Subtests) ->
     ):
         with subtests.test(message=message), pytest.raises(ValueError, match=message):
             parse_issue_form(base + extra, "[Collection]: X", ["collection"])
+
+
+def test_collection_form_applies_its_poster_and_background(
+    tmp_path: Path, data_dir: Path
+) -> None:
+    body = f"""### Title
+
+Star Wars Collection
+
+### TMDB ID
+
+10
+
+### Poster URL
+
+https://image.tmdb.org/t/p/original/poster.jpg
+
+### Background URL
+
+https://image.tmdb.org/t/p/original/background.jpg
+
+### {REASON_HEADING}
+
+{EMPTY_REASON}
+"""
+    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
+    process_contribution(parsed, tmp_path)
+    entry = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
+    assert entry["poster_url"] == "https://image.tmdb.org/t/p/original/poster.jpg"
+    assert (
+        entry["background_url"] == "https://image.tmdb.org/t/p/original/background.jpg"
+    )
+
+
+def _no_theme_body(*, youtube_id: str | None = None) -> str:
+    theme = f"### YouTube theme video ID\n\n{youtube_id}\n\n" if youtube_id else ""
+    return f"""### Title
+
+Movie
+
+### TMDB ID
+
+1
+
+{theme}### No theme
+
+- [{" " if youtube_id else "X"}] This title has no theme
+
+### {REASON_HEADING}
+
+Checked the film.
+"""
+
+
+def test_no_theme_flags_the_entry_and_a_later_theme_clears_it(
+    tmp_path: Path, data_dir: Path
+) -> None:
+    path = data_dir / "movies" / "tmdb-1.json"
+    path.write_text(
+        json.dumps(
+            new_entry(
+                "movie",
+                "Movie",
+                tmdb_id=1,
+                poster_url="https://image.tmdb.org/t/p/original/p.jpg",
+            ),
+            indent=2,
+        )
+        + "\n"
+    )
+
+    flagged = parse_issue_form(_no_theme_body(), "[Movie]: Movie", ["movie"])
+    assert flagged.no_theme
+    process_contribution(flagged, tmp_path)
+    assert json.loads(path.read_text())["no_theme"] is True
+
+    themed = parse_issue_form(
+        _no_theme_body(youtube_id="abc123abc12"), "[Movie]: Movie", ["movie"]
+    )
+    process_contribution(themed, tmp_path)
+    entry = json.loads(path.read_text())
+    assert "no_theme" not in entry
+    assert entry["youtube_id_overturedb"] == "abc123abc12"
+
+
+def test_a_theme_and_no_theme_together_are_refused() -> None:
+    body = _no_theme_body(youtube_id="abc123abc12").replace("- [ ]", "- [X]")
+    with pytest.raises(ValueError, match="not both"):
+        parse_issue_form(body, "[Movie]: Movie", ["movie"])

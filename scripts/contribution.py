@@ -48,6 +48,8 @@ class ParsedContribution:
     seasons: list[dict[str, Any]]
     modification_reason: str | None
     remove: bool = False
+    #: The title has no theme music.
+    no_theme: bool = False
 
 
 def _first_non_empty_line(val: str | None) -> str | None:
@@ -272,6 +274,9 @@ def parse_issue_form(
     reason_raw = extract_field(body, "Reason for modification")
     modification_reason = reason_raw.strip() if reason_raw else None
     remove = bool(re.search(r"- \[x\]", extract_field(body, "Removal") or "", re.I))
+    no_theme = bool(re.search(r"- \[x\]", extract_field(body, "No theme") or "", re.I))
+    if no_theme and youtube_id:
+        raise ValueError("Give a theme or check No theme, not both.")
 
     return ParsedContribution(
         media_type=media_type,
@@ -286,6 +291,7 @@ def parse_issue_form(
         seasons=seasons,
         modification_reason=modification_reason,
         remove=remove,
+        no_theme=no_theme,
     )
 
 
@@ -307,11 +313,14 @@ def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
         "seasons": parsed.seasons,
     }
     fields = entry_fields(parsed.media_type)
-    return new_entry(
+    entry = new_entry(
         parsed.media_type,
         parsed.title,
         **{name: value for name, value in values.items() if name in fields},
     )
+    if parsed.no_theme:
+        entry["no_theme"] = True
+    return entry
 
 
 def _update_seasons(updated: dict[str, Any], seasons: list[dict[str, Any]]) -> None:
@@ -371,6 +380,9 @@ def is_replacement(
     ):
         return True
 
+    if old_yt and parsed.no_theme:
+        return True
+
     if parsed.media_type == "show" and parsed.seasons:
         seasons_before: list[dict[str, Any]] = existing.get("seasons", [])
         exist_seasons = {
@@ -409,6 +421,12 @@ def _update_entry(
         updated["background_url"] = parsed.background_url
     if parsed.youtube_id and parsed.youtube_id != updated.get("youtube_id_themerrdb"):
         updated["youtube_id_overturedb"] = parsed.youtube_id
+    # A contributed theme means the title has one after all.
+    if parsed.youtube_id:
+        updated.pop("no_theme", None)
+    elif parsed.no_theme:
+        updated["youtube_id_overturedb"] = None
+        updated["no_theme"] = True
 
     if parsed.media_type == "show":
         _update_seasons(updated, parsed.seasons)
@@ -516,6 +534,7 @@ def process_contribution(
         or parsed.background_url
         or parsed.youtube_id
         or parsed.seasons
+        or parsed.no_theme
     )
     if existing_path is None and not has_media:
         raise ValueError(

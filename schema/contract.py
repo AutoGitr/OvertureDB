@@ -16,7 +16,7 @@ lazy from jsonschema import (
     validators,
 )
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 
@@ -123,6 +123,20 @@ _ART_SOURCE_BY_HOST: frozendict[str, _ArtSource] = frozendict(
 #: Hosts of the art sources catalog entries may link to.
 ART_HOSTS: frozenset[str] = frozenset(
     source.host for source in _ART_SOURCES if source.catalog
+)
+#: Width-to-height ratios artwork must match, by art type.
+ASPECT_RATIOS: frozendict[str, float] = frozendict(
+    {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+        "poster": 2 / 3,
+        "background": 16 / 9,
+    }
+)
+#: How far, as a fraction of the target ratio, artwork may be off: it absorbs
+#: rounding in fractional resolutions, not off-spec art.
+ASPECT_TOLERANCE = 0.01
+#: How the art sources catalog entries may link to are named, in source order.
+CATALOG_ART_SOURCE_LABELS: tuple[str, ...] = tuple(
+    source.label for source in _ART_SOURCES if source.catalog
 )
 #: How each art source is named to people, by its name.
 ART_SOURCE_LABELS: frozendict[str, str] = frozendict(
@@ -270,6 +284,10 @@ def entry_fields(media_type: str) -> tuple[str, ...]:
     return tuple(name for name in _ENTRY_FIELDS if name in required)
 
 
+#: Fields any entry may carry beyond the ones its media type requires.
+OPTIONAL_ENTRY_FIELDS = ("no_theme",)
+
+
 def entry_file_stem(entry: dict[str, Any]) -> str:
     """Return the name of an entry's file without ``.json``, such as ``tmdb-603``.
 
@@ -383,6 +401,11 @@ def _art_urls(entry: dict[str, Any]) -> None:
 
 def _youtube_ids(entry: dict[str, Any]) -> None:
     yt_overturedb = entry.get("youtube_id_overturedb")
+    if entry.get("no_theme") and yt_overturedb is not None:
+        raise ValueError(
+            "Dataset contract violation: an entry flagged no_theme has no "
+            "youtube_id_overturedb"
+        )
     yt_themerrdb = entry.get("youtube_id_themerrdb")
     if (
         yt_overturedb is not None

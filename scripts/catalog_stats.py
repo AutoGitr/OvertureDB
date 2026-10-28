@@ -29,6 +29,8 @@ def summarize(entries: list[dict[str, Any]]) -> dict[str, Counts]:
         background = entry["background_url"] is not None
         overturedb = entry["youtube_id_overturedb"] is not None
         themerrdb = entry["youtube_id_themerrdb"] is not None
+        # A title flagged as having no theme lacks nothing.
+        themed = overturedb or themerrdb or bool(entry.get("no_theme"))
         seasons = len(entry.get("seasons", []))
         group = ENTRY_FOLDERS[entry["media_type"]]
         for counts in (groups[group], groups["total"]):
@@ -40,8 +42,8 @@ def summarize(entries: list[dict[str, Any]]) -> dict[str, Counts]:
             counts.overturedb_themes += overturedb
             counts.themerrdb_themes += themerrdb
             counts.themes += overturedb + themerrdb
-            counts.titles_with_themes += overturedb or themerrdb
-            counts.core_complete += poster and background and (overturedb or themerrdb)
+            counts.titles_with_themes += themed
+            counts.core_complete += poster and background and themed
     return groups
 
 
