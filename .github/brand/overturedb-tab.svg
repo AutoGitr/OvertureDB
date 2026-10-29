@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14.023875" height="16" viewBox="0 0 14.023875 16">
+  <style>
+    :root {
+      color: #292b31;
+    }
+    .tone-0 {
+      stroke: #626a76;
+    }
+    .tone-1 {
+      stroke: #746e62;
+    }
+    .tone-2 {
+      stroke: #806844;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color: #d8c7a3;
+      }
+      .tone-0 {
+        stroke: #9ca1aa;
+      }
+      .tone-1 {
+        stroke: #bdb7ab;
+      }
+      .tone-2 {
+        stroke: #d8c7a3;
+      }
+    }
+  </style>
+  <g
+    transform="translate(7.011937 8)"
+    fill="none"
+    stroke-width="1.25"
+    stroke-linejoin="round"
+    shape-rendering="geometricPrecision"
+  >
+    <polygon
+      points="0,-7.375 6.386937,-3.6875 6.386937,3.6875 0,7.375 -6.386937,3.6875 -6.386937,-3.6875"
+      class="tone-0"
+    />
+    <polygon
+      points="0,-4.875 4.221874,-2.4375 4.221874,2.4375 0,4.875 -4.221874,2.4375 -4.221874,-2.4375"
+      class="tone-1"
+    />
+    <polygon
+      points="0,-2.375 2.05681,-1.1875 2.05681,1.1875 0,2.375 -2.05681,1.1875 -2.05681,-1.1875"
+      class="tone-2"
+    />
+  </g>
+</svg>

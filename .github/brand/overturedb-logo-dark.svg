@@ -1,0 +1,27 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="42.137169"
+  height="48.3"
+  viewBox="0 0 42.137169 48.3"
+>
+  <g
+    transform="translate(21.068584 24.15)"
+    fill="none"
+    stroke-width="2.3"
+    stroke-linejoin="round"
+    shape-rendering="geometricPrecision"
+  >
+    <polygon
+      points="0,-23 19.918584,-11.5 19.918584,11.5 0,23 -19.918584,11.5 -19.918584,-11.5"
+      stroke="#9ca1aa"
+    />
+    <polygon
+      points="0,-16 13.856406,-8 13.856406,8 0,16 -13.856406,8 -13.856406,-8"
+      stroke="#bdb7ab"
+    />
+    <polygon
+      points="0,-9 7.794229,-4.5 7.794229,4.5 0,9 -7.794229,4.5 -7.794229,-4.5"
+      stroke="#d8c7a3"
+    />
+  </g>
+</svg>

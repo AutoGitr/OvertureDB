@@ -1,13 +1,13 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="brand/overturedb-logo-stacked-dark.svg" />
-  <img src="brand/overturedb-logo-stacked-light.svg" alt="OvertureDB" width="260" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/.github/brand/overturedb-logo-stacked-dark.svg" />
+  <img src="https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/.github/brand/overturedb-logo-stacked-light.svg" alt="OvertureDB" width="260" />
 </picture>
 
 <br>
 
-*Artwork and theme catalog for [Overture](https://github.com/AutoGitr/Overture)*
+_Artwork, collection & theme catalog for [Overture](https://github.com/AutoGitr/Overture)_
 
 [Use with Overture](#use-with-overture) • [Contribute selections](#contribute-selections)
 

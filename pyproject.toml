@@ -1,7 +1,7 @@
 [project]
 name = "overturedb"
 version = "1.0.0"
-description = "Artwork and theme catalog for Overture"
+description = "Artwork, collection & theme catalog for Overture"
 readme = ".github/README.md"
 requires-python = "==3.15.1"
 dependencies = [
