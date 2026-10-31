@@ -9,8 +9,8 @@
   "dependencyDashboard": true,
   "rangeStrategy": "pin",
   "labels": ["deps"],
-  "prConcurrentLimit": 2,
-  "prHourlyLimit": 2,
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
   "schedule": ["* 5 * * 2"],
   "internalChecksFilter": "strict",
@@ -49,6 +49,19 @@
       "description": "Python must be the same exact version in requires-python and .python-version",
       "matchPackageNames": ["python"],
       "groupName": "Python Version"
+    },
+    {
+      "matchPackageNames": [
+        "/eslint/",
+        "/prettier/",
+        "/vitest/",
+        "/pytest/",
+        "/ruff/",
+        "/pyright/",
+        "/testing-library/"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "groupName": "Tooling, Linters & Testing Rules"
     },
     {
       "matchUpdateTypes": ["pin", "patch", "digest", "pinDigest"],
