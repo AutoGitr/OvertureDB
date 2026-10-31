@@ -126,7 +126,7 @@ def dashboard(
     text(
         32,
         106,
-        f"{total.titles:,} titles · Community-curated artwork and theme music",
+        f"{total.titles:,} titles · Artwork, collection & theme catalog",
         color=muted,
     )
     for index, (label, value, note) in enumerate(metrics):
