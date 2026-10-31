@@ -3,7 +3,7 @@ name = "overturedb"
 version = "1.0.0"
 description = "Artwork, collection & theme catalog for Overture"
 readme = ".github/README.md"
-requires-python = "==3.15.1"
+requires-python = "==3.15.2"
 dependencies = [
     "jsonschema==4.26.0",
 ]
