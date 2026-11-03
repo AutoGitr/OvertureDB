@@ -313,6 +313,7 @@ def test_end_to_end_cross_provider_matching(tmp_path: Path, data_dir: Path) -> N
     res = import_bulk_export(overture_dir=tmp_path, input_dir=input_dir, dry_run=False)
     assert res["created"] == 0
     assert res["backfilled"] == 1
+    assert res["backfilled_by_type"] == {"show": 1}
     assert res["backfilled_kinds"] == {
         "backgrounds": 1,
         "season posters": 1,
@@ -427,11 +428,29 @@ def test_format_review_markdown_sorting_and_links() -> None:
 
     items = [
         ReviewItem(
+            title="The Matrix Collection",
+            year=None,
+            media_type="collection",
+            poster_url="https://image.tmdb.org/t/p/original/matrix_col.jpg",
+        ),
+        ReviewItem(
             title="Zoolander",
             year=2001,
             media_type="movie",
             poster_url="https://image.tmdb.org/t/p/original/zoolander.jpg",
             youtube_id="zoo12345678",
+        ),
+        ReviewItem(
+            title="Breaking Bad",
+            year=2008,
+            media_type="show",
+            seasons=[(1, "https://image.tmdb.org/t/p/original/bb_s1.jpg")],
+        ),
+        ReviewItem(
+            title="Alien Collection",
+            year=None,
+            media_type="collection",
+            background_url="https://image.tmdb.org/t/p/original/alien_col_bg.jpg",
         ),
         ReviewItem(
             title="Avatar",
@@ -440,27 +459,39 @@ def test_format_review_markdown_sorting_and_links() -> None:
             background_url="https://image.tmdb.org/t/p/original/avatar_bg.jpg",
         ),
         ReviewItem(
-            title="Breaking Bad",
-            year=2008,
+            title="Andor",
+            year=2022,
             media_type="show",
-            seasons=[(1, "https://image.tmdb.org/t/p/original/bb_s1.jpg")],
+            poster_url="https://image.tmdb.org/t/p/original/andor.jpg",
         ),
     ]
     md = format_review_markdown(items)
     assert "<details>" in md
-    assert "<summary><b>Review Artwork & Theme URLs (3 items)</b></summary>" in md
+    assert "<summary><b>Review Artwork & Theme URLs (6 items)</b></summary>" in md
 
-    # Check alphabetical ordering: Avatar -> Breaking Bad -> Zoolander
-    idx_avatar = md.index("Avatar (2009)")
-    idx_bb = md.index("Breaking Bad (2008)")
-    idx_zoolander = md.index("Zoolander (2001)")
-    assert idx_avatar < idx_bb < idx_zoolander
+    # Check section headings and logical ordering: Movies -> Shows -> Collections
+    idx_movies = md.index("### Movies")
+    idx_shows = md.index("### Shows")
+    idx_collections = md.index("### Collections")
+    assert idx_movies < idx_shows < idx_collections
+
+    # Check alphabetical ordering within each section
+    idx_avatar = md.index("#### Avatar (2009)")
+    idx_zoolander = md.index("#### Zoolander (2001)")
+    idx_andor = md.index("#### Andor (2022)")
+    idx_bb = md.index("#### Breaking Bad (2008)")
+    idx_alien = md.index("#### Alien Collection")
+    idx_matrix = md.index("#### The Matrix Collection")
+    assert idx_movies < idx_avatar < idx_zoolander < idx_shows
+    assert idx_shows < idx_andor < idx_bb < idx_collections
+    assert idx_collections < idx_alien < idx_matrix
 
     # Check clickable links
     assert "[View image](<https://image.tmdb.org/t/p/original/avatar_bg.jpg>)" in md
     assert "[View image](<https://image.tmdb.org/t/p/original/zoolander.jpg>)" in md
     assert "[Watch video](https://www.youtube.com/watch?v=zoo12345678)" in md
     assert "[View image](<https://image.tmdb.org/t/p/original/bb_s1.jpg>)" in md
+    assert "[View image](<https://image.tmdb.org/t/p/original/matrix_col.jpg>)" in md
 
 
 def test_review_that_does_not_fit_is_refused() -> None:
@@ -539,6 +570,7 @@ def test_created_kinds_tracks_new_entry_media(tmp_path: Path, data_dir: Path) ->
     (input_dir / "tmdb-999.json").write_text(json.dumps(new_movie))
     res = import_bulk_export(overture_dir=tmp_path, input_dir=input_dir, dry_run=True)
     assert res["created"] == 1
+    assert res["created_by_type"] == {"movie": 1}
     assert res["created_kinds"] == {
         "posters": 1,
         "backgrounds": 1,

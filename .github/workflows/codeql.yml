@@ -63,7 +63,7 @@ jobs:
           echo "languages=[$(IFS=,; echo "${languages[*]}")]" >> "$GITHUB_OUTPUT"
 
   codeql:
-    name: codeql (${{ matrix.language }})
+    name: Analyze
     needs: languages
     if: needs.languages.outputs.languages != '[]'
     runs-on: ubuntu-26.04

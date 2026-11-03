@@ -8,7 +8,12 @@ lazy from pathlib import Path
 lazy from typing import Any, cast
 lazy from zipfile import ZipFile
 
-lazy from schema.contract import IDENTITY_FIELDS, entry_fields, validate_entry
+lazy from schema.contract import (
+    ENTRY_FOLDERS,
+    IDENTITY_FIELDS,
+    entry_fields,
+    validate_entry,
+)
 
 lazy from .catalog import (
     EntryIndex,
@@ -64,12 +69,7 @@ def format_review_markdown(
     if not review_items:
         return ""
 
-    sorted_items = sorted(
-        review_items,
-        key=lambda item: (item.title.lower(), item.year or 0),
-    )
-
-    count = len(sorted_items)
+    count = len(review_items)
     lines = [
         "<details>",
         f"<summary><b>Review Artwork & Theme URLs ({count} items)</b></summary>",
@@ -77,42 +77,53 @@ def format_review_markdown(
         "",
     ]
     current_len = sum(len(line) + 1 for line in lines)
-    for item in sorted_items:
-        item_lines: list[str] = []
-        year_str = f" ({item.year})" if item.year else ""
-        title = escape(item.title).replace("\n", " ").replace("\r", " ")
-        title = title.replace("@", "&#64;").replace("[", "&#91;")
-        item_lines.append(f"#### {title}{year_str}")
-        if item.added:
-            item_lines.append(f"- **Added:** `{', '.join(item.added)}`")
-        if item.poster_url:
-            item_lines.append(
-                f"- **Poster:** [View image](<{escape(item.poster_url)}>)"
-            )
-        if item.background_url:
-            item_lines.append(
-                f"- **Background:** [View image](<{escape(item.background_url)}>)"
-            )
-        if item.youtube_id:
-            yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
-            item_lines.append(
-                f"- **YouTube Theme:** [Watch video]({yt_url}) (`{item.youtube_id}`)"
-            )
-        for s_num, s_url in sorted(item.seasons, key=lambda s: s[0]):
-            item_lines.append(
-                f"- **Season {s_num} Poster:** [View image](<{escape(s_url)}>)"
-            )
-        item_lines.append("")
+    for media_type, folder in ENTRY_FOLDERS.items():
+        group_items = sorted(
+            (item for item in review_items if item.media_type == media_type),
+            key=lambda item: (item.title.lower(), item.year or 0),
+        )
+        if not group_items:
+            continue
+        heading_lines = [f"### {folder.capitalize()}", ""]
+        lines.extend(heading_lines)
+        current_len += sum(len(line) + 1 for line in heading_lines)
+        for item in group_items:
+            item_lines: list[str] = []
+            year_str = f" ({item.year})" if item.year else ""
+            title = escape(item.title).replace("\n", " ").replace("\r", " ")
+            title = title.replace("@", "&#64;").replace("[", "&#91;")
+            item_lines.append(f"#### {title}{year_str}")
+            if item.added:
+                item_lines.append(f"- **Added:** `{', '.join(item.added)}`")
+            if item.poster_url:
+                item_lines.append(
+                    f"- **Poster:** [View image](<{escape(item.poster_url)}>)"
+                )
+            if item.background_url:
+                item_lines.append(
+                    f"- **Background:** [View image](<{escape(item.background_url)}>)"
+                )
+            if item.youtube_id:
+                yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
+                item_lines.append(
+                    f"- **YouTube Theme:** [Watch video]({yt_url}) "
+                    f"(`{item.youtube_id}`)"
+                )
+            for s_num, s_url in sorted(item.seasons, key=lambda s: s[0]):
+                item_lines.append(
+                    f"- **Season {s_num} Poster:** [View image](<{escape(s_url)}>)"
+                )
+            item_lines.append("")
 
-        item_len = sum(len(line) + 1 for line in item_lines)
-        if current_len + item_len + 150 > max_chars:
-            raise ValueError(
-                f"{count:,} changes exceed the GitHub comment limit. "
-                "Split the export into smaller archives (e.g. up to 500 items) "
-                "so every change can be verified in the preview."
-            )
-        lines.extend(item_lines)
-        current_len += item_len
+            item_len = sum(len(line) + 1 for line in item_lines)
+            if current_len + item_len + 150 > max_chars:
+                raise ValueError(
+                    f"{count:,} changes exceed the GitHub comment limit. "
+                    "Split the export into smaller archives (e.g. up to 500 items) "
+                    "so every change can be verified in the preview."
+                )
+            lines.extend(item_lines)
+            current_len += item_len
 
     lines.append("</details>")
     return "\n".join(lines)
@@ -432,6 +443,7 @@ def import_bulk_export(
     )
 
     unchanged_count = 0
+    unchanged_by_type: Counter[str] = Counter()
     skipped_count = 0
     errors: list[str] = []
     details: list[str] = []
@@ -451,6 +463,7 @@ def import_bulk_export(
                     details.append(detail)
                 else:
                     unchanged_count += 1
+                    unchanged_by_type[entry["media_type"]] += 1
             else:
                 detail = _process_new_item(entry, data_dir, index)
                 details.append(detail)
@@ -464,18 +477,23 @@ def import_bulk_export(
     # Count and review final changed entries, not intermediate input records.
     created_count = 0
     backfilled_count = 0
+    created_by_type: Counter[str] = Counter()
+    backfilled_by_type: Counter[str] = Counter()
     created_kinds: Counter[str] = Counter()
     backfilled_kinds: Counter[str] = Counter()
     review_items: list[ReviewItem] = []
     for name in additions:
         entry = index.entries[overture_dir / name]
+        media_type = entry["media_type"]
         previous_path = original.find(entry)
         if previous_path is None:
             created_count += 1
+            created_by_type[media_type] += 1
             created_kinds.update(_created_kinds(entry))
             review = _collect_new_review(entry)
         else:
             backfilled_count += 1
+            backfilled_by_type[media_type] += 1
             orig_entry = original_entries[previous_path]
             backfilled_kinds.update(_backfilled_kinds(orig_entry, entry))
             review = _collect_backfilled_review(orig_entry, entry)
@@ -492,16 +510,31 @@ def import_bulk_export(
         "deletions": deletions,
         "total_incoming": len(incoming_entries),
         "created": created_count,
+        "created_by_type": {
+            media_type: created_by_type[media_type]
+            for media_type in ENTRY_FOLDERS
+            if created_by_type[media_type]
+        },
         "created_kinds": {
             kind: created_kinds[kind] for kind in MEDIA_KINDS if created_kinds[kind]
         },
         "backfilled": backfilled_count,
+        "backfilled_by_type": {
+            media_type: backfilled_by_type[media_type]
+            for media_type in ENTRY_FOLDERS
+            if backfilled_by_type[media_type]
+        },
         "backfilled_kinds": {
             kind: backfilled_kinds[kind]
             for kind in BACKFILL_KINDS
             if backfilled_kinds[kind]
         },
         "unchanged": unchanged_count,
+        "unchanged_by_type": {
+            media_type: unchanged_by_type[media_type]
+            for media_type in ENTRY_FOLDERS
+            if unchanged_by_type[media_type]
+        },
         "skipped": skipped_count,
         "errors": errors,
         "details": details,

@@ -13,7 +13,7 @@ lazy from typing import IO, Any
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener
 lazy from zipfile import BadZipFile
 
-lazy from schema.contract import IDENTITY_FIELDS
+lazy from schema.contract import ENTRY_FOLDERS, IDENTITY_FIELDS
 
 lazy from . import github, publication
 lazy from .catalog import (
@@ -348,13 +348,30 @@ def format_bulk_summary(result: dict[str, Any]) -> str:
 
     unchanged_details = "Identical to database" if unchanged > 0 else "-"
 
+    created_by_type = result.get("created_by_type", {})
+    backfilled_by_type = result.get("backfilled_by_type", {})
+    unchanged_by_type = result.get("unchanged_by_type", {})
+    type_keys = tuple(ENTRY_FOLDERS)
+    type_headers = " | ".join(folder.capitalize() for folder in ENTRY_FOLDERS.values())
+    type_align = " | ".join(":---" for _ in type_keys)
+    created_cols = " | ".join(f"{created_by_type.get(t, 0):,}" for t in type_keys)
+    backfilled_cols = " | ".join(f"{backfilled_by_type.get(t, 0):,}" for t in type_keys)
+    unchanged_cols = " | ".join(f"{unchanged_by_type.get(t, 0):,}" for t in type_keys)
+    by_type = (created_by_type, backfilled_by_type, unchanged_by_type)
+    total_cols = " | ".join(
+        f"{sum(counts.get(t, 0) for counts in by_type):,}" for t in type_keys
+    )
+
     lines = [
-        "| Status | Count | Details |",
-        "| :--- | :--- | :--- |",
-        f"| **New entries** | {created:,} | {created_details} |",
-        f"| **Updated entries** | {backfilled:,} | {backfilled_details} |",
-        f"| **Unchanged** | {unchanged:,} | {unchanged_details} |",
-        f"| **Total in export** | {total:,} | |",
+        f"| Status | {type_headers} | Total | Details |",
+        f"| :--- | {type_align} | :--- | :--- |",
+        f"| **New entries** | {created_cols} | {created:,} | {created_details} |",
+        (
+            f"| **Updated entries** | {backfilled_cols} | "
+            f"{backfilled:,} | {backfilled_details} |"
+        ),
+        f"| **Unchanged** | {unchanged_cols} | {unchanged:,} | {unchanged_details} |",
+        f"| **Total in export** | {total_cols} | {total:,} | |",
     ]
     return "\n".join(lines)
 

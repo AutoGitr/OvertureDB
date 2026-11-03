@@ -110,6 +110,7 @@ def test_workflows_pin_actions_bound_runtime_and_do_not_persist_credentials(
             for action in re.findall(r"(?m)^\s*-?\s*uses: (.+)$", path.read_text()):
                 assert re.search(r"@[0-9a-f]{40} # v\d+\.\d+\.\d+$", action)
             for job in workflow["jobs"].values():
+                assert "${{ matrix." not in job.get("name", "")
                 assert re.search(r"^ubuntu-\d{2}\.04$", job["runs-on"])
                 assert job["timeout-minutes"] <= 20
                 for step in job["steps"]:
@@ -171,6 +172,10 @@ def test_runner_updates_are_enabled_without_automatic_os_upgrades() -> None:
     assert rule["automerge"] is False
     # Runner releases have no timestamps, so an age requirement blocks updates.
     assert rule["minimumReleaseAge"] is None
+    unpinned_tools = next(
+        rule for rule in renovate["packageRules"] if rule.get("pinDigests") is False
+    )
+    assert unpinned_tools["matchPackageNames"] == ["aquasecurity/trivy"]
 
 
 def test_all_validation_jobs_use_the_same_gate() -> None:

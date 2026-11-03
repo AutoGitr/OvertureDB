@@ -30,6 +30,11 @@
   },
   "packageRules": [
     {
+      "description": "setup-trivy accepts a release version, not a Git commit digest",
+      "matchPackageNames": ["aquasecurity/trivy"],
+      "pinDigests": false
+    },
+    {
       "matchManagers": ["github-actions"],
       "addLabels": ["ci"]
     },

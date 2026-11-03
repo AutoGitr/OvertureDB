@@ -504,38 +504,43 @@ def test_format_bulk_errors_and_conflict_message() -> None:
 def test_format_bulk_summary_table() -> None:
     res: dict[str, Any] = {
         "created": 1172,
+        "created_by_type": {"movie": 900, "show": 200, "collection": 72},
         "created_kinds": {"posters": 1172, "backgrounds": 800, "themes": 250},
         "backfilled": 1368,
+        "backfilled_by_type": {"movie": 1000, "show": 300, "collection": 68},
         "backfilled_kinds": {"identifiers": 1368, "posters": 1200, "themes": 50},
         "unchanged": 380,
+        "unchanged_by_type": {"movie": 300, "show": 50, "collection": 30},
         "total_incoming": 2920,
     }
     table = automation.format_bulk_summary(res)
-    assert "| Status | Count | Details |" in table
+    assert "| Status | Movies | Shows | Collections | Total | Details |" in table
     assert (
-        "| **New entries** | 1,172 | 1,172 posters, 800 backgrounds, 250 themes |"
-        in table
-    )
+        "| **New entries** | 900 | 200 | 72 | 1,172 | "
+        "1,172 posters, 800 backgrounds, 250 themes |"
+    ) in table
     assert (
-        "| **Updated entries** | 1,368 | 1,368 identifiers, 1,200 posters, 50 themes |"
-        in table
-    )
-    assert "| **Unchanged** | 380 | Identical to database |" in table
-    assert "| **Total in export** | 2,920 | |" in table
+        "| **Updated entries** | 1,000 | 300 | 68 | 1,368 | "
+        "1,368 identifiers, 1,200 posters, 50 themes |"
+    ) in table
+    assert "| **Unchanged** | 300 | 50 | 30 | 380 | Identical to database |" in table
+    assert "| **Total in export** | 2,200 | 550 | 170 | 2,920 | |" in table
 
     # Empty created and empty backfilled details fall back gracefully
     res_minimal: dict[str, Any] = {
         "created": 0,
         "created_kinds": {},
         "backfilled": 10,
+        "backfilled_by_type": {"movie": 10},
         "backfilled_kinds": {},
         "unchanged": 0,
         "total_incoming": 10,
     }
     table_minimal = automation.format_bulk_summary(res_minimal)
-    assert "| **New entries** | 0 | - |" in table_minimal
-    assert "| **Updated entries** | 10 | - |" in table_minimal
-    assert "| **Unchanged** | 0 | - |" in table_minimal
+    assert "| **New entries** | 0 | 0 | 0 | 0 | - |" in table_minimal
+    assert "| **Updated entries** | 10 | 0 | 0 | 10 | - |" in table_minimal
+    assert "| **Unchanged** | 0 | 0 | 0 | 0 | - |" in table_minimal
+    assert "| **Total in export** | 10 | 0 | 0 | 10 | |" in table_minimal
 
 
 @patch.object(automation, "check_art_url", return_value=None)
