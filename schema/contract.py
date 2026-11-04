@@ -287,6 +287,27 @@ def entry_fields(media_type: str) -> tuple[str, ...]:
 #: Fields any entry may carry beyond the ones its media type requires.
 OPTIONAL_ENTRY_FIELDS = ("no_theme",)
 
+#: The issue form that contributes one entry of each media type.
+ISSUE_FORMS: frozendict[str, str] = frozendict(
+    {"movie": "movie.yml", "show": "show.yml", "collection": "collection.yml"}  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+)
+#: The issue form field each entry field fills; ``seasons`` takes one
+#: ``season_num=url`` line per season poster.
+ISSUE_FORM_FIELDS: frozendict[str, str] = frozendict(
+    {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+        "title": "item_title",
+        "year": "year",
+        "tmdb_id": "tmdb_id",
+        "tvdb_id": "tvdb_id",
+        "imdb_id": "imdb_id",
+        "poster_url": "poster_url",
+        "background_url": "background_url",
+        "youtube_id_overturedb": "youtube_id",
+        "seasons": "season_posters",
+        "no_theme": "no_theme",
+    }
+)
+
 
 def entry_file_stem(entry: dict[str, Any]) -> str:
     """Return the name of an entry's file without ``.json``, such as ``tmdb-603``.

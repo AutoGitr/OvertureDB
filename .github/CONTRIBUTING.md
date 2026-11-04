@@ -49,13 +49,13 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 
 ### Allowed sources and URL formats
 
-| Source | Priority | Stored Link | Also Accepted (automatically converted on submission) |
-| :--- | :--- | :--- | :--- |
-| **TMDB** | Primary & Preferred | `https://image.tmdb.org/t/p/original/<file>` | Any other size (`w342`, `w780`, ...) and `themoviedb.org` image links. |
-| **ThePosterDB** | Secondary | `https://theposterdb.com/api/assets/<id>` | Poster pages (`/poster/<id>`), `/view` links and `www.theposterdb.com`. |
-| **Fanart.tv** | Secondary | `https://assets.fanart.tv/fanart/<path>` | `/preview/` thumbnails and `fanart.tv` links. |
-| **TheTVDB** | Secondary | `https://artworks.thetvdb.com/banners/<path>` | `_t` thumbnails, `_cache/` links and `thetvdb.com` links. |
-| **Plex Static** | Secondary | `https://metadata-static.plex.tv/<path>` | |
+| Source          | Priority            | Stored Link                                   | Also Accepted (automatically converted on submission)                   |
+| :-------------- | :------------------ | :-------------------------------------------- | :---------------------------------------------------------------------- |
+| **TMDB**        | Primary & Preferred | `https://image.tmdb.org/t/p/original/<file>`  | Any other size (`w342`, `w780`, ...) and `themoviedb.org` image links.  |
+| **ThePosterDB** | Secondary           | `https://theposterdb.com/api/assets/<id>`     | Poster pages (`/poster/<id>`), `/view` links and `www.theposterdb.com`. |
+| **Fanart.tv**   | Secondary           | `https://assets.fanart.tv/fanart/<path>`      | `/preview/` thumbnails and `fanart.tv` links.                           |
+| **TheTVDB**     | Secondary           | `https://artworks.thetvdb.com/banners/<path>` | `_t` thumbnails, `_cache/` links and `thetvdb.com` links.               |
+| **Plex Static** | Secondary           | `https://metadata-static.plex.tv/<path>`      |                                                                         |
 
 - Every entry stores the full-size original over HTTPS, without query strings or fragments. Submitted links are converted to that form; links on these hosts that do not name an image (sets, pages, viewers) are rejected.
 - Images must be JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files.
@@ -63,19 +63,19 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 
 ### Example poster sets
 
-| Series / Category | Poster Set Link | Notes |
-| :--- | :--- | :--- |
-| **Apocalypse Documentaries** | https://theposterdb.com/set/398222 | Documentary series. |
-| **David Attenborough Documentaries** | https://theposterdb.com/set/125988 | From TPDB user `fwlolx`. |
-| **Disneynature** | https://theposterdb.com/set/11090 | |
-| **James Bond** | https://theposterdb.com/set/62004 | |
-| **Ken Burns Documentaries** | https://theposterdb.com/poster/218606 | Images in this format from TPDB user `fwlolx`. |
-| **Marvel Cinematic Universe** | https://theposterdb.com/set/87082 | |
-| **Pixar Animation Studios** | https://theposterdb.com/set/97 | |
-| **Pixar Shorts** | https://theposterdb.com/set/11456 | |
-| **Planet Documentaries** | https://theposterdb.com/set/143160 | Use for the planet series (*Planet Earth*, *Blue Planet*, etc.). |
-| **Studio Ghibli** | https://theposterdb.com/set/32965 | |
-| **Walt Disney Animation Studios** | https://theposterdb.com/set/2454 | |
+| Series / Category                        | Poster Set Link                       | Notes                                                                                   |
+| :--------------------------------------- | :------------------------------------ | :-------------------------------------------------------------------------------------- |
+| **Apocalypse Documentaries**             | https://theposterdb.com/set/398222    | Documentary series.                                                                     |
+| **David Attenborough Documentaries**     | https://theposterdb.com/set/125988    | From TPDB user `fwlolx`.                                                                |
+| **Disneynature**                         | https://theposterdb.com/set/11090     |                                                                                         |
+| **James Bond**                           | https://theposterdb.com/set/62004     |                                                                                         |
+| **Ken Burns Documentaries**              | https://theposterdb.com/poster/218606 | Images in this format from TPDB user `fwlolx`.                                          |
+| **Marvel Cinematic Universe**            | https://theposterdb.com/set/87082     |                                                                                         |
+| **Pixar Animation Studios**              | https://theposterdb.com/set/97        |                                                                                         |
+| **Pixar Shorts**                         | https://theposterdb.com/set/11456     |                                                                                         |
+| **Planet Documentaries**                 | https://theposterdb.com/set/143160    | Use for the planet series (_Planet Earth_, _Blue Planet_, etc.).                        |
+| **Studio Ghibli**                        | https://theposterdb.com/set/32965     |                                                                                         |
+| **Walt Disney Animation Studios**        | https://theposterdb.com/set/2454      |                                                                                         |
 | **Walt Disney Animation Studios Shorts** | https://theposterdb.com/poster/206944 | Images in this format from TPDB users `scoobymcsnack`, `DIIIVOY`, and `HammerActually`. |
 
 ### How to submit
@@ -91,7 +91,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 - **True image validation**: Checks image file headers for authentic JPEG and PNG files.
 - **Direct links**: Converts every artwork link to the full-size original form the catalog stores.
 - **Accurate external IDs**: Pairs TMDB, TVDB, and IMDb IDs from your media server match.
-- **Prefilled submissions**: The GitHub contribution link opens the issue form with title, year, external IDs, URLs and replaced values filled in.
+- **Prefilled submissions**: **Contribute issue** on a title, collection or OvertureDB draft opens its issue form with the title, year, external IDs, artwork links, theme and season posters filled in.
 
 Review the details and click **Submit new issue**. To contribute all your selections at once, export them (**OvertureDB -> Export selections**) and attach the `.zip` to the [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml) form.
 
@@ -237,14 +237,14 @@ Only the workflows push.
 
 ## Workflows and repository settings
 
-| Workflow | Purpose |
-| --- | --- |
-| Contributions | Validate contribution issues, post preview comments, and commit approved changes to `main`. |
-| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer dataset PRs. |
-| CodeQL | Scan Python and Actions code when it changes, and both weekly; dataset contributions start no analysis. |
-| Import ThemerrDB | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch with optional dry-run). |
-| Dataset Health | Check entries after each import and update the `health` issue. |
-| Publish Catalog | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
+| Workflow           | Purpose                                                                                                                       |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Contributions      | Validate contribution issues, post preview comments, and commit approved changes to `main`.                                   |
+| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer dataset PRs.                   |
+| CodeQL             | Scan Python and Actions code when it changes, and both weekly; dataset contributions start no analysis.                       |
+| Import ThemerrDB   | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch with optional dry-run).     |
+| Dataset Health     | Check entries after each import and update the `health` issue.                                                                |
+| Publish Catalog    | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
 
 Dataset Health checks 200 entries per daily run, new and changed ones first:
 artwork reachability, the 1% rule and theme availability as problems, and

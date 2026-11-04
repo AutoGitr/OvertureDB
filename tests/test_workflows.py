@@ -8,6 +8,12 @@ lazy from pathlib import Path
 lazy import pytest
 lazy import yaml
 
+lazy from schema.contract import (
+    ISSUE_FORM_FIELDS,
+    ISSUE_FORMS,
+    OPTIONAL_ENTRY_FIELDS,
+    entry_fields,
+)
 lazy from scripts.automation import KINDS
 lazy from scripts.sync_labels import load_labels
 
@@ -234,3 +240,16 @@ def test_import_workflow_runs_on_main_with_dataset_write_concurrency() -> None:
     assert job["if"] == "github.ref == 'refs/heads/main'"
     assert "ARGS+=(--commit)" in source
     assert "aquasecurity/setup-trivy@" in source
+
+
+def test_issue_forms_have_the_fields_the_contract_fills() -> None:
+    for media_type, name in ISSUE_FORMS.items():
+        form = yaml.safe_load((ROOT / ".github/ISSUE_TEMPLATE" / name).read_text())
+        ids = {field["id"] for field in form["body"] if "id" in field}
+        filled = {
+            ISSUE_FORM_FIELDS[field]
+            for field in (*entry_fields(media_type), *OPTIONAL_ENTRY_FIELDS)
+            if field in ISSUE_FORM_FIELDS
+        }
+        assert filled <= ids, (name, filled - ids)
+        assert media_type in form["labels"]
