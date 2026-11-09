@@ -2,8 +2,8 @@
   "media_type": "collection",
   "title": "Star Wars Collection",
   "tmdb_id": 10,
-  "poster_url": null,
-  "background_url": null,
+  "poster_url": "https://image.tmdb.org/t/p/original/6EvyuI0XpL7JopXTE72FsgM5d47.jpg",
+  "background_url": "https://image.tmdb.org/t/p/original/jci0IkGpJRwpTx62jDxIFXAt2Sr.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "JG5OsfOuEy0"
 }
