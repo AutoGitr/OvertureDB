@@ -236,4 +236,21 @@ def test_no_theme_flags_an_entry_without_an_overturedb_theme() -> None:
     ):
         with pytest.raises(ValueError, match="contract"):
             validate_entry(invalid)
-    assert "no_theme" in OPTIONAL_ENTRY_FIELDS
+    assert all("no_theme" in fields for fields in OPTIONAL_ENTRY_FIELDS.values())
+    assert OPTIONAL_ENTRY_FIELDS["collection"] == ("no_theme", "consistent_poster_url")
+
+
+def test_a_consistent_poster_is_a_collections_on_tmdb_or_theposterdb() -> None:
+    for url in (
+        "https://image.tmdb.org/t/p/original/a.jpg",
+        "https://theposterdb.com/api/assets/7",
+    ):
+        assert validate_entry(collection(consistent_poster_url=url))
+    with pytest.raises(ValueError, match="TMDB or ThePosterDB"):
+        validate_entry(
+            collection(consistent_poster_url="https://assets.fanart.tv/fanart/a.jpg")
+        )
+    with pytest.raises(ValueError, match="contract"):
+        validate_entry(
+            movie(consistent_poster_url="https://image.tmdb.org/t/p/original/a.jpg")
+        )

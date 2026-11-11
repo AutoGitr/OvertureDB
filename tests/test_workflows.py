@@ -248,7 +248,7 @@ def test_issue_forms_have_the_fields_the_contract_fills() -> None:
         ids = {field["id"] for field in form["body"] if "id" in field}
         filled = {
             ISSUE_FORM_FIELDS[field]
-            for field in (*entry_fields(media_type), *OPTIONAL_ENTRY_FIELDS)
+            for field in (*entry_fields(media_type), *OPTIONAL_ENTRY_FIELDS[media_type])
             if field in ISSUE_FORM_FIELDS
         }
         assert filled <= ids, (name, filled - ids)

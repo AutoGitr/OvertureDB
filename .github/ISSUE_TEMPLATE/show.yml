@@ -60,7 +60,7 @@ body:
     id: youtube_id
     attributes:
       label: YouTube theme video ID
-      description: YouTube URL or 11-character video ID.
+      description: YouTube URL or 11-character video ID of a theme 20 seconds to 10 minutes long.
       placeholder: AB96CvvLZKc
 
   - type: checkboxes

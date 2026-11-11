@@ -16,7 +16,7 @@ lazy from jsonschema import (
     validators,
 )
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 
@@ -134,6 +134,9 @@ ASPECT_RATIOS: frozendict[str, float] = frozendict(
 #: How far, as a fraction of the target ratio, artwork may be off: it absorbs
 #: rounding in fractional resolutions, not off-spec art.
 ASPECT_TOLERANCE = 0.01
+#: The shortest and longest theme OvertureDB takes, in seconds: a shorter one
+#: is a sting rather than a theme, and a longer one a soundtrack.
+THEME_SECONDS_RANGE: tuple[int, int] = (20, 600)
 #: How the art sources catalog entries may link to are named, in source order.
 CATALOG_ART_SOURCE_LABELS: tuple[str, ...] = tuple(
     source.label for source in _ART_SOURCES if source.catalog
@@ -240,6 +243,29 @@ def check_catalog_art_url(url: str) -> None:
         raise ValueError(f"Artwork link must use its canonical form {canonical}")
 
 
+def theme_length_problem(seconds: int) -> str | None:
+    """Why OvertureDB refuses a theme *seconds* long, or None when it takes it."""
+    shortest, longest = THEME_SECONDS_RANGE
+    if shortest <= seconds <= longest:
+        return None
+    return (
+        f"{seconds} seconds long; OvertureDB takes themes of "
+        f"{shortest} seconds to {longest // 60} minutes"
+    )
+
+
+def consistent_poster_problem(url: str) -> str | None:
+    """Why *url* cannot be a consistent collection poster, or None when it can."""
+    if art_source(url) in CONSISTENT_POSTER_SOURCES:
+        return None
+    labels = " or ".join(
+        source.label
+        for source in _ART_SOURCES
+        if source.name in CONSISTENT_POSTER_SOURCES
+    )
+    return f"upload consistent posters to {labels}"
+
+
 def _schema(name: str) -> dict[str, Any]:
     return json.loads((SCHEMA_DIR / name).read_text())
 
@@ -284,8 +310,17 @@ def entry_fields(media_type: str) -> tuple[str, ...]:
     return tuple(name for name in _ENTRY_FIELDS if name in required)
 
 
-#: Fields any entry may carry beyond the ones its media type requires.
-OPTIONAL_ENTRY_FIELDS = ("no_theme",)
+#: Fields an entry of each media type may carry beyond the ones it requires.
+OPTIONAL_ENTRY_FIELDS: frozendict[str, tuple[str, ...]] = frozendict(
+    {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+        "movie": ("no_theme",),
+        "show": ("no_theme",),
+        "collection": ("no_theme", "consistent_poster_url"),
+    }
+)
+#: The art sources a consistent collection poster may be uploaded to, preferred
+#: first: one layout shared by every collection needs a source anyone can add to.
+CONSISTENT_POSTER_SOURCES = ("tmdb", "tpdb")
 
 #: The issue form that contributes one entry of each media type.
 ISSUE_FORMS: frozendict[str, str] = frozendict(
@@ -302,6 +337,7 @@ ISSUE_FORM_FIELDS: frozendict[str, str] = frozendict(
         "imdb_id": "imdb_id",
         "poster_url": "poster_url",
         "background_url": "background_url",
+        "consistent_poster_url": "consistent_poster_url",
         "youtube_id_overturedb": "youtube_id",
         "seasons": "season_posters",
         "no_theme": "no_theme",
@@ -366,6 +402,7 @@ def entry_art_urls(entry: dict[str, Any]) -> list[tuple[str, str]]:
     fields = [
         ("poster_url", entry.get("poster_url")),
         ("background_url", entry.get("background_url")),
+        ("consistent_poster_url", entry.get("consistent_poster_url")),
         *(
             (f"seasons.{index}.poster_url", season["poster_url"])
             for index, season in enumerate(entry.get("seasons", []))
@@ -418,6 +455,11 @@ def _art_urls(entry: dict[str, Any]) -> None:
             check_catalog_art_url(url)
         except ValueError as exc:
             raise ValueError(f"Dataset contract violation at {path}: {exc}") from exc
+    consistent = entry.get("consistent_poster_url")
+    if consistent is not None and (problem := consistent_poster_problem(consistent)):
+        raise ValueError(
+            f"Dataset contract violation at consistent_poster_url: {problem}"
+        )
 
 
 def _youtube_ids(entry: dict[str, Any]) -> None:

@@ -13,7 +13,7 @@ lazy from typing import IO, Any
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener
 lazy from zipfile import BadZipFile
 
-lazy from schema.contract import ENTRY_FOLDERS, IDENTITY_FIELDS
+lazy from schema.contract import ENTRY_FOLDERS, IDENTITY_FIELDS, theme_length_problem
 
 lazy from . import github, publication
 lazy from .catalog import (
@@ -27,6 +27,7 @@ lazy from .catalog import (
     public_https_destination,
     resolution_warning,
     theme_problem,
+    theme_seconds,
 )
 lazy from .contribution import (
     NoChangesError,
@@ -146,7 +147,8 @@ def check_submission(
     """Reject what Dataset Health would report, and return its warnings.
 
     All artwork must be reachable. New artwork must follow the 1% rule and is
-    warned about below the recommended resolution, and a new theme must play.
+    warned about below the recommended resolution, and a new theme must play
+    and last 20 seconds to 10 minutes.
     """
     warnings: list[str] = []
     existing: set[str] = art_urls([previous]) if previous else set()
@@ -164,14 +166,15 @@ def check_submission(
     theme = entry["youtube_id_overturedb"]
     if theme and theme != (previous or {}).get("youtube_id_overturedb"):
         try:
-            problem = theme_problem(theme)
+            if problem := theme_problem(theme):
+                raise ValueError(f"The theme {theme} is {problem} on YouTube.")
+            if problem := theme_length_problem(theme_seconds(theme)):
+                raise ValueError(f"The theme {theme} is {problem}.")
         except TransientError as exc:
             raise ValueError(
                 f"YouTube could not confirm the theme {theme} ({exc}). "
                 "Edit the issue to check again."
             ) from exc
-        if problem:
-            raise ValueError(f"The theme {theme} is {problem} on YouTube.")
     return warnings
 
 

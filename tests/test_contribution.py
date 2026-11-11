@@ -1427,3 +1427,64 @@ def test_a_theme_and_no_theme_together_are_refused() -> None:
     body = _no_theme_body(youtube_id="abc123abc12").replace("- [ ]", "- [X]")
     with pytest.raises(ValueError, match="not both"):
         parse_issue_form(body, "[Movie]: Movie", ["movie"])
+
+
+def test_a_collection_takes_a_consistent_poster_beside_its_own(
+    tmp_path: Path, data_dir: Path
+) -> None:
+    consistent = "https://image.tmdb.org/t/p/original/consistent.jpg"
+    body = f"""### Title
+
+Star Wars Collection
+
+### TMDB ID
+
+10
+
+### Poster URL
+
+https://image.tmdb.org/t/p/original/own.jpg
+
+### Consistent poster URL
+
+{consistent}
+
+### {REASON_HEADING}
+
+{EMPTY_REASON}
+"""
+    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
+    process_contribution(parsed, tmp_path)
+    saved = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
+    assert (saved["poster_url"], saved["consistent_poster_url"]) == (
+        "https://image.tmdb.org/t/p/original/own.jpg",
+        consistent,
+    )
+
+    replaced = body.replace(consistent, "https://theposterdb.com/api/assets/7")
+    with pytest.raises(ValueError, match="Reason for modification"):
+        process_contribution(
+            parse_issue_form(replaced, "[Collection]: Star Wars", ["collection"]),
+            tmp_path,
+        )
+
+
+def test_only_collections_take_a_consistent_poster() -> None:
+    body = """### Title
+
+Interstellar
+
+### Year
+
+2014
+
+### TMDB ID
+
+157336
+
+### Consistent poster URL
+
+https://image.tmdb.org/t/p/original/consistent.jpg
+"""
+    with pytest.raises(ValueError, match="Only collections"):
+        parse_issue_form(body, "[Movie]: Interstellar (2014)", ["movie"])

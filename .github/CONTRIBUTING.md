@@ -40,9 +40,20 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 - Preferably no other text unless it suits the item.
 - A show's season posters must be consistent with each other.
 
+#### Consistent collection posters
+
+A collection can hold two posters: its own (`poster_url`), chosen like any
+other poster, and a consistent one (`consistent_poster_url`) in the one layout
+every consistent collection poster shares, so a library of them looks alike.
+Overture users choose which of the two OvertureDB gives their TMDB collections.
+
+- Make it with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva), keeping its layout and font.
+- Upload it to the collection on TMDB; only when TMDB will not take it, upload it to ThePosterDB. Other sources are rejected for consistent posters.
+- Give its link under **Consistent poster URL** in the collection form. The 1% rule and resolution recommendation of posters apply.
+
 ### Theme requirements
 
-- Preferred length is 1 to 2 minutes.
+- A theme must last 20 seconds to 10 minutes; contributions outside that are rejected. The preferred length is 1 to 2 minutes.
 - Music should begin immediately without leading silence or prolonged fade-ins.
 - Clean audio only: no dialogue intros, YouTube outro promotions, watermarks, or abrupt cutoffs.
 - OvertureDB imports ThemerrDB's themes daily. Contributions only set `youtube_id_overturedb`; review links compare that field alone. A contributed theme must differ from the item's imported `youtube_id_themerrdb`, so each item has a fallback when a video is removed or region-restricted. Matching imported themes are omitted from contributions. Bulk exports cannot set or replace the imported theme, and their `youtube_id_themerrdb` values are ignored.
@@ -117,7 +128,8 @@ A preview comment shows validation results, the selections and the diff. A maint
 Use `movie`, `show`, `collection`, or `bulk`.
 Preview comments show validation failures, clickable selections and the proposed
 diff. Single-entry submissions are rejected for unreachable artwork, new artwork
-outside the 1% rule, or a new theme that is removed or private on YouTube, and
+outside the 1% rule, or a new theme that is removed or private on YouTube or
+shorter than 20 seconds or longer than 10 minutes, and
 warn about new artwork below the recommended resolution. Bulk archives are not
 fetched; Dataset Health reports the same findings for them. Replacing a value
 or removing an entry requires a reason. Bulk archives add

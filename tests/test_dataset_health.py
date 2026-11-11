@@ -179,6 +179,20 @@ def test_theme_availability_uses_oembed(urlopen: MagicMock) -> None:
         catalog.theme_problem("4xdyx5NVUhI")
 
 
+@patch.object(catalog, "urlopen")
+def test_theme_length_comes_from_the_watch_page(urlopen: MagicMock) -> None:
+    page = urlopen.return_value.__enter__.return_value
+    page.read.return_value = b'..."lengthSeconds":"215"...'
+    assert catalog.theme_seconds("4xdyx5NVUhI") == 215
+    assert (
+        urlopen.call_args.args[0].full_url
+        == "https://www.youtube.com/watch?v=4xdyx5NVUhI"
+    )
+    page.read.return_value = b"<html>Sign in</html>"
+    with pytest.raises(catalog.TransientError):
+        catalog.theme_seconds("4xdyx5NVUhI")
+
+
 @patch.object(health, "entry_findings")
 def test_fix_rechecks_clear_resolved_problems_and_keep_transient_failures(
     problems: MagicMock,

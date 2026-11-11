@@ -238,6 +238,7 @@ def art_fields(entry: dict[str, Any]) -> list[tuple[str, str]]:
     fields = [
         ("poster", entry["poster_url"]),
         ("background", entry["background_url"]),
+        ("poster", entry.get("consistent_poster_url")),
         *(("poster", season["poster_url"]) for season in entry.get("seasons", [])),
     ]
     return [(kind, url) for kind, url in fields if url is not None]
@@ -299,26 +300,53 @@ class TransientError(Exception):
     """A check could not finish now and may succeed when tried again."""
 
 
-def theme_problem(youtube_id: str) -> str | None:
-    """Ask YouTube's keyless oEmbed endpoint whether a video is still available."""
-    video = f"https://www.youtube.com/watch?v={youtube_id}"
-    url = "https://www.youtube.com/oembed?" + urlencode(
-        {"format": "json", "url": video}
-    )
-    request = Request(url, headers={"User-Agent": "OvertureDB"})
+#: How a YouTube watch page states the video's length, in its player response.
+_LENGTH_SECONDS = re.compile(rb'"lengthSeconds":"(\d+)"')
+#: More than a watch page holds, so a runaway response cannot exhaust memory.
+_WATCH_PAGE_LIMIT = 8 * 1024 * 1024
+
+
+def _youtube(url: str) -> bytes:
+    """Read a fixed YouTube URL, telling a lasting refusal from a passing one."""
+    # Callers pass fixed HTTPS YouTube URLs; only the validated video ID varies.
+    request = Request(url, headers={"User-Agent": "OvertureDB"})  # noqa: S310 -- fixed HTTPS host
     try:
-        # Fixed HTTPS host; only the validated video ID varies.
-        with urlopen(request, timeout=20):  # noqa: S310
-            return None
+        with urlopen(request, timeout=20) as response:  # noqa: S310 -- fixed HTTPS host
+            return response.read(_WATCH_PAGE_LIMIT)
     except HTTPError as exc:
         exc.close()
-        if exc.code == 404:
-            return "removed"
-        if exc.code in {401, 403}:
-            return "private or not embeddable"
+        if exc.code in {401, 403, 404}:
+            raise
         raise TransientError(f"YouTube answered HTTP {exc.code}") from exc
     except OSError as exc:
         raise TransientError(str(exc)) from exc
+
+
+def _watch_url(youtube_id: str) -> str:
+    return f"https://www.youtube.com/watch?{urlencode({'v': youtube_id})}"
+
+
+def theme_problem(youtube_id: str) -> str | None:
+    """Ask YouTube's keyless oEmbed endpoint whether a video is still available."""
+    try:
+        _youtube(
+            "https://www.youtube.com/oembed?"
+            + urlencode({"format": "json", "url": _watch_url(youtube_id)})
+        )
+    except HTTPError as exc:
+        return "removed" if exc.code == 404 else "private or not embeddable"
+    return None
+
+
+def theme_seconds(youtube_id: str) -> int:
+    """Read how long a video is from its YouTube watch page.
+
+    Raises:
+        TransientError: When YouTube did not answer or did not say.
+    """
+    if match := _LENGTH_SECONDS.search(_youtube(_watch_url(youtube_id))):
+        return int(match.group(1))
+    raise TransientError("YouTube did not say how long the video is")
 
 
 def public_https_destination(

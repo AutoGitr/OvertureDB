@@ -38,10 +38,16 @@ body:
       description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
 
   - type: input
+    id: consistent_poster_url
+    attributes:
+      label: Consistent poster URL
+      description: The poster in the shared collection layout, made with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva) and uploaded to TMDB, or to ThePosterDB when TMDB will not take it. See the consistent posters section of the guidelines.
+
+  - type: input
     id: youtube_id
     attributes:
       label: YouTube theme video ID
-      description: YouTube URL or 11-character video ID.
+      description: YouTube URL or 11-character video ID of a theme 20 seconds to 10 minutes long.
       placeholder: abc123abc12
 
   - type: checkboxes

@@ -30,6 +30,14 @@ def theme_problem(monkeypatch: pytest.MonkeyPatch) -> MagicMock:
     return check
 
 
+@pytest.fixture(autouse=True)
+def theme_seconds(monkeypatch: pytest.MonkeyPatch) -> MagicMock:
+    """Every contributed theme lasts a few minutes, unless a test says otherwise."""
+    length = MagicMock(return_value=215)
+    monkeypatch.setattr(automation, "theme_seconds", length)
+    return length
+
+
 def issue(**changes: Any) -> dict[str, Any]:
     return {
         "number": 12,
@@ -378,6 +386,23 @@ def test_a_submitted_theme_must_play_on_youtube(
     with pytest.raises(ValueError, match="4xdyx5NVUhI is removed on YouTube"):
         automation.check_submission(new, old)
     theme_problem.side_effect = TransientError("HTTP 500")
+    with pytest.raises(ValueError, match="Edit the issue to check again"):
+        automation.check_submission(new, None)
+
+
+@patch.object(automation, "check_art_url", return_value=None)
+def test_a_submitted_theme_lasts_20_seconds_to_10_minutes(
+    _probe: MagicMock, theme_seconds: MagicMock
+) -> None:
+    new = movie(youtube_id_overturedb="4xdyx5NVUhI")
+    for seconds in (20, 600):
+        theme_seconds.return_value = seconds
+        automation.check_submission(new, None)
+    for seconds in (19, 601):
+        theme_seconds.return_value = seconds
+        with pytest.raises(ValueError, match=f"is {seconds} seconds long"):
+            automation.check_submission(new, None)
+    theme_seconds.side_effect = TransientError("no length")
     with pytest.raises(ValueError, match="Edit the issue to check again"):
         automation.check_submission(new, None)
 

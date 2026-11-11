@@ -50,6 +50,8 @@ class ParsedContribution:
     remove: bool = False
     #: The title has no theme music.
     no_theme: bool = False
+    #: A collection's poster in the shared consistent layout.
+    consistent_poster_url: str | None = None
 
 
 def _first_non_empty_line(val: str | None) -> str | None:
@@ -266,6 +268,11 @@ def parse_issue_form(
     bg_raw = extract_field(body, "Background URL")
     background_url = clean_art_url(_first_non_empty_line(bg_raw))
 
+    consistent_raw = extract_field(body, "Consistent poster URL")
+    consistent_poster_url = clean_art_url(_first_non_empty_line(consistent_raw))
+    if consistent_poster_url and media_type != "collection":
+        raise ValueError("Only collections have a consistent poster.")
+
     yt_raw = extract_field(body, "YouTube theme video ID")
     youtube_id = clean_youtube_id(_first_non_empty_line(yt_raw))
 
@@ -292,6 +299,7 @@ def parse_issue_form(
         modification_reason=modification_reason,
         remove=remove,
         no_theme=no_theme,
+        consistent_poster_url=consistent_poster_url,
     )
 
 
@@ -320,6 +328,8 @@ def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
     )
     if parsed.no_theme:
         entry["no_theme"] = True
+    if parsed.consistent_poster_url:
+        entry["consistent_poster_url"] = parsed.consistent_poster_url
     return entry
 
 
@@ -354,21 +364,14 @@ def is_replacement(
         current = existing.get(field)
         if current is not None and new is not None and new != current:
             return True
-    old_poster = existing.get("poster_url")
-    if (
-        old_poster
-        and parsed.poster_url
-        and parsed.poster_url.strip() != old_poster.strip()
+    for field, new in (
+        ("poster_url", parsed.poster_url),
+        ("background_url", parsed.background_url),
+        ("consistent_poster_url", parsed.consistent_poster_url),
     ):
-        return True
-
-    old_bg = existing.get("background_url")
-    if (
-        old_bg
-        and parsed.background_url
-        and parsed.background_url.strip() != old_bg.strip()
-    ):
-        return True
+        old = existing.get(field)
+        if old and new and new.strip() != old.strip():
+            return True
 
     old_yt = existing.get("youtube_id_overturedb")
     themerr_yt = (existing.get("youtube_id_themerrdb") or "").strip()
@@ -419,6 +422,8 @@ def _update_entry(
         updated["poster_url"] = parsed.poster_url
     if parsed.background_url:
         updated["background_url"] = parsed.background_url
+    if parsed.consistent_poster_url:
+        updated["consistent_poster_url"] = parsed.consistent_poster_url
     if parsed.youtube_id and parsed.youtube_id != updated.get("youtube_id_themerrdb"):
         updated["youtube_id_overturedb"] = parsed.youtube_id
     # A contributed theme means the title has one after all.
@@ -495,6 +500,7 @@ def format_media_comparison(
         values = {
             "Poster": entry.get("poster_url"),
             "Background": entry.get("background_url"),
+            "Consistent poster": entry.get("consistent_poster_url"),
             "YouTube Theme": f"https://www.youtube.com/watch?v={theme}"
             if theme
             else None,
@@ -532,6 +538,7 @@ def process_contribution(
     has_media = bool(
         parsed.poster_url
         or parsed.background_url
+        or parsed.consistent_poster_url
         or parsed.youtube_id
         or parsed.seasons
         or parsed.no_theme
@@ -539,7 +546,8 @@ def process_contribution(
     if existing_path is None and not has_media:
         raise ValueError(
             "New entry contributions must include at least one artwork URL "
-            "(poster, background, or season poster) or YouTube theme ID."
+            "(poster, background, consistent poster or season poster) "
+            "or YouTube theme ID."
         )
 
     media_comparison = ""

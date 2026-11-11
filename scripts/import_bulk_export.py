@@ -52,6 +52,7 @@ class ReviewItem:
     media_type: str
     poster_url: str | None = None
     background_url: str | None = None
+    consistent_poster_url: str | None = None
     youtube_id: str | None = None
     seasons: list[tuple[int, str]] = field(default_factory=list[tuple[int, str]])
     added: list[str] = field(default_factory=list[str])
@@ -102,6 +103,11 @@ def format_review_markdown(
             if item.background_url:
                 item_lines.append(
                     f"- **Background:** [View image](<{escape(item.background_url)}>)"
+                )
+            if item.consistent_poster_url:
+                item_lines.append(
+                    "- **Consistent poster:** "
+                    f"[View image](<{escape(item.consistent_poster_url)}>)"
                 )
             if item.youtube_id:
                 yt_url = f"https://www.youtube.com/watch?v={item.youtube_id}"
@@ -180,9 +186,14 @@ def merge_entry(
         updated["year"] = incoming["year"]
         changes.append(f"added year={incoming['year']}")
 
-    # 3. Rule 1: poster_url, background_url, youtube_id_overturedb
+    # 3. Rule 1: art and the OvertureDB theme.
     # Never overwrite existing non-empty values. Only backfill when empty or null.
-    for art_field in ("poster_url", "background_url", "youtube_id_overturedb"):
+    for art_field in (
+        "poster_url",
+        "background_url",
+        "consistent_poster_url",
+        "youtube_id_overturedb",
+    ):
         exist_val = existing.get(art_field)
         inc_val = incoming.get(art_field)
         if not exist_val and inc_val:
@@ -291,6 +302,12 @@ def _collect_backfilled_review(
         if not existing.get("background_url") and updated.get("background_url")
         else None
     )
+    backfilled_consistent = (
+        updated.get("consistent_poster_url")
+        if not existing.get("consistent_poster_url")
+        and updated.get("consistent_poster_url")
+        else None
+    )
     backfilled_yt = (
         updated.get("youtube_id_overturedb")
         if not existing.get("youtube_id_overturedb")
@@ -308,7 +325,13 @@ def _collect_backfilled_review(
         if s_url and not exist_seasons_map.get(s_num):
             backfilled_seasons.append((s_num, s_url))
 
-    if not (backfilled_poster or backfilled_bg or backfilled_yt or backfilled_seasons):
+    if not (
+        backfilled_poster
+        or backfilled_bg
+        or backfilled_consistent
+        or backfilled_yt
+        or backfilled_seasons
+    ):
         return None
 
     return ReviewItem(
@@ -317,6 +340,7 @@ def _collect_backfilled_review(
         media_type=updated["media_type"],
         poster_url=backfilled_poster,
         background_url=backfilled_bg,
+        consistent_poster_url=backfilled_consistent,
         youtube_id=backfilled_yt,
         seasons=backfilled_seasons,
         added=[
@@ -336,6 +360,7 @@ def _collect_new_review(entry: dict[str, Any]) -> ReviewItem | None:
     if (
         entry.get("poster_url")
         or entry.get("background_url")
+        or entry.get("consistent_poster_url")
         or entry.get("youtube_id_overturedb")
         or seasons
     ):
@@ -345,6 +370,7 @@ def _collect_new_review(entry: dict[str, Any]) -> ReviewItem | None:
             media_type=entry["media_type"],
             poster_url=entry.get("poster_url"),
             background_url=entry.get("background_url"),
+            consistent_poster_url=entry.get("consistent_poster_url"),
             youtube_id=entry.get("youtube_id_overturedb"),
             seasons=seasons,
             added=[
@@ -362,7 +388,10 @@ def _backfilled_kinds(existing: dict[str, Any], updated: dict[str, Any]) -> list
         for name in IDENTITY_FIELDS
     )
     has_year = existing.get("year") is None and updated.get("year") is not None
-    has_poster = not existing.get("poster_url") and bool(updated.get("poster_url"))
+    has_poster = any(
+        not existing.get(name) and bool(updated.get(name))
+        for name in ("poster_url", "consistent_poster_url")
+    )
     has_bg = not existing.get("background_url") and bool(updated.get("background_url"))
     has_theme = not existing.get("youtube_id_overturedb") and bool(
         updated.get("youtube_id_overturedb")
@@ -379,7 +408,7 @@ def _backfilled_kinds(existing: dict[str, Any], updated: dict[str, Any]) -> list
 
 
 def _created_kinds(entry: dict[str, Any]) -> list[str]:
-    has_poster = bool(entry.get("poster_url"))
+    has_poster = bool(entry.get("poster_url") or entry.get("consistent_poster_url"))
     has_bg = bool(entry.get("background_url"))
     has_theme = bool(entry.get("youtube_id_overturedb"))
     has_seasons = any(s.get("poster_url") for s in entry.get("seasons", []))
