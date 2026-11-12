@@ -220,6 +220,7 @@ def test_privileged_contributions_run_only_main_and_never_execute_pr_artifacts()
         "contribution-guard.yml",
         "contributions.yml",
         "dataset-health.yml",
+        "docs.yml",
         "import-themerrdb.yml",
         "publish-catalog.yml",
     }

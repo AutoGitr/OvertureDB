@@ -257,6 +257,7 @@ Only the workflows push.
 | Import ThemerrDB   | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch with optional dry-run).     |
 | Dataset Health     | Check entries after each import and update the `health` issue.                                                                |
 | Publish Catalog    | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
+| Docs               | Build the documentation site on pull requests that touch `docs/`, and tell Overture to redeploy it after a change on `main`.  |
 
 Dataset Health checks 200 entries per daily run, new and changed ones first:
 artwork reachability, the 1% rule and theme availability as problems, and
@@ -283,9 +284,23 @@ GitHub App on this repository and set `OVERTUREDB_CLIENT_ID` and
 Protect `state/*` against other non-admin writers.
 Workflow job permissions remain separate from that app token.
 
+For the documentation site, also install the app on the Overture repository
+with contents write access: the Docs workflow uses it to send Overture a
+`repository_dispatch` event after `docs/` changes on `main`.
+
 Repository labels are defined in `.github/labels.json`. Preview changes with
 `uv run --locked python -m scripts.sync_labels`; use `--apply` to reconcile them
 or `--check` to detect drift.
+
+## Documentation
+
+`docs/` holds OvertureDB's pages of the
+[documentation site](https://autogitr.github.io/Overture/overturedb), which
+Overture builds together with its own. Plain Markdown with `sidebar_position`
+front matter; `_category_.json` names and orders a folder. To preview, clone
+Overture beside this repository and run `bun run start` in `Overture/docs`. A
+pull request that touches `docs/` builds the whole site, so a broken link fails
+before merge.
 
 ## Shared schema
 

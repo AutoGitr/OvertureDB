@@ -9,7 +9,7 @@
 
 _Artwork, collection & theme catalog for [Overture](https://github.com/AutoGitr/Overture)_
 
-[Use with Overture](#use-with-overture) • [Contribute selections](#contribute-selections)
+[Documentation](https://autogitr.github.io/Overture/overturedb) • [Use with Overture](#use-with-overture) • [Contribute selections](#contribute-selections)
 
 </div>
 

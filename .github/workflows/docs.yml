@@ -1,0 +1,70 @@
+name: Docs
+
+# The documentation site is built and deployed by Overture from both
+# repositories' docs. A pull request here builds the site so a broken page is
+# caught before merge; a change on main tells Overture to deploy it.
+on:
+  pull_request:
+    paths:
+      - docs/**
+      - .github/workflows/docs.yml
+  push:
+    branches: [main]
+    paths:
+      - docs/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build the site
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Checkout Overture
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: AutoGitr/Overture
+          ref: main
+          path: Overture
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: Overture/docs/package.json
+      - name: Install docs dependencies
+        working-directory: Overture/docs
+        run: bun install --frozen-lockfile
+      - name: Build the site with these docs
+        working-directory: Overture/docs
+        env:
+          OVERTUREDB_DOCS: ../../docs
+        run: bun run ci
+
+  dispatch:
+    name: Deploy through Overture
+    if: github.event_name == 'push'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - name: Generate installed app token
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+          private-key: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+          owner: AutoGitr
+          repositories: Overture
+          permission-contents: write
+      - name: Ask Overture to deploy the docs
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+        run: gh api repos/AutoGitr/Overture/dispatches -f event_type=overturedb-docs
