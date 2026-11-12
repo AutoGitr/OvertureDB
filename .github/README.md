@@ -15,7 +15,7 @@ _Artwork, collection & theme catalog for [Overture](https://github.com/AutoGitr/
 
 ## Why OvertureDB?
 
-Every poster, background and season poster in OvertureDB was chosen by a contributor and approved by a maintainer, following the [selection guidelines](CONTRIBUTING.md#selection-guidelines). With Overture, you can use all of them in just a few clicks in your own media server library and get:
+Every poster, background and season poster in OvertureDB was chosen by a contributor and approved by a maintainer, following the [selection guidelines](https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines). With Overture, you can use all of them in just a few clicks in your own media server library and get:
 
 - **Posters** selected based on their design and how accurately they represent the movie or show.
 - **Backgrounds** that capture the look of the movie or show with a real scene from it, never a photoshopped collage of characters or floating heads.
@@ -38,19 +38,25 @@ The catalog stores metadata, links to artwork on TMDB, ThePosterDB, Fanart.tv, T
 
 ## Use with Overture
 
-In Overture, open the menu in the header, choose **OvertureDB**, check **Enable OvertureDB** and click **Save**. Overture downloads the catalog, keeps it up to date and offers its selections next to your media server's artwork, ready to save to your library.
+Overture downloads the OvertureDB catalog, keeps it up to date and offers
+its selections next to your media server's artwork, ready
+to save to your library. Turn it off under **Settings -> OvertureDB**.
 
 ## Contribute selections
 
 1. In Overture, set the **OvertureDB Status** filter to **Incomplete** to find titles that still need selections.
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
-3. Click the GitHub button on the title to open a prefilled issue, add a reason if replacing existing selections, review it and submit it. The bot shows the dataset diff directly in its preview.
+3. Click **Contribute issue** on the title to open a prefilled issue, review it and submit it.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). You can also fill in the [movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml), [show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml) or [collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml) form yourself. A maintainer reviews every submission; approved ones reach the catalog with its next daily update.
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. The [contributor guide](https://autogitr.github.io/Overture/overturedb/contributing) covers manual submissions, corrections and the review.
 
-Coverage grows with contributions, and linked artwork or videos can disappear from their sources. Correct wrong IDs, replace dead links or remove an entry with the movie, show or collection form. Report bugs and suggestions with the [report form](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
+## Links
 
-The daily health check reports broken artwork and themes, and artwork below the recommended resolution. Changed entries with reported findings are rechecked on the next daily run outside the 200-entry rotation, so accepted fixes clear from the report promptly.
+- [Documentation](https://autogitr.github.io/Overture/overturedb)
+- [Selection guidelines](https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines)
+- [The catalog format](https://autogitr.github.io/Overture/overturedb/catalog)
+- [Catalog statistics](https://autogitr.github.io/OvertureDB/)
+- [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml)
 
 ## License
 
