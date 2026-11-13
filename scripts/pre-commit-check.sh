@@ -11,7 +11,7 @@ uv run --locked pyright
 uv run --locked python -m pytest --cov
 uv run --locked python -m scripts.catalog validate
 if [ -d ../Overture/src/overture ]; then
-    uv run --directory ../Overture --locked python -m scripts.dataset_contract "$PWD" --check
+    uv run --directory ../Overture --locked python -m scripts.catalog_contract "$PWD" --check
 else
     echo "No Overture checkout at ../Overture; skipping the contract drift check."
 fi

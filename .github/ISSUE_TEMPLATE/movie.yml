@@ -82,4 +82,4 @@ body:
     attributes:
       label: Removal
       options:
-        - label: Remove this entry from the dataset
+        - label: Remove this entry from the catalog

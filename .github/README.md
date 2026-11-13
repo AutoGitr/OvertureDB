@@ -9,7 +9,7 @@
 
 _Artwork, collection & theme catalog for [Overture](https://github.com/AutoGitr/Overture)_
 
-[Documentation](https://autogitr.github.io/Overture/overturedb) • [Use with Overture](#use-with-overture) • [Contribute selections](#contribute-selections)
+**[Read the documentation](https://autogitr.github.io/Overture/overturedb)** to use the catalog and contribute to it.
 
 </div>
 
@@ -48,15 +48,7 @@ to save to your library. Turn it off under **Settings -> OvertureDB**.
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
 3. Click **Contribute issue** on the title to open a prefilled issue, review it and submit it.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. The [contributor guide](https://autogitr.github.io/Overture/overturedb/contributing) covers manual submissions, corrections and the review.
-
-## Links
-
-- [Documentation](https://autogitr.github.io/Overture/overturedb)
-- [Selection guidelines](https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines)
-- [The catalog format](https://autogitr.github.io/Overture/overturedb/catalog)
-- [Catalog statistics](https://autogitr.github.io/OvertureDB/)
-- [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml)
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. Spotted something wrong? [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
 
 ## License
 

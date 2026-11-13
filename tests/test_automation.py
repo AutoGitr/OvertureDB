@@ -254,7 +254,7 @@ def test_existing_duplicate_identity_is_rejected_before_writing(
     ):
         (root / "data/movies" / name).write_text(json.dumps(entry))
     write_archive(archive, movie(tmdb_id=2))
-    with pytest.raises(ValueError, match="Duplicate dataset identity"):
+    with pytest.raises(ValueError, match="Duplicate catalog identity"):
         import_bulk_export(overture_dir=root, archive_path=archive)
     assert not (root / "data/movies/tmdb-2.json").exists()
 

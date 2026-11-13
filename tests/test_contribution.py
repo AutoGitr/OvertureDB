@@ -616,7 +616,7 @@ _No response_
 
 ### Removal
 
-- [X] Remove this entry from the dataset
+- [X] Remove this entry from the catalog
 """
     parsed = parse_issue_form(body, "[Movie]: Movie", ["movie"])
     assert parsed.remove
@@ -644,7 +644,7 @@ Movie
 
 ### Removal
 
-- [ ] Remove this entry from the dataset
+- [ ] Remove this entry from the catalog
 """
     assert not parse_issue_form(body, "[Movie]: Movie", ["movie"]).remove
 

@@ -390,7 +390,7 @@ def test_duplicate_existing_identities_fail_before_writing(checkout: Checkout) -
     checkout.write_existing("imdb-tt1.json", imdb_id="tt1")
     before = first.read_bytes()
     checkout.write_upstream()
-    with pytest.raises(ValueError, match="Duplicate dataset identity"):
+    with pytest.raises(ValueError, match="Duplicate catalog identity"):
         checkout.run_import()
     assert first.read_bytes() == before
 

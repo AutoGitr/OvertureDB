@@ -23,7 +23,7 @@ suitability and theme quality.
    links against the catalog rules.
 3. Click the GitHub button on the title (**Contribute issue**) to open a
    prefilled issue, add a reason if replacing existing selections, review it
-   and submit it. The bot shows the dataset diff directly in its preview.
+   and submit it. The bot shows the catalog diff directly in its preview.
 
 What Overture does for you:
 

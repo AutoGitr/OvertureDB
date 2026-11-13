@@ -1,4 +1,4 @@
-"""The version 1 catalog contract, shared with Overture by dataset_contract.py."""
+"""The version 1 catalog contract, shared with Overture by catalog_contract.py."""
 
 lazy import json
 lazy import re
@@ -436,7 +436,7 @@ def _validate(value: object, *, catalog: bool) -> None:
     except ValidationError as exc:
         path = ".".join(str(part) for part in exc.absolute_path) or "root"
         raise ValueError(
-            f"Dataset contract violation at {path}: {exc.message}"
+            f"Catalog contract violation at {path}: {exc.message}"
         ) from exc
 
 
@@ -454,11 +454,11 @@ def _art_urls(entry: dict[str, Any]) -> None:
         try:
             check_catalog_art_url(url)
         except ValueError as exc:
-            raise ValueError(f"Dataset contract violation at {path}: {exc}") from exc
+            raise ValueError(f"Catalog contract violation at {path}: {exc}") from exc
     consistent = entry.get("consistent_poster_url")
     if consistent is not None and (problem := consistent_poster_problem(consistent)):
         raise ValueError(
-            f"Dataset contract violation at consistent_poster_url: {problem}"
+            f"Catalog contract violation at consistent_poster_url: {problem}"
         )
 
 
@@ -466,7 +466,7 @@ def _youtube_ids(entry: dict[str, Any]) -> None:
     yt_overturedb = entry.get("youtube_id_overturedb")
     if entry.get("no_theme") and yt_overturedb is not None:
         raise ValueError(
-            "Dataset contract violation: an entry flagged no_theme has no "
+            "Catalog contract violation: an entry flagged no_theme has no "
             "youtube_id_overturedb"
         )
     yt_themerrdb = entry.get("youtube_id_themerrdb")
@@ -483,7 +483,7 @@ def _youtube_ids(entry: dict[str, Any]) -> None:
 def _seasons(entry: dict[str, Any]) -> None:
     numbers = [season["season_num"] for season in entry.get("seasons", [])]
     if len(set(numbers)) != len(numbers):
-        raise ValueError("Dataset entry contains duplicate season numbers")
+        raise ValueError("Catalog entry contains duplicate season numbers")
 
 
 def validate_entries(values: list[object]) -> list[dict[str, Any]]:
@@ -497,7 +497,7 @@ def _identities(entries: list[dict[str, Any]]) -> None:
     for entry in entries:
         for key in entry_identities(entry):
             if key in identities:
-                raise ValueError(f"Duplicate dataset identity: {key}")
+                raise ValueError(f"Duplicate catalog identity: {key}")
             identities.add(key)
 
 
@@ -507,7 +507,7 @@ def validate_header(value: object) -> dict[str, Any]:
         raise ValueError("Payload is not a OvertureDB catalog")
     header = cast("dict[str, Any]", value)
     if header.get("schema_version") != SCHEMA_VERSION:
-        raise ValueError("Unsupported public dataset schema_version")
+        raise ValueError("Unsupported catalog schema_version")
     _validate(header, catalog=True)
     datetime.fromisoformat(header["generated_at"])
     return header

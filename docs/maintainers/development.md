@@ -94,7 +94,7 @@ Overture, whose CI fails while its copy differs. After changing them, validate
 existing data and run, from the sibling Overture checkout:
 
 ```sh
-uv run python -m scripts.dataset_contract ../OvertureDB
+uv run python -m scripts.catalog_contract ../OvertureDB
 ```
 
 Submit both repositories' changes together. Increment `SCHEMA_VERSION` for
