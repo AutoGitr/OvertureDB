@@ -144,7 +144,7 @@ def fenced(value: str, language: str = "text") -> str:
 def check_submission(
     entry: dict[str, Any], previous: dict[str, Any] | None
 ) -> list[str]:
-    """Reject what Dataset Health would report, and return its warnings.
+    """Reject what Catalog Health would report, and return its warnings.
 
     All artwork must be reachable. New artwork must follow the 1% rule and is
     warned about below the recommended resolution, and a new theme must play
@@ -574,7 +574,7 @@ def approve_issue(
             "Validation or publication did not complete. "
             "Check the workflow log and `main` "
             "before retrying. If `main` moved, comment `@OvertureDB-bot approve` "
-            "again to refresh the preview against the latest dataset.",
+            "again to refresh the preview against the latest catalog.",
         )
         raise
     if commit_sha is None or plan is None:

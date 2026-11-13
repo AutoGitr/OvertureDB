@@ -72,7 +72,7 @@ def _triggers(name: str) -> dict[str, object]:
 
 def test_the_daily_pipeline_starts_with_the_import() -> None:
     assert set(_triggers("import-themerrdb.yml")) == {"schedule", "workflow_dispatch"}
-    for name in ("dataset-health.yml", "publish-catalog.yml"):
+    for name in ("catalog-health.yml", "publish-catalog.yml"):
         triggers = _triggers(name)
         assert set(triggers) == {"workflow_run", "workflow_dispatch"}, name
         assert triggers["workflow_run"] == {
@@ -92,7 +92,7 @@ def test_every_daily_run_validates_builds_and_deploys_the_catalog() -> None:
 
 def test_health_steps_behave_the_same_for_every_trigger() -> None:
     workflow = yaml.safe_load(
-        (ROOT / ".github/workflows/dataset-health.yml").read_text()
+        (ROOT / ".github/workflows/catalog-health.yml").read_text()
     )
     step = workflow["jobs"]["health"]["steps"][-1]
     assert "EVENT_NAME" not in step["env"]
@@ -202,7 +202,7 @@ def test_privileged_contributions_run_only_main_and_never_execute_pr_artifacts()
     source = (ROOT / ".github/workflows/contributions.yml").read_text()
     workflow = yaml.safe_load(source)
     assert workflow["concurrency"] == {
-        "group": "dataset-write",
+        "group": "catalog-write",
         "cancel-in-progress": False,
         "queue": "max",
     }
@@ -219,20 +219,20 @@ def test_privileged_contributions_run_only_main_and_never_execute_pr_artifacts()
         "codeql.yml",
         "contribution-guard.yml",
         "contributions.yml",
-        "dataset-health.yml",
+        "catalog-health.yml",
         "docs.yml",
         "import-themerrdb.yml",
         "publish-catalog.yml",
     }
-    health = (ROOT / ".github/workflows/dataset-health.yml").read_text()
+    health = (ROOT / ".github/workflows/catalog-health.yml").read_text()
     assert "permission-pull-requests" not in health
 
 
-def test_import_workflow_runs_on_main_with_dataset_write_concurrency() -> None:
+def test_import_workflow_runs_on_main_with_catalog_write_concurrency() -> None:
     source = (ROOT / ".github/workflows/import-themerrdb.yml").read_text()
     workflow = yaml.safe_load(source)
     assert workflow["concurrency"] == {
-        "group": "dataset-write",
+        "group": "catalog-write",
         "cancel-in-progress": False,
         "queue": "max",
     }

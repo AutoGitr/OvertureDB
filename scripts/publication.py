@@ -1,4 +1,4 @@
-"""Validate isolated candidates before publishing, retrying dataset-only races."""
+"""Validate isolated candidates before publishing, retrying catalog-only races."""
 
 lazy import hashlib
 lazy import tempfile
@@ -27,9 +27,9 @@ def _snapshot(root: Path, additions: dict[str, str]) -> dict[str, str]:
 def validate_candidate(
     root: Path, additions: dict[str, str], deletions: list[str]
 ) -> None:
-    """Apply only dataset changes and require the complete guard to succeed."""
+    """Apply only catalog changes and require the complete guard to succeed."""
     for name in (*additions, *deletions):
-        github.validate_dataset_path(name)
+        github.validate_bot_path(name)
         path = root / name
         if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
             raise ValueError(f"Candidate path must stay in its checkout: {name}")

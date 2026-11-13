@@ -20,7 +20,7 @@ lazy from .catalog import (
     art_fields,
     aspect_problem,
     check_art_url,
-    dataset,
+    entry_files,
     resolution_warning,
     theme_problem,
 )
@@ -29,8 +29,7 @@ lazy from .github import BOT_LOGIN, api, load_state, pages, save_state
 STATE_BRANCH = "state/health"
 HEALTH_LIMIT = 200
 HEALTH_LABEL = "health"
-HEALTH_TITLE = "Dataset health"
-HEALTH_MARKER = "<!-- overturedb-dataset-health -->"
+HEALTH_TITLE = "Catalog health"
 MAX_ISSUE_BODY = 60000
 
 
@@ -151,8 +150,7 @@ def render(
 ) -> str:
     checked = sum(1 for path in entries if path in state["entries"])
     lines = [
-        HEALTH_MARKER,
-        "Updated by the Dataset Health workflow. This run checks all changed "
+        "Updated by the Catalog Health workflow. This run checks all changed "
         f"entries with reported findings, plus up to {limit} entries from the "
         "rotation (new and changed first, then least recently checked). "
         f"{checked:,} of {len(entries):,} entries have been checked so far.",
@@ -186,14 +184,17 @@ def publish_report(repo: str, body: str) -> None:
             issue
             for issue in pages(f"repos/{repo}/issues?{query}")
             if issue["user"]["login"] == BOT_LOGIN
-            and (issue["body"] or "").startswith(HEALTH_MARKER)
         ),
         None,
     )
-    if existing and existing["body"] == body:
+    if existing and (existing["title"], existing["body"]) == (HEALTH_TITLE, body):
         return
     if existing:
-        api(f"repos/{repo}/issues/{existing['number']}", {"body": body}, method="PATCH")
+        api(
+            f"repos/{repo}/issues/{existing['number']}",
+            {"title": HEALTH_TITLE, "body": body},
+            method="PATCH",
+        )
     else:
         api(
             f"repos/{repo}/issues",
@@ -228,7 +229,7 @@ def main() -> int:
                 hashlib.sha1(path.read_bytes(), usedforsecurity=False).hexdigest(),
                 entry,
             )
-            for path, entry in dataset()
+            for path, entry in entry_files()
         }
         state = check_health(initial, files, now, limit=args.limit)
         report = render(
@@ -246,7 +247,7 @@ def main() -> int:
                 f"Health check {now.date().isoformat()}",
             )
     except (OSError, ValueError, RuntimeError) as exc:
-        print(f"Dataset health check failed: {exc}", file=sys.stderr)
+        print(f"Catalog health check failed: {exc}", file=sys.stderr)
         return 1
     return 0
 

@@ -79,7 +79,7 @@ select = [
 "scripts/automation.py" = ["T201"]
 "scripts/github.py" = ["T201"]
 "scripts/catalog.py" = ["T201"]
-"scripts/dataset_health.py" = ["T201"]
+"scripts/catalog_health.py" = ["T201"]
 "scripts/import_themerrdb.py" = ["T201"]
 "scripts/sync_labels.py" = ["T201"]
 # Tests validate with assertions.

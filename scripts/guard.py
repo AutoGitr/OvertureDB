@@ -1,4 +1,4 @@
-"""Allow dataset changes in pull requests opened by maintainers only."""
+"""Allow catalog changes in pull requests opened by maintainers only."""
 
 lazy import json
 lazy import os
@@ -15,7 +15,7 @@ def validate_changes(pr: dict[str, Any], changed: list[str]) -> None:
         path.startswith("data/") for path in changed
     ):
         raise ValueError(
-            "Dataset changes come from contribution issues or maintainers."
+            "Catalog changes come from contribution issues or maintainers."
         )
 
 

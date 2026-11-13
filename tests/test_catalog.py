@@ -82,7 +82,7 @@ def lines(head: dict[str, Any], entries: list[dict[str, Any]]) -> list[bytes]:
 
 
 def test_complete_repository_satisfies_contract() -> None:
-    assert catalog.dataset()
+    assert catalog.entry_files()
 
 
 def test_entries_have_typed_identifiers_and_bounded_metadata(
@@ -271,7 +271,7 @@ def test_filename_and_directory_follow_entry_identity(
         target = root / destination
         entry.rename(target)
         with subtests.test(destination=destination), pytest.raises(ValueError):
-            catalog.dataset(root)
+            catalog.entry_files(root)
         target.rename(entry)
 
 
@@ -279,7 +279,7 @@ def test_same_numeric_movie_and_show_id_have_separate_files(root: Path) -> None:
     (root / "data/shows/tmdb-1.json").write_text(
         json.dumps(movie(media_type="show", seasons=[]))
     )
-    assert len(catalog.dataset(root)) == 2
+    assert len(catalog.entry_files(root)) == 2
 
 
 @patch.object(catalog, "build")
@@ -307,9 +307,9 @@ def test_cli_uses_commit_metadata(git_output: MagicMock, build: MagicMock) -> No
     )
 
 
-@patch.object(catalog, "dataset")
-def test_cli_validate_entry_does_not_load_dataset(
-    mock_dataset: MagicMock,
+@patch.object(catalog, "entry_files")
+def test_cli_validate_entry_does_not_load_every_entry(
+    mock_entry_files: MagicMock,
     root: Path,
     entry: Path,
 ) -> None:
@@ -318,7 +318,7 @@ def test_cli_validate_entry_does_not_load_dataset(
         patch("sys.argv", ["catalog.py", "validate", "--entry", str(entry)]),
     ):
         assert catalog.main() == 0
-    mock_dataset.assert_not_called()
+    mock_entry_files.assert_not_called()
 
 
 def test_cli_validate_entry_rejects_invalid_path(
@@ -609,9 +609,9 @@ def test_entry_file_names_follow_the_identifier_rules() -> None:
         assert bool(catalog.ENTRY_FILE.fullmatch(path)) == valid, path
 
 
-def test_missing_dataset_cannot_publish_empty_catalog(tmp_path: Path) -> None:
+def test_missing_data_cannot_publish_an_empty_catalog(tmp_path: Path) -> None:
     with pytest.raises(ValueError):
-        catalog.dataset(tmp_path)
+        catalog.entry_files(tmp_path)
 
 
 def test_aspect_tolerance_is_the_contracts_and_bounds_at_one_percent() -> None:

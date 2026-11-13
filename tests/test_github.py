@@ -1,4 +1,4 @@
-"""The bot commits only dataset files, and keeps state off main."""
+"""The bot commits only catalog files, and keeps state off main."""
 
 lazy import base64
 lazy import subprocess
@@ -47,7 +47,7 @@ def test_state_round_trips_on_its_own_branch(_gh: MagicMock, origin: Path) -> No
 
 
 @patch.object(github, "api")
-def test_commit_files_builds_signed_graphql_mutation_and_rejects_non_dataset_paths(
+def test_commit_files_builds_signed_graphql_mutation_and_rejects_non_entry_paths(
     api: MagicMock,
 ) -> None:
     api.return_value = {"data": {"createCommitOnBranch": {"commit": {"oid": "abc123"}}}}
@@ -81,7 +81,7 @@ def test_commit_files_builds_signed_graphql_mutation_and_rejects_non_dataset_pat
         "deletions": [{"path": "data/movies/imdb-tt1.json"}],
     }
     for bad in ("README.md", "data/movies/../evil.json", "scripts/github.py"):
-        with pytest.raises(ValueError, match="only modify dataset entries"):
+        with pytest.raises(ValueError, match="only modify catalog entries"):
             github.commit_files(
                 "AutoGitr/OvertureDB", "main", "base", "msg", "", {bad: "{}"}, []
             )
@@ -117,12 +117,12 @@ def test_command_timeout_is_a_publication_failure(
         github.run("bash", "scripts/contribution-check.sh", timeout=1)
 
 
-def test_dataset_paths_cover_every_entry_folder() -> None:
+def test_bot_paths_cover_every_entry_folder() -> None:
     for path in (
         "data/movies/tmdb-1.json",
         "data/shows/tvdb-2.json",
         "data/collections/tmdb-10.json",
     ):
-        github.validate_dataset_path(path)
-    with pytest.raises(ValueError, match="only modify dataset entries"):
-        github.validate_dataset_path("data/people/tmdb-1.json")
+        github.validate_bot_path(path)
+    with pytest.raises(ValueError, match="only modify catalog entries"):
+        github.validate_bot_path("data/people/tmdb-1.json")

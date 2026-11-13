@@ -1,4 +1,4 @@
-"""Build, validate, and preview dataset contributions from GitHub issues."""
+"""Build, validate, and preview catalog contributions from GitHub issues."""
 
 lazy import difflib
 lazy import json
@@ -31,7 +31,7 @@ NO_RESPONSE = "_No response_"
 
 
 class NoChangesError(ValueError):
-    """The contribution's values are already in the dataset."""
+    """The contribution's values are already in the catalog."""
 
 
 @dataclass

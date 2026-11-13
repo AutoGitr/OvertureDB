@@ -15,7 +15,7 @@ selections and the proposed diff.
 Single-entry submissions are rejected for unreachable artwork, new artwork
 outside the 1% rule, or a new theme that is removed or private on YouTube or
 shorter than 20 seconds or longer than 10 minutes, and warn about new artwork
-below the recommended resolution. Bulk archives are not fetched; Dataset
+below the recommended resolution. Bulk archives are not fetched; Catalog
 Health reports the same findings for them. Replacing a value or removing an
 entry requires a reason.
 
@@ -49,12 +49,12 @@ approving.
 Approval re-evaluates the contribution against `main`, verifies that the
 previewed changes have not been altered or superseded by a conflicting update,
 and applies the proposed changes in an isolated checkout. The complete
-Contribution Guard (tests, coverage, lint, types, dataset validation,
+Contribution Guard (tests, coverage, lint, types, catalog validation,
 dependency audit and secret scan) must pass before a GitHub-signed commit is
 created on `main` and the issue closes. ThemerrDB imports use this same gate.
 Failed checks publish nothing.
 
-If `main` advances during validation, dataset changes are rebuilt and
+If `main` advances during validation, catalog changes are rebuilt and
 rechecked up to three times. Code changes require a fresh workflow run.
 Publication is pinned to the validated base revision; an API failure is never
 blindly retried. Unrelated commits to `main` and changes to untouched fields

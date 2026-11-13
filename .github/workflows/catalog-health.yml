@@ -1,4 +1,4 @@
-name: Dataset Health
+name: Catalog Health
 
 # Daily, right after the import, so newly imported entries are checked the
 # same day.
@@ -21,7 +21,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: dataset-health
+  group: catalog-health
   cancel-in-progress: false
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
           permission-contents: write
           permission-issues: write
 
-      - name: Check dataset health
+      - name: Check catalog health
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token || github.token }}
           DRY_RUN: ${{ inputs.dry_run }}
@@ -63,4 +63,4 @@ jobs:
           if [ -n "$LIMIT" ]; then
             ARGS+=(--limit "$LIMIT")
           fi
-          uv run --locked python -m scripts.dataset_health "${ARGS[@]}"
+          uv run --locked python -m scripts.catalog_health "${ARGS[@]}"

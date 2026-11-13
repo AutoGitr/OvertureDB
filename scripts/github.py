@@ -1,4 +1,4 @@
-"""GitHub CLI access, signed dataset commits, and off-main state branches."""
+"""GitHub CLI access, signed catalog commits, and off-main state branches."""
 
 lazy import base64
 lazy import json
@@ -13,7 +13,7 @@ lazy from schema.contract import ENTRY_FOLDERS
 
 ROOT = Path(__file__).resolve().parents[1]
 
-#: The account that commits every automated dataset change.
+#: The account that commits every automated catalog change.
 BOT_LOGIN = "overturedb[bot]"
 STATE_FILE = "state.json"
 
@@ -82,10 +82,10 @@ def git(*args: str) -> str:
     return run("git", *args)
 
 
-def validate_dataset_path(path: str) -> None:
+def validate_bot_path(path: str) -> None:
     folders = "|".join(ENTRY_FOLDERS.values())
     if not re.fullmatch(rf"data/({folders})/[\w-]+\.json", path):
-        raise ValueError(f"Bot commits may only modify dataset entries: {path}")
+        raise ValueError(f"Bot commits may only modify catalog entries: {path}")
 
 
 def commit_files(
@@ -97,9 +97,9 @@ def commit_files(
     additions: dict[str, str],
     deletions: list[str],
 ) -> str:
-    """Create a GitHub-signed dataset commit on *branch* pinned to *expected_head*."""
+    """Create a GitHub-signed catalog commit on *branch* pinned to *expected_head*."""
     for path in (*additions, *deletions):
-        validate_dataset_path(path)
+        validate_bot_path(path)
     message: dict[str, str] = {"headline": headline}
     if body:
         message["body"] = body

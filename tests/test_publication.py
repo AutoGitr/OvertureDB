@@ -93,7 +93,7 @@ def test_publication_checks_exact_candidate_before_commit(
 
 
 @pytest.mark.parametrize("code_change", [False, True])
-def test_main_movement_rebuilds_and_rechecks_only_for_dataset_changes(
+def test_main_movement_rebuilds_and_rechecks_only_for_catalog_changes(
     checkout: Path, code_change: bool
 ) -> None:
     initial = github.run("git", "rev-parse", "HEAD", cwd=checkout)
@@ -153,8 +153,8 @@ def test_no_changes_or_revoked_approval_never_runs_guard(checkout: Path) -> None
         guard.assert_not_called()
 
 
-def test_candidate_rejects_paths_outside_dataset(checkout: Path) -> None:
-    with pytest.raises(ValueError, match="only modify dataset"):
+def test_candidate_rejects_paths_outside_the_catalog(checkout: Path) -> None:
+    with pytest.raises(ValueError, match="only modify catalog"):
         publication.validate_candidate(checkout, {"../outside": "bad"}, [])
 
 

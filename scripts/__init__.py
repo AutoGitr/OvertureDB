@@ -1,1 +1,1 @@
-"""Dataset tooling, run from the repository root as ``python -m scripts.<name>``."""
+"""Catalog tooling, run from the repository root as ``python -m scripts.<name>``."""

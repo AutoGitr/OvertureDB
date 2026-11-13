@@ -4,7 +4,7 @@
   {"name": "collection", "color": "c5def5", "description": "Movie collection contribution"},
   {"name": "bulk", "color": "77afbe", "description": "Bulk export contribution from Overture"},
   {"name": "edit", "color": "49c0a8", "description": "Replaces an existing artwork or theme selection"},
-  {"name": "health", "color": "fbca04", "description": "Daily dataset health report"},
+  {"name": "health", "color": "fbca04", "description": "Daily catalog health report"},
   {"name": "deps", "color": "0366d6", "description": "Dependency update"},
   {"name": "security", "color": "b60205", "description": "Security fix; report vulnerabilities privately"},
   {"name": "ci", "color": "ededed", "description": "Repository scripts and GitHub Actions"},

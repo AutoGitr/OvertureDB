@@ -1,4 +1,4 @@
-"""Only maintainers change the dataset through pull requests."""
+"""Only maintainers change the catalog through pull requests."""
 
 lazy import json
 lazy from pathlib import Path
@@ -11,13 +11,13 @@ lazy from scripts import guard
 DATA = ["README.md", "data/movies/tmdb-1.json"]
 
 
-def test_maintainers_may_change_the_dataset(subtests: pytest.Subtests) -> None:
+def test_maintainers_may_change_the_catalog(subtests: pytest.Subtests) -> None:
     for association in sorted(guard.MAINTAINERS):
         with subtests.test(association=association):
             guard.validate_changes({"author_association": association}, DATA)
 
 
-def test_others_may_change_everything_but_the_dataset(
+def test_others_may_change_everything_but_the_catalog(
     subtests: pytest.Subtests,
 ) -> None:
     guard.validate_changes({"author_association": "NONE"}, ["README.md"])

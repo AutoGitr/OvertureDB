@@ -456,7 +456,7 @@ def test_cli_reports_missing_input_as_failure(checkout: Checkout) -> None:
 
 
 @patch.object(importer.publication, "publish", side_effect=RuntimeError("head moved"))
-def test_failed_commit_preserves_local_dataset_for_retry(
+def test_failed_commit_preserves_local_catalog_for_retry(
     _commit: MagicMock,
     checkout: Checkout,
     monkeypatch: pytest.MonkeyPatch,

@@ -1,4 +1,4 @@
-"""Deterministic README statistics from the validated publication dataset."""
+"""Deterministic README statistics from the validated published catalog."""
 
 lazy from dataclasses import asdict, dataclass
 lazy from html import escape

@@ -11,7 +11,7 @@ lazy from urllib.error import HTTPError
 lazy import pytest
 
 lazy from scripts import catalog, github
-lazy from scripts import dataset_health as health
+lazy from scripts import catalog_health as health
 lazy from tests.test_catalog import movie
 
 NOW = datetime(2026, 10, 13, 12, tzinfo=UTC)
@@ -305,7 +305,6 @@ def test_report_lists_problems_and_stays_within_issue_limit() -> None:
             "warnings": [],
         }
     body = health.render(state, entries)
-    assert body.startswith(health.HEALTH_MARKER)
     assert "`data/movies/tmdb-0.json`" in body
     assert "more entries" in body
     assert len(body) <= health.MAX_ISSUE_BODY
@@ -319,7 +318,8 @@ def test_report_updates_the_bot_issue_and_ignores_lookalikes(
     lookalike: dict[str, Any] = {
         "number": 1,
         "user": {"login": "someone"},
-        "body": health.HEALTH_MARKER,
+        "title": health.HEALTH_TITLE,
+        "body": "report",
     }
     pages.return_value = [lookalike]
     health.publish_report("owner/repo", "report")
@@ -330,26 +330,29 @@ def test_report_updates_the_bot_issue_and_ignores_lookalikes(
         {
             "number": 2,
             "user": {"login": github.BOT_LOGIN},
-            "body": lookalike["body"],
+            "title": "An older title",
+            "body": "report",
         },
     ]
     health.publish_report("owner/repo", "report")
     assert api.call_args.args[0] == "repos/owner/repo/issues/2"
+    assert api.call_args.args[1] == {"title": health.HEALTH_TITLE, "body": "report"}
     assert api.call_args.kwargs["method"] == "PATCH"
     api.reset_mock()
-    health.publish_report("owner/repo", lookalike["body"])
+    pages.return_value[1]["title"] = health.HEALTH_TITLE
+    health.publish_report("owner/repo", "report")
     api.assert_not_called()
 
 
 @pytest.fixture
 def run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, MagicMock]:
-    """Stub everything main reaches beyond the dataset; return the stubs."""
+    """Stub everything main reaches beyond the catalog; return the stubs."""
     entry = tmp_path / "data/movies/tmdb-1.json"
     entry.parent.mkdir(parents=True)
     entry.write_text("{}")
     stubs = {
         "load_state": MagicMock(return_value=({}, "parent-sha")),
-        "dataset": MagicMock(return_value=[(entry, movie())]),
+        "entry_files": MagicMock(return_value=[(entry, movie())]),
         "entry_findings": MagicMock(
             return_value=health.Findings(["poster: HTTP 404"], [])
         ),
@@ -368,7 +371,7 @@ def test_a_dry_run_prints_the_report_and_changes_nothing(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    monkeypatch.setattr("sys.argv", ["dataset_health.py", "--dry-run", "--limit", "5"])
+    monkeypatch.setattr("sys.argv", ["catalog_health.py", "--dry-run", "--limit", "5"])
 
     assert health.main() == 0
 
@@ -382,7 +385,7 @@ def test_a_dry_run_prints_the_report_and_changes_nothing(
 def test_a_run_publishes_the_report_and_saves_what_it_learned(
     run: dict[str, MagicMock], monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr("sys.argv", ["dataset_health.py"])
+    monkeypatch.setattr("sys.argv", ["catalog_health.py"])
 
     assert health.main() == 0
 
@@ -398,7 +401,7 @@ def test_a_run_publishes_the_report_and_saves_what_it_learned(
 def test_a_run_that_learns_nothing_saves_no_state(
     run: dict[str, MagicMock], monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr("sys.argv", ["dataset_health.py", "--limit", "0"])
+    monkeypatch.setattr("sys.argv", ["catalog_health.py", "--limit", "0"])
 
     assert health.main() == 0
 
@@ -414,7 +417,7 @@ def test_a_saved_record_missing_a_field_is_checked_again(
         {"entries": {"data/movies/tmdb-1.json": incomplete}},
         "parent-sha",
     )
-    monkeypatch.setattr("sys.argv", ["dataset_health.py", "--limit", "1"])
+    monkeypatch.setattr("sys.argv", ["catalog_health.py", "--limit", "1"])
 
     assert health.main() == 0
 
@@ -428,7 +431,7 @@ def test_a_failed_run_reports_why(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    monkeypatch.setattr("sys.argv", ["dataset_health.py"])
+    monkeypatch.setattr("sys.argv", ["catalog_health.py"])
     run["load_state"].side_effect = RuntimeError("state branch unreadable")
 
     assert health.main() == 1

@@ -38,6 +38,6 @@ setting chooses which one your collections get; see
 
 The catalog links to artwork and videos on their sources. Coverage grows with
 contributions, and linked artwork or videos can disappear from their sources;
-the [daily health check](maintainers/workflows.md#dataset-health) reports
+the [daily health check](maintainers/workflows.md#catalog-health) reports
 broken links so they can be replaced. Correct wrong IDs, replace dead links or
 remove an entry through a [contribution](contributing/index.md#changing-an-existing-entry).

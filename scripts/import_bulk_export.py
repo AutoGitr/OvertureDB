@@ -459,7 +459,7 @@ def import_bulk_export(
     input_dir: Path | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
-    """Merge bulk export items into OvertureDB dataset enforcing Rules 1 & 2."""
+    """Merge bulk export items into the catalog, enforcing Rules 1 and 2."""
     data_dir = overture_dir / "data"
     original = EntryIndex.load(overture_dir)
     original_entries = original.entries

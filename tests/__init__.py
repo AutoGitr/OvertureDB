@@ -1,1 +1,1 @@
-"""Tests of the dataset tooling and its contract."""
+"""Tests of the catalog tooling and its contract."""

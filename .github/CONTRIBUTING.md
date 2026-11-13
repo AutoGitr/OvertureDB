@@ -131,7 +131,7 @@ diff. Single-entry submissions are rejected for unreachable artwork, new artwork
 outside the 1% rule, or a new theme that is removed or private on YouTube or
 shorter than 20 seconds or longer than 10 minutes, and
 warn about new artwork below the recommended resolution. Bulk archives are not
-fetched; Dataset Health reports the same findings for them. Replacing a value
+fetched; Catalog Health reports the same findings for them. Replacing a value
 or removing an entry requires a reason. Bulk archives add
 missing values and keep imported ThemerrDB themes. Invalid bulk records block
 the whole contribution; fix the archive before review. Limits are 10 MB
@@ -158,10 +158,10 @@ can edit the issue description to adjust URLs or metadata before approving.
 Approval re-evaluates the contribution against `main`, verifies that the previewed
 changes have not been altered or superseded by a conflicting update, and applies
 the proposed changes in an isolated checkout. The complete Contribution Guard
-(tests, coverage, lint, types, dataset validation, dependency audit and secret scan)
+(tests, coverage, lint, types, catalog validation, dependency audit and secret scan)
 must pass before a GitHub-signed commit is created on `main` and the issue closes.
 ThemerrDB imports use this same gate. Failed checks publish nothing.
-If `main` advances during validation, dataset changes are rebuilt and rechecked
+If `main` advances during validation, catalog changes are rebuilt and rechecked
 up to three times. Code changes require a fresh workflow run. Publication is pinned
 to the validated base revision; an API failure is never blindly retried.
 Unrelated commits to `main`
@@ -193,7 +193,7 @@ bash scripts/pre-commit-check.sh
 ```
 
 It checks the lockfile, Ruff lint/formatting, strict Pyright types, the pytest
-suite with branch coverage, workflow invariants, and every dataset
+suite with branch coverage, workflow invariants, and every catalog
 entry. On Windows, run it in Git Bash.
 To run it on every commit, enable the Git hooks once per clone with
 `git config core.hooksPath .githooks`.
@@ -252,14 +252,14 @@ Only the workflows push.
 | Workflow           | Purpose                                                                                                                       |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | Contributions      | Validate contribution issues, post preview comments, and commit approved changes to `main`.                                   |
-| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer dataset PRs.                   |
-| CodeQL             | Scan Python and Actions code when it changes, and both weekly; dataset contributions start no analysis.                       |
+| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer catalog PRs.                   |
+| CodeQL             | Scan Python and Actions code when it changes, and both weekly; catalog contributions start no analysis.                       |
 | Import ThemerrDB   | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch with optional dry-run).     |
-| Dataset Health     | Check entries after each import and update the `health` issue.                                                                |
+| Catalog Health     | Check entries after each import and update the `health` issue.                                                                |
 | Publish Catalog    | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
 | Docs               | Build the documentation site on pull requests that touch `docs/`, and tell Overture to redeploy it after a change on `main`.  |
 
-Dataset Health checks 200 entries per daily run, new and changed ones first:
+Catalog Health checks 200 entries per daily run, new and changed ones first:
 artwork reachability, the 1% rule and theme availability as problems, and
 artwork below the recommended resolution as warnings, each in its own section of
 the `health` issue. Every run also rechecks all entries with reported findings
@@ -272,7 +272,7 @@ the previous findings and are retried on a later run. Its state lives on the
 Keep `contribution-guard` required on `main`, with GitHub Actions as its source,
 with strict up-to-date checks and signed commits. Grant the OvertureDB GitHub App
 bypass permission on the `main` and `state/*` branch rulesets so it can commit
-approved dataset contributions and update `state/health`. The app's direct writes
+approved catalog contributions and update `state/health`. The app's direct writes
 are gated by `scripts/publication.py` and the shared `scripts/contribution-check.sh`;
 the post-push status alone does not enforce validation before publication.
 Do not require CodeQL

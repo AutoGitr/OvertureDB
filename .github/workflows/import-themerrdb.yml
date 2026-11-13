@@ -2,7 +2,7 @@ name: Import ThemerrDB
 
 on:
   schedule:
-    # Starts the daily pipeline: Dataset Health and Publish Catalog follow it.
+    # Starts the daily pipeline: Catalog Health and Publish Catalog follow it.
     # Off the top of the hour, when GitHub delays scheduled runs the most.
     - cron: "23 14 * * *"
   workflow_dispatch:
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: dataset-write
+  group: catalog-write
   cancel-in-progress: false
   queue: max
 

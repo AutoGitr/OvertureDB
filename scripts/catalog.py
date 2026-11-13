@@ -1,4 +1,4 @@
-"""Validate dataset contributions and build reproducible publication artifacts."""
+"""Validate catalog contributions and build reproducible publication artifacts."""
 
 lazy import argparse
 lazy import gzip
@@ -131,9 +131,9 @@ class EntryIndex:
 
     @classmethod
     def load(cls, root: Path) -> EntryIndex:
-        """Index every entry of the dataset under *root*."""
+        """Index every entry of the catalog under *root*."""
         index = cls()
-        for path, entry in dataset(root):
+        for path, entry in entry_files(root):
             index.put(path, entry)
         return index
 
@@ -175,15 +175,15 @@ class EntryIndex:
         return target
 
 
-def dataset(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
-    """Return every entry file of the dataset with its validated entry."""
+def entry_files(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
+    """Return every entry file of the catalog with its validated entry."""
     if not (root / "data").is_dir():
-        raise ValueError("Dataset directory does not exist")
+        raise ValueError("Data directory does not exist")
     paths = sorted((root / "data").rglob("*.json"))
     resolved_data = root.resolve() / "data"
     for path in paths:
         if path.is_symlink() or not path.resolve().is_relative_to(resolved_data):
-            raise ValueError(f"Dataset entry must be a regular local file: {path}")
+            raise ValueError(f"Catalog entry must be a regular local file: {path}")
     entries = validate_entries([json.loads(path.read_text()) for path in paths])
     files = list(zip(paths, entries, strict=True))
     for path, entry in files:
@@ -465,7 +465,7 @@ def check_art_url(url: str, *, max_retries: int = 5) -> tuple[int, int] | None:
 
 def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) -> None:
     entries = sorted(
-        (entry for _, entry in dataset(root)),
+        (entry for _, entry in entry_files(root)),
         key=lambda entry: (
             entry["media_type"],
             entry["title"],
@@ -541,7 +541,7 @@ def main() -> int:
     validate = commands.add_parser("validate")
     validate.add_argument("--check-urls", action="store_true")
     validate.add_argument(
-        "--entry", type=Path, nargs="+", help="Validate only these dataset entries"
+        "--entry", type=Path, nargs="+", help="Validate only these catalog entries"
     )
     publish = commands.add_parser("build")
     publish.add_argument("--output", type=Path, default=ROOT / "public")
@@ -558,7 +558,7 @@ def main() -> int:
                         or path.suffix != ".json"
                     ):
                         raise ValueError(
-                            "Contribution must be an existing dataset entry"
+                            "Contribution must be an existing catalog entry"
                         )
                 entries = validate_entries(
                     [json.loads(path.read_text()) for path in paths]
@@ -566,7 +566,7 @@ def main() -> int:
                 for path, entry in zip(paths, entries, strict=True):
                     validate_entry_path(path, entry, root)
             else:
-                entries = [entry for _, entry in dataset()]
+                entries = [entry for _, entry in entry_files()]
             if args.check_urls:
                 for url in sorted(art_urls(entries)):
                     check_art_url(url)
@@ -583,7 +583,7 @@ def main() -> int:
             )
             build(args.output, revision=revision, generated_at=generated_at)
     except (ValueError, OSError, RuntimeError, subprocess.SubprocessError) as exc:
-        print(f"Dataset validation failed: {exc}", file=sys.stderr)
+        print(f"Catalog validation failed: {exc}", file=sys.stderr)
         return 1
     return 0
 

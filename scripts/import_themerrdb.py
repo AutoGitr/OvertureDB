@@ -187,7 +187,7 @@ def import_themerrdb(
     dry_run: bool = False,
     commit: bool = False,
 ) -> tuple[dict[str, int], list[str]]:
-    """Apply ThemerrDB to the dataset; return the counts and the titles that lost
+    """Apply ThemerrDB to the catalog; return the counts and the titles that lost
     their OvertureDB theme because ThemerrDB now uses the same video."""
     if limit is not None and limit <= 0:
         raise ValueError("Limit must be a positive integer")
