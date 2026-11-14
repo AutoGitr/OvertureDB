@@ -3,8 +3,8 @@
   "title": "Before...",
   "tmdb_id": 123800,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/bBS1CfspKXq5RBok85hYvtW9ZwE.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/565478",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/2531",
   "background_url": "https://image.tmdb.org/t/p/original/cgnAVaq85tsCFr4IbNPACIuGCwP.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": null

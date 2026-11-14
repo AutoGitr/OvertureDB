@@ -3,8 +3,8 @@
   "title": "The Hunger Games Collection",
   "tmdb_id": 131635,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/sX8aElYGC9V5Ip4cqlJDgLkVRiy.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/570327",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9447",
   "background_url": "https://image.tmdb.org/t/p/original/lWZB4VFSlU292oJ3ZAzAzPi9GU0.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "RtJkoaa_FjM"

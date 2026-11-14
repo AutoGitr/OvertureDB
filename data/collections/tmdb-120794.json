@@ -3,8 +3,8 @@
   "title": "Batman Collection",
   "tmdb_id": 120794,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/31SwN5tZuJNsWTLx6DNNyQSAXdx.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/566598",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/2525",
   "background_url": "https://image.tmdb.org/t/p/original/n2aegZzlU8COOFu82ieKZbSD8C3.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "YoaU3kRFvLg"
