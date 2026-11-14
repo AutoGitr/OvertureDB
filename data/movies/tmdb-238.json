@@ -3,10 +3,10 @@
   "title": "The Godfather",
   "year": 1972,
   "tmdb_id": 238,
-  "tvdb_id": null,
-  "imdb_id": null,
-  "poster_url": null,
-  "background_url": null,
-  "youtube_id_overturedb": null,
+  "tvdb_id": 275,
+  "imdb_id": "tt0068646",
+  "poster_url": "https://theposterdb.com/api/assets/8935",
+  "background_url": "https://image.tmdb.org/t/p/original/sjkbhJbbcmsTiNXcJscteTS9fsh.jpg",
+  "youtube_id_overturedb": "PPskYVBqdNw",
   "youtube_id_themerrdb": "zbSMCyJkUmI"
 }
