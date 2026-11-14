@@ -18,8 +18,8 @@ hosts that do not name an image (sets, pages, viewers) are rejected.
 | **TheTVDB**     | Secondary           | `https://artworks.thetvdb.com/banners/<path>` | `_t` thumbnails, `_cache/` links and `thetvdb.com` links.               |
 | **Plex Static** | Secondary           | `https://metadata-static.plex.tv/<path>`      |                                                                         |
 
-Images must be JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files. Consistent
-collection posters are accepted from TMDB and ThePosterDB only.
+Images must be JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files. Matte and
+overlay collection posters are accepted from TMDB and ThePosterDB only.
 
 The rules live in `schema/contract.py`, which Overture uses too, so a link
 Overture accepts is a link the catalog accepts.

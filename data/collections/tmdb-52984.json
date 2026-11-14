@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "National Treasure Collection",
   "tmdb_id": 52984,
-  "poster_url": null,
+  "poster_url_individual": null,
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": null,
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "R2qvQ9fBKWk"

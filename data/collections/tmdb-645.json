@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "James Bond Collection",
   "tmdb_id": 645,
-  "poster_url": "https://image.tmdb.org/t/p/original/8CLI5HNOPFOUNP61GdTJucJU97w.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/8CLI5HNOPFOUNP61GdTJucJU97w.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/noPCPH9laFHrbBo5qLS0JTgTqub.jpg",
   "youtube_id_overturedb": "CDwwXiE_VKw",
   "youtube_id_themerrdb": "U9FzgsF2T-s"

@@ -361,11 +361,11 @@ def test_submitted_artwork_below_the_recommended_resolution_is_a_warning(
 ) -> None:
     old = movie()
     new = movie(background_url="https://image.tmdb.org/t/p/original/new.jpg")
-    sizes = {old["poster_url"]: (800, 1200), new["background_url"]: (1280, 720)}
+    sizes = {old["poster_url"]: (800, 1200), new["background_url"]: (960, 540)}
     probe.side_effect = sizes.get
     assert automation.check_submission(new, old) == [
-        f"The background {new['background_url']} is 1280x720 is below the "
-        "recommended 1600x900."
+        f"The background {new['background_url']} is 960x540 is below the "
+        "recommended 1280x720."
     ]
 
 

@@ -56,6 +56,13 @@ body:
       label: Background URL
       description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
 
+  - type: textarea
+    id: season_posters
+    attributes:
+      label: Season posters
+      description: One image link per line, format season_num=url. Links follow the same rules as the poster URL.
+      placeholder: 1=https://image.tmdb.org/t/p/original/example.jpg
+
   - type: input
     id: youtube_id
     attributes:
@@ -69,13 +76,6 @@ body:
       label: No theme
       options:
         - label: This title has no theme
-
-  - type: textarea
-    id: season_posters
-    attributes:
-      label: Season posters
-      description: One image link per line, format season_num=url. Links follow the same rules as the poster URL.
-      placeholder: 1=https://image.tmdb.org/t/p/original/example.jpg
 
   - type: textarea
     id: modification_reason

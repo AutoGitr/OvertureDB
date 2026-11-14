@@ -2,14 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/AutoGitr/OvertureDB/main/schema/entry.schema.json",
   "title": "OvertureDB entry",
-  "description": "One movie, show or movie collection in the version 3 OvertureDB catalog.",
+  "description": "One movie, show or movie collection in the version 4 OvertureDB catalog.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "media_type",
     "title",
     "tmdb_id",
-    "poster_url",
     "background_url",
     "youtube_id_overturedb",
     "youtube_id_themerrdb"
@@ -18,10 +17,6 @@
     {
       "if": {"required": ["no_theme"]},
       "then": {"properties": {"youtube_id_overturedb": {"type": "null"}}}
-    },
-    {
-      "if": {"required": ["consistent_poster_url"]},
-      "then": {"properties": {"media_type": {"const": "collection"}}}
     },
     {
       "anyOf": [
@@ -40,9 +35,14 @@
         "required": ["media_type"]
       },
       "then": {
-        "required": ["year", "tvdb_id", "imdb_id"],
+        "required": ["year", "tvdb_id", "imdb_id", "poster_url"],
         "not": {
-          "required": ["seasons"]
+          "anyOf": [
+            {"required": ["poster_url_individual"]},
+            {"required": ["poster_url_matte"]},
+            {"required": ["poster_url_overlay"]},
+            {"required": ["seasons"]}
+          ]
         }
       }
     },
@@ -56,7 +56,14 @@
         "required": ["media_type"]
       },
       "then": {
-        "required": ["year", "tvdb_id", "imdb_id", "seasons"]
+        "required": ["year", "tvdb_id", "imdb_id", "poster_url", "seasons"],
+        "not": {
+          "anyOf": [
+            {"required": ["poster_url_individual"]},
+            {"required": ["poster_url_matte"]},
+            {"required": ["poster_url_overlay"]}
+          ]
+        }
       }
     },
     {
@@ -69,12 +76,18 @@
         "required": ["media_type"]
       },
       "then": {
+        "required": [
+          "poster_url_individual",
+          "poster_url_matte",
+          "poster_url_overlay"
+        ],
         "properties": {"tmdb_id": {"type": "integer"}},
         "not": {
           "anyOf": [
             {"required": ["year"]},
             {"required": ["tvdb_id"]},
             {"required": ["imdb_id"]},
+            {"required": ["poster_url"]},
             {"required": ["seasons"]}
           ]
         }
@@ -114,28 +127,24 @@
       "type": ["string", "null"],
       "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
     },
+    "poster_url_individual": {
+      "description": "The collection's individual poster, or null.",
+      "type": ["string", "null"],
+      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+    },
+    "poster_url_matte": {
+      "description": "The collection's consistent matte poster, on TMDB or ThePosterDB, or null.",
+      "type": ["string", "null"],
+      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+    },
+    "poster_url_overlay": {
+      "description": "The collection's consistent overlay poster, on TMDB or ThePosterDB, or null.",
+      "type": ["string", "null"],
+      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
+    },
     "background_url": {
       "type": ["string", "null"],
       "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
-    },
-    "consistent_poster_url": {
-      "description": "The collection's poster in the shared layout every consistent collection poster follows, on TMDB or ThePosterDB.",
-      "type": ["string", "null"],
-      "pattern": "^https://[^\\s/?#@]+/[^\\s]*$"
-    },
-    "youtube_id_overturedb": {
-      "type": ["string", "null"],
-      "maxLength": 11,
-      "pattern": "^[A-Za-z0-9_-]{11}$"
-    },
-    "youtube_id_themerrdb": {
-      "type": ["string", "null"],
-      "maxLength": 11,
-      "pattern": "^[A-Za-z0-9_-]{11}$"
-    },
-    "no_theme": {
-      "description": "The title has no theme music, so no theme is missing.",
-      "const": true
     },
     "seasons": {
       "type": "array",
@@ -156,6 +165,20 @@
           }
         }
       }
+    },
+    "youtube_id_overturedb": {
+      "type": ["string", "null"],
+      "maxLength": 11,
+      "pattern": "^[A-Za-z0-9_-]{11}$"
+    },
+    "youtube_id_themerrdb": {
+      "type": ["string", "null"],
+      "maxLength": 11,
+      "pattern": "^[A-Za-z0-9_-]{11}$"
+    },
+    "no_theme": {
+      "description": "The title has no theme music, so no theme is missing.",
+      "const": true
     }
   }
 }

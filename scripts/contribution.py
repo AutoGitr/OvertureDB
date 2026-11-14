@@ -3,12 +3,13 @@
 lazy import difflib
 lazy import json
 lazy import re
-lazy from dataclasses import dataclass
+lazy from dataclasses import dataclass, field
 lazy from pathlib import Path
 lazy from typing import Any
 lazy from urllib.parse import quote
 
 lazy from schema.contract import (
+    COLLECTION_POSTER_FIELDS,
     IDENTITY_FIELDS,
     MAX_EXTERNAL_ID,
     catalog_art_url,
@@ -17,6 +18,7 @@ lazy from schema.contract import (
 )
 
 lazy from .catalog import (
+    ART_LABELS,
     EntryIndex,
     entry_json,
     entry_path,
@@ -42,16 +44,14 @@ class ParsedContribution:
     tmdb_id: int | None
     tvdb_id: int | None
     imdb_id: str | None
-    poster_url: str | None
-    background_url: str | None
-    youtube_id: str | None
-    seasons: list[dict[str, Any]]
-    modification_reason: str | None
-    remove: bool = False
+    #: Artwork links by entry field.
+    art: dict[str, str] = field(default_factory=dict[str, str])
+    seasons: list[dict[str, Any]] = field(default_factory=list[dict[str, Any]])
+    youtube_id: str | None = None
     #: The title has no theme music.
     no_theme: bool = False
-    #: A collection's poster in the shared consistent layout.
-    consistent_poster_url: str | None = None
+    modification_reason: str | None = None
+    remove: bool = False
 
 
 def _first_non_empty_line(val: str | None) -> str | None:
@@ -262,28 +262,35 @@ def parse_issue_form(
 
     tmdb_id, tvdb_id, imdb_id = _parse_external_ids(body, media_type)
 
-    poster_raw = extract_field(body, "Poster URL")
-    poster_url = clean_art_url(_first_non_empty_line(poster_raw))
+    art = {
+        name: url
+        for name, label in ART_LABELS.items()
+        if (
+            url := clean_art_url(
+                _first_non_empty_line(extract_field(body, f"{label} URL"))
+            )
+        )
+    }
+    collection_posters = art.keys() & set(COLLECTION_POSTER_FIELDS)
+    if media_type == "collection" and "poster_url" in art:
+        raise ValueError("Collections use Individual, Matte or Overlay poster URL.")
+    if media_type != "collection" and collection_posters:
+        raise ValueError(
+            "Only collections have Individual, Matte or Overlay poster URLs."
+        )
 
-    bg_raw = extract_field(body, "Background URL")
-    background_url = clean_art_url(_first_non_empty_line(bg_raw))
-
-    consistent_raw = extract_field(body, "Consistent poster URL")
-    consistent_poster_url = clean_art_url(_first_non_empty_line(consistent_raw))
-    if consistent_poster_url and media_type != "collection":
-        raise ValueError("Only collections have a consistent poster.")
+    seasons = _parse_seasons(body, media_type)
 
     yt_raw = extract_field(body, "YouTube theme video ID")
     youtube_id = clean_youtube_id(_first_non_empty_line(yt_raw))
 
-    seasons = _parse_seasons(body, media_type)
+    no_theme = bool(re.search(r"- \[x\]", extract_field(body, "No theme") or "", re.I))
+    if no_theme and youtube_id:
+        raise ValueError("Give a theme or check No theme, not both.")
 
     reason_raw = extract_field(body, "Reason for modification")
     modification_reason = reason_raw.strip() if reason_raw else None
     remove = bool(re.search(r"- \[x\]", extract_field(body, "Removal") or "", re.I))
-    no_theme = bool(re.search(r"- \[x\]", extract_field(body, "No theme") or "", re.I))
-    if no_theme and youtube_id:
-        raise ValueError("Give a theme or check No theme, not both.")
 
     return ParsedContribution(
         media_type=media_type,
@@ -292,14 +299,12 @@ def parse_issue_form(
         tmdb_id=tmdb_id,
         tvdb_id=tvdb_id,
         imdb_id=imdb_id,
-        poster_url=poster_url,
-        background_url=background_url,
-        youtube_id=youtube_id,
+        art=art,
         seasons=seasons,
+        youtube_id=youtube_id,
+        no_theme=no_theme,
         modification_reason=modification_reason,
         remove=remove,
-        no_theme=no_theme,
-        consistent_poster_url=consistent_poster_url,
     )
 
 
@@ -315,10 +320,9 @@ def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
         "tmdb_id": parsed.tmdb_id,
         "tvdb_id": parsed.tvdb_id,
         "imdb_id": parsed.imdb_id,
-        "poster_url": parsed.poster_url,
-        "background_url": parsed.background_url,
-        "youtube_id_overturedb": parsed.youtube_id,
+        **parsed.art,
         "seasons": parsed.seasons,
+        "youtube_id_overturedb": parsed.youtube_id,
     }
     fields = entry_fields(parsed.media_type)
     entry = new_entry(
@@ -328,8 +332,6 @@ def build_candidate_entry(parsed: ParsedContribution) -> dict[str, Any]:
     )
     if parsed.no_theme:
         entry["no_theme"] = True
-    if parsed.consistent_poster_url:
-        entry["consistent_poster_url"] = parsed.consistent_poster_url
     return entry
 
 
@@ -359,18 +361,14 @@ def is_replacement(
         and parsed.year != existing["year"]
     ):
         return True
-    for field in IDENTITY_FIELDS:
-        new = getattr(parsed, field)
-        current = existing.get(field)
+    for id_field in IDENTITY_FIELDS:
+        new = getattr(parsed, id_field)
+        current = existing.get(id_field)
         if current is not None and new is not None and new != current:
             return True
-    for field, new in (
-        ("poster_url", parsed.poster_url),
-        ("background_url", parsed.background_url),
-        ("consistent_poster_url", parsed.consistent_poster_url),
-    ):
-        old = existing.get(field)
-        if old and new and new.strip() != old.strip():
+    for art_field, new in parsed.art.items():
+        old = existing.get(art_field)
+        if old and new.strip() != old.strip():
             return True
 
     old_yt = existing.get("youtube_id_overturedb")
@@ -414,16 +412,13 @@ def _update_entry(
     if parsed.year is not None:
         updated["year"] = parsed.year
 
-    for field in IDENTITY_FIELDS:
-        if (value := getattr(parsed, field)) is not None:
-            updated[field] = value
+    for id_field in IDENTITY_FIELDS:
+        if (value := getattr(parsed, id_field)) is not None:
+            updated[id_field] = value
 
-    if parsed.poster_url:
-        updated["poster_url"] = parsed.poster_url
-    if parsed.background_url:
-        updated["background_url"] = parsed.background_url
-    if parsed.consistent_poster_url:
-        updated["consistent_poster_url"] = parsed.consistent_poster_url
+    updated.update(parsed.art)
+    if parsed.media_type == "show":
+        _update_seasons(updated, parsed.seasons)
     if parsed.youtube_id and parsed.youtube_id != updated.get("youtube_id_themerrdb"):
         updated["youtube_id_overturedb"] = parsed.youtube_id
     # A contributed theme means the title has one after all.
@@ -432,9 +427,6 @@ def _update_entry(
     elif parsed.no_theme:
         updated["youtube_id_overturedb"] = None
         updated["no_theme"] = True
-
-    if parsed.media_type == "show":
-        _update_seasons(updated, parsed.seasons)
 
     validated = validate_entry(updated)
     new_content = json.dumps(validated, indent=2, ensure_ascii=False) + "\n"
@@ -494,25 +486,30 @@ def format_media_comparison(
     updated: dict[str, Any],
 ) -> str:
     """Format markdown comparing changed artwork and theme fields inline."""
+    season_nums = sorted(
+        {
+            season["season_num"]
+            for entry in (existing, updated)
+            for season in entry.get("seasons", [])
+        }
+    )
 
+    # Both sides list every field in entry order, so the lines follow it.
     def selections(entry: dict[str, Any]) -> dict[str, str | None]:
         theme = entry.get("youtube_id_overturedb")
-        values = {
-            "Poster": entry.get("poster_url"),
-            "Background": entry.get("background_url"),
-            "Consistent poster": entry.get("consistent_poster_url"),
+        posters = {s["season_num"]: s["poster_url"] for s in entry.get("seasons", [])}
+        return {
+            **{label: entry.get(name) for name, label in ART_LABELS.items()},
+            **{f"Season {num} Poster": posters.get(num) for num in season_nums},
             "YouTube Theme": f"https://www.youtube.com/watch?v={theme}"
             if theme
             else None,
         }
-        for season in entry.get("seasons", []):
-            values[f"Season {season['season_num']} Poster"] = season["poster_url"]
-        return values
 
     old, new = selections(existing), selections(updated)
     lines: list[str] = []
-    for label in dict.fromkeys([*old, *new]):
-        before, after = old.get(label), new.get(label)
+    for label in old:
+        before, after = old[label], new[label]
         if before == after:
             continue
         links = [
@@ -536,17 +533,12 @@ def process_contribution(
         return _remove_entry(parsed, index, existing_path, repo_root, dry_run=dry_run)
 
     has_media = bool(
-        parsed.poster_url
-        or parsed.background_url
-        or parsed.consistent_poster_url
-        or parsed.youtube_id
-        or parsed.seasons
-        or parsed.no_theme
+        parsed.art or parsed.seasons or parsed.youtube_id or parsed.no_theme
     )
     if existing_path is None and not has_media:
         raise ValueError(
             "New entry contributions must include at least one artwork URL "
-            "(poster, background, consistent poster or season poster) "
+            "(poster, background or season poster) "
             "or YouTube theme ID."
         )
 

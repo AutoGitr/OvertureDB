@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "The Santa Clause Collection",
   "tmdb_id": 53159,
-  "poster_url": null,
+  "poster_url_individual": null,
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": null,
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "zyvtiYYz4DU"

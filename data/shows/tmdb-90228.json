@@ -7,12 +7,12 @@
   "imdb_id": "tt10466872",
   "poster_url": "https://theposterdb.com/api/assets/539518",
   "background_url": "https://image.tmdb.org/t/p/original/hmqqtqsUFyk6Qq3kgjqrBdDfSt4.jpg",
-  "youtube_id_overturedb": null,
-  "youtube_id_themerrdb": null,
   "seasons": [
     {
       "season_num": 1,
       "poster_url": "https://theposterdb.com/api/assets/539519"
     }
-  ]
+  ],
+  "youtube_id_overturedb": null,
+  "youtube_id_themerrdb": null
 }

@@ -4,7 +4,7 @@ lazy from dataclasses import asdict, dataclass
 lazy from html import escape
 lazy from typing import Any, TypedDict
 
-lazy from schema.contract import ENTRY_FOLDERS
+lazy from schema.contract import ENTRY_FOLDERS, POSTER_FIELDS
 
 
 @dataclass
@@ -25,7 +25,7 @@ def summarize(entries: list[dict[str, Any]]) -> dict[str, Counts]:
     """Count selections per entry; shared URLs/IDs still count for each title."""
     groups = {name: Counts() for name in (*ENTRY_FOLDERS.values(), "total")}
     for entry in entries:
-        poster = entry["poster_url"] is not None
+        poster = any(entry.get(field) is not None for field in POSTER_FIELDS)
         background = entry["background_url"] is not None
         overturedb = entry["youtube_id_overturedb"] is not None
         themerrdb = entry["youtube_id_themerrdb"] is not None

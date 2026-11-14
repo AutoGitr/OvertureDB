@@ -192,8 +192,9 @@ def test_entries_are_named_tmdb_first_for_every_media_type(
 
 def test_every_media_type_has_a_folder_and_its_own_fields() -> None:
     assert set(ENTRY_FOLDERS) == set(ENTRY_SCHEMA["properties"]["media_type"]["enum"])
-    assert entry_fields("movie") == tuple(movie())
-    assert entry_fields("show") == (*movie(), "seasons")
+    movie_fields = tuple(movie())
+    assert entry_fields("movie") == movie_fields
+    assert entry_fields("show") == (*movie_fields[:-2], "seasons", *movie_fields[-2:])
     assert entry_fields("collection") == tuple(collection())
 
 
@@ -236,21 +237,28 @@ def test_no_theme_flags_an_entry_without_an_overturedb_theme() -> None:
     ):
         with pytest.raises(ValueError, match="contract"):
             validate_entry(invalid)
-    assert all("no_theme" in fields for fields in OPTIONAL_ENTRY_FIELDS.values())
-    assert OPTIONAL_ENTRY_FIELDS["collection"] == ("no_theme", "consistent_poster_url")
+    assert all(fields == ("no_theme",) for fields in OPTIONAL_ENTRY_FIELDS.values())
 
 
 def test_a_consistent_poster_is_a_collections_on_tmdb_or_theposterdb() -> None:
-    for url in (
-        "https://image.tmdb.org/t/p/original/a.jpg",
-        "https://theposterdb.com/api/assets/7",
-    ):
-        assert validate_entry(collection(consistent_poster_url=url))
-    with pytest.raises(ValueError, match="TMDB or ThePosterDB"):
-        validate_entry(
-            collection(consistent_poster_url="https://assets.fanart.tv/fanart/a.jpg")
-        )
+    for field in ("poster_url_matte", "poster_url_overlay"):
+        for url in (
+            "https://image.tmdb.org/t/p/original/a.jpg",
+            "https://theposterdb.com/api/assets/7",
+        ):
+            assert validate_entry(collection(**{field: url}))
+        with pytest.raises(ValueError, match="TMDB or ThePosterDB"):
+            validate_entry(
+                collection(**{field: "https://assets.fanart.tv/fanart/a.jpg"})
+            )
+        with pytest.raises(ValueError, match="contract"):
+            validate_entry(
+                movie(**{field: "https://image.tmdb.org/t/p/original/a.jpg"})
+            )
+    assert validate_entry(
+        collection(poster_url_individual="https://assets.fanart.tv/fanart/a.jpg")
+    )
     with pytest.raises(ValueError, match="contract"):
         validate_entry(
-            movie(consistent_poster_url="https://image.tmdb.org/t/p/original/a.jpg")
+            collection(poster_url="https://image.tmdb.org/t/p/original/a.jpg")
         )

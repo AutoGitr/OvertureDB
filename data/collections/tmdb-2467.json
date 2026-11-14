@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Tomb Raider Collection",
   "tmdb_id": 2467,
-  "poster_url": null,
+  "poster_url_individual": null,
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": null,
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "GW4mm2JBV7k"

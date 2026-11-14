@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Addams Family Collection",
   "tmdb_id": 11716,
-  "poster_url": "https://image.tmdb.org/t/p/original/umcYEuBCr6IzUjbZdg89iWJRHuW.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/umcYEuBCr6IzUjbZdg89iWJRHuW.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/jYIY5lqbFStLuqcwi0d1GtKA4p6.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "X6QzbvH-ZNo"

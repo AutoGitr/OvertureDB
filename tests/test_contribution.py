@@ -481,57 +481,37 @@ Upgrading to official 4K poster art.
     assert updated_data["youtube_id_themerrdb"] == "themerr1111"
 
 
-def test_format_media_comparison_all_types() -> None:
+def test_media_comparison_lists_only_what_changed_in_entry_order() -> None:
+    old = "https://image.tmdb.org/t/p/original/old_{}.jpg"
+    new = "https://image.tmdb.org/t/p/original/new_{}.jpg"
     existing = {
-        "poster_url": "https://image.tmdb.org/t/p/original/old_poster.jpg",
-        "background_url": "https://image.tmdb.org/t/p/original/old_bg.jpg",
+        "poster_url": old.format("poster"),
+        "poster_url_matte": old.format("matte"),
+        "background_url": old.format("bg"),
+        "seasons": [{"season_num": 1, "poster_url": old.format("s1")}],
         "youtube_id_themerrdb": None,
         "youtube_id_overturedb": "oldtheme123",
-        "seasons": [
-            {
-                "season_num": 1,
-                "poster_url": "https://image.tmdb.org/t/p/original/old_s1.jpg",
-            },
-        ],
     }
     updated = {
-        # Unchanged
-        "poster_url": "https://image.tmdb.org/t/p/original/old_poster.jpg",
-        # Changed
-        "background_url": "https://image.tmdb.org/t/p/original/new_bg.jpg",
-        "youtube_id_themerrdb": "oldtheme123",
-        "youtube_id_overturedb": "newtheme456",  # Changed
+        **existing,
+        "poster_url_matte": new.format("matte"),
+        "background_url": new.format("bg"),
         "seasons": [
-            {
-                "season_num": 1,
-                "poster_url": "https://image.tmdb.org/t/p/original/new_s1.jpg",
-            },  # Changed
-            {
-                "season_num": 2,
-                "poster_url": "https://image.tmdb.org/t/p/original/new_s2.jpg",
-            },  # Added
+            {"season_num": 1, "poster_url": new.format("s1")},
+            {"season_num": 2, "poster_url": new.format("s2")},
         ],
+        "youtube_id_overturedb": "newtheme456",
     }
-    markdown = format_media_comparison(existing, updated)
 
-    assert "Poster" not in markdown.splitlines()[0]  # Poster didn't change
-    assert (
-        "- **Background:** [Old](https://image.tmdb.org/t/p/original/old_bg.jpg) | "
-        "[New](https://image.tmdb.org/t/p/original/new_bg.jpg)"
-    ) in markdown
-    assert (
+    assert format_media_comparison(existing, updated).splitlines() == [
+        f"- **Matte poster:** [Old]({old.format('matte')}) | "
+        f"[New]({new.format('matte')})",
+        f"- **Background:** [Old]({old.format('bg')}) | [New]({new.format('bg')})",
+        f"- **Season 1 Poster:** [Old]({old.format('s1')}) | [New]({new.format('s1')})",
+        f"- **Season 2 Poster:** _None_ | [New]({new.format('s2')})",
         "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldtheme123) | "
-        "[New](https://www.youtube.com/watch?v=newtheme456)"
-    ) in markdown
-    assert (
-        "- **Season 1 Poster:** "
-        "[Old](https://image.tmdb.org/t/p/original/old_s1.jpg) | "
-        "[New](https://image.tmdb.org/t/p/original/new_s1.jpg)"
-    ) in markdown
-    assert (
-        "- **Season 2 Poster:** _None_ | [New](https://image.tmdb.org/t/p/original/new_s2.jpg)"
-        in markdown
-    )
+        "[New](https://www.youtube.com/watch?v=newtheme456)",
+    ]
 
 
 def test_theme_comparison_only_shows_contributed_theme() -> None:
@@ -1286,7 +1266,10 @@ AB96CvvLZKc
     assert parsed.title == "Spaced Movie"
     assert parsed.year == 2024
     assert parsed.tmdb_id == 123456
-    assert parsed.poster_url == "https://image.tmdb.org/t/p/original/spaced_poster.jpg"
+    assert (
+        parsed.art["poster_url"]
+        == "https://image.tmdb.org/t/p/original/spaced_poster.jpg"
+    )
     assert parsed.youtube_id == "AB96CvvLZKc"
 
 
@@ -1317,7 +1300,9 @@ abc123abc12
         "media_type": "collection",
         "title": "Star Wars Collection",
         "tmdb_id": 10,
-        "poster_url": None,
+        "poster_url_individual": None,
+        "poster_url_matte": None,
+        "poster_url_overlay": None,
         "background_url": None,
         "youtube_id_overturedb": "abc123abc12",
         "youtube_id_themerrdb": None,
@@ -1330,6 +1315,11 @@ def test_collection_form_rejects_title_only_fields(subtests: pytest.Subtests) ->
         ("", "TMDB collection ID only"),
         ("### TMDB ID\n\n10\n\n### IMDb ID\n\ntt1\n\n", "TMDB collection ID"),
         ("### TMDB ID\n\n10\n\n### Year\n\n1977\n\n", "no release year"),
+        (
+            "### TMDB ID\n\n10\n\n### Poster URL\n\n"
+            "https://image.tmdb.org/t/p/original/p.jpg\n\n",
+            "Individual, Matte or Overlay poster URL",
+        ),
         (
             "### TMDB ID\n\n10\n\n### Season posters\n\n"
             "1=https://image.tmdb.org/t/p/original/s.jpg\n\n",
@@ -1351,7 +1341,7 @@ Star Wars Collection
 
 10
 
-### Poster URL
+### Individual poster URL
 
 https://image.tmdb.org/t/p/original/poster.jpg
 
@@ -1366,7 +1356,10 @@ https://image.tmdb.org/t/p/original/background.jpg
     parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
     process_contribution(parsed, tmp_path)
     entry = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
-    assert entry["poster_url"] == "https://image.tmdb.org/t/p/original/poster.jpg"
+    assert (
+        entry["poster_url_individual"]
+        == "https://image.tmdb.org/t/p/original/poster.jpg"
+    )
     assert (
         entry["background_url"] == "https://image.tmdb.org/t/p/original/background.jpg"
     )
@@ -1429,10 +1422,11 @@ def test_a_theme_and_no_theme_together_are_refused() -> None:
         parse_issue_form(body, "[Movie]: Movie", ["movie"])
 
 
-def test_a_collection_takes_a_consistent_poster_beside_its_own(
+def test_a_collection_takes_individual_matte_and_overlay_posters(
     tmp_path: Path, data_dir: Path
 ) -> None:
-    consistent = "https://image.tmdb.org/t/p/original/consistent.jpg"
+    matte = "https://theposterdb.com/api/assets/668235"
+    overlay = "https://image.tmdb.org/t/p/original/overlay.jpg"
     body = f"""### Title
 
 Star Wars Collection
@@ -1441,13 +1435,17 @@ Star Wars Collection
 
 10
 
-### Poster URL
+### Individual poster URL
 
 https://image.tmdb.org/t/p/original/own.jpg
 
-### Consistent poster URL
+### Matte poster URL
 
-{consistent}
+{matte}
+
+### Overlay poster URL
+
+{overlay}
 
 ### {REASON_HEADING}
 
@@ -1456,12 +1454,17 @@ https://image.tmdb.org/t/p/original/own.jpg
     parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
     process_contribution(parsed, tmp_path)
     saved = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
-    assert (saved["poster_url"], saved["consistent_poster_url"]) == (
+    assert (
+        saved["poster_url_individual"],
+        saved["poster_url_matte"],
+        saved["poster_url_overlay"],
+    ) == (
         "https://image.tmdb.org/t/p/original/own.jpg",
-        consistent,
+        matte,
+        overlay,
     )
 
-    replaced = body.replace(consistent, "https://theposterdb.com/api/assets/7")
+    replaced = body.replace(overlay, "https://theposterdb.com/api/assets/7")
     with pytest.raises(ValueError, match="Reason for modification"):
         process_contribution(
             parse_issue_form(replaced, "[Collection]: Star Wars", ["collection"]),
@@ -1469,7 +1472,7 @@ https://image.tmdb.org/t/p/original/own.jpg
         )
 
 
-def test_only_collections_take_a_consistent_poster() -> None:
+def test_only_collections_take_collection_posters() -> None:
     body = """### Title
 
 Interstellar
@@ -1482,7 +1485,7 @@ Interstellar
 
 157336
 
-### Consistent poster URL
+### Overlay poster URL
 
 https://image.tmdb.org/t/p/original/consistent.jpg
 """

@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "The Bourne Collection",
   "tmdb_id": 31562,
-  "poster_url": "https://image.tmdb.org/t/p/original/r74T5OOHEtpxpIHmRY3zI6wh5eW.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/r74T5OOHEtpxpIHmRY3zI6wh5eW.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/xTl1KkHSnMIYnYMukoAQUOewcrY.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "L7P3shrWJ2g"

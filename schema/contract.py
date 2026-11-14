@@ -16,7 +16,7 @@ lazy from jsonschema import (
     validators,
 )
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 SCHEMA_DIR = Path(__file__).resolve().parent
 
 
@@ -315,11 +315,26 @@ OPTIONAL_ENTRY_FIELDS: frozendict[str, tuple[str, ...]] = frozendict(
     {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
         "movie": ("no_theme",),
         "show": ("no_theme",),
-        "collection": ("no_theme", "consistent_poster_url"),
+        "collection": ("no_theme",),
     }
 )
+#: The poster fields a collection entry carries, in schema order.
+COLLECTION_POSTER_FIELDS = (
+    "poster_url_individual",
+    "poster_url_matte",
+    "poster_url_overlay",
+)
+#: The poster fields an entry may carry, in schema order.
+POSTER_FIELDS = ("poster_url", *COLLECTION_POSTER_FIELDS)
+#: The top-level artwork link fields an entry may carry, in schema order.
+ART_FIELDS = (*POSTER_FIELDS, "background_url")
+#: The collection poster fields that follow a shared layout across collections.
+CONSISTENT_POSTER_FIELDS = (
+    "poster_url_matte",
+    "poster_url_overlay",
+)
 #: The art sources a consistent collection poster may be uploaded to, preferred
-#: first: one layout shared by every collection needs a source anyone can add to.
+#: first: a layout shared across collections needs a source anyone can add to.
 CONSISTENT_POSTER_SOURCES = ("tmdb", "tpdb")
 
 #: The issue form that contributes one entry of each media type.
@@ -336,10 +351,12 @@ ISSUE_FORM_FIELDS: frozendict[str, str] = frozendict(
         "tvdb_id": "tvdb_id",
         "imdb_id": "imdb_id",
         "poster_url": "poster_url",
+        "poster_url_individual": "poster_url_individual",
+        "poster_url_matte": "poster_url_matte",
+        "poster_url_overlay": "poster_url_overlay",
         "background_url": "background_url",
-        "consistent_poster_url": "consistent_poster_url",
-        "youtube_id_overturedb": "youtube_id",
         "seasons": "season_posters",
+        "youtube_id_overturedb": "youtube_id",
         "no_theme": "no_theme",
     }
 )
@@ -400,9 +417,7 @@ def entry_identities(entry: dict[str, Any]) -> list[Identity]:
 def entry_art_urls(entry: dict[str, Any]) -> list[tuple[str, str]]:
     """Return each artwork link of an entry with the path it sits at."""
     fields = [
-        ("poster_url", entry.get("poster_url")),
-        ("background_url", entry.get("background_url")),
-        ("consistent_poster_url", entry.get("consistent_poster_url")),
+        *((field, entry.get(field)) for field in ART_FIELDS),
         *(
             (f"seasons.{index}.poster_url", season["poster_url"])
             for index, season in enumerate(entry.get("seasons", []))
@@ -455,11 +470,12 @@ def _art_urls(entry: dict[str, Any]) -> None:
             check_catalog_art_url(url)
         except ValueError as exc:
             raise ValueError(f"Catalog contract violation at {path}: {exc}") from exc
-    consistent = entry.get("consistent_poster_url")
-    if consistent is not None and (problem := consistent_poster_problem(consistent)):
-        raise ValueError(
-            f"Catalog contract violation at consistent_poster_url: {problem}"
-        )
+    for field in CONSISTENT_POSTER_FIELDS:
+        consistent = entry.get(field)
+        if consistent is not None and (
+            problem := consistent_poster_problem(consistent)
+        ):
+            raise ValueError(f"Catalog contract violation at {field}: {problem}")
 
 
 def _youtube_ids(entry: dict[str, Any]) -> None:

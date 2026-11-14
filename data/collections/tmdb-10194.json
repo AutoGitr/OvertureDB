@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Toy Story Collection",
   "tmdb_id": 10194,
-  "poster_url": "https://image.tmdb.org/t/p/original/j1Dfgl5rTdKeKewkRBrYPiZw6bO.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/j1Dfgl5rTdKeKewkRBrYPiZw6bO.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/hApclyB9NEZEQujAVajzi5iWE4a.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "x0Aq9ZySKjg"

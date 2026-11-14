@@ -10,7 +10,7 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 ### General rules
 
 - **Preferred Source**: TMDB is the preferred and prioritised artwork source. TPDb is good for franchise and collection artwork sets.
-- **Resolution**: The higher the better, as long as it doesn't compromise other criteria. Posters and season posters should be at least 1000x1500 and backgrounds at least 1600x900.
+- **Resolution**: The higher the better, as long as it doesn't compromise other criteria. Posters and season posters should be at least 1000x1500 and backgrounds at least 1280x720.
 - **Aspect Ratio Margin (1% Rule)**: The aspect ratio of submitted artwork must lie within a 1% margin of the target aspect ratio:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range is 0.660 to 0.674 (for example, 2000x3000).
   - Backgrounds (16:9 target ratio = 1.778): allowed ratio range is 1.760 to 1.796 (for example, 3840x2160 or 1920x1080).
@@ -40,16 +40,18 @@ OvertureDB stores verified metadata, direct image links, and YouTube theme IDs.
 - Preferably no other text unless it suits the item.
 - A show's season posters must be consistent with each other.
 
-#### Consistent collection posters
+#### Collection posters
 
-A collection can hold two posters: its own (`poster_url`), chosen like any
-other poster, and a consistent one (`consistent_poster_url`) in the one layout
-every consistent collection poster shares, so a library of them looks alike.
-Overture users choose which of the two OvertureDB gives their TMDB collections.
+A collection carries three poster fields, and Overture users choose which one OvertureDB gives their TMDB collections:
 
-- Make it with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva), keeping its layout and font.
+- **Individual** (`poster_url_individual`): the collection's own poster, chosen like any other poster from any allowed source.
+- **Matte** (`poster_url_matte`): a consistent collection poster in the [DarkMatte layout](https://theposterdb.com/poster/668235) by TPDB user `DarkMatte`, generated using the `"Dark Matte"` overlay at [Poster Lab](https://postertools.org/poster-lab/).
+- **Overlay** (`poster_url_overlay`): a consistent collection poster in the [Silva overlay layout](https://theposterdb.com/poster/2503), made with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva), keeping its layout and font.
+
+For consistent collection posters (`poster_url_matte` and `poster_url_overlay`):
+
 - Upload it to the collection on TMDB; only when TMDB will not take it, upload it to ThePosterDB. Other sources are rejected for consistent posters.
-- Give its link under **Consistent poster URL** in the collection form. The 1% rule and resolution recommendation of posters apply.
+- Give its link under **Matte poster URL** or **Overlay poster URL** in the collection form. The 1% rule and resolution recommendation of posters apply.
 
 ### Theme requirements
 
@@ -110,7 +112,7 @@ Review the details and click **Submit new issue**. To contribute all your select
 
 - **[Movie](https://github.com/AutoGitr/OvertureDB/issues/new?template=movie.yml)**: Title, year, external IDs, poster URL, background URL, and YouTube ID.
 - **[Show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml)**: Same as movie, plus season poster URLs (`season_number=url`).
-- **[Collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml)**: Title, TMDB collection ID, poster URL, background URL, and YouTube ID. Collections are identified by their TMDB collection ID only.
+- **[Collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml)**: Title, TMDB collection ID, individual, matte and overlay poster URLs, background URL, and YouTube ID. Collections are identified by their TMDB collection ID only.
 
 #### Changing an existing entry
 

@@ -29,9 +29,10 @@ made there are drafts, ready to contribute; see
 
 ## Collection posters
 
-A TMDB collection can hold two posters: its own, and a consistent one in the
-layout every consistent poster shares. Overture's **OvertureDB posters**
-setting chooses which one your collections get; see
+A TMDB collection carries three poster fields: its own (`poster_url_individual`),
+a consistent matte poster (`poster_url_matte`) and a consistent overlay poster
+(`poster_url_overlay`). Overture's **OvertureDB posters** setting chooses which
+one your collections get; see
 [Art and themes](/overture/features/collections/art-and-themes#overturedb-posters).
 
 ## Availability

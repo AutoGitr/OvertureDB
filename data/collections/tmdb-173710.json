@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Planet of the Apes (Reboot) Collection",
   "tmdb_id": 173710,
-  "poster_url": null,
+  "poster_url_individual": null,
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": null,
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "2rZRuAGF1_Y"

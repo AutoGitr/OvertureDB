@@ -26,22 +26,28 @@ body:
       required: true
 
   - type: input
-    id: poster_url
+    id: poster_url_individual
     attributes:
-      label: Poster URL
+      label: Individual poster URL
       description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
+
+  - type: input
+    id: poster_url_matte
+    attributes:
+      label: Matte poster URL
+      description: The poster in the [DarkMatte collection layout](https://theposterdb.com/poster/668235), generated with the "Dark Matte" overlay at [Poster Lab](https://postertools.org/poster-lab/) and uploaded to TMDB, or to ThePosterDB when TMDB will not take it. See the consistent posters section of the guidelines.
+
+  - type: input
+    id: poster_url_overlay
+    attributes:
+      label: Overlay poster URL
+      description: The poster in the [Silva overlay collection layout](https://theposterdb.com/poster/2503), made with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva) and uploaded to TMDB, or to ThePosterDB when TMDB will not take it. See the consistent posters section of the guidelines.
 
   - type: input
     id: background_url
     attributes:
       label: Background URL
       description: JPG/JPEG/PNG image link from TMDB, ThePosterDB, fanart.tv, TheTVDB or metadata-static.plex.tv.
-
-  - type: input
-    id: consistent_poster_url
-    attributes:
-      label: Consistent poster URL
-      description: The poster in the shared collection layout, made with the [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva) and uploaded to TMDB, or to ThePosterDB when TMDB will not take it. See the consistent posters section of the guidelines.
 
   - type: input
     id: youtube_id

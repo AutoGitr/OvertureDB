@@ -7,8 +7,6 @@
   "imdb_id": "tt8398600",
   "poster_url": "https://image.tmdb.org/t/p/original/oW1S78vPOW5FZglm0myBU3XYa4x.jpg",
   "background_url": "https://image.tmdb.org/t/p/original/jBJ2e2NLPYMXRT5vxHlSk5TaQzT.jpg",
-  "youtube_id_overturedb": "WDFrxbiGOVQ",
-  "youtube_id_themerrdb": "1bmzDYvQZPI",
   "seasons": [
     {
       "season_num": 1,
@@ -22,5 +20,7 @@
       "season_num": 3,
       "poster_url": "https://image.tmdb.org/t/p/original/vpqb5ySOk5yVj5yZIKns6RbwKvw.jpg"
     }
-  ]
+  ],
+  "youtube_id_overturedb": "WDFrxbiGOVQ",
+  "youtube_id_themerrdb": "1bmzDYvQZPI"
 }

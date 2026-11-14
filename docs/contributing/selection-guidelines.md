@@ -16,7 +16,7 @@ These rules decide what is accepted.
   [Sources](sources.md).
 - **Resolution**: the higher the better, as long as it doesn't compromise
   other criteria. Posters and season posters should be at least 1000x1500 and
-  backgrounds at least 1600x900.
+  backgrounds at least 1280x720.
 - **Aspect ratio margin (1% rule)**: the aspect ratio of submitted artwork must
   lie within a 1% margin of the target aspect ratio:
   - Posters and season posters (2:3 target ratio = 0.667): allowed ratio range
@@ -64,18 +64,26 @@ These rules decide what is accepted.
 
 ### Consistent collection posters
 
-A collection can hold two posters: its own (`poster_url`), chosen like any
-other poster, and a consistent one (`consistent_poster_url`) in the one layout
-every consistent collection poster shares, so a library of them looks alike.
-Overture users choose which of the two OvertureDB gives their TMDB collections.
+A collection carries three poster fields, and Overture users choose which one
+OvertureDB gives their TMDB collections:
 
-- Make it with the
+- **Individual** (`poster_url_individual`): the collection's own poster, chosen
+  like any other poster from any allowed source.
+- **Matte** (`poster_url_matte`): a consistent collection poster in the
+  [DarkMatte layout](https://theposterdb.com/poster/668235) by TPDB user
+  `DarkMatte`, generated using the `"Dark Matte"` overlay at
+  [Poster Lab](https://postertools.org/poster-lab/).
+- **Overlay** (`poster_url_overlay`): a consistent collection poster in the
+  [Silva overlay layout](https://theposterdb.com/poster/2503), made with the
   [Coverlabs Silva designer](https://www.coverlabs.studio/designer/silva),
   keeping its layout and font.
+
+For consistent collection posters (`poster_url_matte` and `poster_url_overlay`):
+
 - Upload it to the collection on TMDB; only when TMDB will not take it, upload
   it to ThePosterDB. Other sources are rejected for consistent posters.
-- Give its link under **Consistent poster URL** in the collection form. The 1%
-  rule and resolution recommendation of posters apply.
+- Give its link under **Matte poster URL** or **Overlay poster URL** in the
+  collection form. The 1% rule and resolution recommendation of posters apply.
 
 ## Theme requirements
 

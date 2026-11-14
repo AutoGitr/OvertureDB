@@ -61,8 +61,8 @@ Fill in the form yourself:
 - **[Show](https://github.com/AutoGitr/OvertureDB/issues/new?template=show.yml)**:
   the same as a movie, plus season poster URLs (`season_number=url`).
 - **[Collection](https://github.com/AutoGitr/OvertureDB/issues/new?template=collection.yml)**:
-  title, TMDB collection ID, poster URL, consistent poster URL, background URL
-  and YouTube ID. Collections are identified by their TMDB collection ID only.
+  title, TMDB collection ID, individual, matte and overlay poster URLs,
+  background URL and YouTube ID. Collections are identified by their TMDB collection ID only.
 
 Links from the [allowed sources](sources.md) in any form are converted to the
 stored form on submission.

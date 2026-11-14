@@ -13,16 +13,16 @@ deploy. Overture downloads it from there.
 
 ## Published files
 
-| File                                | Contents                                                      |
-| ----------------------------------- | ------------------------------------------------------------- |
-| `catalog.jsonl`                     | A header line, then one entry per line                        |
-| `catalog.jsonl.gz`                  | The same, gzip-compressed, which Overture downloads           |
-| `stats.json`                        | Totals and coverage                                           |
-| `stats-light.svg`, `stats-dark.svg` | The statistics dashboard shown on the README and this site    |
-| `SHA256SUMS`                        | Checksums of the files above                                  |
-| `schema/entry.schema.json`          | The JSON Schema of an entry                                   |
-| `schema/catalog.schema.json`        | The JSON Schema of the header line                            |
-| `THIRD_PARTY_NOTICES.md`, `licenses/` | Licenses of the data the catalog derives from               |
+| File                                  | Contents                                                   |
+| ------------------------------------- | ---------------------------------------------------------- |
+| `catalog.jsonl`                       | A header line, then one entry per line                     |
+| `catalog.jsonl.gz`                    | The same, gzip-compressed, which Overture downloads        |
+| `stats.json`                          | Totals and coverage                                        |
+| `stats-light.svg`, `stats-dark.svg`   | The statistics dashboard shown on the README and this site |
+| `SHA256SUMS`                          | Checksums of the files above                               |
+| `schema/entry.schema.json`            | The JSON Schema of an entry                                |
+| `schema/catalog.schema.json`          | The JSON Schema of the header line                         |
+| `THIRD_PARTY_NOTICES.md`, `licenses/` | Licenses of the data the catalog derives from              |
 
 The build is reproducible: its revision and timestamp come from the source
 commit, and tests verify that the same source builds the same bytes.
@@ -33,11 +33,16 @@ The first line of `catalog.jsonl` names the schema version, when the catalog
 was generated, the source commit and the notices file:
 
 ```json
-{"schema_version": 3, "generated_at": "2026-11-11T14:30:00Z", "source_revision": "<commit>", "third_party_notices": "THIRD_PARTY_NOTICES.md"}
+{
+  "schema_version": 4,
+  "generated_at": "2026-11-11T14:30:00Z",
+  "source_revision": "<commit>",
+  "third_party_notices": "THIRD_PARTY_NOTICES.md"
+}
 ```
 
 `schema_version` increases only when Overture could not read the catalog as
-it stands; Overture reads version 3.
+it stands; Overture reads version 4.
 
 ## Entries
 
@@ -45,21 +50,23 @@ Each entry is one movie, show or movie collection, stored in `data/movies/`,
 `data/shows/` or `data/collections/` as `<identity>.json` and published as one
 line of the catalog.
 
-| Field                   | Movie    | Show     | Collection | Meaning                                                                                                   |
-| ----------------------- | -------- | -------- | ---------- | --------------------------------------------------------------------------------------------------------- |
-| `media_type`            | required | required | required   | `movie`, `show` or `collection`                                                                           |
-| `title`                 | required | required | required   |                                                                                                           |
-| `year`                  | required | required | never      | Release year, or `null`                                                                                   |
-| `tmdb_id`               | required | required | required   | TMDB ID; a collection is identified by it alone                                                           |
-| `tvdb_id`               | required | required | never      | TheTVDB ID, or `null`                                                                                     |
-| `imdb_id`               | required | required | never      | IMDb ID, or `null`                                                                                        |
-| `poster_url`            | required | required | required   | Direct link to the full-size poster, or `null`                                                            |
-| `background_url`        | required | required | required   | Direct link to the full-size background, or `null`                                                        |
-| `consistent_poster_url` | never    | never    | optional   | The collection's poster in the shared layout every consistent collection poster follows, on TMDB or ThePosterDB |
-| `youtube_id_overturedb` | required | required | required   | The contributed theme's YouTube ID, or `null`                                                             |
-| `youtube_id_themerrdb`  | required | required | required   | The theme imported from ThemerrDB, or `null`                                                              |
-| `no_theme`              | optional | optional | optional   | The title has no theme music, so no theme is missing; then `youtube_id_overturedb` is `null`              |
-| `seasons`               | never    | required | never      | Season posters, one per season number                                                                     |
+| Field                   | Movie    | Show     | Collection | Meaning                                                                                      |
+| ----------------------- | -------- | -------- | ---------- | -------------------------------------------------------------------------------------------- |
+| `media_type`            | required | required | required   | `movie`, `show` or `collection`                                                              |
+| `title`                 | required | required | required   |                                                                                              |
+| `year`                  | required | required | never      | Release year, or `null`                                                                      |
+| `tmdb_id`               | required | required | required   | TMDB ID; a collection is identified by it alone                                              |
+| `tvdb_id`               | required | required | never      | TheTVDB ID, or `null`                                                                        |
+| `imdb_id`               | required | required | never      | IMDb ID, or `null`                                                                           |
+| `poster_url`            | required | required | never      | Direct link to the full-size poster, or `null`                                               |
+| `poster_url_individual` | never    | never    | required   | The collection's individual poster, or `null`                                                |
+| `poster_url_matte`      | never    | never    | required   | The collection's consistent matte poster on TMDB or ThePosterDB, or `null`                   |
+| `poster_url_overlay`    | never    | never    | required   | The collection's consistent overlay poster on TMDB or ThePosterDB, or `null`                 |
+| `background_url`        | required | required | required   | Direct link to the full-size background, or `null`                                           |
+| `seasons`               | never    | required | never      | Season posters, one per season number                                                        |
+| `youtube_id_overturedb` | required | required | required   | The contributed theme's YouTube ID, or `null`                                                |
+| `youtube_id_themerrdb`  | required | required | required   | The theme imported from ThemerrDB, or `null`                                                 |
+| `no_theme`              | optional | optional | optional   | The title has no theme music, so no theme is missing; then `youtube_id_overturedb` is `null` |
 
 A movie or show needs at least one of `tmdb_id`, `tvdb_id` and `imdb_id`.
 Every artwork link is the full-size original over HTTPS, without query

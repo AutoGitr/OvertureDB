@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Lethal Weapon Collection",
   "tmdb_id": 945,
-  "poster_url": null,
+  "poster_url_individual": null,
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": null,
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "ilLChwY3yM8"

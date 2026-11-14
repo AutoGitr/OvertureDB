@@ -321,10 +321,9 @@ def test_end_to_end_cross_provider_matching(tmp_path: Path, data_dir: Path) -> N
     }
     assert res["skipped"] == 0
 
-    # Assert no duplicate entry was created in data/shows
+    # The show is updated in place, not added again.
     assert list((data_dir / "shows").glob("*.json")) == [show_path]
 
-    # Assert tmdb-100.json was updated in place with Rule 1 applied
     final_show = json.loads(show_path.read_text())
     assert (
         final_show["poster_url"]
@@ -431,13 +430,15 @@ def test_format_review_markdown_sorting_and_links() -> None:
             title="The Matrix Collection",
             year=None,
             media_type="collection",
-            poster_url="https://image.tmdb.org/t/p/original/matrix_col.jpg",
+            art={
+                "poster_url_individual": "https://image.tmdb.org/t/p/original/matrix_col.jpg"
+            },
         ),
         ReviewItem(
             title="Zoolander",
             year=2001,
             media_type="movie",
-            poster_url="https://image.tmdb.org/t/p/original/zoolander.jpg",
+            art={"poster_url": "https://image.tmdb.org/t/p/original/zoolander.jpg"},
             youtube_id="zoo12345678",
         ),
         ReviewItem(
@@ -450,19 +451,21 @@ def test_format_review_markdown_sorting_and_links() -> None:
             title="Alien Collection",
             year=None,
             media_type="collection",
-            background_url="https://image.tmdb.org/t/p/original/alien_col_bg.jpg",
+            art={
+                "background_url": "https://image.tmdb.org/t/p/original/alien_col_bg.jpg"
+            },
         ),
         ReviewItem(
             title="Avatar",
             year=2009,
             media_type="movie",
-            background_url="https://image.tmdb.org/t/p/original/avatar_bg.jpg",
+            art={"background_url": "https://image.tmdb.org/t/p/original/avatar_bg.jpg"},
         ),
         ReviewItem(
             title="Andor",
             year=2022,
             media_type="show",
-            poster_url="https://image.tmdb.org/t/p/original/andor.jpg",
+            art={"poster_url": "https://image.tmdb.org/t/p/original/andor.jpg"},
         ),
     ]
     md = format_review_markdown(items)
@@ -502,7 +505,7 @@ def test_review_that_does_not_fit_is_refused() -> None:
             title=f"Movie {i:03d}",
             year=2020,
             media_type="movie",
-            poster_url=f"https://image.tmdb.org/t/p/original/poster_{i}.jpg",
+            art={"poster_url": f"https://image.tmdb.org/t/p/original/poster_{i}.jpg"},
         )
         for i in range(50)
     ]
@@ -576,3 +579,32 @@ def test_created_kinds_tracks_new_entry_media(tmp_path: Path, data_dir: Path) ->
         "backgrounds": 1,
         "themes": 1,
     }
+
+
+def test_created_collection_keeps_consistent_poster_without_own_poster(
+    tmp_path: Path, data_dir: Path
+) -> None:
+    (data_dir / "collections").mkdir(parents=True)
+    input_dir = tmp_path / "collection_input"
+    input_dir.mkdir()
+    collection_entry = {
+        "media_type": "collection",
+        "title": "Dune Collection",
+        "tmdb_id": 726871,
+        "poster_url_individual": None,
+        "poster_url_matte": "https://theposterdb.com/api/assets/668235",
+        "poster_url_overlay": "https://theposterdb.com/api/assets/229582",
+        "background_url": None,
+        "youtube_id_overturedb": None,
+        "youtube_id_themerrdb": None,
+    }
+    (input_dir / "tmdb-726871.json").write_text(json.dumps(collection_entry))
+
+    res = import_bulk_export(overture_dir=tmp_path, input_dir=input_dir, dry_run=False)
+
+    assert res["errors"] == []
+    assert res["created"] == 1
+    assert res["created_by_type"] == {"collection": 1}
+    assert res["created_kinds"] == {"posters": 1}
+    saved = json.loads((data_dir / "collections" / "tmdb-726871.json").read_text())
+    assert saved == collection_entry

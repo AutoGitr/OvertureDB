@@ -28,6 +28,7 @@ lazy from schema.contract import (
     ENTRY_FOLDERS,
     IDENTITY_FIELDS,
     IMDB_ID_PATTERN,
+    POSTER_FIELDS,
     SCHEMA_VERSION,
     Identity,
     check_catalog_art_url,
@@ -44,7 +45,17 @@ lazy from .github import git
 
 ROOT = Path(__file__).resolve().parents[1]
 
-MIN_RESOLUTIONS = frozendict({"poster": (1000, 1500), "background": (1600, 900)})  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+MIN_RESOLUTIONS = frozendict({"poster": (1000, 1500), "background": (1280, 720)})  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+#: How a contribution review names each artwork field.
+ART_LABELS: frozendict[str, str] = frozendict(
+    {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+        "poster_url": "Poster",
+        "poster_url_individual": "Individual poster",
+        "poster_url_matte": "Matte poster",
+        "poster_url_overlay": "Overlay poster",
+        "background_url": "Background",
+    }
+)
 MAX_PROBE_BYTES = 256 * 1024
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 #: JPEG start-of-frame markers, which carry the dimensions.
@@ -236,9 +247,8 @@ def write_changes(
 def art_fields(entry: dict[str, Any]) -> list[tuple[str, str]]:
     """Return each artwork URL of *entry* with its kind: poster or background."""
     fields = [
-        ("poster", entry["poster_url"]),
+        *(("poster", entry.get(field)) for field in POSTER_FIELDS),
         ("background", entry["background_url"]),
-        ("poster", entry.get("consistent_poster_url")),
         *(("poster", season["poster_url"]) for season in entry.get("seasons", [])),
     ]
     return [(kind, url) for kind, url in fields if url is not None]

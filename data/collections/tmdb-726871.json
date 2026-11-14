@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Dune Collection",
   "tmdb_id": 726871,
-  "poster_url": "https://image.tmdb.org/t/p/original/izVXbU5k5AgIm9hUXXXNoT9XZJo.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/izVXbU5k5AgIm9hUXXXNoT9XZJo.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/4FrClZ1iYwzRrpE4cekthBej6D9.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "iw2dZl-ZukY"

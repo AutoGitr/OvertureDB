@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Despicable Me Collection",
   "tmdb_id": 86066,
-  "poster_url": "https://image.tmdb.org/t/p/original/sBYPJG0QJGPVhbMgV0MidEs5cyk.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/sBYPJG0QJGPVhbMgV0MidEs5cyk.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/37xamYKRUGCRux532lKcZdVGYuR.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "KqRycXVP88k"

@@ -2,7 +2,9 @@
   "media_type": "collection",
   "title": "Frankenstein (Universal)",
   "tmdb_id": 218406,
-  "poster_url": "https://image.tmdb.org/t/p/original/hxgzW7bDiwvH3jmfxZvZR46SbIl.jpg",
+  "poster_url_individual": "https://image.tmdb.org/t/p/original/hxgzW7bDiwvH3jmfxZvZR46SbIl.jpg",
+  "poster_url_matte": null,
+  "poster_url_overlay": null,
   "background_url": "https://image.tmdb.org/t/p/original/fEjhktHptUzBsMij3uppwsLI6W9.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": null
