@@ -3,8 +3,8 @@
   "title": "Rambo",
   "tmdb_id": 5039,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/vbXqifae6PQ3sWIvuJoPjqqQxTY.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/587960",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/2455",
   "background_url": "https://image.tmdb.org/t/p/original/ecvVwlK75evrAlsEE96V14KN6MN.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": null

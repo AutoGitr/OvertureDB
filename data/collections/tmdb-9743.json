@@ -3,8 +3,8 @@
   "title": "Hannibal Lecter",
   "tmdb_id": 9743,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/r8oOLlpR9tkhEGNxdZrkUIBNrFu.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/566620",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9416",
   "background_url": "https://image.tmdb.org/t/p/original/cNeqmalQc5WWyE8IesCE0dfHJFu.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": null

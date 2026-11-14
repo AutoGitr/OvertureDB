@@ -3,8 +3,8 @@
   "title": "Ocean's Collection",
   "tmdb_id": 304,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/A0AXiF3dyQ45FIsjHycJ4prAosg.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/593495",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9591",
   "background_url": "https://image.tmdb.org/t/p/original/vxmFb03PyjycekffLqXqFibbCzx.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "c_0MyEHWKbY"

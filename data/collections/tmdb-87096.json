@@ -3,8 +3,8 @@
   "title": "Avatar Collection",
   "tmdb_id": 87096,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/3C5brXxnBxfkeKWwA1Fh4xvy4wr.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/679354",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/2501",
   "background_url": "https://image.tmdb.org/t/p/original/6qkJLRCZp9Y3ovXti5tSuhH0DpO.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "i1BwcCuEOtM"

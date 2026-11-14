@@ -3,8 +3,8 @@
   "title": "Indiana Jones Collection",
   "tmdb_id": 84,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/yhcrRf8pO4CvnEma941i0t57GXg.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/570915",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9455",
   "background_url": "https://image.tmdb.org/t/p/original/6kh59mZizZsttZPR0HAdXk6Ve2n.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "IgncJgSbbck"

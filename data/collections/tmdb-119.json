@@ -3,8 +3,8 @@
   "title": "The Lord of the Rings Collection",
   "tmdb_id": 119,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/zlF1tHjhlA30VMtRXk7zVz7Ek0B.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/570305",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9524",
   "background_url": "https://image.tmdb.org/t/p/original/vlj3kQml7k6k3gL4BbfOQ6c4nfT.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "UJNeiBaEMIE"

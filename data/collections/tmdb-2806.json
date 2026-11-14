@@ -3,8 +3,8 @@
   "title": "American Pie Collection",
   "tmdb_id": 2806,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/cNqNmezA9iSeJcPdzMqjfXldV9F.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/599793",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/2485",
   "background_url": "https://image.tmdb.org/t/p/original/9vjgerKR19gTxhI1eKB5CcMfttz.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "4PgNhsD5bsU"

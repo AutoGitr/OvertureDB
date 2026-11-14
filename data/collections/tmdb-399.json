@@ -3,8 +3,8 @@
   "title": "Predator Collection",
   "tmdb_id": 399,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/zQ5TzYNmkLc1PNVXIMx61boUnlV.jpg",
-  "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_matte": "https://theposterdb.com/api/assets/574474",
+  "poster_url_overlay": "https://theposterdb.com/api/assets/9626",
   "background_url": "https://image.tmdb.org/t/p/original/hhaaEXhJXYiQb22nsnM91GLiUA0.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "pSyCRplF2Sw"
