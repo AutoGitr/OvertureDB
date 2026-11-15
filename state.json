@@ -1,284 +1,1202 @@
 {
  "entries": {
   "data/collections/tmdb-10.json": {
-   "checked": "2026-11-09",
-   "hash": "9198e0d1f4a98f7a337477b99a3dbd4b8a6765f7",
+   "checked": "2026-11-15",
+   "hash": "374a354143c0a2a693d6f45d0472257fa9704b99",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1000386.json": {
+   "checked": "2026-11-15",
+   "hash": "ab6ce0c52c12bc2f485c19671e9098be3a118706",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1006.json": {
-   "checked": "2026-11-03",
-   "hash": "6f68c050ea27e6f56dc1b605a44ac9c6b2cd0b33",
+   "checked": "2026-11-15",
+   "hash": "3aba4afa5a5024096411278809283582fe65fcbc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-100693.json": {
+   "checked": "2026-11-15",
+   "hash": "e2c70c337acf592d69439e13c6b7169bfb1342e4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-100965.json": {
+   "checked": "2026-11-15",
+   "hash": "dfe461c69d9820fdd366aceac2cf56b872059c6c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-100970.json": {
+   "checked": "2026-11-15",
+   "hash": "c4f8f44a80ef9843a305f9d9a995629603d20c20",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1010712.json": {
+   "checked": "2026-11-15",
+   "hash": "8bef837548c47bfec65510c09f689dad95ac2c95",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-101385.json": {
+   "checked": "2026-11-15",
+   "hash": "6beb7b0e36dcc56048be84961b1cb131eca9eb8c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-101471.json": {
+   "checked": "2026-11-15",
+   "hash": "26deb329b7acc22ddc3da365b2049a0be9a2f9ca",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-101688.json": {
+   "checked": "2026-11-15",
+   "hash": "da8b09379d094245db809af3e99919f7a859099d",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-10194.json": {
-   "checked": "2026-11-09",
-   "hash": "c21e5237f2ea58680e29d26c023b78771d1e1b99",
+   "checked": "2026-11-15",
+   "hash": "a8ecfc6e5b99bfddc59a3433625ee7194e519f9f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-102019.json": {
+   "checked": "2026-11-15",
+   "hash": "9c4c6248d38f73a279513e68392c86862c74802c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1020497.json": {
+   "checked": "2026-11-15",
+   "hash": "f6d38bc7c14e28f328b8c95db7f7ad8a3beb86ba",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-102128.json": {
-   "checked": "2026-11-09",
-   "hash": "bc36b8902a50d7dfd9aa10cf807e7c7bb0c48b9a",
+   "checked": "2026-11-15",
+   "hash": "00933b0a224761b4e03f778cb29b449327bbaeeb",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1022790.json": {
-   "checked": "2026-11-14",
-   "hash": "3dd215ba241fd45c41e1d766ef52a3f75e8ee231",
+   "checked": "2026-11-15",
+   "hash": "0fdc6b3379f7bb4b3acea18816092ec5aed4769a",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-102322.json": {
-   "checked": "2026-10-23",
-   "hash": "6864e0d3d980b13576ff2a4cef630de76ea2e59b",
+   "checked": "2026-11-15",
+   "hash": "359d76675f2657f03c45420d92215074c31b6d9b",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-102452.json": {
-   "checked": "2026-11-09",
-   "hash": "b1a244f09abc911d72f834017232b28a4cb7ec88",
+   "checked": "2026-11-15",
+   "hash": "bdf2af675709b464de6be98f47802487fbaa9dad",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-102782.json": {
+   "checked": "2026-11-15",
+   "hash": "b524c543c5253222ea6d107011f2730c92a72127",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-103001.json": {
-   "checked": "2026-10-23",
-   "hash": "f0a77bd8bd74dba70e1cadb367d4d060e034c591",
+   "checked": "2026-11-15",
+   "hash": "30c4bc94e48e8308d13b68de4a37c3135319bd2a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-103190.json": {
+   "checked": "2026-11-15",
+   "hash": "30d13eda61becf12892f9a071c37b66cd9ddf365",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-103291.json": {
+   "checked": "2026-11-15",
+   "hash": "915ed9b9e43d9e5bab975f7477d5d6410e9fc575",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-103372.json": {
+   "checked": "2026-11-15",
+   "hash": "02f8d70c54fb08be5421b13dad8e0f146bfcfad8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1035153.json": {
+   "checked": "2026-11-15",
+   "hash": "34003c13ab39efb769c62effa3d9cddfb85658bb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-103573.json": {
+   "checked": "2026-11-15",
+   "hash": "aa1ccffb271cc0736ec6be2eedad3609c7ba586e",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1041695.json": {
-   "checked": "2026-10-23",
-   "hash": "2ea5a42145f84ec6d261d591bae1f1e14e69703c",
+   "checked": "2026-11-15",
+   "hash": "dfd2a1315d429abbf84ef742d0dc3f0e2fe8694c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10453.json": {
+   "checked": "2026-11-15",
+   "hash": "a2b5e11d80d846129fcfcd88c2f8c8eb3caa9f13",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10455.json": {
+   "checked": "2026-11-15",
+   "hash": "6f3e6102b1e585f0b20f46a22351eb5d4fff1090",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-10456.json": {
-   "checked": "2026-11-14",
-   "hash": "68c41e099dbc1d8b0b17f246c8ffb79c23d9ccfe",
+   "checked": "2026-11-15",
+   "hash": "698e5b9eda60472346a21e060907f275285c5f42",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10457.json": {
+   "checked": "2026-11-15",
+   "hash": "c3ae0bdba009466dff427654ea375ccc0cdff895",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-104716.json": {
+   "checked": "2026-11-15",
+   "hash": "78de17a758a3216e887ca9d1d8d87900f5deca1b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-104830.json": {
+   "checked": "2026-11-15",
+   "hash": "6130255fc337c826cdcd10b8d69bf9e3186558fa",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-104833.json": {
+   "checked": "2026-11-15",
+   "hash": "cca1309ac2422f35c439d8a105de5457b7d89c3e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-104847.json": {
+   "checked": "2026-11-15",
+   "hash": "946209c423b930eafbc7703e4349330e9c809236",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-10517.json": {
-   "checked": "2026-10-23",
-   "hash": "346637616f521bbc7ad56f08c3f0b9ca02ea5ee2",
+   "checked": "2026-11-15",
+   "hash": "a49ea8bcccc33788a6c518e38e20b9431ac7dd98",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10522.json": {
+   "checked": "2026-11-15",
+   "hash": "71d646f9f1c22055d6ea60b358b5e27d8f2cc332",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1052355.json": {
+   "checked": "2026-11-15",
+   "hash": "6002ae8369fb921364fb45dc1dab7e1ee154474c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-105322.json": {
+   "checked": "2026-11-15",
+   "hash": "e9d9546e3161c196e86a4de0a19d277406b0a21d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-105625.json": {
+   "checked": "2026-11-15",
+   "hash": "f576cea012b9be55be9e4d46fcff1e9c4a7d253b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-105995.json": {
+   "checked": "2026-11-15",
+   "hash": "15fe8bb954eb32a7f5986fd5fb9a9e744a53b214",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-106000.json": {
+   "checked": "2026-11-15",
+   "hash": "b530552b6916ed44a53823acbf149858be8966df",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1062948.json": {
+   "checked": "2026-11-15",
+   "hash": "82c69dbffff869d3e223c5826610893b26c3fa07",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-106498.json": {
+   "checked": "2026-11-15",
+   "hash": "578abaa39c09b8e0f365d4e3597ddc17d91cea95",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-106768.json": {
+   "checked": "2026-11-15",
+   "hash": "e3c01cd625fd1b43fbb99abf141bfde9c468f3b4",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1069584.json": {
-   "checked": "2026-11-09",
-   "hash": "05ea1b897424e849b5437fd345d00a8a8365f4ef",
+   "checked": "2026-11-15",
+   "hash": "e2531921841da04bdf9ee9caf3e266d0abed65cc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10709.json": {
+   "checked": "2026-11-15",
+   "hash": "20916e1c2711c240b37e99ae0da828244ecfaff3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10713.json": {
+   "checked": "2026-11-15",
+   "hash": "5da1dd30c865bdbe45a6369b1947565f93e292b7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1071588.json": {
+   "checked": "2026-11-15",
+   "hash": "2106e19d805f109120b9c5468bb1740363ba32eb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10721.json": {
+   "checked": "2026-11-15",
+   "hash": "49dceab5c7e5400573607644fd377d962a8b6ce3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1073029.json": {
+   "checked": "2026-11-15",
+   "hash": "a99ec55cb70eb85a1d50e4f833ee81a64bc8a143",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-107674.json": {
+   "checked": "2026-11-15",
+   "hash": "49c8768c112544416f434566d5e5d68a7a800678",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-107688.json": {
+   "checked": "2026-11-15",
+   "hash": "6cf54b334124498b380e30c88ef0679108b78bdb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-107725.json": {
+   "checked": "2026-11-15",
+   "hash": "d34614336d00d7be12f6ecf6ae11c8539f592f16",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10789.json": {
+   "checked": "2026-11-15",
+   "hash": "ea8331c7ea07b8f72345897ed38d9b417a5b5839",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1079486.json": {
+   "checked": "2026-11-15",
+   "hash": "035202c85c6ebabd66bba59b40c978f3246e7912",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-107949.json": {
+   "checked": "2026-11-15",
+   "hash": "a6946a106ecbb7c6ba8266e6437bfb6aafb339f4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-108125.json": {
+   "checked": "2026-11-15",
+   "hash": "cba76221f049f0be07b6e3bb32c09e1f5cb3b875",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1082658.json": {
+   "checked": "2026-11-15",
+   "hash": "308d0b9a24149e182329be0bf206a5a7d980b016",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1084247.json": {
-   "checked": "2026-11-09",
-   "hash": "bb0da635a57f6f9fe8014fa5f20be7ec73cdc812",
+   "checked": "2026-11-15",
+   "hash": "8f83ec82ded7a2f6a5dea8130cc83823408b3923",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1086359.json": {
+   "checked": "2026-11-15",
+   "hash": "16f2155db570ae07a28441f5ab7bdaffa036a5ff",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-108693.json": {
-   "checked": "2026-11-09",
-   "hash": "d47281def18c7cbea53fd2d0187de2bdbe678316",
+   "checked": "2026-11-15",
+   "hash": "0263df41b19149cc9d02ab6a8f00fd5aca84c2e9",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10893.json": {
+   "checked": "2026-11-15",
+   "hash": "de18b2afdf79144a960c9baec42e360726da4121",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1090373.json": {
+   "checked": "2026-11-15",
+   "hash": "34afdc05b48977dfb9b1dfd9ded0de0055fc9b03",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-109076.json": {
+   "checked": "2026-11-15",
+   "hash": "d953431835560da3238a73f37b57719550034736",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10919.json": {
+   "checked": "2026-11-15",
+   "hash": "20f91ddbf662b0a37a7f6310d8b267d6fabcee2f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-10924.json": {
+   "checked": "2026-11-15",
+   "hash": "f9bd87aa3ffb8def60958d08a830d8ab6db8fb90",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-109592.json": {
+   "checked": "2026-11-15",
+   "hash": "43023c0ae66df8b736adc3319fe23e594ae15dd3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-109609.json": {
+   "checked": "2026-11-15",
+   "hash": "af4f4e6d7d8093a6ab427e44dfa5b4e5fe8f2076",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-110021.json": {
+   "checked": "2026-11-15",
+   "hash": "089263d2c92a4cb2dac80275f2ab57bacc14ff5b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1100788.json": {
+   "checked": "2026-11-15",
+   "hash": "727c250778bb9a5eaf571c794314b710f8e98454",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-110127.json": {
-   "checked": "2026-11-03",
-   "hash": "708c5634c3661ee83e2f8d0117c4c47d58bdf6d2",
+   "checked": "2026-11-15",
+   "hash": "0437f0fcdb9aead9c65989ca3c9f79c3fe2cb43f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1101949.json": {
+   "checked": "2026-11-15",
+   "hash": "7e224a711bcac0d72987c203118be5ddf6910cab",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1102372.json": {
+   "checked": "2026-11-15",
+   "hash": "641f5129ffcdb974e978cf9567daddbd5aa45c66",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-11118.json": {
-   "checked": "2026-10-23",
-   "hash": "2288e0b808c98dca0d469d9d98183d363709bbb3",
+   "checked": "2026-11-15",
+   "hash": "b39a6658ca7945070b01bc960bd3a40ff2d57e16",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-11140.json": {
-   "checked": "2026-11-14",
-   "hash": "a6af1247ad2b638b9118e10aa8a6f274d9122283",
+   "checked": "2026-11-15",
+   "hash": "419d80fa8108068d05d382fcc35ce7234db4c42b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-111751.json": {
+   "checked": "2026-11-15",
+   "hash": "6db7ea580fb8a8515a02e3cf68a682e85e056f32",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1119879.json": {
+   "checked": "2026-11-15",
+   "hash": "960508f12c6bd8364dab0a0a78c8c6ac4e881cce",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-112399.json": {
+   "checked": "2026-11-15",
+   "hash": "61b72fea822c0c8875b81885ec8aca778244aa17",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1125292.json": {
+   "checked": "2026-11-15",
+   "hash": "41406219daba32f8fbe5b7f4d88281df73869203",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-112636.json": {
+   "checked": "2026-11-15",
+   "hash": "b378172e203089d26e22d535eb6584e6286f1027",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1126392.json": {
+   "checked": "2026-11-15",
+   "hash": "6e96648bb8aa12c1030189ac100820a94bf81d7e",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1129084.json": {
-   "checked": "2026-11-09",
-   "hash": "cf64fef7e12c4de9d47e30260ff95dd32d697159",
+   "checked": "2026-11-15",
+   "hash": "a751505592841d150a694a79df774dd50ff642f3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1139039.json": {
+   "checked": "2026-11-15",
+   "hash": "ebf52213bac2deaafdf6e6c580d5e4a2e989f84d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-114783.json": {
+   "checked": "2026-11-15",
+   "hash": "2a3c25f5abde274a98d6142a4c1b8fb5e2e8eb38",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-114915.json": {
+   "checked": "2026-11-15",
+   "hash": "6172339d08f1e72f2c6915ac1ab70a1afbd840e6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115142.json": {
+   "checked": "2026-11-15",
+   "hash": "7126e0e00fd0ac662316c7f6af2b22facdbad175",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115225.json": {
+   "checked": "2026-11-15",
+   "hash": "6086415637b74ec34be31007c003c96b085efdd3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115570.json": {
+   "checked": "2026-11-15",
+   "hash": "af26abbb9a1932cb6fbb1bd79b3ce714b15b36be",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115575.json": {
+   "checked": "2026-11-15",
+   "hash": "4924b4c34d84142a492729d28c7c6c61d602af24",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115762.json": {
+   "checked": "2026-11-15",
+   "hash": "d2f88bc2b51f586cf049e4eb13d2251cb1cc5be5",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115776.json": {
+   "checked": "2026-11-15",
+   "hash": "a2d4a474d8bf7834928e0c04cf005752b35ac914",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115838.json": {
+   "checked": "2026-11-15",
+   "hash": "072a850c726e397308998f07fc5a7557a766e4c7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-115839.json": {
+   "checked": "2026-11-15",
+   "hash": "7675727e7a2aabbd5ba4e80bd9355f24abe48196",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-116669.json": {
+   "checked": "2026-11-15",
+   "hash": "121c56d977b94ac28b40820224dd4b86cb783874",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-11716.json": {
-   "checked": "2026-11-02",
-   "hash": "a63147416489190d22f588e2c91e7c70fb89b824",
+   "checked": "2026-11-15",
+   "hash": "21592a5d078976fe59bf8ff06c97efd9cf0e3ace",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-117693.json": {
+   "checked": "2026-11-15",
+   "hash": "0a6e6dbdf24d2290f636dd8fd967261d1ee2f724",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-117777.json": {
+   "checked": "2026-11-15",
+   "hash": "198dd1851165f0416efe80581db6bd936b0829f6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-11794.json": {
+   "checked": "2026-11-15",
+   "hash": "5b890d199c7aaa6d8293c4620c9dbdeb82edc6e8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1179736.json": {
+   "checked": "2026-11-15",
+   "hash": "bd749618035c56fc1dd7e22fcf553828a638b438",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-118415.json": {
+   "checked": "2026-11-15",
+   "hash": "104937495bee6481f4442bb7631fdfcb3a6b6c84",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1189668.json": {
-   "checked": "2026-10-23",
-   "hash": "69d3a8fca2436f5c2224abe5c3d7c3b1620c3135",
+   "checked": "2026-11-15",
+   "hash": "8950e51bae5545a3e6177b826b57c910fefbe088",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-119.json": {
-   "checked": "2026-11-02",
-   "hash": "91c3fe965107368172c0efa8701761876d03b2c7",
+   "checked": "2026-11-15",
+   "hash": "2dbb0f53e8df677583a5a39a7cd2a1ce0f7517b8",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-119050.json": {
-   "checked": "2026-10-23",
-   "hash": "a337839e5f6c9db8e29239be6ec4e315369459f7",
+   "checked": "2026-11-15",
+   "hash": "09aa5b0e40a73e1d766615105ac264cf33cae2ae",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-119581.json": {
-   "checked": "2026-11-14",
-   "hash": "11360b64aefd837a1620de7ee08757a52d5fbeab",
+   "checked": "2026-11-15",
+   "hash": "755d9af407814e2f83bbf2355fecc5e529235af8",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1196403.json": {
-   "checked": "2026-10-23",
-   "hash": "f1ab38757e5bf668c57c75d6e6c30f9c09b906b6",
+   "checked": "2026-11-15",
+   "hash": "3bd17bb81dd0cd3dd964a1418f05527953a3b7c4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-119674.json": {
+   "checked": "2026-11-15",
+   "hash": "becb047359efb363d0fc55ffbda7f66b13e5d302",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1197140.json": {
+   "checked": "2026-11-15",
+   "hash": "9ba6ed8b0609e0f8bf95dfc623d4db5857a87b0b",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-120794.json": {
-   "checked": "2026-11-02",
-   "hash": "841a95db32dac6a6ab2766c18903d0b45fff34ae",
+   "checked": "2026-11-15",
+   "hash": "bb466553868cd9bece3c274525a522c0c1d2aa36",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-12087.json": {
+   "checked": "2026-11-15",
+   "hash": "862d468e96278610d9381e8a88a614af966d20e3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1211317.json": {
+   "checked": "2026-11-15",
+   "hash": "914588d0e80b9753fdadf6359b2cf8d91e7d31b4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1215164.json": {
+   "checked": "2026-11-15",
+   "hash": "3824c6fb0c5c05f84e44c6d8b7e95d0af8550243",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-121938.json": {
-   "checked": "2026-10-23",
-   "hash": "53d56692aa2b6508c1b31b08c0f416aedf11c7a5",
+   "checked": "2026-11-15",
+   "hash": "d7041e6461dc1263e02983cca8b4ccd44fb9e8eb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-122017.json": {
+   "checked": "2026-11-15",
+   "hash": "b3d1753812269e2bc46f34bf5d7904ef21378ca6",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-12203.json": {
-   "checked": "2026-11-14",
-   "hash": "4ab78987b9d62daca54c1c8551c5e91044cf6686",
+   "checked": "2026-11-15",
+   "hash": "570c3b3f2e6a4f77583c986c77c21f0669f706b6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-12263.json": {
+   "checked": "2026-11-15",
+   "hash": "17035f7200a928d7e287877a07513f7d26b8fc90",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-122922.json": {
+   "checked": "2026-11-15",
+   "hash": "07b1b2d231d637c299329b054c466a8357b9b7b8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-122938.json": {
+   "checked": "2026-11-15",
+   "hash": "90bead064b595b8aa84432a386d4d4bdf33ea12d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1231053.json": {
+   "checked": "2026-11-15",
+   "hash": "61b8f07454950376ed1492d34a29ace64fe0edac",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-123251.json": {
+   "checked": "2026-11-15",
+   "hash": "08d8e550aec24ffddeb57674a406475ba5d8c709",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-123256.json": {
+   "checked": "2026-11-15",
+   "hash": "2b0a373afc7278fe6842393eff237cc181187624",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1234824.json": {
-   "checked": "2026-10-23",
-   "hash": "d8b3a407f192198341f56ed9fceb73b800a7ddb6",
+   "checked": "2026-11-15",
+   "hash": "fdf4cc133c20030509dfc7cd61386d362d4245c3",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1236551.json": {
-   "checked": "2026-10-23",
-   "hash": "409fa1d5b264f249f14ded311bfa3911f1db407e",
+   "checked": "2026-11-15",
+   "hash": "0f86682cc202175733c279b65b92398892cdebf3",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-123800.json": {
-   "checked": "2026-11-09",
-   "hash": "c1d1ee6c8ff751be6e0c459fc604086c68c2e666",
+   "checked": "2026-11-15",
+   "hash": "72e1df4c620572fb10ad27868eb5ad916f6aa90d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-123932.json": {
+   "checked": "2026-11-15",
+   "hash": "674e4dc8e4c5b757f96159d012e8e2d8cb0c5128",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1239518.json": {
-   "checked": "2026-10-23",
-   "hash": "b88d89295685c71720c4fe273373996c812aefe8",
+   "checked": "2026-11-15",
+   "hash": "779734e00a90d804d6d5d34f143acfaf7abad02a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1240438.json": {
+   "checked": "2026-11-15",
+   "hash": "2381324e9f9632986a2f40d937496b03fb0b209d",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1241.json": {
-   "checked": "2026-10-23",
-   "hash": "135d5398441b26b4c25622410bebc4e0f27a7db4",
+   "checked": "2026-11-15",
+   "hash": "1d1c3d1506f602a4b1d9de8ad800a0692b9078b1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-124188.json": {
+   "checked": "2026-11-15",
+   "hash": "a5761cee056c763130596f6b0f8bb53415d2e0dc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-124901.json": {
+   "checked": "2026-11-15",
+   "hash": "b97d120b4f3189bf8b9d516b2007c2fb66803c06",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-124916.json": {
+   "checked": "2026-11-15",
+   "hash": "3072f76414a10e1c425e093c7af4afccae122a89",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-124934.json": {
+   "checked": "2026-11-15",
+   "hash": "980e4f3c4d75b71806ab6fa5814611348ee23339",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-124935.json": {
+   "checked": "2026-11-15",
+   "hash": "bcc107d6cf3aef3a3fb3077eb50a1f6e5d7ef7aa",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1254578.json": {
+   "checked": "2026-11-15",
+   "hash": "62e2e3b0a4c926c6fd9f5daf5ba45cb5ac9f218e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-125570.json": {
+   "checked": "2026-11-15",
+   "hash": "7eccd839cc9ccc71ae4e65a035ac6cd55a2021c2",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-125574.json": {
-   "checked": "2026-10-23",
-   "hash": "fa44e9e37568dad37c77b6ed58023b0b953d0976",
+   "checked": "2026-11-15",
+   "hash": "a99bd7b36975f280df213449681ac28373f7cc95",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-126125.json": {
+   "checked": "2026-11-15",
+   "hash": "f4798d72cfa7375ec708a8db1a6e99cb91d5112a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-126166.json": {
+   "checked": "2026-11-15",
+   "hash": "8870b1796133525f138afe06f52ac9df2fea8111",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-126209.json": {
+   "checked": "2026-11-15",
+   "hash": "a4efc681dbde62ef7f45261f86f3ba27b8ea7cc3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-126220.json": {
+   "checked": "2026-11-15",
+   "hash": "5a1e229c6f8b539f184d30f3bae6d38059649dc7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1262937.json": {
+   "checked": "2026-11-15",
+   "hash": "721b8e1071e74367478313b7d7edfb8f691d019b",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1263259.json": {
-   "checked": "2026-11-14",
-   "hash": "a9ac92ee1df2f571ae074f4f8720ee6f6831b4bf",
+   "checked": "2026-11-15",
+   "hash": "f8a0fa37cce72a397bcf55bc9838b93fabc28ea4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-126580.json": {
+   "checked": "2026-11-15",
+   "hash": "640005e938e44ff695333ef7d6d1f0a00d886b0a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1267164.json": {
+   "checked": "2026-11-15",
+   "hash": "165f5b24e1fc5166ca0b2506adaaf008fe7535f7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1268789.json": {
+   "checked": "2026-11-15",
+   "hash": "ddda7333eac350e9d14dd20089c8457512c1fd26",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-129293.json": {
-   "checked": "2026-11-14",
-   "hash": "921f1bfa2867d0170d3ac92e75ab4273aa8ab0cc",
+   "checked": "2026-11-15",
+   "hash": "7c3b8844e33ad29e6790e8fdef91647e396494e3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1304326.json": {
+   "checked": "2026-11-15",
+   "hash": "3b897b00c41be79cfb2a66e47b9f2b5aedeb589b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-130440.json": {
+   "checked": "2026-11-15",
+   "hash": "a9aef4e6b818cc8e5dfd825830140f106ea11e2f",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-131.json": {
-   "checked": "2026-11-09",
-   "hash": "75a9cc6cd30b5fbeb9da8afedac75973fb3521bb",
+   "checked": "2026-11-15",
+   "hash": "f1edf8a4776803bb631d488dadc65a6bc3d56a6c",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-131292.json": {
-   "checked": "2026-11-14",
-   "hash": "04436b4f1c7039ac762c3b796ee48caad167051d",
+   "checked": "2026-11-15",
+   "hash": "087c647f4b55029008aae6a0c2e2f4db67077152",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-131295.json": {
-   "checked": "2026-10-23",
-   "hash": "fc355f48ec476ecb10f1aed03c4a052c335d2750",
+   "checked": "2026-11-15",
+   "hash": "01140cfc5c034fee549f02421bbfddd491360f10",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-131296.json": {
-   "checked": "2026-10-23",
-   "hash": "98587f1b19e2bc9baf583692ddf1a57772cfc3cf",
+   "checked": "2026-11-15",
+   "hash": "bd3a7cf46724e174a1f9c0c28748ca673cbd5d03",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1314623.json": {
+   "checked": "2026-11-15",
+   "hash": "09c2b8bf4a2e0d894eb4f3373718116b498ddaf6",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-131635.json": {
-   "checked": "2026-11-09",
-   "hash": "767256863725d781450826fa04027a8f5bad4093",
+   "checked": "2026-11-15",
+   "hash": "7001482680f7b75500b3b28c1dff423ddbbc730a",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1318195.json": {
-   "checked": "2026-11-14",
-   "hash": "ef83533f99e07c4374f725b1d5ec3c0f74547b6e",
+   "checked": "2026-11-15",
+   "hash": "8a803968d463d0edf4a24b39daef48baea89d358",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-133352.json": {
+   "checked": "2026-11-15",
+   "hash": "528f319ead97207378bb43fcab965488558d3f56",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-133830.json": {
+   "checked": "2026-11-15",
+   "hash": "0bba703cebd89bd31d696fbfb68abe2f9602d558",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-134635.json": {
+   "checked": "2026-11-15",
+   "hash": "fb44c0b80202b215b0c7387455850bcf86a2d9eb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1346407.json": {
+   "checked": "2026-11-15",
+   "hash": "d842e55db7aeca4327b96f1d03801f38b4fdd093",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-134897.json": {
+   "checked": "2026-11-15",
+   "hash": "a3bfeba97633e967841158ce42af95ec39753f90",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135179.json": {
+   "checked": "2026-11-15",
+   "hash": "49f2bd086c26831671dcd6f698753298d061b4b8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135416.json": {
+   "checked": "2026-11-15",
+   "hash": "19b0316e91334fde5e6e6f18613731311b1ce33c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135466.json": {
+   "checked": "2026-11-15",
+   "hash": "3f538029d55d3f9495395e04edc7acc0ccb1168a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135468.json": {
+   "checked": "2026-11-15",
+   "hash": "7e21b285cc8418a41091795ca5b4739980543756",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135483.json": {
+   "checked": "2026-11-15",
+   "hash": "342c2e7ba4726e7b2cefa16f9d56ab2a70d1b269",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135498.json": {
+   "checked": "2026-11-15",
+   "hash": "877b18e2c2a500684f301c313665e775272d1be6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135501.json": {
+   "checked": "2026-11-15",
+   "hash": "9bbbcd3e63fdbe5b0fb188c8d727219b641dfc75",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-135502.json": {
+   "checked": "2026-11-15",
+   "hash": "ae6adaa2feab2045ef15e59f961c45d9a399c3a9",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-136214.json": {
+   "checked": "2026-11-15",
+   "hash": "4094aea6c0dceab2e91e3e70159e1ad0ab6c3adb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-136218.json": {
+   "checked": "2026-11-15",
+   "hash": "e4d6938d4536d7cad197a026776b1b32dc3f5c27",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1375932.json": {
+   "checked": "2026-11-15",
+   "hash": "f9414faf8c0d18f2dd02b8634817adeb8b798dae",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-137696.json": {
-   "checked": "2026-10-23",
-   "hash": "c86102fd3aa4a7c97735a64d94d8e97ce05e0040",
+   "checked": "2026-11-15",
+   "hash": "e2eb3524fb283a780fff203ca060a0254c3bf003",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-137697.json": {
+   "checked": "2026-11-15",
+   "hash": "0ed36b846f8d53a52767d775e45042a8486febac",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-137913.json": {
-   "checked": "2026-11-14",
-   "hash": "746aec0e662656baab913068ca04fca794d10047",
+   "checked": "2026-11-15",
+   "hash": "29db73de138b26d4285d26929b7fe133de2f5b5f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-13800.json": {
+   "checked": "2026-11-15",
+   "hash": "d6c32840c96780bf4a523fad83346108a0181ad4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-138971.json": {
+   "checked": "2026-11-15",
+   "hash": "5a19cf5999ea5d78cbd88e9dc3b6d24adad0cf46",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-138974.json": {
+   "checked": "2026-11-15",
+   "hash": "8fd915321d67b0f341d2dd52f0e3a376ccfcaee3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-140760.json": {
+   "checked": "2026-11-15",
+   "hash": "dfbb963a50248e8956116deca019a782e2b1efbc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-140910.json": {
+   "checked": "2026-11-15",
+   "hash": "7a1e2689238dd49cd96fc2c805ea961aa989fc34",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-14095.json": {
+   "checked": "2026-11-15",
+   "hash": "6095127fd7f74dd8ba53b46b9116cb1baee140ac",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-141084.json": {
+   "checked": "2026-11-15",
+   "hash": "8a68b62a244fd27b25c5153610f3488ecf7823fb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-141086.json": {
+   "checked": "2026-11-15",
+   "hash": "014de187c6136ac7a5dbf663943ea520fab42935",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-141290.json": {
+   "checked": "2026-11-15",
+   "hash": "2b788f5bd5486736d95817b498bc93f2ca17793d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-141292.json": {
+   "checked": "2026-11-15",
+   "hash": "12f6e485a3825fabd8c57d2fab0aeba5246b6da1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1413999.json": {
+   "checked": "2026-11-15",
+   "hash": "6a5d4a7d4471e280bd2dc42581c89cd0b4c20bc3",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1418563.json": {
-   "checked": "2026-11-14",
-   "hash": "f0ca8015ff99b65bdf6b340acc5c3ce551572d61",
+   "checked": "2026-11-15",
+   "hash": "1f4b294b91cf00d0f5a20a957b7f09dbfe3348bd",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-142680.json": {
-   "checked": "2026-11-03",
-   "hash": "f6c933e7aeae308d6b3fe7cb02d5de62e3af7a43",
+   "checked": "2026-11-15",
+   "hash": "96e68cb6c44bbf765e15b44c8ac2dfce830fa497",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-143302.json": {
+   "checked": "2026-11-15",
+   "hash": "f0f8135dd1c24691f8e723a85483328061fac4f2",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-1434561.json": {
-   "checked": "2026-11-09",
-   "hash": "8ce5859c0fef7550176188e289a8d7f1243c3d25",
+   "checked": "2026-11-15",
+   "hash": "f7eac99e5f8997b423a77fa2d30f40fcb715c97c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-14377.json": {
+   "checked": "2026-11-15",
+   "hash": "dc6afdd519021dd6e423d0c386b50023dbde29ea",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-144200.json": {
+   "checked": "2026-11-15",
+   "hash": "31655802a21e18445ca4984d0d56bff03bafc1c1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1449595.json": {
+   "checked": "2026-11-15",
+   "hash": "10eb9ced8cb5f128565651af8da59e98c6b7f68b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-14563.json": {
+   "checked": "2026-11-15",
+   "hash": "a5643466005da89bbf4447b4abf0a45b028185e5",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-146534.json": {
+   "checked": "2026-11-15",
+   "hash": "abee0e0cb41fc20b64908ca94ddf8940996a9597",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-14740.json": {
+   "checked": "2026-11-15",
+   "hash": "2881a5c8cfe23156803dab6f6e18ba51448f4211",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-1474814.json": {
+   "checked": "2026-11-15",
+   "hash": "f54613263af71100e24274fdca5198321002143b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-148517.json": {
+   "checked": "2026-11-15",
+   "hash": "86f15035414a0a0f478fd804fec9d6b5e0b19f14",
    "problems": [],
    "warnings": []
   },
   "data/collections/tmdb-14890.json": {
-   "checked": "2026-10-23",
-   "hash": "ecbad5bfedec4d88e526bdabbe96ffe662eb54bf",
+   "checked": "2026-11-15",
+   "hash": "4b06579a1adea69a6fd2faf7347b7278771f76f1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-149191.json": {
+   "checked": "2026-11-15",
+   "hash": "56c52864b94f6ef9b1b184efa41693e2e1f97f46",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-150156.json": {
+   "checked": "2026-11-15",
+   "hash": "22e274f5a023d18144d232654d561cbbdd81d4f1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-151.json": {
+   "checked": "2026-11-15",
+   "hash": "f3761149d25631951d1adeda34ca164337b1100d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/collections/tmdb-153010.json": {
+   "checked": "2026-11-15",
+   "hash": "62af79d29d51eeb6a673c4795687e47f3414d0fd",
    "problems": [],
    "warnings": []
   },
@@ -307,8 +1225,8 @@
    "warnings": []
   },
   "data/collections/tmdb-158391.json": {
-   "checked": "2026-11-09",
-   "hash": "0958bef6b733e239db5643eba4c9be290ce0cc23",
+   "checked": "2026-11-15",
+   "hash": "12ed2c850e68fbaaa4f40fd750c5faa2ddebd1e8",
    "problems": [],
    "warnings": [
     "poster https://image.tmdb.org/t/p/original/5QHJ5xdCjI5gjY5jHLYO5gtkw7u.jpg: 999x1500 is below the recommended 1000x1500"
@@ -363,12 +1281,10 @@
    "warnings": []
   },
   "data/collections/tmdb-1767325.json": {
-   "checked": "2026-11-09",
-   "hash": "a25152414f84c83405f8f05137e6be941952ed80",
+   "checked": "2026-11-15",
+   "hash": "25194e49cc24cf2f639a32e132f1ff09bf71e007",
    "problems": [],
-   "warnings": [
-    "background https://image.tmdb.org/t/p/original/qYssfJMTsHxvSPDwqzI5mKTMqNP.jpg: 1280x720 is below the recommended 1600x900"
-   ]
+   "warnings": []
   },
   "data/collections/tmdb-185682.json": {
    "checked": "2026-11-09",
@@ -917,12 +1833,10 @@
    "warnings": []
   },
   "data/collections/tmdb-685157.json": {
-   "checked": "2026-11-09",
-   "hash": "9e68c4432ff0cfe7a142a0d4e426817c2ae14be1",
+   "checked": "2026-11-15",
+   "hash": "89521905839ecb07d1831334b963b517234ddefb",
    "problems": [],
-   "warnings": [
-    "background https://image.tmdb.org/t/p/original/weCA3YWNGFUhiy1cfMR9fJw5YqE.jpg: 1280x720 is below the recommended 1600x900"
-   ]
+   "warnings": []
   },
   "data/collections/tmdb-696110.json": {
    "checked": "2026-10-23",
