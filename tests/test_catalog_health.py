@@ -366,22 +366,6 @@ def run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, MagicMock]
     return stubs
 
 
-def test_a_dry_run_prints_the_report_and_changes_nothing(
-    run: dict[str, MagicMock],
-    monkeypatch: pytest.MonkeyPatch,
-    capsys: pytest.CaptureFixture[str],
-) -> None:
-    monkeypatch.setattr("sys.argv", ["catalog_health.py", "--dry-run", "--limit", "5"])
-
-    assert health.main() == 0
-
-    report = capsys.readouterr().out
-    assert "up to 5 entries" in report
-    assert "poster: HTTP 404" in report
-    run["publish_report"].assert_not_called()
-    run["save_state"].assert_not_called()
-
-
 def test_a_run_publishes_the_report_and_saves_what_it_learned(
     run: dict[str, MagicMock], monkeypatch: pytest.MonkeyPatch
 ) -> None:

@@ -9,7 +9,7 @@ lazy import time
 lazy from dataclasses import dataclass
 lazy from http.client import HTTPMessage
 lazy from pathlib import Path
-lazy from typing import IO, Any
+lazy from typing import IO, Any, override
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener
 lazy from zipfile import BadZipFile
 
@@ -23,7 +23,6 @@ lazy from .catalog import (
     art_urls,
     aspect_problem,
     check_art_url,
-    entry_json,
     public_https_destination,
     resolution_warning,
     theme_problem,
@@ -34,7 +33,13 @@ lazy from .contribution import (
     parse_issue_form,
     process_contribution,
 )
-lazy from .import_bulk_export import import_bulk_export
+lazy from .import_bulk_export import (
+    CHANGE_KINDS,
+    EFFECTS,
+    OUTCOME_LABELS,
+    OUTCOMES,
+    import_bulk_export,
+)
 
 KINDS = frozenset({"movie", "show", "collection", "bulk"})
 MARKER = "<!-- overturedb-preview -->"
@@ -87,19 +92,22 @@ def parse_command(body: str) -> tuple[str, str] | None:
     return match[1], (match[2] or "").strip()
 
 
+def _permission(repo: str, actor: str) -> str:
+    return github.api(f"repos/{repo}/collaborators/{actor}/permission")["permission"]
+
+
 def can_write(repo: str, actor: str) -> bool:
-    return github.api(f"repos/{repo}/collaborators/{actor}/permission")[
-        "permission"
-    ] in {
-        "admin",
-        "maintain",
-        "write",
-    }
+    return _permission(repo, actor) in {"admin", "maintain", "write"}
+
+
+def is_admin(repo: str, actor: str) -> bool:
+    return _permission(repo, actor) == "admin"
 
 
 class AttachmentRedirectHandler(HTTPRedirectHandler):
     max_redirections = 3
 
+    @override
     def redirect_request(
         self,
         req: Request,
@@ -214,25 +222,15 @@ def _entry_changes(
 
 
 def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
-    parsed = parse_issue_form(
-        issue["body"] or "", issue["title"], sorted(issue_labels(issue))
-    )
-    result = process_contribution(parsed, root, dry_run=True)
+    parsed = parse_issue_form(issue["body"] or "", sorted(issue_labels(issue)))
+    result = process_contribution(parsed, root)
     warnings = (
         check_submission(result["entry"], result["previous"]) if result["entry"] else []
     )
-    target: str = result["target"]
-    previous_target: str | None = result.get("previous_target")
     if result["removed"]:
-        additions: dict[str, str] = {}
-        deletions = [target]
         action = "Remove"
         subject = result["previous"]
     else:
-        additions = {target: entry_json(result["entry"])}
-        deletions = (
-            [previous_target] if previous_target and previous_target != target else []
-        )
         action = "Update" if result["previous"] is not None else "Add"
         subject = result["entry"]
     year = f" ({subject['year']})" if subject.get("year") else ""
@@ -245,8 +243,11 @@ def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
             "\n".join(
                 [
                     "> [!WARNING]",
-                    "> Below the recommended resolution. Approve only if nothing "
-                    "better exists; see the selection guidelines in CONTRIBUTING.md.",
+                    (
+                        "> Below the recommended resolution. Approve only if "
+                        "nothing better exists; see the selection guidelines "
+                        "in CONTRIBUTING.md."
+                    ),
                     *(f"> - {warning}" for warning in warnings),
                 ]
             )
@@ -270,8 +271,8 @@ def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
         commit_body=f"Closes #{issue['number']}",
         preview_body="\n\n".join(sections),
         fingerprint=fingerprint,
-        additions=additions,
-        deletions=deletions,
+        additions=result["additions"],
+        deletions=result["deletions"],
         is_modification=bool(result.get("is_modification")),
     )
 
@@ -317,83 +318,100 @@ def _format_error(message: str, *, max_chars: int = 5000) -> str:
     return f"{truncated}\n\n... (error message truncated)"
 
 
-def format_bulk_summary(result: dict[str, Any]) -> str:
-    created = result["created"]
-    backfilled = result["backfilled"]
-    unchanged = result["unchanged"]
-    total = result.get("total_incoming", created + backfilled + unchanged)
-
-    created_kinds = result.get("created_kinds", {})
-    backfilled_kinds = result.get("backfilled_kinds", {})
-
-    created_details = ", ".join(
-        f"{created_kinds[k]:,} {k}"
-        for k in ("posters", "backgrounds", "season posters", "themes")
-        if created_kinds.get(k)
-    )
-    if not created_details:
-        created_details = "Full records created" if created > 0 else "-"
-
-    backfilled_details = ", ".join(
-        f"{backfilled_kinds[k]:,} {k}"
-        for k in (
-            "identifiers",
-            "release years",
-            "posters",
-            "backgrounds",
-            "season posters",
-            "themes",
-        )
-        if backfilled_kinds.get(k)
-    )
-    if not backfilled_details:
-        backfilled_details = "-"
-
-    unchanged_details = "Identical to database" if unchanged > 0 else "-"
-
-    created_by_type = result.get("created_by_type", {})
-    backfilled_by_type = result.get("backfilled_by_type", {})
-    unchanged_by_type = result.get("unchanged_by_type", {})
-    type_keys = tuple(ENTRY_FOLDERS)
-    type_headers = " | ".join(folder.capitalize() for folder in ENTRY_FOLDERS.values())
-    type_align = " | ".join(":---" for _ in type_keys)
-    created_cols = " | ".join(f"{created_by_type.get(t, 0):,}" for t in type_keys)
-    backfilled_cols = " | ".join(f"{backfilled_by_type.get(t, 0):,}" for t in type_keys)
-    unchanged_cols = " | ".join(f"{unchanged_by_type.get(t, 0):,}" for t in type_keys)
-    by_type = (created_by_type, backfilled_by_type, unchanged_by_type)
-    total_cols = " | ".join(
-        f"{sum(counts.get(t, 0) for counts in by_type):,}" for t in type_keys
-    )
-
-    lines = [
-        f"| Status | {type_headers} | Total | Details |",
-        f"| :--- | {type_align} | :--- | :--- |",
-        f"| **New entries** | {created_cols} | {created:,} | {created_details} |",
-        (
-            f"| **Updated entries** | {backfilled_cols} | "
-            f"{backfilled:,} | {backfilled_details} |"
-        ),
-        f"| **Unchanged** | {unchanged_cols} | {unchanged:,} | {unchanged_details} |",
-        f"| **Total in export** | {total_cols} | {total:,} | |",
+def _table(header: list[str], rows: list[list[str]]) -> list[str]:
+    return [
+        f"| {' | '.join(header)} |",
+        f"| {' | '.join(':---' if i == 0 else '---:' for i in range(len(header)))} |",
+        *(f"| {' | '.join(row)} |" for row in rows),
     ]
-    return "\n".join(lines)
 
 
-def _evaluate_bulk(issue: dict[str, Any], root: Path) -> Plan:
+def format_bulk_summary(result: dict[str, Any]) -> str:
+    """The bulk preview's summary: what it may replace, then two tables.
+
+    Entries are counted by outcome and media type, and changes by kind and how
+    they land, each with totals.
+    """
+    entries: dict[str, dict[str, int]] = result["entries"]
+    changes: dict[str, dict[str, int]] = result["changes"]
+    types = tuple(ENTRY_FOLDERS)
+    notice = (
+        "> [!IMPORTANT]\n"
+        "> Opened by an admin: this contribution replaces the art, season posters "
+        "and OvertureDB themes entries hold. Check **Overwritten** below."
+        if result["overwrite"]
+        else "This contribution adds new entries and fills only what existing "
+        "entries lack."
+    )
+    outcome_rows = [
+        [
+            f"**{OUTCOME_LABELS[outcome]}**",
+            *(f"{entries[outcome].get(t, 0):,}" for t in types),
+            f"{sum(entries[outcome].values()):,}",
+        ]
+        for outcome in OUTCOMES
+    ]
+    outcome_rows.append(
+        [
+            "**Total in export**",
+            *(f"{sum(c.get(t, 0) for c in entries.values()):,}" for t in types),
+            f"{result['total_incoming']:,}",
+        ]
+    )
+    effect_labels = {
+        "added": "In new entries",
+        "filled": "Filled",
+        "replaced": "Replaced",
+    }
+    change_rows = [
+        [
+            kind.capitalize(),
+            *(f"{changes[kind].get(e, 0):,}" for e in EFFECTS),
+            f"{sum(changes[kind].values()):,}",
+        ]
+        for kind in CHANGE_KINDS
+        if kind in changes
+    ]
+    change_rows.append(
+        [
+            "**Total**",
+            *(f"{sum(c.get(e, 0) for c in changes.values()):,}" for e in EFFECTS),
+            f"{sum(sum(c.values()) for c in changes.values()):,}",
+        ]
+    )
+    folders = [folder.capitalize() for folder in ENTRY_FOLDERS.values()]
+    return "\n".join(
+        [
+            notice,
+            "",
+            *_table(["Entries", *folders, "Total"], outcome_rows),
+            "",
+            *_table(
+                ["Changes", *(effect_labels[e] for e in EFFECTS), "Total"], change_rows
+            ),
+        ]
+    )
+
+
+def _evaluate_bulk(issue: dict[str, Any], root: Path, *, overwrite: bool) -> Plan:
     with tempfile.TemporaryDirectory() as directory:
         archive = Path(directory) / "selections.zip"
         download_archive(issue["body"] or "", archive)
         archive_hash = hashlib.sha256(archive.read_bytes()).hexdigest()
         result = import_bulk_export(
-            overture_dir=root, archive_path=archive, dry_run=True
+            overture_dir=root, archive_path=archive, overwrite=overwrite
         )
     if result["errors"]:
         raise ValueError(format_bulk_errors(result["errors"]))
-    created, backfilled = result["created"], result["backfilled"]
-    if created == 0 and backfilled == 0:
+    if not result["additions"]:
         raise NoChangesError("All submitted values already exist.")
+    counts = {
+        outcome: sum(by_type.values()) for outcome, by_type in result["entries"].items()
+    }
     headline = (
-        f"Bulk contribution: {created} added, {backfilled} updated (#{issue['number']})"
+        f"Bulk contribution: {counts['new']} added, {counts['updated']} updated"
+        + (f", {counts['overwritten']} overwritten" if counts["overwritten"] else "")
+        + f" (#{issue['number']})"
     )
     summary = format_bulk_summary(result)
     preview_body = f"{summary}\n\n{result['review_markdown']}".strip()
@@ -403,6 +421,7 @@ def _evaluate_bulk(issue: dict[str, Any], root: Path) -> Plan:
             "title": issue["title"],
             "body": issue["body"] or "",
             "archive": archive_hash,
+            "overwrite": overwrite,
             "additions": result["additions"],
             "deletions": result["deletions"],
         }
@@ -415,12 +434,16 @@ def _evaluate_bulk(issue: dict[str, Any], root: Path) -> Plan:
         fingerprint=fingerprint,
         additions=result["additions"],
         deletions=result["deletions"],
+        is_modification=counts["overwritten"] > 0,
     )
 
 
-def evaluate_issue(issue: dict[str, Any], root: Path) -> Plan:
+def evaluate_issue(repo: str, issue: dict[str, Any], root: Path) -> Plan:
+    """Plan an issue's contribution; an admin's bulk contribution may overwrite."""
     if contribution_kind(issue) == "bulk":
-        plan = _evaluate_bulk(issue, root)
+        plan = _evaluate_bulk(
+            issue, root, overwrite=is_admin(repo, issue["user"]["login"])
+        )
     else:
         plan = _evaluate_single(issue, root)
     if len(plan.preview_body.encode("utf-8")) > 55_000:
@@ -475,7 +498,7 @@ def preview_issue(
 ) -> None:
     number = issue["number"]
     try:
-        plan = evaluate_issue(issue, root)
+        plan = evaluate_issue(repo, issue, root)
     except NoChangesError as exc:
         sync_edit_label(repo, issue, is_modification=False)
         upsert_comment(repo, number, f"{MARKER}\n**Already satisfied**\n\n{exc}")
@@ -509,10 +532,10 @@ def approved_plan(
     match = FINGERPRINT_RE.search(existing["body"]) if existing else None
     recorded_fp = match[1] if match else None
     try:
-        plan = evaluate_issue(issue, root)
+        plan = evaluate_issue(repo, issue, root)
     except NoChangesError as exc:
         if not approval_is_current(repo, issue, comment):
-            return
+            return None
         upsert_comment(repo, number, f"{MARKER}\n**Already satisfied**\n\n{exc}")
         github.api(
             f"repos/{repo}/issues/{number}",

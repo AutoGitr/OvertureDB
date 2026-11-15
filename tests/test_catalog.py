@@ -114,7 +114,10 @@ def test_entries_have_typed_identifiers_and_bounded_metadata(
         {"unrecognised": True},
     ]
     for change in invalid:
-        with subtests.test(change=change), pytest.raises(ValueError):
+        with (
+            subtests.test(change=change),
+            pytest.raises(ValueError, match=r"Catalog contract violation at"),
+        ):
             validate_entry(movie(**change))
 
 
@@ -128,7 +131,9 @@ def test_youtube_ids_must_be_different() -> None:
         youtube_id_overturedb="3U6PSWyv5sc",
         youtube_id_themerrdb="3U6PSWyv5sc",
     )
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError, match=r"youtube_id_overturedb and youtube_id_themerrdb"
+    ):
         validate_entry(entry)
 
 
@@ -152,16 +157,24 @@ def test_seasons_require_unique_nonnegative_numbers_and_posters(
         [{**season, "season_num": -1}],
         [{"season_num": 1}],
     ):
-        with subtests.test(seasons=seasons), pytest.raises(ValueError):
+        with (
+            subtests.test(seasons=seasons),
+            pytest.raises(ValueError, match=r"Catalog"),
+        ):
             validate_entry({**show, "seasons": seasons})
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError, match=r"Catalog contract violation at root: 'seasons'"
+    ):
         validate_entry(movie(media_type="show"))
 
 
 def test_identity_uniqueness_is_scoped_to_media_type(subtests: pytest.Subtests) -> None:
     assert len(validate_entries([movie(), movie(media_type="show", seasons=[])])) == 2
     for field, value in (("tmdb_id", 1), ("tvdb_id", 10), ("imdb_id", "tt1234567")):
-        with subtests.test(field=field), pytest.raises(ValueError):
+        with (
+            subtests.test(field=field),
+            pytest.raises(ValueError, match=r"Duplicate catalog identity: \('movie',"),
+        ):
             validate_entries(
                 [movie(**{field: value}), movie(tmdb_id=2) | {field: value}]
             )
@@ -198,7 +211,16 @@ def test_catalog_header_and_every_entry_line_are_validated(
         [*lines(header(), [movie()]), b""],
     ]
     for catalog_lines in invalid:
-        with subtests.test(lines=catalog_lines), pytest.raises(ValueError):
+        with (
+            subtests.test(lines=catalog_lines),
+            pytest.raises(
+                ValueError,
+                match=(
+                    r"Catalog contract violation|Catalog record repeats|"
+                    r"Expecting value|Unsupported catalog|must be in range"
+                ),
+            ),
+        ):
             list(read_catalog(catalog_lines))
 
 
@@ -259,7 +281,10 @@ def test_publication_is_reproducible_and_digests_match(root: Path) -> None:
 def test_invalid_entry_prevents_any_publication(root: Path) -> None:
     bad = root / "data/movies/tmdb-2.json"
     bad.write_text(json.dumps(movie(tmdb_id=2, title="")))
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Catalog contract violation at title: '' should be non\-empty",
+    ):
         build(root, "public")
     assert not (root / "public").exists()
 
@@ -272,7 +297,10 @@ def test_filename_and_directory_follow_entry_identity(
     for destination in ("data/movies/tmdb-2.json", "data/shows/tmdb-1.json"):
         target = root / destination
         entry.rename(target)
-        with subtests.test(destination=destination), pytest.raises(ValueError):
+        with (
+            subtests.test(destination=destination),
+            pytest.raises(ValueError, match=r"must be data/movies/tmdb-1\.json"),
+        ):
             catalog.entry_files(root)
         target.rename(entry)
 
@@ -406,9 +434,15 @@ def test_destination_and_redirects_require_public_allowlisted_https(
         "https://theposterdb.com/api/assets/123/view/",
         "https://image.tmdb.org/t/p/original/a.jpg#fragment",
     ):
-        with subtests.test(url=url), pytest.raises(ValueError):
+        with (
+            subtests.test(url=url),
+            pytest.raises(ValueError, match=r"(?i)artwork (links? )?must"),
+        ):
             catalog.check_art_destination(url)
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Artwork must come from TMDB, TPDb, fanart\.tv, TVDB or Plex",
+    ):
         catalog.ArtRedirectHandler().redirect_request(
             Request("https://image.tmdb.org/t/p/original/a.jpg"),
             io.BytesIO(),
@@ -418,7 +452,10 @@ def test_destination_and_redirects_require_public_allowlisted_https(
             "http://127.0.0.1/private",
         )
     lookup.return_value.append((2, 1, 6, "", ("127.0.0.1", 443)))
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"URL host does not resolve exclusively to public addresses",
+    ):
         catalog.check_art_destination("https://image.tmdb.org/t/p/original/a.jpg")
 
 
@@ -443,14 +480,16 @@ def test_image_probe_reads_only_the_header_and_checks_content(
     for invalid_body in (b"<html>Error", b"\xff\xd8\xff\xd9"):
         with subtests.test(invalid_body=invalid_body):
             response.read.side_effect = [invalid_body, b""]
-            with pytest.raises(ValueError):
+            with pytest.raises(
+                ValueError, match=r"Artwork response is not a JPEG or PNG image"
+            ):
                 catalog.check_art_url("https://image.tmdb.org/t/p/original/a.jpg")
 
 
 @patch.object(catalog, "check_art_destination")
 @patch.object(catalog, "build_opener")
 def test_image_probe_stops_at_the_byte_limit_without_a_size(
-    opener: MagicMock, _destination: MagicMock
+    opener: MagicMock, destination: MagicMock
 ) -> None:
     response = MagicMock()
     response.headers = Message()
@@ -578,14 +617,16 @@ def test_an_added_tmdb_id_moves_an_entry_to_its_tmdb_file(tmp_path: Path) -> Non
         tvdb_id=2,
         poster_url="https://image.tmdb.org/t/p/original/s.jpg",
     )
-    catalog.write_entry_json(old, show)
+    old.write_text(catalog.entry_json(show))
     index = catalog.EntryIndex.load(root)
     original = dict(index.entries)
     moved = index.update(old, {**show, "tmdb_id": 1})
     assert moved == root / "data/shows/tmdb-1.json"
     assert index.find({"media_type": "show", "tvdb_id": 2}) == moved
-    catalog.write_changes(original, index.entries, root)
-    assert list((root / "data/shows").iterdir()) == [moved]
+    assert catalog.planned_file_changes(original, index.entries, root) == (
+        {"data/shows/tmdb-1.json": catalog.entry_json({**show, "tmdb_id": 1})},
+        ["data/shows/tvdb-2.json"],
+    )
 
 
 def test_merge_ids_adds_missing_identifiers_only() -> None:
@@ -612,7 +653,7 @@ def test_entry_file_names_follow_the_identifier_rules() -> None:
 
 
 def test_missing_data_cannot_publish_an_empty_catalog(tmp_path: Path) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=r"Data directory does not exist"):
         catalog.entry_files(tmp_path)
 
 

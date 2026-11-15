@@ -30,7 +30,6 @@ lazy from .catalog import (
     entry_path,
     new_entry,
     planned_file_changes,
-    write_changes,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,32 +178,22 @@ def process_themerr_item(
     )
 
 
-def import_themerrdb(
-    themerr_dir: Path,
-    overture_dir: Path,
-    *,
-    limit: int | None = None,
-    dry_run: bool = False,
-    commit: bool = False,
-) -> tuple[dict[str, int], list[str]]:
-    """Apply ThemerrDB to the catalog; return the counts and the titles that lost
-    their OvertureDB theme because ThemerrDB now uses the same video."""
-    if limit is not None and limit <= 0:
-        raise ValueError("Limit must be a positive integer")
-    if commit and not dry_run:
-        return publish_import(themerr_dir, overture_dir, limit=limit)
-    stats, lost, original, planned = plan_import(themerr_dir, overture_dir, limit=limit)
-    planned_file_changes(original, planned, overture_dir)
-    if not dry_run and not stats["skipped_error"]:
-        write_changes(original, planned, overture_dir)
-    return stats, lost
-
-
 def plan_import(
     themerr_dir: Path, overture_dir: Path, *, limit: int | None = None
 ) -> tuple[
     dict[str, int], list[str], dict[Path, dict[str, Any]], dict[Path, dict[str, Any]]
 ]:
+    """Plan applying ThemerrDB to the catalog, writing nothing.
+
+    Returns:
+        The counts, the titles that lose their OvertureDB theme because
+        ThemerrDB now uses the same video, and the entries before and after.
+
+    Raises:
+        ValueError: When *limit* is not positive or a ThemerrDB folder is missing.
+    """
+    if limit is not None and limit <= 0:
+        raise ValueError("Limit must be a positive integer")
     targets = [
         ("movie", themerr_dir / "movies" / "themoviedb"),
         ("show", themerr_dir / "tv_shows" / "themoviedb"),
@@ -263,9 +252,14 @@ def plan_import(
     return stats, lost, original_entries, index.entries
 
 
-def publish_import(
+def import_themerrdb(
     themerr_dir: Path, root: Path, *, limit: int | None = None
 ) -> tuple[dict[str, int], list[str]]:
+    """Publish ThemerrDB's changes to the catalog as one signed commit on ``main``.
+
+    Returns:
+        The counts and the titles that lost their OvertureDB theme.
+    """
     result: tuple[dict[str, int], list[str]] = ({}, [])
 
     def prepare(candidate: Path) -> publication.Commit | None:
@@ -309,27 +303,15 @@ def main() -> int:
         default=None,
         help="Limit number of items processed (for debugging)",
     )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Validate and count without writing files to disk",
-    )
-    parser.add_argument(
-        "--commit",
-        action="store_true",
-        help="Commit imported changes directly to main via GitHub API",
-    )
     parser.add_argument("--output", type=Path, help="Write import counts as JSON")
     args = parser.parse_args()
 
-    print(f"Starting ThemerrDB import (dry_run={args.dry_run})...")
+    print("Starting ThemerrDB import...")
     try:
         stats, lost_themes = import_themerrdb(
             themerr_dir=args.themerr_dir.resolve(),
-            overture_dir=args.overture_dir.resolve(),
+            root=args.overture_dir.resolve(),
             limit=args.limit,
-            dry_run=args.dry_run,
-            commit=args.commit,
         )
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"Import failed: {exc}", file=sys.stderr)

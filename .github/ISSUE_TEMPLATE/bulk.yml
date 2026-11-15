@@ -14,7 +14,7 @@ body:
 
         **How Bulk Contributions Work**:
         - Bulk contributions add missing items and values.
-        - To change or remove an existing item or value, use the movie or show form.
+        - To change or remove an existing item or value, use the movie, show or collection form.
 
   - type: textarea
     id: archive

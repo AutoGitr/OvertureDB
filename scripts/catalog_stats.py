@@ -96,14 +96,20 @@ def dashboard(
     )
     description = "; ".join(f"{label}: {value:,}" for label, value, _ in metrics)
     parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="840" height="790" '
-        'viewBox="0 0 840 790" role="img" aria-labelledby="title description">',
+        (
+            '<svg xmlns="http://www.w3.org/2000/svg" width="840" height="790" '
+            'viewBox="0 0 840 790" role="img" aria-labelledby="title description">'
+        ),
         '<title id="title">OvertureDB catalog statistics</title>',
-        f'<desc id="description">{escape(description)}. '
-        "Coverage bars show titles with each selection, not unique files. "
-        "Core complete means a poster, background and at least one theme.</desc>",
-        f'<rect x="1" y="1" width="838" height="788" rx="20" '
-        f'fill="{canvas}" stroke="{border}"/>',
+        (
+            f'<desc id="description">{escape(description)}. '
+            "Coverage bars show titles with each selection, not unique files. "
+            "Core complete means a poster, background and at least one theme.</desc>"
+        ),
+        (
+            f'<rect x="1" y="1" width="838" height="788" rx="20" '
+            f'fill="{canvas}" stroke="{border}"/>'
+        ),
         '<g font-family="Segoe UI, Helvetica, Arial, sans-serif">',
     ]
 

@@ -14,6 +14,7 @@ lazy from scripts.contribution import (
     parse_issue_form,
     process_contribution,
 )
+lazy from tests.changes import apply_changes
 
 EMPTY_REASON = "_No response_"
 REASON_HEADING = "Reason for modification"
@@ -86,7 +87,7 @@ abc123abc12
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Interstellar (2014)", ["movie"])
+    parsed = parse_issue_form(body, ["movie"])
     assert parsed.media_type == "movie"
     assert parsed.title == "Interstellar"
     assert parsed.year == 2014
@@ -99,21 +100,28 @@ abc123abc12
 
 def test_parse_invalid_fields() -> None:
     base_body = "### Title\n\nMovie\n\n### TMDB ID\n\nabc"
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(base_body, "[Movie]: Movie", ["movie"])
+    with pytest.raises(
+        ValueError,
+        match=r"TMDB ID must contain digits only or a valid TMDB URL\.",
+    ) as ctx:
+        parse_issue_form(base_body, ["movie"])
     assert "TMDB ID must contain digits only" in str(ctx.value)
 
     body_bad_imdb = "### Title\n\nMovie\n\n### IMDb ID\n\n12345"
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(body_bad_imdb, "[Movie]: Movie", ["movie"])
+    with pytest.raises(
+        ValueError, match=r"IMDb ID must use the format tt followed by"
+    ) as ctx:
+        parse_issue_form(body_bad_imdb, ["movie"])
     assert "IMDb ID must use the format tt" in str(ctx.value)
 
     body_bad_yt = (
         "### Title\n\nMovie\n\n### TMDB ID\n\n1\n\n"
         "### YouTube theme video ID\n\nhttp://yt.com"
     )
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(body_bad_yt, "[Movie]: Movie", ["movie"])
+    with pytest.raises(
+        ValueError, match=r"Invalid YouTube theme ID or URL: 'http://yt\.com'\."
+    ) as ctx:
+        parse_issue_form(body_bad_yt, ["movie"])
     assert "Invalid YouTube theme ID or URL" in str(ctx.value)
 
 
@@ -152,8 +160,8 @@ https://image.tmdb.org/t/p/original/new_movie.jpg
 
 _No response_
 """
-    parsed = parse_issue_form(body, "[Movie]: New Movie (2024)", ["movie"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
 
     assert res["status"] == "ok"
     assert not res["is_modification"]
@@ -175,9 +183,11 @@ Empty Movie
 
 77777
 """
-    parsed = parse_issue_form(body, "[Movie]: Empty Movie (2024)", ["movie"])
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    with pytest.raises(
+        ValueError, match=r"New entry contributions must include at least"
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert "New entry contributions must include at least one artwork URL" in str(
         ctx.value
     )
@@ -226,9 +236,11 @@ https://image.tmdb.org/t/p/original/new_p.jpg
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Existing Movie (2024)", ["movie"])
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    with pytest.raises(
+        ValueError, match=r"Replacing a value in `data/movies/tmdb\-88888\.json`"
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert "needs a reason" in str(ctx.value)
 
 
@@ -274,9 +286,9 @@ def test_title_or_year_change_requires_modification_reason(
 https://image.tmdb.org/t/p/original/bg.jpg
 """
         with subtests.test(title=title, year=year):
-            parsed = parse_issue_form(body, f"[Movie]: {title} ({year})", ["movie"])
+            parsed = parse_issue_form(body, ["movie"])
             with pytest.raises(ValueError, match="needs a reason"):
-                process_contribution(parsed, tmp_path, dry_run=True)
+                process_contribution(parsed, tmp_path)
 
 
 def test_backfill_stub_without_modification_reason(
@@ -334,8 +346,8 @@ https://image.tmdb.org/t/p/original/bg.jpg
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Chungking Express (1994)", ["movie"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
 
     assert res["status"] == "ok"
     assert not res["is_modification"]
@@ -401,8 +413,8 @@ xwGZvpRf1GA
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Chungking Express (1994)", ["movie"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
 
     assert res["status"] == "ok"
     assert not res["is_modification"]
@@ -458,8 +470,8 @@ https://image.tmdb.org/t/p/original/new_higher_res_poster.jpg
 
 Upgrading to official 4K poster art.
 """
-    parsed = parse_issue_form(body, "[Movie]: Existing Movie (2024)", ["movie"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
 
     assert res["status"] == "ok"
     assert res["is_modification"]
@@ -504,13 +516,17 @@ def test_media_comparison_lists_only_what_changed_in_entry_order() -> None:
     }
 
     assert format_media_comparison(existing, updated).splitlines() == [
-        f"- **Matte poster:** [Old]({old.format('matte')}) | "
-        f"[New]({new.format('matte')})",
+        (
+            f"- **Matte poster:** [Old]({old.format('matte')}) | "
+            f"[New]({new.format('matte')})"
+        ),
         f"- **Background:** [Old]({old.format('bg')}) | [New]({new.format('bg')})",
         f"- **Season 1 Poster:** [Old]({old.format('s1')}) | [New]({new.format('s1')})",
         f"- **Season 2 Poster:** _None_ | [New]({new.format('s2')})",
-        "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldtheme123) | "
-        "[New](https://www.youtube.com/watch?v=newtheme456)",
+        (
+            "- **YouTube Theme:** [Old](https://www.youtube.com/watch?v=oldtheme123) | "
+            "[New](https://www.youtube.com/watch?v=newtheme456)"
+        ),
     ]
 
 
@@ -557,13 +573,11 @@ tt1
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Movie", ["movie"])
+    parsed = parse_issue_form(body, ["movie"])
     with pytest.raises(ValueError, match="needs a reason"):
         process_contribution(parsed, tmp_path)
-    parsed = parse_issue_form(
-        body + "TMDB 1 is a different film.\n", "[Movie]: Movie", ["movie"]
-    )
-    result = process_contribution(parsed, tmp_path)
+    parsed = parse_issue_form(body + "TMDB 1 is a different film.\n", ["movie"])
+    result = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert result["is_modification"]
     assert result["target"] == "data/movies/tmdb-2.json"
     assert not old.exists()
@@ -598,16 +612,15 @@ _No response_
 
 - [X] Remove this entry from the catalog
 """
-    parsed = parse_issue_form(body, "[Movie]: Movie", ["movie"])
+    parsed = parse_issue_form(body, ["movie"])
     assert parsed.remove
     with pytest.raises(ValueError, match="needs a reason"):
         process_contribution(parsed, tmp_path)
     parsed = parse_issue_form(
         body.replace("_No response_", "Not a real film."),
-        "[Movie]: Movie",
         ["movie"],
     )
-    result = process_contribution(parsed, tmp_path)
+    result = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert result["removed"]
     assert "+++ /dev/null" in result["diff"]
     assert not path.exists()
@@ -626,7 +639,7 @@ Movie
 
 - [ ] Remove this entry from the catalog
 """
-    assert not parse_issue_form(body, "[Movie]: Movie", ["movie"]).remove
+    assert not parse_issue_form(body, ["movie"]).remove
 
 
 def test_cross_provider_matching_for_shows(tmp_path: Path, data_dir: Path) -> None:
@@ -673,8 +686,8 @@ https://image.tmdb.org/t/p/original/new_background.jpg
 
 Adding missing backdrop.
 """
-    parsed = parse_issue_form(body, "[Show]: My Show", ["show"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["show"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
 
     assert not res["is_modification"]
     assert res["is_addition"]
@@ -733,17 +746,17 @@ newTheme222
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Theme Movie (2020)", ["movie"])
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    with pytest.raises(
+        ValueError, match=r"Replacing a value in `data/movies/tmdb\-999\.json`"
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert "needs a reason" in str(ctx.value)
 
     # Replacing theme with reason succeeds
     body_with_reason = body.replace(EMPTY_REASON, "Better audio quality theme.")
-    parsed_ok = parse_issue_form(
-        body_with_reason, "[Movie]: Theme Movie (2020)", ["movie"]
-    )
-    res = process_contribution(parsed_ok, tmp_path, dry_run=False)
+    parsed_ok = parse_issue_form(body_with_reason, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed_ok, tmp_path))
     assert res["is_modification"]
     assert res["youtube_id"] == "newTheme222"
     assert (
@@ -796,8 +809,8 @@ overture111
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Movie]: Theme Movie (2020)", ["movie"])
-    res = process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body, ["movie"])
+    res = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert res["status"] == "ok"
     assert not res["is_modification"]
     assert res["is_addition"]
@@ -855,9 +868,11 @@ Season Show
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body_replace, "[Show]: Season Show", ["show"])
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body_replace, ["show"])
+    with pytest.raises(
+        ValueError, match=r"Replacing a value in `data/shows/tvdb\-600\.json`"
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert "needs a reason" in str(ctx.value)
 
     # Adding Season 2 poster without reason succeeds
@@ -877,8 +892,8 @@ Season Show
 
 {EMPTY_REASON}
 """
-    parsed_add = parse_issue_form(body_add, "[Show]: Season Show", ["show"])
-    res = process_contribution(parsed_add, tmp_path, dry_run=False)
+    parsed_add = parse_issue_form(body_add, ["show"])
+    res = apply_changes(tmp_path, process_contribution(parsed_add, tmp_path))
     assert not res["is_modification"]
     assert res["is_addition"]
 
@@ -961,7 +976,10 @@ def test_clean_art_url_markdown_links_and_formatting(subtests: pytest.Subtests) 
         "https://theposterdb.com/set/12345",
         "https://example.com/poster.jpg",
     ):
-        with subtests.test(url=url), pytest.raises(ValueError):
+        with (
+            subtests.test(url=url),
+            pytest.raises(ValueError, match=r"(?i)artwork (links? )?must"),
+        ):
             clean_art_url(url)
 
 
@@ -1006,13 +1024,22 @@ def test_clean_youtube_id_all_variants_and_errors() -> None:
     )
 
     # Invalid IDs or URLs
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=r"Invalid YouTube theme ID or URL: 'short'\."):
         clean_youtube_id("short")
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Invalid YouTube theme ID or URL: 'https://vimeo\.com/12345678901'\.",
+    ):
         clean_youtube_id("https://vimeo.com/12345678901")
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Invalid YouTube theme ID or URL: 'https://youtube\.com/watch'\.",
+    ):
         clean_youtube_id("https://youtube.com/watch")
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Invalid YouTube theme ID or URL: 'invalid!characters@\#\$'\.",
+    ):
         clean_youtube_id("invalid!characters@#$")
 
 
@@ -1033,23 +1060,29 @@ https://thetvdb.com/dereferrer/series/74205
 
 https://www.imdb.com/title/TT0109424/?ref_=fn_al_tt_1
 """
-    parsed = parse_issue_form(body, "[Movie]: Test", ["movie"])
+    parsed = parse_issue_form(body, ["movie"])
     assert parsed.tmdb_id == 157336
     assert parsed.tvdb_id == 74205
     assert parsed.imdb_id == "tt0109424"
 
     # Zero or negative IDs
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form("### Title\nT\n### TMDB ID\n0", "[Movie]: T", ["movie"])
+    with pytest.raises(
+        ValueError, match=r"TMDB ID must be a positive integer below 2\^63\."
+    ) as ctx:
+        parse_issue_form("### Title\nT\n### TMDB ID\n0", ["movie"])
     assert "positive integer" in str(ctx.value)
 
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form("### Title\nT\n### TVDB ID\n0", "[Show]: T", ["show"])
+    with pytest.raises(
+        ValueError, match=r"TVDB ID must be a positive integer below 2\^63\."
+    ) as ctx:
+        parse_issue_form("### Title\nT\n### TVDB ID\n0", ["show"])
     assert "positive integer" in str(ctx.value)
 
     # No IDs provided
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form("### Title\nT", "[Movie]: T", ["movie"])
+    with pytest.raises(
+        ValueError, match=r"Movie contributions need a TMDB, TVDB, or IMDb ID\."
+    ) as ctx:
+        parse_issue_form("### Title\nT", ["movie"])
     assert "need a TMDB, TVDB, or IMDb ID" in str(ctx.value)
 
 
@@ -1068,7 +1101,7 @@ Show
 * s2 = https://image.tmdb.org/t/p/original/s2.jpg
 1. Season Specials = https://image.tmdb.org/t/p/original/s0.jpg
 """
-    parsed = parse_issue_form(body, "[Show]: Show", ["show"])
+    parsed = parse_issue_form(body, ["show"])
     assert len(parsed.seasons) == 3
     assert parsed.seasons == [
         {
@@ -1091,8 +1124,10 @@ Show
         "### Season posters\n1=https://image.tmdb.org/t/p/original/a.jpg\n"
         "Season 1=https://image.tmdb.org/t/p/original/b.jpg"
     )
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(dup_body, "[Show]: Show", ["show"])
+    with pytest.raises(
+        ValueError, match=r"Duplicate season number in submission: 1"
+    ) as ctx:
+        parse_issue_form(dup_body, ["show"])
     assert "Duplicate season number in submission: 1" in str(ctx.value)
 
     # Missing '='
@@ -1100,8 +1135,10 @@ Show
         "### Title\nShow\n### TVDB ID\n123\n"
         "### Season posters\nSeason 1 https://image.tmdb.org/t/p/original/a.jpg"
     )
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(bad_format_body, "[Show]: Show", ["show"])
+    with pytest.raises(
+        ValueError, match=r"Season poster line must use format season_num=url:"
+    ) as ctx:
+        parse_issue_form(bad_format_body, ["show"])
     assert "must use format season_num=url" in str(ctx.value)
 
     # Season posters on movie
@@ -1109,8 +1146,10 @@ Show
         "### Title\nMovie\n### TMDB ID\n123\n"
         "### Season posters\n1=https://image.tmdb.org/t/p/original/a.jpg"
     )
-    with pytest.raises(ValueError) as ctx:
-        parse_issue_form(movie_with_seasons, "[Movie]: Movie", ["movie"])
+    with pytest.raises(
+        ValueError, match=r"Season posters cannot be added to a movie\."
+    ) as ctx:
+        parse_issue_form(movie_with_seasons, ["movie"])
     assert "Season posters cannot be added to a movie" in str(ctx.value)
 
 
@@ -1160,9 +1199,12 @@ https://image.tmdb.org/t/p/original/new.jpg
 
 {invalid_reason}
 """
-        parsed = parse_issue_form(body, "[Movie]: Movie (2024)", ["movie"])
-        with pytest.raises(ValueError) as ctx:
-            process_contribution(parsed, tmp_path, dry_run=False)
+        parsed = parse_issue_form(body, ["movie"])
+        with pytest.raises(
+            ValueError,
+            match=r"Replacing a value in `data/movies/tmdb\-55555\.json`",
+        ) as ctx:
+            apply_changes(tmp_path, process_contribution(parsed, tmp_path))
         assert "needs a reason" in str(ctx.value)
 
 
@@ -1204,11 +1246,12 @@ Unchanged Movie
 
 https://image.tmdb.org/t/p/original/p.jpg
 """
-    parsed = parse_issue_form(
-        body_identical, "[Movie]: Unchanged Movie (2024)", ["movie"]
-    )
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed, tmp_path, dry_run=False)
+    parsed = parse_issue_form(body_identical, ["movie"])
+    with pytest.raises(
+        ValueError,
+        match=r"No changes or additions detected for `data/movies/tmdb\-66666\.json`\.",
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert "No changes or additions detected" in str(ctx.value)
 
     # Submitting only matching themerrdb theme with no art changes
@@ -1228,11 +1271,12 @@ Unchanged Movie
 
 themerr1234
 """
-    parsed_yt = parse_issue_form(
-        body_themerr_only, "[Movie]: Unchanged Movie (2024)", ["movie"]
-    )
-    with pytest.raises(ValueError) as ctx:
-        process_contribution(parsed_yt, tmp_path, dry_run=False)
+    parsed_yt = parse_issue_form(body_themerr_only, ["movie"])
+    with pytest.raises(
+        ValueError,
+        match=r"No changes or additions detected for `data/movies/tmdb\-66666\.json`\.",
+    ) as ctx:
+        apply_changes(tmp_path, process_contribution(parsed_yt, tmp_path))
     assert "already active via ThemerrDB" in str(ctx.value)
 
 
@@ -1262,7 +1306,7 @@ https://image.tmdb.org/t/p/original/spaced_poster.jpg
 
 AB96CvvLZKc
 """
-    parsed = parse_issue_form(body, "[Movie]: Spaced Movie (2024)", ["movie"])
+    parsed = parse_issue_form(body, ["movie"])
     assert parsed.title == "Spaced Movie"
     assert parsed.year == 2024
     assert parsed.tmdb_id == 123456
@@ -1292,9 +1336,9 @@ abc123abc12
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
+    parsed = parse_issue_form(body, ["collection"])
     assert parsed.tmdb_id == 10
-    result = process_contribution(parsed, tmp_path)
+    result = apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     assert result["target"] == "data/collections/tmdb-10.json"
     assert json.loads((data_dir / "collections" / "tmdb-10.json").read_text()) == {
         "media_type": "collection",
@@ -1316,18 +1360,22 @@ def test_collection_form_rejects_title_only_fields(subtests: pytest.Subtests) ->
         ("### TMDB ID\n\n10\n\n### IMDb ID\n\ntt1\n\n", "TMDB collection ID"),
         ("### TMDB ID\n\n10\n\n### Year\n\n1977\n\n", "no release year"),
         (
-            "### TMDB ID\n\n10\n\n### Poster URL\n\n"
-            "https://image.tmdb.org/t/p/original/p.jpg\n\n",
+            (
+                "### TMDB ID\n\n10\n\n### Poster URL\n\n"
+                "https://image.tmdb.org/t/p/original/p.jpg\n\n"
+            ),
             "Individual, Matte or Overlay poster URL",
         ),
         (
-            "### TMDB ID\n\n10\n\n### Season posters\n\n"
-            "1=https://image.tmdb.org/t/p/original/s.jpg\n\n",
+            (
+                "### TMDB ID\n\n10\n\n### Season posters\n\n"
+                "1=https://image.tmdb.org/t/p/original/s.jpg\n\n"
+            ),
             "cannot be added to a collection",
         ),
     ):
         with subtests.test(message=message), pytest.raises(ValueError, match=message):
-            parse_issue_form(base + extra, "[Collection]: X", ["collection"])
+            parse_issue_form(base + extra, ["collection"])
 
 
 def test_collection_form_applies_its_poster_and_background(
@@ -1353,8 +1401,8 @@ https://image.tmdb.org/t/p/original/background.jpg
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
-    process_contribution(parsed, tmp_path)
+    parsed = parse_issue_form(body, ["collection"])
+    apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     entry = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
     assert (
         entry["poster_url_individual"]
@@ -1402,15 +1450,13 @@ def test_no_theme_flags_the_entry_and_a_later_theme_clears_it(
         + "\n"
     )
 
-    flagged = parse_issue_form(_no_theme_body(), "[Movie]: Movie", ["movie"])
+    flagged = parse_issue_form(_no_theme_body(), ["movie"])
     assert flagged.no_theme
-    process_contribution(flagged, tmp_path)
+    apply_changes(tmp_path, process_contribution(flagged, tmp_path))
     assert json.loads(path.read_text())["no_theme"] is True
 
-    themed = parse_issue_form(
-        _no_theme_body(youtube_id="abc123abc12"), "[Movie]: Movie", ["movie"]
-    )
-    process_contribution(themed, tmp_path)
+    themed = parse_issue_form(_no_theme_body(youtube_id="abc123abc12"), ["movie"])
+    apply_changes(tmp_path, process_contribution(themed, tmp_path))
     entry = json.loads(path.read_text())
     assert "no_theme" not in entry
     assert entry["youtube_id_overturedb"] == "abc123abc12"
@@ -1419,7 +1465,7 @@ def test_no_theme_flags_the_entry_and_a_later_theme_clears_it(
 def test_a_theme_and_no_theme_together_are_refused() -> None:
     body = _no_theme_body(youtube_id="abc123abc12").replace("- [ ]", "- [X]")
     with pytest.raises(ValueError, match="not both"):
-        parse_issue_form(body, "[Movie]: Movie", ["movie"])
+        parse_issue_form(body, ["movie"])
 
 
 def test_a_collection_takes_individual_matte_and_overlay_posters(
@@ -1451,8 +1497,8 @@ https://image.tmdb.org/t/p/original/own.jpg
 
 {EMPTY_REASON}
 """
-    parsed = parse_issue_form(body, "[Collection]: Star Wars", ["collection"])
-    process_contribution(parsed, tmp_path)
+    parsed = parse_issue_form(body, ["collection"])
+    apply_changes(tmp_path, process_contribution(parsed, tmp_path))
     saved = json.loads((data_dir / "collections" / "tmdb-10.json").read_text())
     assert (
         saved["poster_url_individual"],
@@ -1467,7 +1513,7 @@ https://image.tmdb.org/t/p/original/own.jpg
     replaced = body.replace(overlay, "https://theposterdb.com/api/assets/7")
     with pytest.raises(ValueError, match="Reason for modification"):
         process_contribution(
-            parse_issue_form(replaced, "[Collection]: Star Wars", ["collection"]),
+            parse_issue_form(replaced, ["collection"]),
             tmp_path,
         )
 
@@ -1490,4 +1536,4 @@ Interstellar
 https://image.tmdb.org/t/p/original/consistent.jpg
 """
     with pytest.raises(ValueError, match="Only collections"):
-        parse_issue_form(body, "[Movie]: Interstellar (2014)", ["movie"])
+        parse_issue_form(body, ["movie"])

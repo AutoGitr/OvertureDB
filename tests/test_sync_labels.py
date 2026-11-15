@@ -30,7 +30,7 @@ def test_pagination_preserves_every_page(gh: MagicMock) -> None:
 
 @patch.object(sync_labels, "api")
 @patch.object(sync_labels, "pages", return_value=[])
-def test_preview_never_writes(_pages: MagicMock, api: MagicMock) -> None:
+def test_preview_never_writes(pages: MagicMock, api: MagicMock) -> None:
     assert sync_labels.sync("owner/repo", [LABEL], apply=False)
     api.assert_not_called()
 
@@ -45,7 +45,7 @@ def test_preview_never_writes(_pages: MagicMock, api: MagicMock) -> None:
     ],
 )
 def test_unknown_labels_are_previewed_and_deleted_on_apply(
-    _pages: MagicMock, api: MagicMock
+    pages: MagicMock, api: MagicMock
 ) -> None:
     assert sync_labels.sync("owner/repo", [LABEL], apply=False)
     api.assert_not_called()
@@ -80,6 +80,6 @@ def test_check_fails_on_drift_without_writing(sync: MagicMock) -> None:
 
 @patch.object(sync_labels, "pages")
 def test_invalid_repository_never_reaches_github(pages: MagicMock) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=r"Repository must be OWNER/REPO"):
         sync_labels.sync("owner/repo?query", [LABEL], apply=True)
     pages.assert_not_called()

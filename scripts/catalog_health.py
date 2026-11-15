@@ -150,10 +150,12 @@ def render(
 ) -> str:
     checked = sum(1 for path in entries if path in state["entries"])
     lines = [
-        "Updated by the Catalog Health workflow. This run checks all changed "
-        f"entries with reported findings, plus up to {limit} entries from the "
-        "rotation (new and changed first, then least recently checked). "
-        f"{checked:,} of {len(entries):,} entries have been checked so far.",
+        (
+            "Updated by the Catalog Health workflow. This run checks all changed "
+            f"entries with reported findings, plus up to {limit} entries from the "
+            "rotation (new and changed first, then least recently checked). "
+            f"{checked:,} of {len(entries):,} entries have been checked so far."
+        ),
     ]
     records = sorted(state["entries"].items())
     sections = (
@@ -210,7 +212,6 @@ def main() -> int:
         default=HEALTH_LIMIT,
         help="Rotating entries to check, in addition to changed problem entries",
     )
-    parser.add_argument("--dry-run", action="store_true", help="Print the report")
     args = parser.parse_args()
     now = datetime.now(UTC)
     try:
@@ -235,9 +236,6 @@ def main() -> int:
         report = render(
             state, {path: entry for path, (_, entry) in files.items()}, limit=args.limit
         )
-        if args.dry_run:
-            print(report)
-            return 0
         publish_report(os.environ["GITHUB_REPOSITORY"], report)
         if state != initial:
             save_state(

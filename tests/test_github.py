@@ -30,7 +30,7 @@ def state_checkout(
 
 @pytest.mark.usefixtures("state_checkout")
 @patch.object(github, "gh", return_value="")
-def test_state_round_trips_on_its_own_branch(_gh: MagicMock, origin: Path) -> None:
+def test_state_round_trips_on_its_own_branch(gh: MagicMock, origin: Path) -> None:
     assert github.load_state("state/a") == ({}, None)
     github.save_state("state/a", {"revision": "1"}, None, "first")
     github.save_state("state/b", {"other": True}, None, "other workflow")
@@ -111,7 +111,7 @@ def test_api_and_pages_parse_gh_output(run: MagicMock) -> None:
     github.subprocess, "run", side_effect=subprocess.TimeoutExpired("bash", 1)
 )
 def test_command_timeout_is_a_publication_failure(
-    _run: MagicMock, _which: MagicMock
+    run: MagicMock, which: MagicMock
 ) -> None:
     with pytest.raises(RuntimeError, match="exceeded its 1 second timeout"):
         github.run("bash", "scripts/contribution-check.sh", timeout=1)

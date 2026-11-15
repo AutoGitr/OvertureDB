@@ -239,7 +239,7 @@ def test_import_workflow_runs_on_main_with_catalog_write_concurrency() -> None:
     assert set(workflow[True]) == {"schedule", "workflow_dispatch"}
     job = workflow["jobs"]["import"]
     assert job["if"] == "github.ref == 'refs/heads/main'"
-    assert "ARGS+=(--commit)" in source
+    assert set(workflow[True]["workflow_dispatch"]["inputs"]) == {"limit"}
     assert "aquasecurity/setup-trivy@" in source
 
 

@@ -22,6 +22,10 @@ get:
   set.
 - **Posters** and **backgrounds** that are visually distinct from each other
   for every movie and show.
+- **Collection art** for TMDB collections: a poster and background for each,
+  with the poster in three styles. Take each collection's own **individual**
+  poster, or a consistent **matte** or **overlay** poster so every collection
+  shares one layout.
 - **Themes** for movies, shows and movie collections that sound like an
   opening: music from the first second, with no dialogue intros, promotions or
   watermarks. They are picked and reviewed the same way, with ThemerrDB's

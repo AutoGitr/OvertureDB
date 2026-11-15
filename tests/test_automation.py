@@ -19,7 +19,9 @@ lazy from scripts.contribution import (
     parse_issue_form,
 )
 lazy from scripts.import_bulk_export import import_bulk_export, load_incoming_entries
+lazy from tests.changes import apply_changes
 lazy from tests.test_catalog import movie
+lazy from tests.test_import_bulk_export import entry_count
 
 
 @pytest.fixture(autouse=True)
@@ -38,9 +40,22 @@ def theme_seconds(monkeypatch: pytest.MonkeyPatch) -> MagicMock:
     return length
 
 
+#: The real check, which the autouse fixture below replaces in other tests.
+IS_ADMIN = automation.is_admin
+
+
+@pytest.fixture(autouse=True)
+def admin(monkeypatch: pytest.MonkeyPatch) -> MagicMock:
+    """Issues are opened by contributors, unless a test says an admin opened one."""
+    check = MagicMock(return_value=False)
+    monkeypatch.setattr(automation, "is_admin", check)
+    return check
+
+
 def issue(**changes: Any) -> dict[str, Any]:
     return {
         "number": 12,
+        "user": {"login": "contributor"},
         "state": "open",
         "body": "body",
         "title": "Title",
@@ -56,8 +71,11 @@ def test_identifier_urls_require_real_provider_hosts(subtests: pytest.Subtests) 
         ("TVDB ID", "https://notthetvdb.com/series/123"),
         ("IMDb ID", "unrelated-tt123-suffix"),
     ):
-        with subtests.test(heading=heading), pytest.raises(ValueError):
-            parse_issue_form(f"### Title\nMovie\n### {heading}\n{value}", "", ["movie"])
+        with (
+            subtests.test(heading=heading),
+            pytest.raises(ValueError, match=r"ID must"),
+        ):
+            parse_issue_form(f"### Title\nMovie\n### {heading}\n{value}", ["movie"])
 
 
 def approval_event() -> dict[str, Any]:
@@ -102,10 +120,18 @@ def test_invalid_issue_state_or_ambiguous_kind_is_rejected(
         {"labels": issue()["labels"] + [{"name": "show"}]},
     ]
     for changes in invalid:
-        with subtests.test(changes=changes), pytest.raises(ValueError):
+        with (
+            subtests.test(changes=changes),
+            pytest.raises(
+                ValueError, match=r"Use one open movie, show, collection or bulk"
+            ),
+        ):
             automation.contribution_kind(issue(**changes))
-    with pytest.raises(ValueError):
-        parse_issue_form("", "[Movie]", ["movie", "show"])
+    with pytest.raises(
+        ValueError,
+        match=r"Issue must have exactly one movie, show or collection label\.",
+    ):
+        parse_issue_form("", ["movie", "show"])
 
 
 def test_youtube_links_cannot_match_an_attacker_host_or_partial_id(
@@ -117,7 +143,10 @@ def test_youtube_links_cannot_match_an_attacker_host_or_partial_id(
         "https://youtu.be/AB96CvvLZKc-extra",
         "https://youtube.com/watch?v=AB96CvvLZKc-extra",
     ):
-        with subtests.test(url=url), pytest.raises(ValueError):
+        with (
+            subtests.test(url=url),
+            pytest.raises(ValueError, match=r"Invalid YouTube theme ID or URL:"),
+        ):
             clean_youtube_id(url)
 
 
@@ -183,8 +212,10 @@ def test_failed_import_writes_valid_subset_and_reports_skipped(
     root: Path, archive: Path
 ) -> None:
     write_archive(archive, movie(), movie(tmdb_id=2, year=False))
-    result = import_bulk_export(overture_dir=root, archive_path=archive)
-    assert result["skipped"] == 1
+    result = apply_changes(
+        root, import_bulk_export(overture_dir=root, archive_path=archive)
+    )
+    assert len(result["errors"]) == 1
     assert len(list((root / "data").rglob("*.json"))) == 1
 
 
@@ -204,18 +235,24 @@ def test_malformed_bulk_records_are_skipped_without_losing_valid_records(
         for name, content in records.items():
             zip_file.writestr(name, content)
             (input_dir / name).write_bytes(content)
-    for source in ({"archive_path": archive}, {"input_dir": input_dir}):
-        with subtests.test(source=source):
-            result = import_bulk_export(overture_dir=root, dry_run=True, **source)
-            assert result["created"] == 1
-            assert result["skipped"] == 2
+    for archive_path, source_dir in ((archive, None), (None, input_dir)):
+        with subtests.test(archive=archive_path, directory=source_dir):
+            result = import_bulk_export(
+                overture_dir=root,
+                archive_path=archive_path,
+                input_dir=source_dir,
+            )
+            assert entry_count(result, "new") == 1
+            assert len(result["errors"]) == 2
             assert result["total_incoming"] == 3
             assert any("broken.json" in e for e in result["errors"])
             assert any("encoding.json" in e for e in result["errors"])
             assert not list((root / "data").rglob("*.json"))
-    result = import_bulk_export(overture_dir=root, archive_path=archive)
-    assert result["created"] == 1
-    assert result["skipped"] == 2
+    result = apply_changes(
+        root, import_bulk_export(overture_dir=root, archive_path=archive)
+    )
+    assert entry_count(result, "new") == 1
+    assert len(result["errors"]) == 2
     assert (root / "data/movies/tmdb-1.json").exists()
 
 
@@ -233,10 +270,12 @@ def test_enriched_identity_is_indexed_for_later_records(
             background_url="https://image.tmdb.org/t/p/original/background.jpg",
         ),
     )
-    result = import_bulk_export(overture_dir=root, archive_path=archive)
+    result = apply_changes(
+        root, import_bulk_export(overture_dir=root, archive_path=archive)
+    )
     assert result["errors"] == []
-    assert result["created"] == 0
-    assert result["backfilled"] == 1
+    assert entry_count(result, "new") == 0
+    assert entry_count(result, "updated") == 1
     assert result["review_markdown"].count("#### A Movie") == 1
     assert len(list((root / "data").rglob("*.json"))) == 1
     assert (
@@ -263,8 +302,10 @@ def test_bulk_url_policy_does_not_depend_on_network_probes(
     root: Path, archive: Path
 ) -> None:
     write_archive(archive, movie(poster_url="https://127.0.0.1/private.jpg"))
-    result = import_bulk_export(overture_dir=root, archive_path=archive)
-    assert result["skipped"] == 1
+    result = apply_changes(
+        root, import_bulk_export(overture_dir=root, archive_path=archive)
+    )
+    assert len(result["errors"]) == 1
     assert list((root / "data").rglob("*.json")) == []
 
 
@@ -272,9 +313,12 @@ def test_empty_archive_and_missing_directory_are_errors(
     root: Path, archive: Path
 ) -> None:
     write_archive(archive)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=r"No JSON entries found"):
         load_incoming_entries(archive_path=archive)
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"Input directory does not exist",
+    ):
         load_incoming_entries(input_dir=root / "missing")
 
 
@@ -282,15 +326,17 @@ def test_bulk_does_not_create_empty_entries_from_imported_theme_only(
     root: Path, archive: Path
 ) -> None:
     write_archive(archive, movie(poster_url=None, youtube_id_themerrdb="AB96CvvLZKc"))
-    result = import_bulk_export(overture_dir=root, archive_path=archive)
-    assert result["skipped"] == 1
+    result = apply_changes(
+        root, import_bulk_export(overture_dir=root, archive_path=archive)
+    )
+    assert len(result["errors"]) == 1
     assert not list((root / "data").rglob("*.json"))
 
 
 def test_zip_filenames_are_never_extracted(root: Path, archive: Path) -> None:
     with ZipFile(archive, "w") as zip_file:
         zip_file.writestr("../../outside.json", json.dumps(movie()))
-    import_bulk_export(overture_dir=root, archive_path=archive)
+    apply_changes(root, import_bulk_export(overture_dir=root, archive_path=archive))
     assert not (root / "outside.json").exists()
     assert (root / "data/movies/tmdb-1.json").exists()
 
@@ -316,7 +362,9 @@ def test_download_enforces_actual_bytes_without_content_length(
 
 
 def test_attachment_redirect_rejects_untrusted_host_before_request() -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError, match=r"URL must use public HTTPS on an allowed host"
+    ):
         automation.AttachmentRedirectHandler().redirect_request(
             Request("https://github.com/user-attachments/assets/a"),
             io.BytesIO(),
@@ -336,7 +384,9 @@ def test_non_attachment_or_multiple_links_never_download(
         "https://evil.test/archive.zip",
         "https://github.com/user-attachments/assets/a https://github.com/user-attachments/assets/b",
     ):
-        with pytest.raises(ValueError):
+        with pytest.raises(
+            ValueError, match=r"Attach exactly one GitHub\-hosted selections ZIP\."
+        ):
             automation.download_archive(body, archive)
     opener.assert_not_called()
 
@@ -364,19 +414,21 @@ def test_submitted_artwork_below_the_recommended_resolution_is_a_warning(
     sizes = {old["poster_url"]: (800, 1200), new["background_url"]: (960, 540)}
     probe.side_effect = sizes.get
     assert automation.check_submission(new, old) == [
-        f"The background {new['background_url']} is 960x540 is below the "
-        "recommended 1280x720."
+        (
+            f"The background {new['background_url']} is 960x540 is below the "
+            "recommended 1280x720."
+        )
     ]
 
 
 @patch.object(automation, "check_art_url", return_value=None)
-def test_unmeasured_artwork_is_not_rejected(_probe: MagicMock) -> None:
+def test_unmeasured_artwork_is_not_rejected(probe: MagicMock) -> None:
     automation.check_submission(movie(), None)
 
 
 @patch.object(automation, "check_art_url", return_value=None)
 def test_a_submitted_theme_must_play_on_youtube(
-    _probe: MagicMock, theme_problem: MagicMock
+    probe: MagicMock, theme_problem: MagicMock
 ) -> None:
     old = movie(youtube_id_overturedb="AB96CvvLZKc")
     automation.check_submission(old, old)
@@ -392,7 +444,7 @@ def test_a_submitted_theme_must_play_on_youtube(
 
 @patch.object(automation, "check_art_url", return_value=None)
 def test_a_submitted_theme_lasts_20_seconds_to_10_minutes(
-    _probe: MagicMock, theme_seconds: MagicMock
+    probe: MagicMock, theme_seconds: MagicMock
 ) -> None:
     new = movie(youtube_id_overturedb="4xdyx5NVUhI")
     for seconds in (20, 600):
@@ -409,7 +461,7 @@ def test_a_submitted_theme_lasts_20_seconds_to_10_minutes(
 
 @patch.object(automation, "check_art_url", return_value=None)
 def test_evaluate_single_and_non_overlapping_changes_preserve_fingerprint(
-    _probe: MagicMock, root: Path
+    probe: MagicMock, root: Path
 ) -> None:
     path = root / "data/movies/imdb-tt1.json"
     path.write_text(json.dumps(movie(tmdb_id=None, imdb_id="tt1")))
@@ -421,7 +473,7 @@ def test_evaluate_single_and_non_overlapping_changes_preserve_fingerprint(
             "### Reason for modification\nAdd TMDB ID and background"
         ),
     )
-    plan1 = automation.evaluate_issue(update_issue, root)
+    plan1 = automation.evaluate_issue("AutoGitr/OvertureDB", update_issue, root)
     assert plan1.headline == "Update movie: A Movie (1979) (#12)"
     assert plan1.commit_body == "Closes #12"
     assert plan1.is_modification is True
@@ -436,7 +488,7 @@ def test_evaluate_single_and_non_overlapping_changes_preserve_fingerprint(
             movie(tmdb_id=None, imdb_id="tt1", youtube_id_themerrdb="AB96CvvLZKc")
         )
     )
-    plan2 = automation.evaluate_issue(update_issue, root)
+    plan2 = automation.evaluate_issue("AutoGitr/OvertureDB", update_issue, root)
     assert plan2.fingerprint == plan1.fingerprint
     assert "AB96CvvLZKc" in plan2.additions["data/movies/tmdb-1.json"]
 
@@ -451,7 +503,7 @@ def test_evaluate_single_and_non_overlapping_changes_preserve_fingerprint(
             )
         )
     )
-    plan3 = automation.evaluate_issue(update_issue, root)
+    plan3 = automation.evaluate_issue("AutoGitr/OvertureDB", update_issue, root)
     assert plan3.fingerprint != plan1.fingerprint
 
 
@@ -469,7 +521,7 @@ def test_evaluate_single_remove_entry(root: Path) -> None:
             "### Reason for modification\nWrong theme"
         ),
     )
-    plan = automation.evaluate_issue(remove_issue, root)
+    plan = automation.evaluate_issue("AutoGitr/OvertureDB", remove_issue, root)
     assert plan.headline == "Remove movie: A Movie (2026) (#12)"
     assert plan.additions == {}
     assert plan.deletions == ["data/movies/tmdb-1.json"]
@@ -491,7 +543,7 @@ def test_evaluate_bulk_success_and_validation_errors(
         write_archive(target, movie(tmdb_id=2, year=False))
 
     download.side_effect = write_valid
-    plan = automation.evaluate_issue(bulk_issue, root)
+    plan = automation.evaluate_issue("AutoGitr/OvertureDB", bulk_issue, root)
     assert plan.kind == "bulk"
     assert plan.headline == "Bulk contribution: 1 added, 0 updated (#12)"
     assert "data/movies/tmdb-1.json" in plan.additions
@@ -499,12 +551,12 @@ def test_evaluate_bulk_success_and_validation_errors(
     # If all entries already exist, NoChangesError is raised
     (root / "data/movies/tmdb-1.json").write_text(json.dumps(movie()))
     with pytest.raises(automation.NoChangesError):
-        automation.evaluate_issue(bulk_issue, root)
+        automation.evaluate_issue("AutoGitr/OvertureDB", bulk_issue, root)
 
     # Malformed record in bulk archive raises ValueError
     download.side_effect = write_invalid
     with pytest.raises(ValueError, match="Bulk validation failed"):
-        automation.evaluate_issue(bulk_issue, root)
+        automation.evaluate_issue("AutoGitr/OvertureDB", bulk_issue, root)
 
 
 def test_format_bulk_errors_and_conflict_message() -> None:
@@ -528,44 +580,74 @@ def test_format_bulk_errors_and_conflict_message() -> None:
 
 def test_format_bulk_summary_table() -> None:
     res: dict[str, Any] = {
-        "created": 1172,
-        "created_by_type": {"movie": 900, "show": 200, "collection": 72},
-        "created_kinds": {"posters": 1172, "backgrounds": 800, "themes": 250},
-        "backfilled": 1368,
-        "backfilled_by_type": {"movie": 1000, "show": 300, "collection": 68},
-        "backfilled_kinds": {"identifiers": 1368, "posters": 1200, "themes": 50},
-        "unchanged": 380,
-        "unchanged_by_type": {"movie": 300, "show": 50, "collection": 30},
+        "overwrite": False,
         "total_incoming": 2920,
+        "entries": {
+            "new": {"movie": 900, "show": 200, "collection": 72},
+            "updated": {"movie": 1000, "show": 300, "collection": 68},
+            "overwritten": {},
+            "unchanged": {"movie": 300, "show": 50, "collection": 30},
+        },
+        "changes": {
+            "identifiers": {"filled": 1368},
+            "posters": {"added": 1172, "filled": 1200},
+            "themes": {"added": 250, "filled": 50},
+        },
     }
     table = automation.format_bulk_summary(res)
-    assert "| Status | Movies | Shows | Collections | Total | Details |" in table
-    assert (
-        "| **New entries** | 900 | 200 | 72 | 1,172 | "
-        "1,172 posters, 800 backgrounds, 250 themes |"
-    ) in table
-    assert (
-        "| **Updated entries** | 1,000 | 300 | 68 | 1,368 | "
-        "1,368 identifiers, 1,200 posters, 50 themes |"
-    ) in table
-    assert "| **Unchanged** | 300 | 50 | 30 | 380 | Identical to database |" in table
-    assert "| **Total in export** | 2,200 | 550 | 170 | 2,920 | |" in table
+    assert table.startswith("This contribution adds new entries and fills only")
+    assert "| Entries | Movies | Shows | Collections | Total |" in table
+    assert "| **New entries** | 900 | 200 | 72 | 1,172 |" in table
+    assert "| **Filled gaps** | 1,000 | 300 | 68 | 1,368 |" in table
+    assert "| **Overwritten** | 0 | 0 | 0 | 0 |" in table
+    assert "| **Unchanged** | 300 | 50 | 30 | 380 |" in table
+    assert "| **Total in export** | 2,200 | 550 | 170 | 2,920 |" in table
+    assert "| Changes | In new entries | Filled | Replaced | Total |" in table
+    assert "| Identifiers | 0 | 1,368 | 0 | 1,368 |" in table
+    assert "| Posters | 1,172 | 1,200 | 0 | 2,372 |" in table
+    assert "| **Total** | 1,422 | 2,618 | 0 | 4,040 |" in table
+    assert "Backgrounds" not in table
 
-    # Empty created and empty backfilled details fall back gracefully
-    res_minimal: dict[str, Any] = {
-        "created": 0,
-        "created_kinds": {},
-        "backfilled": 10,
-        "backfilled_by_type": {"movie": 10},
-        "backfilled_kinds": {},
-        "unchanged": 0,
-        "total_incoming": 10,
-    }
-    table_minimal = automation.format_bulk_summary(res_minimal)
-    assert "| **New entries** | 0 | 0 | 0 | 0 | - |" in table_minimal
-    assert "| **Updated entries** | 10 | 0 | 0 | 10 | - |" in table_minimal
-    assert "| **Unchanged** | 0 | 0 | 0 | 0 | - |" in table_minimal
-    assert "| **Total in export** | 10 | 0 | 0 | 10 | |" in table_minimal
+    admin = automation.format_bulk_summary({**res, "overwrite": True})
+    assert admin.startswith("> [!IMPORTANT]\n> Opened by an admin")
+
+
+@patch.object(automation, "download_archive")
+def test_an_admins_bulk_contribution_overwrites_and_says_so(
+    download: MagicMock, admin: MagicMock, root: Path
+) -> None:
+    (root / "data/movies/tmdb-1.json").write_text(json.dumps(movie()))
+    replacement = "https://image.tmdb.org/t/p/original/replacement.jpg"
+
+    def write(_body: str, target: Path) -> None:
+        write_archive(target, movie(poster_url=replacement))
+
+    download.side_effect = write
+    bulk = issue(
+        labels=[{"name": "bulk"}], body="https://github.com/user-attachments/assets/abc"
+    )
+
+    with pytest.raises(automation.NoChangesError):
+        automation.evaluate_issue("AutoGitr/OvertureDB", bulk, root)
+    admin.return_value = True
+    plan = automation.evaluate_issue("AutoGitr/OvertureDB", bulk, root)
+
+    admin.assert_called_with("AutoGitr/OvertureDB", "contributor")
+    assert plan.headline == "Bulk contribution: 0 added, 0 updated, 1 overwritten (#12)"
+    assert plan.is_modification
+    assert "<summary><b>Overwritten (1)</b></summary>" in plan.preview_body
+    assert f"[New](<{replacement}>)" in plan.preview_body
+    assert json.loads(plan.additions["data/movies/tmdb-1.json"])["poster_url"] == (
+        replacement
+    )
+
+
+@patch.object(automation.github, "api")
+def test_only_the_admin_permission_is_admin(api: MagicMock) -> None:
+    for permission, expected in (("admin", True), ("maintain", False)):
+        api.return_value = {"permission": permission}
+        assert IS_ADMIN("AutoGitr/OvertureDB", "someone") is expected
+    api.assert_called_with("repos/AutoGitr/OvertureDB/collaborators/someone/permission")
 
 
 @patch.object(automation, "check_art_url", return_value=None)
@@ -573,8 +655,8 @@ def test_format_bulk_summary_table() -> None:
 @patch.object(automation.github, "api")
 def test_preview_issue_handles_ready_satisfied_and_error_states(
     api: MagicMock,
-    _pages: MagicMock,
-    _probe: MagicMock,
+    pages: MagicMock,
+    probe: MagicMock,
     root: Path,
 ) -> None:
     valid_issue = issue(
@@ -616,10 +698,10 @@ def test_preview_issue_handles_ready_satisfied_and_error_states(
 def test_approve_and_reject_issue(
     api: MagicMock,
     pages: MagicMock,
-    _git: MagicMock,
+    git: MagicMock,
     commit_files: MagicMock,
-    _probe: MagicMock,
-    _current: MagicMock,
+    probe: MagicMock,
+    current: MagicMock,
     root: Path,
 ) -> None:
     valid_issue = issue(
@@ -628,7 +710,7 @@ def test_approve_and_reject_issue(
             f"### Poster URL\n{movie()['poster_url']}"
         ),
     )
-    plan = automation.evaluate_issue(valid_issue, root)
+    plan = automation.evaluate_issue("AutoGitr/OvertureDB", valid_issue, root)
     # 1. Stale / missing preview -> refreshes preview and does not commit
     pages.return_value = []
     automation.approve_issue(
@@ -768,9 +850,9 @@ def test_bulk_approval_fingerprint_changes_when_new_writes_become_possible(
     path = root / "data/movies/tmdb-1.json"
     path.write_text(json.dumps(movie()))
     bulk = issue(labels=[{"name": "bulk"}])
-    before = automation.evaluate_issue(bulk, root)
+    before = automation.evaluate_issue("AutoGitr/OvertureDB", bulk, root)
     path.unlink()
-    after = automation.evaluate_issue(bulk, root)
+    after = automation.evaluate_issue("AutoGitr/OvertureDB", bulk, root)
     assert len(before.additions) == 1
     assert len(after.additions) == 2
     assert before.fingerprint != after.fingerprint
@@ -826,7 +908,7 @@ def test_live_approval_must_be_unchanged_and_authorized(
 def test_failed_commit_keeps_issue_open_and_explains_recovery(
     api: MagicMock,
     commit: MagicMock,
-    _git: MagicMock,
+    git: MagicMock,
     upsert: MagicMock,
     current: MagicMock,
     preview: MagicMock,
@@ -862,13 +944,11 @@ def test_oversized_preview_is_rejected_before_posting(
         "movie", "title", "body", "x" * 60_000, "a" * 64, {}, []
     )
     with pytest.raises(ValueError, match="Split the contribution"):
-        automation.evaluate_issue(issue(), root)
+        automation.evaluate_issue("AutoGitr/OvertureDB", issue(), root)
 
 
 @patch("scripts.import_bulk_export.ZipFile.read", side_effect=RuntimeError("encrypted"))
-def test_encrypted_archive_has_actionable_error(
-    _read: MagicMock, archive: Path
-) -> None:
+def test_encrypted_archive_has_actionable_error(read: MagicMock, archive: Path) -> None:
     write_archive(archive, movie())
     with pytest.raises(ValueError, match="unencrypted ZIP"):
         load_incoming_entries(archive_path=archive)
@@ -877,10 +957,10 @@ def test_encrypted_archive_has_actionable_error(
 def test_bulk_preview_excludes_unchanged_records(root: Path, archive: Path) -> None:
     (root / "data/movies/tmdb-1.json").write_text(json.dumps(movie()))
     write_archive(archive, *([movie()] * 500), movie(tmdb_id=2))
-    result = import_bulk_export(overture_dir=root, archive_path=archive, dry_run=True)
+    result = import_bulk_export(overture_dir=root, archive_path=archive)
     assert result["total_incoming"] == 501
-    assert result["unchanged"] == 500
-    assert result["created"] == 1
+    assert entry_count(result, "unchanged") == 500
+    assert entry_count(result, "new") == 1
     assert len(result["additions"]) == 1
     assert result["review_markdown"].count("#### A Movie") == 1
 
@@ -893,9 +973,9 @@ def test_bulk_preview_consolidates_new_entry_backfills(
         movie(),
         movie(background_url="https://image.tmdb.org/t/p/original/bg.jpg"),
     )
-    result = import_bulk_export(overture_dir=root, archive_path=archive, dry_run=True)
-    assert result["created"] == 1
-    assert result["backfilled"] == 0
+    result = import_bulk_export(overture_dir=root, archive_path=archive)
+    assert entry_count(result, "new") == 1
+    assert entry_count(result, "updated") == 0
     assert result["review_markdown"].count("#### A Movie") == 1
     assert "**Poster:**" in result["review_markdown"]
     assert "**Background:**" in result["review_markdown"]
@@ -908,7 +988,7 @@ def test_bulk_validation_errors_take_priority_over_review_limit(
     format_review.side_effect = ValueError("too many changes")
     (root / "data/movies/tmdb-1.json").write_text(json.dumps(movie(tvdb_id=1)))
     write_archive(archive, movie(tvdb_id=2), movie(tmdb_id=2))
-    result = import_bulk_export(overture_dir=root, archive_path=archive, dry_run=True)
+    result = import_bulk_export(overture_dir=root, archive_path=archive)
     assert "Conflicting tvdb_id" in result["errors"][0]
     assert result["review_markdown"] == ""
     format_review.assert_not_called()
@@ -922,7 +1002,7 @@ def test_bulk_ignores_exported_imported_themes_during_validation(
         archive,
         movie(youtube_id_overturedb="AB96CvvLZKc", youtube_id_themerrdb="AB96CvvLZKc"),
     )
-    result = import_bulk_export(overture_dir=root, archive_path=archive, dry_run=True)
+    result = import_bulk_export(overture_dir=root, archive_path=archive)
     assert result["errors"] == []
     created = json.loads(result["additions"]["data/movies/tmdb-1.json"])
     assert created["youtube_id_overturedb"] == "AB96CvvLZKc"
@@ -932,6 +1012,6 @@ def test_bulk_ignores_exported_imported_themes_during_validation(
     (root / "data/movies/tmdb-1.json").write_text(
         json.dumps(movie(youtube_id_themerrdb="AB96CvvLZKc"))
     )
-    result = import_bulk_export(overture_dir=root, archive_path=archive, dry_run=True)
+    result = import_bulk_export(overture_dir=root, archive_path=archive)
     assert result["additions"] == {}
-    assert result["unchanged"] == 1
+    assert entry_count(result, "unchanged") == 1

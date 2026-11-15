@@ -17,7 +17,7 @@ lazy from datetime import UTC, datetime
 lazy from email.utils import parsedate_to_datetime
 lazy from http.client import HTTPMessage
 lazy from pathlib import Path
-lazy from typing import IO, Any
+lazy from typing import IO, Any, override
 lazy from urllib.error import HTTPError
 lazy from urllib.parse import SplitResult, urlencode, urlsplit
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
@@ -125,12 +125,6 @@ def entry_json(entry: dict[str, Any]) -> str:
     return json.dumps(entry, indent=2, ensure_ascii=False) + "\n"
 
 
-def write_entry_json(path: Path, entry: dict[str, Any]) -> None:
-    """Write one entry file."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(entry_json(entry), newline="\n")
-
-
 @dataclass(slots=True)
 class EntryIndex:
     """The catalog's entries by file, and the file each identity belongs to."""
@@ -228,20 +222,6 @@ def planned_file_changes(
         path.relative_to(root).as_posix() for path in original.keys() - planned.keys()
     )
     return additions, deletions
-
-
-def write_changes(
-    original: dict[Path, dict[str, Any]],
-    planned: dict[Path, dict[str, Any]],
-    root: Path,
-) -> None:
-    """Validate the whole plan before writing changed and removing moved entries."""
-    planned_file_changes(original, planned, root)
-    for path, entry in planned.items():
-        if entry != original.get(path):
-            write_entry_json(path, entry)
-    for path in original.keys() - planned.keys():
-        path.unlink()
 
 
 def art_fields(entry: dict[str, Any]) -> list[tuple[str, str]]:
@@ -400,6 +380,7 @@ def check_art_destination(url: str) -> None:
 class ArtRedirectHandler(HTTPRedirectHandler):
     max_redirections = 3
 
+    @override
     def redirect_request(
         self,
         req: Request,

@@ -1,6 +1,7 @@
 """Unit tests for the ThemerrDB import script."""
 
 lazy import json
+lazy from collections.abc import Callable
 lazy from dataclasses import dataclass
 lazy from pathlib import Path
 lazy from typing import Any
@@ -10,7 +11,8 @@ lazy import pytest
 
 lazy from schema.contract import validate_entry
 lazy from scripts import import_themerrdb as importer
-lazy from scripts.catalog import EntryIndex
+lazy from scripts.catalog import EntryIndex, planned_file_changes
+lazy from tests.changes import apply_changes
 lazy from tests.test_catalog import movie
 
 
@@ -259,12 +261,21 @@ class Checkout:
         path.write_text(json.dumps({**UPSTREAM_RECORD, **changes}))
         return path
 
-    def run_import(
-        self, *, dry_run: bool = False, limit: int | None = None
-    ) -> dict[str, int]:
-        stats, _ = importer.import_themerrdb(
-            self.upstream, self.root, dry_run=dry_run, limit=limit
+    def plan(
+        self, *, limit: int | None = None
+    ) -> tuple[dict[str, int], list[str], dict[str, Any]]:
+        """Plan an import; return its counts, lost themes and file changes."""
+        stats, lost, original, planned = importer.plan_import(
+            self.upstream, self.root, limit=limit
         )
+        additions, deletions = planned_file_changes(original, planned, self.root)
+        return stats, lost, {"additions": additions, "deletions": deletions}
+
+    def run_import(self, *, limit: int | None = None) -> dict[str, int]:
+        """Plan an import and, when it has no errors, apply it as a commit would."""
+        stats, _, changes = self.plan(limit=limit)
+        if not stats["skipped_error"]:
+            apply_changes(self.root, changes)
         return stats
 
 
@@ -331,7 +342,8 @@ def test_theme_adopted_by_themerrdb_is_cleared_and_reported(checkout: Checkout) 
         youtube_id_themerrdb=None,
     )
     checkout.write_upstream(youtube_theme_url="https://youtu.be/4xdyx5NVUhI")
-    stats, lost_themes = importer.import_themerrdb(checkout.upstream, checkout.root)
+    stats, lost_themes, changes = checkout.plan()
+    apply_changes(checkout.root, changes)
     assert stats["updated"] == 1
     assert lost_themes == ["A Movie"]
     saved = json.loads(path.read_text())
@@ -346,23 +358,23 @@ def test_existing_matching_theme_is_skipped_unchanged(checkout: Checkout) -> Non
     assert checkout.run_import()["skipped_unchanged"] == 1
 
 
-def test_dry_run_and_real_import_agree_for_repeated_new_records(
+def test_planning_and_importing_agree_for_repeated_new_records(
     checkout: Checkout,
 ) -> None:
     checkout.write_upstream()
     checkout.write_upstream("duplicate.json")
-    planned = checkout.run_import(dry_run=True)
+    planned, _, _ = checkout.plan()
     assert not list(checkout.data.rglob("*.json"))
     assert planned["added"] == 1
     assert planned["skipped_unchanged"] == 1
     assert checkout.run_import() == planned
 
 
-def test_dry_run_never_changes_existing_file(checkout: Checkout) -> None:
+def test_planning_never_changes_an_existing_file(checkout: Checkout) -> None:
     path = checkout.write_existing()
     before = path.read_bytes()
     checkout.write_upstream()
-    assert checkout.run_import(dry_run=True)["updated"] == 1
+    assert checkout.plan()[0]["updated"] == 1
     assert path.read_bytes() == before
 
 
@@ -380,7 +392,7 @@ def test_invalid_existing_file_is_never_overwritten(checkout: Checkout) -> None:
     path = checkout.movies / "tmdb-1.json"
     path.write_text("{broken")
     checkout.write_upstream()
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=r"Expecting property name enclosed in double"):
         checkout.run_import()
     assert path.read_text() == "{broken"
 
@@ -425,14 +437,14 @@ def test_limit_is_positive_and_applies_across_media_types(checkout: Checkout) ->
 
 
 @patch.object(importer.publication, "publish")
-def test_commit_mode_creates_signed_commit_only_when_entries_change(
+def test_an_import_creates_a_signed_commit_only_when_entries_change(
     publish: MagicMock,
     checkout: Checkout,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("GITHUB_REPOSITORY", "AutoGitr/OvertureDB")
     checkout.write_upstream()
-    importer.import_themerrdb(checkout.upstream, checkout.root, commit=True)
+    importer.import_themerrdb(checkout.upstream, checkout.root)
     args = publish.call_args.args
     assert args[0] == "AutoGitr/OvertureDB"
     assert args[1] == checkout.root
@@ -445,11 +457,28 @@ def test_commit_mode_creates_signed_commit_only_when_entries_change(
     assert args[2](checkout.root) is None
 
 
-def test_cli_reports_missing_input_as_failure(checkout: Checkout) -> None:
+def test_cli_reports_missing_input_as_failure(
+    checkout: Checkout, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("GITHUB_REPOSITORY", "AutoGitr/OvertureDB")
+
+    def publish(
+        _repo: str,
+        root: Path,
+        prepare: Callable[[Path], object],
+        _authorize: Callable[[], bool],
+    ) -> object:
+        return prepare(root)
+
     with (
         patch(
             "sys.argv",
             ["import_themerrdb.py", "--themerr-dir", str(checkout.root / "missing")],
+        ),
+        patch.object(
+            importer.publication,
+            "publish",
+            side_effect=publish,
         ),
     ):
         assert importer.main() == 1
@@ -457,14 +486,14 @@ def test_cli_reports_missing_input_as_failure(checkout: Checkout) -> None:
 
 @patch.object(importer.publication, "publish", side_effect=RuntimeError("head moved"))
 def test_failed_commit_preserves_local_catalog_for_retry(
-    _commit: MagicMock,
+    commit: MagicMock,
     checkout: Checkout,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("GITHUB_REPOSITORY", "owner/repo")
     checkout.write_upstream()
     with pytest.raises(RuntimeError, match="head moved"):
-        importer.import_themerrdb(checkout.upstream, checkout.root, commit=True)
+        importer.import_themerrdb(checkout.upstream, checkout.root)
     assert not list(checkout.movies.glob("*.json"))
 
 

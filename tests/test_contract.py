@@ -33,12 +33,18 @@ def test_every_link_form_becomes_the_full_size_image(subtests: pytest.Subtests) 
             TMDB,
             "http://image.tmdb.org/t/p/original/zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg",
             "https://image.tmdb.org/t/p/w342/zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg",
-            "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"
-            "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg?language=en",
-            "https://media.themoviedb.org/t/p/w300_and_h450_face/"
-            "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg",
-            "https://www.themoviedb.org/t/p/original/"
-            "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg#zoom",
+            (
+                "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"
+                "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg?language=en"
+            ),
+            (
+                "https://media.themoviedb.org/t/p/w300_and_h450_face/"
+                "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg"
+            ),
+            (
+                "https://www.themoviedb.org/t/p/original/"
+                "zgZRJZvZn5cpsWAB0zMUdad3iZd.jpg#zoom"
+            ),
         ),
         TPDB: (
             TPDB,
@@ -67,10 +73,14 @@ def test_every_link_form_becomes_the_full_size_image(subtests: pytest.Subtests) 
         PLEX: (PLEX, "http://metadata-static.plex.tv/0/gracenote/0962f1d53ca0.jpg"),
         AMAZON: (
             AMAZON,
-            "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00@"
-            "._V1_QL75_UX380_CR0,0,380,562_.jpg",
-            "https://images-na.ssl-images-amazon.com/images/M/"
-            "MV5BNzQzOTk3OTAtNDQ0Zi00@._V1_SX300.jpg",
+            (
+                "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00@"
+                "._V1_QL75_UX380_CR0,0,380,562_.jpg"
+            ),
+            (
+                "https://images-na.ssl-images-amazon.com/images/M/"
+                "MV5BNzQzOTk3OTAtNDQ0Zi00@._V1_SX300.jpg"
+            ),
             "https://ia.media-imdb.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00@.jpg",
         ),
     }
@@ -93,7 +103,10 @@ def test_known_sources_must_name_an_image(subtests: pytest.Subtests) -> None:
         "https://m.media-amazon.com/images/I/81abc.jpg",
         "https://image.tmdb.org:8443/t/p/original/a.jpg",
     ):
-        with subtests.test(url=url), pytest.raises(ValueError):
+        with (
+            subtests.test(url=url),
+            pytest.raises(ValueError, match=r"artwork links must"),
+        ):
             canonical_art_url(url)
 
 
@@ -109,7 +122,7 @@ def test_other_hosts_only_get_the_general_checks(subtests: pytest.Subtests) -> N
         "https://example.com\\@image.tmdb.org/t/p/original/a.jpg",
         "https://[::1/poster.jpg",
     ):
-        with subtests.test(url=bad), pytest.raises(ValueError):
+        with subtests.test(url=bad), pytest.raises(ValueError, match=r"Artwork link"):
             canonical_art_url(bad)
 
 
@@ -152,7 +165,7 @@ def test_catalog_accepts_only_canonical_links_of_catalog_sources(
         f"{TPDB}/view",
         f"{TMDB}?language=en",
     ):
-        with subtests.test(url=url), pytest.raises(ValueError):
+        with subtests.test(url=url), pytest.raises(ValueError, match=r"Artwork"):
             check_catalog_art_url(url)
 
 
@@ -186,7 +199,10 @@ def test_entries_are_named_tmdb_first_for_every_media_type(
             assert entry_file_stem({**entry, "tmdb_id": 1}) == "tmdb-1"
             assert entry_file_stem(entry) == "tvdb-2"
             assert entry_file_stem({"imdb_id": "tt3"}) == "imdb-tt3"
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match=r"An entry needs a TMDB, TVDB or IMDb ID to be named after",
+    ):
         entry_file_stem({"media_type": "movie"})
 
 
@@ -211,7 +227,10 @@ def test_collections_are_identified_by_a_tmdb_collection_id_only(
         {"seasons": []},
     )
     for invalid in invalid_changes:
-        with subtests.test(invalid=invalid), pytest.raises(ValueError):
+        with (
+            subtests.test(invalid=invalid),
+            pytest.raises(ValueError, match=r"Catalog contract violation at"),
+        ):
             validate_entry(collection(**invalid))
     with pytest.raises(ValueError, match="'year' is a required property"):
         validate_entry({k: v for k, v in movie().items() if k != "year"})
@@ -225,7 +244,10 @@ def test_entry_file_stems_parse_back_to_their_identity(
             field, value = next(iter(entry.items()))
             assert parse_entry_file_stem(entry_file_stem(entry)) == (field, value)
     for stem in ("tmdb-0", "tmdb-01", "tmdb-x", "imdb-123", "plex-1", "tmdb-", ""):
-        with subtests.test(stem=stem), pytest.raises(ValueError):
+        with (
+            subtests.test(stem=stem),
+            pytest.raises(ValueError, match=r"Not an entry name:"),
+        ):
             parse_entry_file_stem(stem)
 
 
@@ -247,7 +269,7 @@ def test_a_consistent_poster_is_a_collections_on_tmdb_or_theposterdb() -> None:
             "https://theposterdb.com/api/assets/7",
         ):
             assert validate_entry(collection(**{field: url}))
-        with pytest.raises(ValueError, match="TMDB or ThePosterDB"):
+        with pytest.raises(ValueError, match="TMDB or TPDb"):
             validate_entry(
                 collection(**{field: "https://assets.fanart.tv/fanart/a.jpg"})
             )

@@ -58,7 +58,7 @@ _ART_SOURCES = (
     ),
     _ArtSource(
         name="tpdb",
-        label="ThePosterDB",
+        label="TPDb",
         host="theposterdb.com",
         aliases=frozenset({"www.theposterdb.com"}),
         path=re.compile(r"/(?:poster|api/assets)/(?P<id>[0-9]+)(?:/view)?/?"),
@@ -80,7 +80,7 @@ _ART_SOURCES = (
     ),
     _ArtSource(
         name="tvdb",
-        label="TheTVDB",
+        label="TVDB",
         host="artworks.thetvdb.com",
         aliases=frozenset({"thetvdb.com", "www.thetvdb.com"}),
         # A _t suffix or the _cache/ folder serves a thumbnail of the original.

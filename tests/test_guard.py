@@ -22,7 +22,12 @@ def test_others_may_change_everything_but_the_catalog(
 ) -> None:
     guard.validate_changes({"author_association": "NONE"}, ["README.md"])
     for association in ("COLLABORATOR", "CONTRIBUTOR", "NONE"):
-        with subtests.test(association=association), pytest.raises(ValueError):
+        with (
+            subtests.test(association=association),
+            pytest.raises(
+                ValueError, match=r"Catalog changes come from contribution issues"
+            ),
+        ):
             guard.validate_changes({"author_association": association}, DATA)
 
 

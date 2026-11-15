@@ -23,7 +23,6 @@ lazy from .catalog import (
     entry_json,
     entry_path,
     new_entry,
-    write_entry_json,
 )
 lazy from .import_themerrdb import extract_youtube_id
 
@@ -57,11 +56,7 @@ class ParsedContribution:
 def _first_non_empty_line(val: str | None) -> str | None:
     if not val:
         return None
-    for line in val.splitlines():
-        line = line.strip()
-        if line:
-            return line
-    return None
+    return next((line for raw in val.splitlines() if (line := raw.strip())), None)
 
 
 def clean_art_url(raw_url: str | None) -> str | None:
@@ -131,7 +126,7 @@ def extract_field(body: str, heading: str) -> str | None:
     return text
 
 
-def _extract_media_type(issue_title: str, labels: list[str]) -> str:
+def _extract_media_type(labels: list[str]) -> str:
     media_labels = set(labels) & {"movie", "show", "collection", "bulk"}
     if len(media_labels) != 1 or "bulk" in media_labels:
         raise ValueError("Issue must have exactly one movie, show or collection label.")
@@ -199,11 +194,8 @@ def _parse_seasons(body: str, media_type: str) -> list[dict[str, Any]]:
     seasons: list[dict[str, Any]] = []
     if seasons_raw and media_type == "show":
         seen_seasons: set[int] = set()
-        for line in seasons_raw.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            line = re.sub(r"^(?:[-*•]|\d+\.)\s*", "", line).strip()
+        for raw in seasons_raw.splitlines():
+            line = re.sub(r"^(?:[-*•]|\d+\.)\s*", "", raw.strip()).strip()
             if not line:
                 continue
             if "=" not in line:
@@ -238,12 +230,8 @@ def _parse_seasons(body: str, media_type: str) -> list[dict[str, Any]]:
     return seasons
 
 
-def parse_issue_form(
-    body: str,
-    issue_title: str,
-    labels: list[str],
-) -> ParsedContribution:
-    media_type = _extract_media_type(issue_title, labels)
+def parse_issue_form(body: str, labels: list[str]) -> ParsedContribution:
+    media_type = _extract_media_type(labels)
 
     title_raw = extract_field(body, "Title")
     title = _first_non_empty_line(title_raw)
@@ -284,13 +272,17 @@ def parse_issue_form(
     yt_raw = extract_field(body, "YouTube theme video ID")
     youtube_id = clean_youtube_id(_first_non_empty_line(yt_raw))
 
-    no_theme = bool(re.search(r"- \[x\]", extract_field(body, "No theme") or "", re.I))
+    no_theme = bool(
+        re.search(r"- \[x\]", extract_field(body, "No theme") or "", re.IGNORECASE)
+    )
     if no_theme and youtube_id:
         raise ValueError("Give a theme or check No theme, not both.")
 
     reason_raw = extract_field(body, "Reason for modification")
     modification_reason = reason_raw.strip() if reason_raw else None
-    remove = bool(re.search(r"- \[x\]", extract_field(body, "Removal") or "", re.I))
+    remove = bool(
+        re.search(r"- \[x\]", extract_field(body, "Removal") or "", re.IGNORECASE)
+    )
 
     return ParsedContribution(
         media_type=media_type,
@@ -444,8 +436,6 @@ def _remove_entry(
     index: EntryIndex,
     existing_path: Path | None,
     repo_root: Path,
-    *,
-    dry_run: bool,
 ) -> dict[str, Any]:
     if existing_path is None:
         raise ValueError("Removal needs the identifiers of an existing entry.")
@@ -464,10 +454,10 @@ def _remove_entry(
             tofile="/dev/null",
         )
     )
-    if not dry_run:
-        existing_path.unlink()
     return {
         "status": "ok",
+        "additions": {},
+        "deletions": [target_rel],
         "entry": None,
         "previous": existing_entry,
         "removed": True,
@@ -520,17 +510,18 @@ def format_media_comparison(
     return "\n".join(lines)
 
 
-def process_contribution(
-    parsed: ParsedContribution,
-    repo_root: Path,
-    *,
-    dry_run: bool = False,
-) -> dict[str, Any]:
+def process_contribution(parsed: ParsedContribution, repo_root: Path) -> dict[str, Any]:
+    """Plan one contribution against the catalog at *repo_root*, writing nothing.
+
+    Returns:
+        The file changes (``additions`` by path, ``deletions``), the entry
+        before and after, and what the review shows.
+    """
     index = EntryIndex.load(repo_root)
     candidate = build_candidate_entry(parsed)
     existing_path = index.find(candidate)
     if parsed.remove:
-        return _remove_entry(parsed, index, existing_path, repo_root, dry_run=dry_run)
+        return _remove_entry(parsed, index, existing_path, repo_root)
 
     has_media = bool(
         parsed.art or parsed.seasons or parsed.youtube_id or parsed.no_theme
@@ -588,13 +579,12 @@ def process_contribution(
         )
         diff = "".join(diff_lines)
 
-    if not dry_run:
-        write_entry_json(target_path, validated)
-        if existing_path is not None and existing_path != target_path:
-            existing_path.unlink()
-
     return {
         "status": "ok",
+        "additions": {target_rel: entry_json(validated)},
+        "deletions": [previous_target]
+        if previous_target and previous_target != target_rel
+        else [],
         "entry": validated,
         "previous": existing_entry,
         "removed": False,

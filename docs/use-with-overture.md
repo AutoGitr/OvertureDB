@@ -32,7 +32,8 @@ made there are drafts, ready to contribute; see
 A TMDB collection carries three poster fields: its own (`poster_url_individual`),
 a consistent matte poster (`poster_url_matte`) and a consistent overlay poster
 (`poster_url_overlay`). Overture's **OvertureDB posters** setting chooses which
-one your collections get; see
+one your collections get, and each poster you choose is contributed as the style
+you pick for it; see
 [Art and themes](/overture/features/collections/art-and-themes#overturedb-posters).
 
 ## Availability

@@ -19,8 +19,19 @@ below the recommended resolution. Bulk archives are not fetched; Catalog
 Health reports the same findings for them. Replacing a value or removing an
 entry requires a reason.
 
-Bulk archives add missing values and keep imported ThemerrDB themes. Invalid
-bulk records block the whole contribution; fix the archive before review.
+Bulk archives add missing values and keep imported ThemerrDB themes. When a
+repository admin opens the issue, the archive also replaces the artwork, season
+posters and OvertureDB themes entries hold; identifiers and years are still
+only filled in. Invalid bulk records block the whole contribution; fix the
+archive before review.
+
+A bulk preview opens with two tables. The first counts entries by outcome
+(**New entries**, **Filled gaps**, **Overwritten**, **Unchanged**) for movies,
+shows and collections; the second counts the values set by kind and by how they
+land (in new entries, filling an empty field, or replacing one), each with
+totals. Below them every changed entry is listed by outcome, then by media type:
+**Overwritten** comes first and open, with links to the current and the new
+value side by side, so replaced selections are checked before anything else.
 Limits are 10 MB downloaded, 100,000 JSON entries, 1 MB per entry, and 50 MB
 of uncompressed JSON. These are archive safety limits. Review size is based on
 the final changed entries, excluding unchanged records and consolidating

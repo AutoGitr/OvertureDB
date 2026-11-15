@@ -43,9 +43,15 @@ fail_under = 90
 
 [tool.pyright]
 typeCheckingMode = "strict"
-reportUnnecessaryTypeIgnoreComment = "error"
 pythonVersion = "3.15"
 include = ["scripts", "schema", "tests"]
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
+reportUnnecessaryTypeIgnoreComment = "error"
+reportImplicitOverride = "error"
+reportPropertyTypeMismatch = "error"
+reportUninitializedInstanceVariable = "error"
 
 [tool.ruff]
 target-version = "py315"
@@ -53,25 +59,56 @@ line-length = 88
 indent-width = 4
 
 [tool.ruff.lint]
+# The rule families Overture enforces, so both repositories hold one standard.
 select = [
-    "A",
-    "B",
-    "C4",
-    "C90",
-    "E",
-    "F",
-    "I",
-    "N",
-    "PERF",
-    "PTH",
-    "RUF",
-    "S",
-    "SIM",
-    "T20",
-    "TC",
-    "TID",
-    "UP",
-    "W",
+    "A",      # flake8-builtins: prevent shadowing Python built-ins
+    "ARG",    # flake8-unused-arguments: parameters a function never reads
+    "ASYNC",  # flake8-async: async/await hazard detection
+    "B",      # flake8-bugbear: common bugs, anti-patterns, and design flaws
+    "BLE",    # flake8-blind-except: every `except Exception` names why it is a boundary
+    "C4",     # flake8-comprehensions: optimal comprehension syntax
+    "C90",    # mccabe: cyclomatic complexity check
+    "DTZ",    # flake8-datetimez: enforce timezone-aware datetimes
+    "E",      # pycodestyle errors
+    "ERA",    # eradicate: no commented-out code
+    "EXE",    # flake8-executable: executable bits and shebangs
+    "F",      # Pyflakes
+    "FLY",    # flynt: f-strings over string joins
+    "FURB",   # refurb: modern Python idioms
+    "G",      # flake8-logging-format
+    "I",      # isort
+    "ICN",    # flake8-import-conventions
+    "INP",    # flake8-no-pep420: packages need __init__.py
+    "ISC",    # flake8-implicit-str-concat
+    "LOG",    # flake8-logging
+    "N",      # pep8-naming
+    "PERF",   # Perflint
+    "PGH",    # pygrep-hooks: explicit rule codes on ignore comments
+    "PIE",    # flake8-pie
+    "PL",     # Pylint
+    "PT",     # flake8-pytest-style
+    "PTH",    # flake8-use-pathlib
+    "RET",    # flake8-return
+    "RSE",    # flake8-raise
+    "RUF",    # Ruff-specific
+    "S",      # flake8-bandit
+    "SIM",    # flake8-simplify
+    "SLF",    # flake8-self
+    "SLOT",   # flake8-slots
+    "T10",    # flake8-debugger
+    "T20",    # flake8-print
+    "TC",     # flake8-type-checking
+    "TID",    # flake8-tidy-imports
+    "UP",     # pyupgrade
+    "W",      # pycodestyle warnings
+    "YTT",    # flake8-2020
+]
+ignore = [
+    "PLR0911", # too-many-return-statements: validation guards return early
+    "PLR0913", # too-many-arguments: covered by McCabe complexity
+    "PLR0915", # too-many-statements: covered by McCabe complexity
+    "PLR0917", # too-many-positional-arguments: duplicate of PLR0913
+    "PLR2004", # magic-value-comparison: HTTP statuses and limits read better inline
 ]
 
 # These entry points intentionally report results and errors to the terminal.
@@ -82,8 +119,8 @@ select = [
 "scripts/catalog_health.py" = ["T201"]
 "scripts/import_themerrdb.py" = ["T201"]
 "scripts/sync_labels.py" = ["T201"]
-# Tests validate with assertions.
-"tests/**" = ["S101"]
+# Tests validate with assertions; fakes take the arguments of what they replace.
+"tests/**" = ["S101", "ARG"]
 
 [tool.ruff.lint.flake8-tidy-imports]
 # Every module-level import is deferred to first use (PEP 810), which also makes

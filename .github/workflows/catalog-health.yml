@@ -8,10 +8,6 @@ on:
     types: [completed]
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Dry run (print the report; update nothing)"
-        type: boolean
-        default: false
       limit:
         description: "Rotating entries to check, in addition to changed problem entries (optional)"
         type: string
@@ -41,7 +37,6 @@ jobs:
         uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Generate bot token
-        if: inputs.dry_run != true
         id: bot-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
@@ -52,14 +47,10 @@ jobs:
 
       - name: Check catalog health
         env:
-          GH_TOKEN: ${{ steps.bot-token.outputs.token || github.token }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
           LIMIT: ${{ inputs.limit }}
         run: |
           ARGS=()
-          if [ "$DRY_RUN" = "true" ]; then
-            ARGS+=(--dry-run)
-          fi
           if [ -n "$LIMIT" ]; then
             ARGS+=(--limit "$LIMIT")
           fi

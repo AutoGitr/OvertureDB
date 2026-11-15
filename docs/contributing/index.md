@@ -50,7 +50,8 @@ Overture and attach the ZIP to a
 [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml).
 Bulk contributions add missing items and values and keep imported ThemerrDB
 themes; to change or remove an existing value, use the movie, show or
-collection form.
+collection form. A repository admin's bulk contribution also replaces existing
+artwork, season posters and OvertureDB themes.
 
 ## Manually
 
