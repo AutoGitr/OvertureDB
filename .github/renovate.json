@@ -6,7 +6,9 @@
     ":configMigration"
   ],
   "pinDigests": true,
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "rangeStrategy": "pin",
   "labels": ["deps"],
   "prConcurrentLimit": 0,
