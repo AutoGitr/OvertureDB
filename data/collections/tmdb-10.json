@@ -4,7 +4,7 @@
   "tmdb_id": 10,
   "poster_url_individual": "https://image.tmdb.org/t/p/original/6EvyuI0XpL7JopXTE72FsgM5d47.jpg",
   "poster_url_matte": null,
-  "poster_url_overlay": null,
+  "poster_url_overlay": "https://theposterdb.com/api/assets/766702",
   "background_url": "https://image.tmdb.org/t/p/original/jci0IkGpJRwpTx62jDxIFXAt2Sr.jpg",
   "youtube_id_overturedb": null,
   "youtube_id_themerrdb": "JG5OsfOuEy0"
