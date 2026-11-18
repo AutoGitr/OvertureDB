@@ -42,6 +42,14 @@ lazy from .import_bulk_export import (
 )
 
 KINDS = frozenset({"movie", "show", "collection", "bulk"})
+#: The kind label each contribution form's title starts with. GitHub leaves a
+#: form's label off the issue when the repository lacks it.
+TITLE_KINDS = {
+    "[Movie]:": "movie",
+    "[Show]:": "show",
+    "[Collection]:": "collection",
+    "[Bulk]:": "bulk",
+}
 MARKER = "<!-- overturedb-preview -->"
 FINGERPRINT_RE = re.compile(r"<!-- fingerprint: ([0-9a-f]{64}) -->")
 ATTACHMENT = re.compile(
@@ -81,6 +89,20 @@ def contribution_kind(issue: dict[str, Any]) -> str:
             "Use one open movie, show, collection or bulk contribution issue."
         )
     return next(iter(kinds))
+
+
+def with_kind_label(repo: str, issue: dict[str, Any]) -> dict[str, Any]:
+    """Return *issue* carrying the kind label its form's title names."""
+    if issue_labels(issue) & KINDS:
+        return issue
+    title = issue.get("title") or ""
+    kind = next((k for p, k in TITLE_KINDS.items() if title.startswith(p)), None)
+    if kind is None:
+        return issue
+    labels = github.api(
+        f"repos/{repo}/issues/{issue['number']}/labels", {"labels": [kind]}
+    )
+    return {**issue, "labels": labels}
 
 
 def parse_command(body: str) -> tuple[str, str] | None:
@@ -660,6 +682,7 @@ def main() -> None:
             return
         issue = github.api(f"repos/{repo}/issues/{int(raw_issue)}")
         if issue["state"] == "open" and "pull_request" not in issue:
+            issue = with_kind_label(repo, issue)
             preview_issue(repo, issue, ROOT)
         return
 
@@ -667,6 +690,7 @@ def main() -> None:
     issue = github.api(f"repos/{repo}/issues/{number}")
     if issue["state"] != "open" or "pull_request" in issue:
         return
+    issue = with_kind_label(repo, issue)
     if not (issue_labels(issue) & KINDS):
         return
 

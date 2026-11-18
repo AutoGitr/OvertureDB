@@ -14,7 +14,7 @@ lazy from schema.contract import (
     OPTIONAL_ENTRY_FIELDS,
     entry_fields,
 )
-lazy from scripts.automation import KINDS
+lazy from scripts.automation import KINDS, TITLE_KINDS
 lazy from scripts.sync_labels import load_labels
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -165,6 +165,20 @@ def test_form_and_renovate_labels_exist_in_manifest() -> None:
 
 def test_contribution_kind_labels_are_managed() -> None:
     assert {label["name"] for label in load_labels()} >= KINDS
+
+
+def test_every_contribution_form_title_names_its_kind_label() -> None:
+    forms = {}
+    for path in (ROOT / ".github/ISSUE_TEMPLATE").glob("*.yml"):
+        form = yaml.safe_load(path.read_text())
+        if kinds := set(form.get("labels", [])) & KINDS:
+            forms[form["title"].split(" ", 1)[0]] = kinds.pop()
+    assert forms == TITLE_KINDS
+    gate = yaml.safe_load((ROOT / ".github/workflows/contributions.yml").read_text())[
+        "jobs"
+    ]["process"]["if"]
+    for prefix in TITLE_KINDS:
+        assert f"startsWith(github.event.issue.title, '{prefix}')" in gate
 
 
 def test_runner_updates_are_enabled_without_automatic_os_upgrades() -> None:

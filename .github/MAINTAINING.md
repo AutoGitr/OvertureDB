@@ -27,6 +27,9 @@ with contents write access: the Docs workflow uses it to send Overture a
 `repository_dispatch` event after `docs/` changes on `main`, and Overture's
 own Docs workflow rebuilds and deploys the site.
 
-Repository labels are defined in `.github/labels.json`. Preview changes with
+Repository labels are defined in `.github/labels.json`. GitHub leaves a
+form's label off an issue when the repository lacks it, so an issue whose form title names a kind
+(`[Movie]:`, `[Show]:`, `[Collection]:`, `[Bulk]:`) but carries no kind label
+gets it from the contribution automation. Preview label changes with
 `uv run --locked python -m scripts.sync_labels`; use `--apply` to reconcile
 them or `--check` to detect drift.
