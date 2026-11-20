@@ -12382,6 +12382,12 @@
    "problems": [],
    "warnings": []
   },
+  "data/movies/tmdb-1574.json": {
+   "checked": "2026-11-20",
+   "hash": "9aa439403f93df1d39e495f2625b1a243c14395e",
+   "problems": [],
+   "warnings": []
+  },
   "data/movies/tmdb-157433.json": {
    "checked": "2026-10-28",
    "hash": "d4c0467b7f07952a1152dffac0f86db1fee2bbf8",
@@ -18354,8 +18360,8 @@
    "warnings": []
   },
   "data/movies/tmdb-2769.json": {
-   "checked": "2026-11-01",
-   "hash": "48aa26681d16b6ef2d6c34eec97c75119f5cf660",
+   "checked": "2026-11-20",
+   "hash": "057ad28d2aa27cdbd72ef6a0f149732c4ac229b6",
    "problems": [],
    "warnings": []
   },
@@ -22946,6 +22952,12 @@
   "data/movies/tmdb-400928.json": {
    "checked": "2026-11-05",
    "hash": "8a9a61919a5b34db63b71c250d5cfa1056097546",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-401.json": {
+   "checked": "2026-11-20",
+   "hash": "0abcb282496855bb1a2a26f4e1e3ef248702fc26",
    "problems": [],
    "warnings": []
   },
@@ -34126,6 +34138,1202 @@
   "data/movies/tmdb-823482.json": {
    "checked": "2026-11-19",
    "hash": "089f43442a6799453af19c719df40bfaaf08a2b4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-823625.json": {
+   "checked": "2026-11-20",
+   "hash": "addd9af9cf08d649c91fdf044bdc28cd40f75065",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-823754.json": {
+   "checked": "2026-11-20",
+   "hash": "46c5733e253f072456dbd62a909237c0f9b8a7fd",
+   "problems": [
+    "youtube_id_themerrdb rU5qiFMcGqw: removed"
+   ],
+   "warnings": []
+  },
+  "data/movies/tmdb-824.json": {
+   "checked": "2026-11-20",
+   "hash": "df54a4e71fcc6170bd42fd42ab4d1e4e36162e51",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8247.json": {
+   "checked": "2026-11-20",
+   "hash": "5a4bf2f0245829edc490377e150f0687f8d13801",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82505.json": {
+   "checked": "2026-11-20",
+   "hash": "c58518ffcbe2630b8b9c03b4733b00618d0a25bb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82507.json": {
+   "checked": "2026-11-20",
+   "hash": "03d5f3b464ef00279cf1dee8085169c9e7000265",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-826.json": {
+   "checked": "2026-11-20",
+   "hash": "46e5f254d41d1725f2fefaee21828f0c3f1a6d08",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82633.json": {
+   "checked": "2026-11-20",
+   "hash": "6207c0437f7d753167bf3724571f10144d55611f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8265.json": {
+   "checked": "2026-11-20",
+   "hash": "c00c83765dd92fcfd08e02a1b26b347c78623695",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82654.json": {
+   "checked": "2026-11-20",
+   "hash": "34dca6fe65bc7837bbb61b500c88534b990c9676",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82675.json": {
+   "checked": "2026-11-20",
+   "hash": "d725deb7e08e068932c2412bc4d475b9571e19c2",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82684.json": {
+   "checked": "2026-11-20",
+   "hash": "b3e92398d395c14ede2c69ac20b34814cad7946d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82690.json": {
+   "checked": "2026-11-20",
+   "hash": "7ca5bff393581febdd62aa16a09c18a8478570b2",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82693.json": {
+   "checked": "2026-11-20",
+   "hash": "6c1ce032732e4060b3a81c0bea546f0c9c4816c3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-826942.json": {
+   "checked": "2026-11-20",
+   "hash": "88370d4d00816c7466d8922c827517b3c4a9bad7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82695.json": {
+   "checked": "2026-11-20",
+   "hash": "14450c56b772d8a4d2791661b1812fac0e685bbf",
+   "problems": [
+    "youtube_id_themerrdb 8gtNAwUgzL8: private or not embeddable"
+   ],
+   "warnings": []
+  },
+  "data/movies/tmdb-827.json": {
+   "checked": "2026-11-20",
+   "hash": "4c434e7ea2a2e18f153b5b5f7527e80b98329965",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82700.json": {
+   "checked": "2026-11-20",
+   "hash": "2be5f07bd34967970c8a4729dbcbbe92adecb530",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82702.json": {
+   "checked": "2026-11-20",
+   "hash": "db2ad0bdc69f8dad46dfe239eebe308fe459bcec",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8271.json": {
+   "checked": "2026-11-20",
+   "hash": "4ac3ead1a184d8549b163decc76057acea4d866a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8273.json": {
+   "checked": "2026-11-20",
+   "hash": "4b06db6b90894a00f34adadafddc95b444885946",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8274.json": {
+   "checked": "2026-11-20",
+   "hash": "8651df2eebd78c0c069799bbcf6685149d5b6b65",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8275.json": {
+   "checked": "2026-11-20",
+   "hash": "926088f5288e08506669b549d34afdb3d093052a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8276.json": {
+   "checked": "2026-11-20",
+   "hash": "253b94c9af0b54b29a5f24712ec00f190f533a9b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8277.json": {
+   "checked": "2026-11-20",
+   "hash": "664d6e1d8bd35a459a0bcd1dbc14c6d6a70cebe1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-828.json": {
+   "checked": "2026-11-20",
+   "hash": "38851732548ac0b45517e094d4551db566926395",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-828146.json": {
+   "checked": "2026-11-20",
+   "hash": "a53e5b7231dbdff48867d12164a1e099127ef284",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-828613.json": {
+   "checked": "2026-11-20",
+   "hash": "80c72b155bb556e9715e2f9d79fd6c206cc7b92c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-828853.json": {
+   "checked": "2026-11-20",
+   "hash": "69951edcf8a223cf3876f3137f7e9539eb55e377",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-829.json": {
+   "checked": "2026-11-20",
+   "hash": "4221380857f7ce8a3a39230c02686eccc4bca543",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8290.json": {
+   "checked": "2026-11-20",
+   "hash": "b8b8aaaca607a18667ab56d626b7cdf94927c403",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8292.json": {
+   "checked": "2026-11-20",
+   "hash": "0db9ee838179c831d6b1b56dd149bf0c6c5cebab",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-829280.json": {
+   "checked": "2026-11-20",
+   "hash": "23c5d278c72fcc4f6cfc06d981345b9bdcdd1fbd",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-82992.json": {
+   "checked": "2026-11-20",
+   "hash": "387f78d0eb131ccc9ef59407a9abde99ec94594b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-829920.json": {
+   "checked": "2026-11-20",
+   "hash": "2243d0fd5778a0dc9a8da65b7b4cbaed521c56b8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-830.json": {
+   "checked": "2026-11-20",
+   "hash": "dd49a44e686fe4de2e09c90511743028e061533e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-830027.json": {
+   "checked": "2026-11-20",
+   "hash": "8d7c89729a884881785710800642695b0abce16f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-830784.json": {
+   "checked": "2026-11-20",
+   "hash": "393d1bf27c04d1533685f4db2c36bc861212b728",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-830788.json": {
+   "checked": "2026-11-20",
+   "hash": "0596520a743aff19557f51106d99e955ee5c41af",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-830896.json": {
+   "checked": "2026-11-20",
+   "hash": "0a2b76c043f3c69fd5bf949492b551fa3d568700",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-831827.json": {
+   "checked": "2026-11-20",
+   "hash": "572fac8e4c30acfbfc5f519c0eb031984b26beef",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8321.json": {
+   "checked": "2026-11-20",
+   "hash": "7536268dd0db846505766ae551821841d4758c75",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-832262.json": {
+   "checked": "2026-11-20",
+   "hash": "4292e01baf166613b11c5cebc8087e2fb75b44fa",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8326.json": {
+   "checked": "2026-11-20",
+   "hash": "6f4ead459f28f2f6ea6eafe33c9b82eb44dc394d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8329.json": {
+   "checked": "2026-11-20",
+   "hash": "4893411e160ced80714ab0dd55b12443eb46dd45",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8337.json": {
+   "checked": "2026-11-20",
+   "hash": "a67bbd5bfc7c96b31f1088b06bc000e57c95d8e8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-83389.json": {
+   "checked": "2026-11-20",
+   "hash": "61f8874d874311e0af6b9e2acaf92beb0d60930b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-834.json": {
+   "checked": "2026-11-20",
+   "hash": "cdca20046fa80127273a88d2e085ac6c4c35c411",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8342.json": {
+   "checked": "2026-11-20",
+   "hash": "153211c79a962eead81224a94680c5773550ea2a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8346.json": {
+   "checked": "2026-11-20",
+   "hash": "7ad0e21681564cb85484ddefc7715ae4efd3af93",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-83533.json": {
+   "checked": "2026-11-20",
+   "hash": "927c563a64c88adab3363fd76c4ae0746843fc46",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-83542.json": {
+   "checked": "2026-11-20",
+   "hash": "ddab067e35ca1c998ca00937a488d5b2883b1170",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8355.json": {
+   "checked": "2026-11-20",
+   "hash": "33146ca98acb898ff644c05bd3256764ee9e5350",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8356.json": {
+   "checked": "2026-11-20",
+   "hash": "3811ed9dd106597c28f3729bd056b9f9fd7aeb00",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8358.json": {
+   "checked": "2026-11-20",
+   "hash": "8b4c0c00e0da9c93a1e2da74dcf73a16d6febb0f",
+   "problems": [],
+   "warnings": [
+    "poster https://metadata-static.plex.tv/c/gracenote/c4be3b65470fc29272613a8a2bb33b68.jpg: 960x1440 is below the recommended 1000x1500"
+   ]
+  },
+  "data/movies/tmdb-836009.json": {
+   "checked": "2026-11-20",
+   "hash": "ed78d445ea5423dd251420b1c3fbd334b1f0fa78",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-836225.json": {
+   "checked": "2026-11-20",
+   "hash": "9f6c92985f73e7c43ecd7497faef0a37e65e3eff",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8363.json": {
+   "checked": "2026-11-20",
+   "hash": "53810bb3ef178720bee5a40235e31f2a797ad45d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-83666.json": {
+   "checked": "2026-11-20",
+   "hash": "585cc8a507825b5945b7bd77e4d2e8124f512edd",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8367.json": {
+   "checked": "2026-11-20",
+   "hash": "85543b5dd3465bdcb05658355289eb3d26ac036c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-837.json": {
+   "checked": "2026-11-20",
+   "hash": "73494ab967da510acac11b2ff9b4ac89d4362232",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8373.json": {
+   "checked": "2026-11-20",
+   "hash": "8b01a3f359b4b5442052c2bf9666fe15a65edf85",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8374.json": {
+   "checked": "2026-11-20",
+   "hash": "7d0c39a804bbfa743ac63e9dc50ccdabf60fcc5b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-838.json": {
+   "checked": "2026-11-20",
+   "hash": "d404b666ab2749e19ccb608ebf18ee3ddac23b7e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-838209.json": {
+   "checked": "2026-11-20",
+   "hash": "4e568b5812a13222a28579020468da60b442c8c1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-838484.json": {
+   "checked": "2026-11-20",
+   "hash": "bd82244eedd235489df16fc9d3d31829331e2d84",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8388.json": {
+   "checked": "2026-11-20",
+   "hash": "910aa0481c610d1a8016fddeb5cdacba563dba9b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-83899.json": {
+   "checked": "2026-11-20",
+   "hash": "a3fc9833cc031f2a8f7adff2cc6dd3bc4d062bd8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8392.json": {
+   "checked": "2026-11-20",
+   "hash": "a05172c749785046d84ce8e689aeefb182a3ff9c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-839803.json": {
+   "checked": "2026-11-20",
+   "hash": "0bc8fed2da2595fb0a5b73357901d48a46b6df1f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-840.json": {
+   "checked": "2026-11-20",
+   "hash": "9fdc51449bd7ff16a6c03058d4cc9d3e949cebfb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-840326.json": {
+   "checked": "2026-11-20",
+   "hash": "4b9f3cfe1d9628d8be5d8403604ec2ffcf24a362",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-840430.json": {
+   "checked": "2026-11-20",
+   "hash": "e8640871d03c898199d6e247ad9dc03204f10d52",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-840464.json": {
+   "checked": "2026-11-20",
+   "hash": "a08ac182459e596dd0ee1bd6eed11cc53812551e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-840705.json": {
+   "checked": "2026-11-20",
+   "hash": "037dd2f0712119f298664d6f8a5ae6e762ec20b8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84079.json": {
+   "checked": "2026-11-20",
+   "hash": "54d80c4824b097a2e7755b8cabffc3f03e8511dc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8408.json": {
+   "checked": "2026-11-20",
+   "hash": "9e686b8055b14a8ac8eb4009d786a36c9b30811e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-841.json": {
+   "checked": "2026-11-20",
+   "hash": "049dcb551a4f2ac1ef94dc830a70360213d176cb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8413.json": {
+   "checked": "2026-11-20",
+   "hash": "b9063ea6454dd7a48620f03bad9ba0214d20c72d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84157.json": {
+   "checked": "2026-11-20",
+   "hash": "91ddfbb214933ab7cfb049891b2674fd63ce26ef",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84185.json": {
+   "checked": "2026-11-20",
+   "hash": "89bdcf75c61e870abac32ca98b83c5307afa3650",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-842942.json": {
+   "checked": "2026-11-20",
+   "hash": "6b44c5b8973943a38c9f29f644c6a3592834df9b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-842945.json": {
+   "checked": "2026-11-20",
+   "hash": "20dcc7590d451172199e72efdea52269ea30d8af",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843.json": {
+   "checked": "2026-11-20",
+   "hash": "91f1b9a18e4b68f9f47537a643eb351be20b5d37",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843243.json": {
+   "checked": "2026-11-20",
+   "hash": "cfd2b72fc8c1aa47c38a8b50ee3f19c8cdbb82aa",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84329.json": {
+   "checked": "2026-11-20",
+   "hash": "ad091b1ec4b784c3e674121f8b7266bada7cf7a8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84332.json": {
+   "checked": "2026-11-20",
+   "hash": "0c9cd65923d3dca844e0816aab55c508e07f7a9f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843380.json": {
+   "checked": "2026-11-20",
+   "hash": "53af5af477217e4d3a5d48a8f9830e6de8e1456a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84348.json": {
+   "checked": "2026-11-20",
+   "hash": "d51a0e2888f27fd307cbede3088ddefec386388c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843527.json": {
+   "checked": "2026-11-20",
+   "hash": "c1823365ae91d9a52ce55eaf3a7abc8de49ce87d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843543.json": {
+   "checked": "2026-11-20",
+   "hash": "e80f5783894eaf0035f635da518c358f7e45d5c6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8438.json": {
+   "checked": "2026-11-20",
+   "hash": "facc414894d7d4c413d528d87c0d0312f7370262",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843809.json": {
+   "checked": "2026-11-20",
+   "hash": "804033f7adc1988444d2856b50c52ee1ad8ff9cf",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843846.json": {
+   "checked": "2026-11-20",
+   "hash": "931a422f41ebffabe0cde7e18c779a1d89743298",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-843847.json": {
+   "checked": "2026-11-20",
+   "hash": "5ce3f0ee3be4806a524af613eff646a4e45be345",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-844.json": {
+   "checked": "2026-11-20",
+   "hash": "6ce436281986ba306c87f8cc34073cc61e43138a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-844417.json": {
+   "checked": "2026-11-20",
+   "hash": "7b3620fd51f510bf4dc8386f71ba3d828215ba40",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8446.json": {
+   "checked": "2026-11-20",
+   "hash": "78a000afb15c16289104de25f7280b2fd9ebcdb1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-845.json": {
+   "checked": "2026-11-20",
+   "hash": "835cc454ee97bbabaf45c9a954db7b6f2a0157e7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-845111.json": {
+   "checked": "2026-11-20",
+   "hash": "0c2bf0ea24c8d73a4f031ac5aa19a4df00b9c806",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8452.json": {
+   "checked": "2026-11-20",
+   "hash": "84c729e9e9809505bf2118b548e9c46099b32437",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8456.json": {
+   "checked": "2026-11-20",
+   "hash": "6cc09fea82ceb23ac511de0cbbfbc3915f3f6e62",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-845659.json": {
+   "checked": "2026-11-20",
+   "hash": "3875f3011e19da6bcca88bc77063b111807c6b2b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-845783.json": {
+   "checked": "2026-11-20",
+   "hash": "0dffc4712ca48a2f0d1018e5ec1c4a4cdb6a0fea",
+   "problems": [
+    "youtube_id_themerrdb kykUAGzLzWc: removed"
+   ],
+   "warnings": []
+  },
+  "data/movies/tmdb-846.json": {
+   "checked": "2026-11-20",
+   "hash": "eb769ea8437d8cc53d77f82734243bb2a38a2c4e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8461.json": {
+   "checked": "2026-11-20",
+   "hash": "cbea7721cc6a8ae3205dd4c268167c7b8bccf4d5",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84669.json": {
+   "checked": "2026-11-20",
+   "hash": "0032721f60425ef8cb2c6c0f2d7efac928ab7ce4",
+   "problems": [],
+   "warnings": [
+    "poster https://image.tmdb.org/t/p/original/2sJE7Ew0ACcJn6AFApdqJXb5WVO.jpg: 800x1200 is below the recommended 1000x1500"
+   ]
+  },
+  "data/movies/tmdb-8467.json": {
+   "checked": "2026-11-20",
+   "hash": "5410bf67a58a21603f4c4825949808c606d0789a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8469.json": {
+   "checked": "2026-11-20",
+   "hash": "d5976cb50d24bc7047e1192351fcc5de7ceb2e8e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-847.json": {
+   "checked": "2026-11-20",
+   "hash": "cfeffc93670c816552b75661018b48e786c36bce",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8470.json": {
+   "checked": "2026-11-20",
+   "hash": "0f99ceda3d755923b297f87e9ea6500b2e7de231",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84816.json": {
+   "checked": "2026-11-20",
+   "hash": "9fa15fb4205750a527653bcf463f47da475a8008",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-848326.json": {
+   "checked": "2026-11-20",
+   "hash": "1dadc8f4bb799b2aa6cbced1658bdd0e1190a888",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-848538.json": {
+   "checked": "2026-11-20",
+   "hash": "48602d5147586819268c2a6beff07ea226e1ddc3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-848685.json": {
+   "checked": "2026-11-20",
+   "hash": "c2f186bd84cad94612c178a268ac74c78261b659",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84892.json": {
+   "checked": "2026-11-20",
+   "hash": "768f8f70236fce53eec77a1a7e37e53a7d960912",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-848981.json": {
+   "checked": "2026-11-20",
+   "hash": "50bb6a41ec09817fa34167b2dbf378aa6c3ad10f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8491.json": {
+   "checked": "2026-11-20",
+   "hash": "1df40a541dd0532a5eea7b8466933417c674c147",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-84972.json": {
+   "checked": "2026-11-20",
+   "hash": "05d5b244b652bfb582298a9943555da6e763f5e9",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-85.json": {
+   "checked": "2026-11-20",
+   "hash": "959fa6561d78f138686c56188b8031398507cb8d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-850.json": {
+   "checked": "2026-11-20",
+   "hash": "ed0d738e5068473ba129bb0d9b1ab9bfba9bb893",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-850028.json": {
+   "checked": "2026-11-20",
+   "hash": "2136613f9a98e8924c682047044eee344422126c",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-850165.json": {
+   "checked": "2026-11-20",
+   "hash": "69ef5d8bab064c95b0cf21794719c5894533dbd5",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-850329.json": {
+   "checked": "2026-11-20",
+   "hash": "90c95b3c3659f04698103e8437083c5d51bdd412",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-851.json": {
+   "checked": "2026-11-20",
+   "hash": "ceff4d895636fd279690fd1575b3de5d35cf5f91",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-852046.json": {
+   "checked": "2026-11-20",
+   "hash": "363b4c39d47435528b1da725c6c6ea73693fdd72",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-852438.json": {
+   "checked": "2026-11-20",
+   "hash": "19f2b718aaad3b6631dca62270e34436d6fc6420",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-853.json": {
+   "checked": "2026-11-20",
+   "hash": "579dfab67aed71339059cd4e46506d0bc28c1880",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-853354.json": {
+   "checked": "2026-11-20",
+   "hash": "a1a9c25a42ae8f40e9f95f60f62ba00a192a9e9d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-85350.json": {
+   "checked": "2026-11-20",
+   "hash": "00db1a1a96979823d7c896976691e318c20b924f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-853760.json": {
+   "checked": "2026-11-20",
+   "hash": "534eecce76209a32fb46b3b5426e0e12fcbc6bed",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-854.json": {
+   "checked": "2026-11-20",
+   "hash": "36097830ad811c4b9524cfbc2b2d19fd1acfffd7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-855.json": {
+   "checked": "2026-11-20",
+   "hash": "445fd7053c99982f93e0d90e0d60d99732c2120f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-856.json": {
+   "checked": "2026-11-20",
+   "hash": "83630d81dc01a58059d7fb833b01e49a5c8a7933",
+   "problems": [
+    "youtube_id_themerrdb Bc5hwtebnCM: removed"
+   ],
+   "warnings": []
+  },
+  "data/movies/tmdb-85600.json": {
+   "checked": "2026-11-20",
+   "hash": "c3e7c0546cbcf9e452cc3e28617c07f4e448a373",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-857.json": {
+   "checked": "2026-11-20",
+   "hash": "eaa3164287598cd682bbc08e6a1223c3cca31d33",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-857598.json": {
+   "checked": "2026-11-20",
+   "hash": "0c569e480140d311177ae1835a1fd8b4b2ebb2da",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-85766.json": {
+   "checked": "2026-11-20",
+   "hash": "0e3cdda873e17cba3d52c27021477caacbc337fe",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-858.json": {
+   "checked": "2026-11-20",
+   "hash": "2f85bbc32653c35380aca72cde41ebc7b295ac39",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-858017.json": {
+   "checked": "2026-11-20",
+   "hash": "617b01102252c335ddfe539dd96f4a6e191b0aa8",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-858024.json": {
+   "checked": "2026-11-20",
+   "hash": "88867978bc0eb5ba4cddb71574efd78ccf0cfae4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-85811.json": {
+   "checked": "2026-11-20",
+   "hash": "a9d47400706263123805fa15e1f25c37783903d1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8584.json": {
+   "checked": "2026-11-20",
+   "hash": "87fa84a05be6d45e92100d17c4218344c4a4ec4a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8587.json": {
+   "checked": "2026-11-20",
+   "hash": "db356d0a68855806bbfab9ffe3c332f4da125497",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-859.json": {
+   "checked": "2026-11-20",
+   "hash": "65469bbff298cc6e425589ddfa718e58b10ed641",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8592.json": {
+   "checked": "2026-11-20",
+   "hash": "c35eb81835ad26451016d72138c8ce4a7611184f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-860.json": {
+   "checked": "2026-11-20",
+   "hash": "af9dd82eeb15962dfceca4a7ad5452d0a87288e4",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-860508.json": {
+   "checked": "2026-11-20",
+   "hash": "f894184b7600b1d6167144f75c51e8654ee8a689",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-861.json": {
+   "checked": "2026-11-20",
+   "hash": "928f51edc131b79fed9415b458fcef8cf8e3f796",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8619.json": {
+   "checked": "2026-11-20",
+   "hash": "b187da9a513265fcb9695a5d278f982f1cc21d0b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862.json": {
+   "checked": "2026-11-20",
+   "hash": "cfe9db03232f6b2a0a0e965c397cfe3fc8180b78",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862551.json": {
+   "checked": "2026-11-20",
+   "hash": "99a5c8ae59d3c82982162538c7e5f9d06dccae0d",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862552.json": {
+   "checked": "2026-11-20",
+   "hash": "7956f3ac81d33364c2691cb2096155235ce83ae1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862557.json": {
+   "checked": "2026-11-20",
+   "hash": "8f680f8f755df15cf090e18c6f6fac2c7f01ccb0",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862965.json": {
+   "checked": "2026-11-20",
+   "hash": "c6a93e1275b26f54c4ab8cda548b78cca8e05d40",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-862968.json": {
+   "checked": "2026-11-20",
+   "hash": "b6c245721e5bdf1ba58c8ba023ad2616ff18cc1b",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-863.json": {
+   "checked": "2026-11-20",
+   "hash": "ea094b34860d668a6d56bbe6530599e3adb5b2d1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-864.json": {
+   "checked": "2026-11-20",
+   "hash": "ef90ed402f6679efb40b8c99dab091131c864ed0",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-864116.json": {
+   "checked": "2026-11-20",
+   "hash": "a059dc09e119820abd63d2b738bb2e494e83c84a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8643.json": {
+   "checked": "2026-11-20",
+   "hash": "9804d338655f6ec5f3da4ac729ea498e09265f8a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8645.json": {
+   "checked": "2026-11-20",
+   "hash": "bce37121487764623d9c8b39f3d1ff9bf021f495",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-865.json": {
+   "checked": "2026-11-20",
+   "hash": "0ab21f52493b49abf1cb345f8bbc9cb8a2d233f3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8656.json": {
+   "checked": "2026-11-20",
+   "hash": "70468d6ca5b1f30aa7128ffde8ab41f045a34a21",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-866.json": {
+   "checked": "2026-11-20",
+   "hash": "f02c9e5e32b4462b0f312704870f41160e4511dc",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-866398.json": {
+   "checked": "2026-11-20",
+   "hash": "89ffe0ee37b2b25abb3d12a70910e19520e36972",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-866463.json": {
+   "checked": "2026-11-20",
+   "hash": "cd1c7f11f34f05198c7e3b7896343f8cdddafb87",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8665.json": {
+   "checked": "2026-11-20",
+   "hash": "e932a728ceb3b1d5a1eb4eb57f7f6c2e1e573046",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8669.json": {
+   "checked": "2026-11-20",
+   "hash": "d9e26d1ee7f3adc1140a1663c4e8eea4dca032a2",
+   "problems": [
+    "youtube_id_themerrdb xopGSplKkW4: removed"
+   ],
+   "warnings": []
+  },
+  "data/movies/tmdb-8676.json": {
+   "checked": "2026-11-20",
+   "hash": "4040b966fbc16c6017c647229d2c2181978ba11f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8681.json": {
+   "checked": "2026-11-20",
+   "hash": "aa0f4e128e49cf16ce392315e64a7903728f72b5",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86828.json": {
+   "checked": "2026-11-20",
+   "hash": "d4e371c9a3a3f52230f553c3332abec31aa8ce79",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86829.json": {
+   "checked": "2026-11-20",
+   "hash": "0120687e6133b88742bd465959240b81238fdc80",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86834.json": {
+   "checked": "2026-11-20",
+   "hash": "080df0c098192e8dc251ddc5284756628ed793e9",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86837.json": {
+   "checked": "2026-11-20",
+   "hash": "e1a074d01776bfa1ffc1b71d9e37d49c26907954",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86838.json": {
+   "checked": "2026-11-20",
+   "hash": "9846e4e4557c317174482472a317f3ca2c159db3",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-868759.json": {
+   "checked": "2026-11-20",
+   "hash": "d399146e324d28788b18c289ebf9a13583911f23",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-869.json": {
+   "checked": "2026-11-20",
+   "hash": "6480c2102284b7437e2102438f9d93fb54a70085",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-869612.json": {
+   "checked": "2026-11-20",
+   "hash": "58fd8b4ee871a092672028064b741855d8592c55",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-86975.json": {
+   "checked": "2026-11-20",
+   "hash": "1625ce62f9e6ab476ff433841cce3a5498c1d5d7",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-869760.json": {
+   "checked": "2026-11-20",
+   "hash": "bc70e03fbf271e125b328f3bfba5f6a9c2c30c88",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8698.json": {
+   "checked": "2026-11-20",
+   "hash": "bea976464d6db491170ea87623b2d6f3de6b3e4e",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8699.json": {
+   "checked": "2026-11-20",
+   "hash": "7ff69afc9d8539128acf2be4d38694ecb865da23",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-87.json": {
+   "checked": "2026-11-20",
+   "hash": "3881d7ea3d9aee0082df1b787b3a8f8e5b85b6ca",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8703.json": {
+   "checked": "2026-11-20",
+   "hash": "b9230f7a34d635564c38e0508945507f780e1286",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-87093.json": {
+   "checked": "2026-11-20",
+   "hash": "39a0c4ede61b5cdf9b9d9ed319b221e15c72d2e1",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-871.json": {
+   "checked": "2026-11-20",
+   "hash": "7c44d80d357200714f73f33376bed191b191bb6f",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-87101.json": {
+   "checked": "2026-11-20",
+   "hash": "866a1e947f94295fedc07d4b989a956afaa6ddef",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-872.json": {
+   "checked": "2026-11-20",
+   "hash": "fd2ed518e3a8c6965d9a180760e10eed79a35268",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-872585.json": {
+   "checked": "2026-11-20",
+   "hash": "70dc8b1699a88f51dc824f654f1786f4859c17a6",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-872954.json": {
+   "checked": "2026-11-20",
+   "hash": "ccc0c7b5cf8ed3447ed13820c3a344112792dacb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-872976.json": {
+   "checked": "2026-11-20",
+   "hash": "2b721989f79f27d5d11626613f02ce8482bfbd04",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-873.json": {
+   "checked": "2026-11-20",
+   "hash": "15de0a2525be94053b6da13ecf5c33d11fcfa760",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8736.json": {
+   "checked": "2026-11-20",
+   "hash": "7911eb511ceca943a33871aff03b0dde623d6b82",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8738.json": {
+   "checked": "2026-11-20",
+   "hash": "b9e6905d33865cd410e0a86994aa882f253316eb",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-874.json": {
+   "checked": "2026-11-20",
+   "hash": "675c102d0e834baba99ee04a278d8e1a55648a90",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-8740.json": {
+   "checked": "2026-11-20",
+   "hash": "a9ae49b255b560321023187bc79b388f6481725a",
+   "problems": [],
+   "warnings": []
+  },
+  "data/movies/tmdb-87421.json": {
+   "checked": "2026-11-20",
+   "hash": "fa993f79f8ea51eee4032945503fa090fcca7547",
    "problems": [],
    "warnings": []
   }
