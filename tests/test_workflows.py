@@ -3,7 +3,7 @@
 lazy import json
 lazy import re
 lazy import tomllib
-lazy from pathlib import Path
+lazy from pathlib import Path, PurePosixPath
 
 lazy import pytest
 lazy import yaml
@@ -26,39 +26,51 @@ def test_python_requirement_matches_the_pinned_runtime() -> None:
     assert project["project"]["requires-python"] == f"=={python}"
 
 
-NONE: frozenset[str] = frozenset()
-_LANGUAGE_FILTER = re.compile(
-    r"grep -Eq '([^']+)' <<< \"\$changed\"; then\s+languages\+=\('\"([\w-]+)\"'\)"
-)
+def _filtered_in(path: str, patterns: list[str]) -> bool:
+    """Whether a change to *path* starts a run, as GitHub reads ``paths``.
+
+    The last pattern a path matches decides, and a ``!`` pattern excludes it.
+    """
+    included = False
+    for pattern in patterns:
+        negated = pattern.startswith("!")
+        if PurePosixPath(path).full_match(pattern.removeprefix("!")):
+            included = not negated
+    return included
 
 
 @pytest.mark.parametrize(
-    ("path", "languages"),
+    ("path", "analysed"),
     [
-        ("data/movies/603.json", NONE),
-        ("schema/entry.schema.json", NONE),
-        ("tests/test_catalog.py", NONE),
-        (".github/README.md", NONE),
-        ("scripts/catalog.py", frozenset({"python"})),
-        ("schema/contract.py", frozenset({"python"})),
-        (".github/workflows/contributions.yml", frozenset({"actions"})),
+        ("data/movies/603.json", False),
+        ("schema/entry.schema.json", False),
+        ("tests/test_catalog.py", False),
+        (".github/README.md", False),
+        ("scripts/catalog.py", True),
+        ("schema/contract.py", True),
+        (".github/workflows/contributions.yml", True),
     ],
 )
-def test_codeql_analyses_only_the_languages_a_change_touches(
-    path: str, languages: frozenset[str]
+def test_codeql_runs_for_analysed_code_and_then_analyses_every_language(
+    path: str, *, analysed: bool
 ) -> None:
+    """Every run analyses every language, so code scanning compares it with main's."""
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    script = workflow["jobs"]["languages"]["steps"][1]["run"]
-    filters = _LANGUAGE_FILTER.findall(script)
-    assert {name for pattern, name in filters if re.search(pattern, path)} == languages
-    assert """all='["python","actions"]'""" in script
+    # PyYAML reads the bare `on` key as True.
+    patterns = workflow[True]["pull_request"]["paths"]
+    assert workflow[True]["push"]["paths"] == patterns
+    assert _filtered_in(path, patterns) is analysed
+    assert set(workflow["jobs"]["codeql"]["strategy"]["matrix"]["language"]) == {
+        "python",
+        "actions",
+    }
 
 
 def test_analysis_failures_use_native_job_status() -> None:
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    assert set(workflow["jobs"]) == {"languages", "codeql"}
+    assert set(workflow["jobs"]) == {"codeql"}
     job = workflow["jobs"]["codeql"]
-    assert job["if"] == "needs.languages.outputs.languages != '[]'"
+    assert "if" not in job
     for step in job["steps"]:
         assert not step.get("continue-on-error", False)
         assert "if" not in step

@@ -1,10 +1,22 @@
 name: CodeQL
 
+# A pull request or push runs it only when analysed code changes, so catalog
+# contributions start no analysis; a run analyses every language, so its
+# results always compare with main's. The weekly run catches newly disclosed
+# vulnerable patterns in unchanged code.
 on:
   push:
     branches: [main]
+    paths:
+      - scripts/**/*.py
+      - schema/**/*.py
+      - .github/workflows/**
   pull_request:
     branches: [main]
+    paths:
+      - scripts/**/*.py
+      - schema/**/*.py
+      - .github/workflows/**
   workflow_dispatch:
   schedule:
     - cron: '7 4 * * 1'
@@ -17,55 +29,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  languages:
-    name: Detect changed languages
-    runs-on: ubuntu-26.04
-    timeout-minutes: 5
-    outputs:
-      languages: ${{ steps.detect.outputs.languages }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      # Each language is analysed only when its code changes, so catalog
-      # contributions start no analysis; the weekly run and a manual run
-      # analyse both.
-      - name: Select the languages to analyse
-        id: detect
-        env:
-          BASE_REF: ${{ github.base_ref }}
-          BEFORE_SHA: ${{ github.event.before }}
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          set -euo pipefail
-          all='["python","actions"]'
-          if [ "$EVENT_NAME" = pull_request ]; then
-            changed=$(git diff --name-only "origin/$BASE_REF"...HEAD)
-          elif [ "$EVENT_NAME" = push ] && git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
-            changed=$(git diff --name-only "$BEFORE_SHA" HEAD)
-          else
-            echo "languages=$all" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if grep -Eq '^\.github/workflows/codeql\.yml$' <<< "$changed"; then
-            echo "languages=$all" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          languages=()
-          if grep -Eq '^(scripts|schema)/.+\.py$' <<< "$changed"; then
-            languages+=('"python"')
-          fi
-          if grep -Eq '^\.github/workflows/' <<< "$changed"; then
-            languages+=('"actions"')
-          fi
-          echo "languages=[$(IFS=,; echo "${languages[*]}")]" >> "$GITHUB_OUTPUT"
-
   codeql:
     name: Analyze
-    needs: languages
-    if: needs.languages.outputs.languages != '[]'
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     permissions:
@@ -75,7 +40,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ${{ fromJSON(needs.languages.outputs.languages) }}
+        language: [python, actions]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

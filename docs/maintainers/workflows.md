@@ -10,7 +10,7 @@ description: The automation that reviews, imports, checks and publishes the cata
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | Contributions      | Validate contribution issues, post preview comments, and commit approved changes to `main`.                                   |
 | Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer catalog PRs.                   |
-| CodeQL             | Scan Python and Actions code when it changes, and both weekly; catalog contributions start no analysis.                       |
+| CodeQL             | Scan Python and Actions code when either changes, and weekly; catalog contributions start no analysis.                        |
 | Import ThemerrDB   | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch, optionally limited).     |
 | Catalog Health     | Check entries after each import and update the `health` issue.                                                                |
 | Publish Catalog    | After each import, validate, build and deploy the catalog to Pages in one deploy for the day. A manual run publishes at once. |
