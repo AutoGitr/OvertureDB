@@ -447,6 +447,7 @@ _CATALOG_VALIDATOR = _Validator(CATALOG_SCHEMA)
 def _validate(value: object, *, catalog: bool) -> None:
     validator = _CATALOG_VALIDATOR if catalog else _ENTRY_VALIDATOR
     try:
+        # The generated validate method is untyped in jsonschema's stubs.
         validator.validate(value)  # pyright: ignore[reportUnknownMemberType]
     except ValidationError as exc:
         path = ".".join(str(part) for part in exc.absolute_path) or "root"

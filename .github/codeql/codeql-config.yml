@@ -1,0 +1,5 @@
+name: "OvertureDB CodeQL config"
+
+# Tests are not shipped, so they are left out of the analysis.
+paths-ignore:
+  - tests/**

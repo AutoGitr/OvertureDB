@@ -1,7 +1,7 @@
 # Maintaining OvertureDB
 
 The repository owner's runbook: the repository settings the automation needs.
-Contributors need none of it; their guide is [CONTRIBUTING.md](CONTRIBUTING.md),
+Contributors need none of it; their guide is [How to contribute](https://autogitr.github.io/Overture/overturedb/contributing),
 and the published pages describe the
 [workflows](https://autogitr.github.io/Overture/overturedb/maintainers/workflows)
 and [reviewing contributions](https://autogitr.github.io/Overture/overturedb/maintainers/review).

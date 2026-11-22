@@ -189,7 +189,7 @@ def check_submission(
         if problem := aspect_problem(art_kind, *size):
             raise ValueError(
                 f"The {art_kind} {url} is {problem}. "
-                "See the 1% rule in the selection guidelines in CONTRIBUTING.md."
+                "See the 1% rule in the selection guidelines: https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines"
             )
         if warning := resolution_warning(art_kind, *size):
             warnings.append(f"The {art_kind} {url} is {warning}.")
@@ -267,8 +267,8 @@ def _evaluate_single(issue: dict[str, Any], root: Path) -> Plan:
                     "> [!WARNING]",
                     (
                         "> Below the recommended resolution. Approve only if "
-                        "nothing better exists; see the selection guidelines "
-                        "in CONTRIBUTING.md."
+                        "nothing better exists; see the selection guidelines: "
+                        "https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines"
                     ),
                     *(f"> - {warning}" for warning in warnings),
                 ]

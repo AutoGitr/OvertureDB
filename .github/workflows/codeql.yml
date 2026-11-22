@@ -51,10 +51,8 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           build-mode: none
-          # Tests are not shipped, so they are left out of the analysis.
-          config: |
-            paths-ignore:
-              - tests/**
+          config-file: ./.github/codeql/codeql-config.yml
+          queries: security-extended
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3

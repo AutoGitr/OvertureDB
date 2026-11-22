@@ -168,11 +168,13 @@ def test_form_and_renovate_labels_exist_in_manifest() -> None:
         ):
             referenced.update(json.loads(group))
         assert referenced <= names
-    renovate = json.loads((ROOT / ".github" / "renovate.json").read_text())
-    assert set(renovate["labels"]) <= names
-    assert set(renovate["vulnerabilityAlerts"]["labels"]) <= names
-    for rule in renovate["packageRules"]:
-        assert set(rule.get("addLabels", [])) <= names
+    shared = ROOT.parent / "Overture/.github/renovate-shared.json"
+    if shared.is_file():
+        renovate = json.loads(shared.read_text())
+        assert set(renovate["labels"]) <= names
+        assert set(renovate["vulnerabilityAlerts"]["labels"]) <= names
+        for rule in renovate["packageRules"]:
+            assert set(rule.get("addLabels", [])) <= names
 
 
 def test_contribution_kind_labels_are_managed() -> None:
@@ -193,21 +195,11 @@ def test_every_contribution_form_title_names_its_kind_label() -> None:
         assert f"startsWith(github.event.issue.title, '{prefix}')" in gate
 
 
-def test_runner_updates_are_enabled_without_automatic_os_upgrades() -> None:
+def test_renovate_rules_are_overtures_shared_preset() -> None:
+    """Overture tests the preset; a dependency both use updates alike in each."""
     renovate = json.loads((ROOT / ".github" / "renovate.json").read_text())
-    rule = next(
-        rule
-        for rule in renovate["packageRules"]
-        if "github-runners" in rule.get("matchDatasources", [])
-    )
-    assert rule["enabled"] is True
-    assert rule["automerge"] is False
-    # Runner releases have no timestamps, so an age requirement blocks updates.
-    assert rule["minimumReleaseAge"] is None
-    unpinned_tools = next(
-        rule for rule in renovate["packageRules"] if rule.get("pinDigests") is False
-    )
-    assert unpinned_tools["matchPackageNames"] == ["aquasecurity/trivy"]
+    assert renovate["extends"] == ["github>AutoGitr/Overture//.github/renovate-shared"]
+    assert set(renovate) <= {"$schema", "description", "extends"}
 
 
 def test_all_validation_jobs_use_the_same_gate() -> None:
@@ -283,3 +275,11 @@ def test_issue_forms_have_the_fields_the_contract_fills() -> None:
             form_id for form_id in ISSUE_FORM_FIELDS.values() if form_id in filled
         ], name
         assert media_type in form["labels"]
+
+
+def test_the_contributor_guide_lives_only_in_the_docs() -> None:
+    """GitHub's file points at the docs pages, so the guide is written once."""
+    pointer = (ROOT / ".github/CONTRIBUTING.md").read_text()
+    assert "/overturedb/contributing" in pointer
+    assert pointer.count("\n") < 12
+    assert (ROOT / "docs/contributing/index.md").is_file()

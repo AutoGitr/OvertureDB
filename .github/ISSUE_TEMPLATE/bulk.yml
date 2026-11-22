@@ -10,7 +10,7 @@ body:
         Export saved library selections from Overture (**OvertureDB -> Export selections**).
         Attach the downloaded `overturedb-selections.zip` to this issue.
 
-        Before submitting, please review the [Selection Guidelines](https://github.com/AutoGitr/OvertureDB/blob/main/.github/CONTRIBUTING.md#selection-guidelines). All contributions must follow these guidelines.
+        Before submitting, please review the [Selection Guidelines](https://autogitr.github.io/Overture/overturedb/contributing/selection-guidelines). All contributions must follow these guidelines.
 
         **How Bulk Contributions Work**:
         - Bulk contributions add missing items and values.
