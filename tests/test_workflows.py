@@ -3,7 +3,7 @@
 lazy import json
 lazy import re
 lazy import tomllib
-lazy from pathlib import Path
+lazy from pathlib import Path, PurePosixPath
 
 lazy import pytest
 lazy import yaml
@@ -14,7 +14,7 @@ lazy from schema.contract import (
     OPTIONAL_ENTRY_FIELDS,
     entry_fields,
 )
-lazy from scripts.automation import KINDS
+lazy from scripts.automation import KINDS, TITLE_KINDS
 lazy from scripts.sync_labels import load_labels
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,39 +26,51 @@ def test_python_requirement_matches_the_pinned_runtime() -> None:
     assert project["project"]["requires-python"] == f"=={python}"
 
 
-NONE: frozenset[str] = frozenset()
-_LANGUAGE_FILTER = re.compile(
-    r"grep -Eq '([^']+)' <<< \"\$changed\"; then\s+languages\+=\('\"([\w-]+)\"'\)"
-)
+def _filtered_in(path: str, patterns: list[str]) -> bool:
+    """Whether a change to *path* starts a run, as GitHub reads ``paths``.
+
+    The last pattern a path matches decides, and a ``!`` pattern excludes it.
+    """
+    included = False
+    for pattern in patterns:
+        negated = pattern.startswith("!")
+        if PurePosixPath(path).full_match(pattern.removeprefix("!")):
+            included = not negated
+    return included
 
 
 @pytest.mark.parametrize(
-    ("path", "languages"),
+    ("path", "analysed"),
     [
-        ("data/movies/603.json", NONE),
-        ("schema/entry.schema.json", NONE),
-        ("tests/test_catalog.py", NONE),
-        (".github/README.md", NONE),
-        ("scripts/catalog.py", frozenset({"python"})),
-        ("schema/contract.py", frozenset({"python"})),
-        (".github/workflows/contributions.yml", frozenset({"actions"})),
+        ("data/movies/603.json", False),
+        ("schema/entry.schema.json", False),
+        ("tests/test_catalog.py", False),
+        (".github/README.md", False),
+        ("scripts/catalog.py", True),
+        ("schema/contract.py", True),
+        (".github/workflows/contributions.yml", True),
     ],
 )
-def test_codeql_analyses_only_the_languages_a_change_touches(
-    path: str, languages: frozenset[str]
+def test_codeql_runs_for_analysed_code_and_then_analyses_every_language(
+    path: str, *, analysed: bool
 ) -> None:
+    """Every run analyses every language, so code scanning compares it with main's."""
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    script = workflow["jobs"]["languages"]["steps"][1]["run"]
-    filters = _LANGUAGE_FILTER.findall(script)
-    assert {name for pattern, name in filters if re.search(pattern, path)} == languages
-    assert """all='["python","actions"]'""" in script
+    # PyYAML reads the bare `on` key as True.
+    patterns = workflow[True]["pull_request"]["paths"]
+    assert workflow[True]["push"]["paths"] == patterns
+    assert _filtered_in(path, patterns) is analysed
+    assert set(workflow["jobs"]["codeql"]["strategy"]["matrix"]["language"]) == {
+        "python",
+        "actions",
+    }
 
 
 def test_analysis_failures_use_native_job_status() -> None:
     workflow = yaml.safe_load((ROOT / ".github/workflows/codeql.yml").read_text())
-    assert set(workflow["jobs"]) == {"languages", "codeql"}
+    assert set(workflow["jobs"]) == {"codeql"}
     job = workflow["jobs"]["codeql"]
-    assert job["if"] == "needs.languages.outputs.languages != '[]'"
+    assert "if" not in job
     for step in job["steps"]:
         assert not step.get("continue-on-error", False)
         assert "if" not in step
@@ -156,32 +168,38 @@ def test_form_and_renovate_labels_exist_in_manifest() -> None:
         ):
             referenced.update(json.loads(group))
         assert referenced <= names
-    renovate = json.loads((ROOT / ".github" / "renovate.json").read_text())
-    assert set(renovate["labels"]) <= names
-    assert set(renovate["vulnerabilityAlerts"]["labels"]) <= names
-    for rule in renovate["packageRules"]:
-        assert set(rule.get("addLabels", [])) <= names
+    shared = ROOT.parent / "Overture/.github/renovate-shared.json"
+    if shared.is_file():
+        renovate = json.loads(shared.read_text())
+        assert set(renovate["labels"]) <= names
+        assert set(renovate["vulnerabilityAlerts"]["labels"]) <= names
+        for rule in renovate["packageRules"]:
+            assert set(rule.get("addLabels", [])) <= names
 
 
 def test_contribution_kind_labels_are_managed() -> None:
     assert {label["name"] for label in load_labels()} >= KINDS
 
 
-def test_runner_updates_are_enabled_without_automatic_os_upgrades() -> None:
+def test_every_contribution_form_title_names_its_kind_label() -> None:
+    forms = {}
+    for path in (ROOT / ".github/ISSUE_TEMPLATE").glob("*.yml"):
+        form = yaml.safe_load(path.read_text())
+        if kinds := set(form.get("labels", [])) & KINDS:
+            forms[form["title"].split(" ", 1)[0]] = kinds.pop()
+    assert forms == TITLE_KINDS
+    gate = yaml.safe_load((ROOT / ".github/workflows/contributions.yml").read_text())[
+        "jobs"
+    ]["process"]["if"]
+    for prefix in TITLE_KINDS:
+        assert f"startsWith(github.event.issue.title, '{prefix}')" in gate
+
+
+def test_renovate_rules_are_overtures_shared_preset() -> None:
+    """Overture tests the preset; a dependency both use updates alike in each."""
     renovate = json.loads((ROOT / ".github" / "renovate.json").read_text())
-    rule = next(
-        rule
-        for rule in renovate["packageRules"]
-        if "github-runners" in rule.get("matchDatasources", [])
-    )
-    assert rule["enabled"] is True
-    assert rule["automerge"] is False
-    # Runner releases have no timestamps, so an age requirement blocks updates.
-    assert rule["minimumReleaseAge"] is None
-    unpinned_tools = next(
-        rule for rule in renovate["packageRules"] if rule.get("pinDigests") is False
-    )
-    assert unpinned_tools["matchPackageNames"] == ["aquasecurity/trivy"]
+    assert renovate["extends"] == ["github>AutoGitr/Overture//.github/renovate-shared"]
+    assert set(renovate) <= {"$schema", "description", "extends"}
 
 
 def test_all_validation_jobs_use_the_same_gate() -> None:
@@ -257,3 +275,11 @@ def test_issue_forms_have_the_fields_the_contract_fills() -> None:
             form_id for form_id in ISSUE_FORM_FIELDS.values() if form_id in filled
         ], name
         assert media_type in form["labels"]
+
+
+def test_the_contributor_guide_lives_only_in_the_docs() -> None:
+    """GitHub's file points at the docs pages, so the guide is written once."""
+    pointer = (ROOT / ".github/CONTRIBUTING.md").read_text()
+    assert "/overturedb/contributing" in pointer
+    assert pointer.count("\n") < 12
+    assert (ROOT / "docs/contributing/index.md").is_file()

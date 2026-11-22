@@ -36,7 +36,11 @@ jobs:
             contains(github.event.issue.labels.*.name, 'movie') ||
             contains(github.event.issue.labels.*.name, 'show') ||
             contains(github.event.issue.labels.*.name, 'collection') ||
-            contains(github.event.issue.labels.*.name, 'bulk')
+            contains(github.event.issue.labels.*.name, 'bulk') ||
+            startsWith(github.event.issue.title, '[Movie]:') ||
+            startsWith(github.event.issue.title, '[Show]:') ||
+            startsWith(github.event.issue.title, '[Collection]:') ||
+            startsWith(github.event.issue.title, '[Bulk]:')
           )
         ) ||
         (

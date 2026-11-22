@@ -836,6 +836,22 @@ def test_main_dispatches_events_and_enforces_permissions(
     reject.assert_called_once_with("AutoGitr/OvertureDB", issue(), "duplicate")
 
 
+@patch.object(automation.github, "api")
+def test_a_form_issue_without_its_kind_label_gets_it(api: MagicMock) -> None:
+    api.return_value = [{"name": "collection"}]
+    unlabeled = issue(title="[Collection]: Alien Collection", labels=[])
+    labeled = automation.with_kind_label("AutoGitr/OvertureDB", unlabeled)
+    assert labeled["labels"] == [{"name": "collection"}]
+    api.assert_called_once_with(
+        "repos/AutoGitr/OvertureDB/issues/12/labels", {"labels": ["collection"]}
+    )
+
+    api.reset_mock()
+    for other in (issue(), issue(title="Catalog health", labels=[])):
+        assert automation.with_kind_label("AutoGitr/OvertureDB", other) is other
+    api.assert_not_called()
+
+
 @patch.object(automation, "download_archive")
 def test_bulk_approval_fingerprint_changes_when_new_writes_become_possible(
     download: MagicMock, root: Path
