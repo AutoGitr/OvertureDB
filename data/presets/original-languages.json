@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "original-languages",
+    "title": "Original languages",
+    "description": "The fifteen original languages the most of your library was made in.",
+    "category": "languages",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Original languages",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "original_language",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 15
+      }
+    }
+  ]
+}

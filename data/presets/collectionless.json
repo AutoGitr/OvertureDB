@@ -1,0 +1,47 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "collectionless",
+    "title": "Collectionless",
+    "description": "Every title no other collection holds, so nothing in the library is left out of your collections.",
+    "category": "other",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "collections": [
+    {
+      "title": "Collectionless",
+      "sort_title": "~_Collectionless",
+      "order_type": "title.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "in_collection",
+              "operator": "is",
+              "value": false
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "in_collection",
+              "operator": "is",
+              "value": false
+            }
+          ],
+          "groups": []
+        }
+      }
+    }
+  ]
+}

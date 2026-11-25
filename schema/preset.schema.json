@@ -1,0 +1,1882 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "ArtStyle": {
+      "description": "The colours of art Overture generates from a title.",
+      "enum": [
+        "dark",
+        "light",
+        "accent"
+      ],
+      "title": "ArtStyle",
+      "type": "string"
+    },
+    "ArtUrl": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "pattern": "^https://",
+      "type": "string"
+    },
+    "AutoArtSource": {
+      "description": "Where Automatic art takes a collection slot's art from, in a policy's order.\n\nA sync tries each in turn and stops at the first that gives art: the best\nart of a catalog source, or, with ``generate``, art generated from the title.",
+      "enum": [
+        "overturedb",
+        "tmdb",
+        "generate"
+      ],
+      "title": "AutoArtSource",
+      "type": "string"
+    },
+    "CollectionFiltering": {
+      "description": "User-context filtering mode for Plex smart collections.",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "title": "CollectionFiltering",
+      "type": "string"
+    },
+    "CollectionMode": {
+      "description": "Collection visibility on servers supporting library display modes.",
+      "enum": [
+        "default",
+        "hide_items",
+        "show_items",
+        "hide"
+      ],
+      "title": "CollectionMode",
+      "type": "string"
+    },
+    "CollectionOrder": {
+      "description": "How a collection orders its members: a field and direction, or ``custom``.\n\n``custom`` keeps the manual order, or the order of the collection's first\nordered source. Plex sorts smart collections itself; Overture orders the\nmembers of other collections and stores the result as a custom order.",
+      "enum": [
+        "custom",
+        "release.asc",
+        "release.desc",
+        "title.asc",
+        "title.desc",
+        "added.desc",
+        "added.asc",
+        "critic_rating.desc",
+        "critic_rating.asc",
+        "audience_rating.desc",
+        "audience_rating.asc",
+        "user_rating.desc",
+        "user_rating.asc",
+        "duration.desc",
+        "duration.asc",
+        "plays.desc",
+        "plays.asc",
+        "last_played.desc",
+        "last_played.asc",
+        "episode_added.desc",
+        "episode_added.asc",
+        "unplayed_episodes.desc",
+        "unplayed_episodes.asc",
+        "random"
+      ],
+      "title": "CollectionOrder",
+      "type": "string"
+    },
+    "CollectionPolicyBase": {
+      "additionalProperties": false,
+      "description": "Shared policy and media server display configuration.",
+      "properties": {
+        "sync_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SyncMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "minimum_items": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Items"
+        },
+        "delete_below_minimum": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete Below Minimum"
+        },
+        "auto_art": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AutoArtSource"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Art"
+        },
+        "generated_style": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtStyle"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "generated_title_only": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generated Title Only"
+        },
+        "overturedb_posters": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/CollectionPosterStyle"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overturedb Posters"
+        },
+        "backgrounds": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backgrounds"
+        },
+        "themes": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Themes"
+        },
+        "auto_match_theme": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Match Theme"
+        },
+        "delete_when_inactive": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete When Inactive"
+        },
+        "collection_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "order_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionOrder"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collection_filtering": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionFiltering"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "visible_home": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Home"
+        },
+        "visible_shared": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Shared"
+        },
+        "visible_library": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Library"
+        },
+        "sort_title_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SortTitleFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "summary_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SummaryFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_start_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_end_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "request_missing": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Request Missing"
+        },
+        "member_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MemberTagFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "arr_tag": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MemberTagFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "home_order": {
+          "anyOf": [
+            {
+              "maximum": 999,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Home Order"
+        }
+      },
+      "title": "CollectionPolicyBase",
+      "type": "object"
+    },
+    "CollectionPosterStyle": {
+      "description": "Which poster OvertureDB gives a TMDB collection.\n\n``matte`` and ``overlay`` take the consistent poster in that layout; a\ncollection without one has no OvertureDB poster.",
+      "enum": [
+        "individual",
+        "matte",
+        "overlay"
+      ],
+      "title": "CollectionPosterStyle",
+      "type": "string"
+    },
+    "CollectionSource": {
+      "discriminator": {
+        "mapping": {
+          "mdblist": "#/$defs/MdblistSource",
+          "radarr_tag": "#/$defs/RadarrTagSource",
+          "sonarr_tag": "#/$defs/SonarrTagSource",
+          "tmdb_chart": "#/$defs/TmdbChartSource",
+          "tmdb_collection": "#/$defs/TmdbCollectionSource",
+          "tmdb_item": "#/$defs/TmdbItemSource",
+          "tmdb_list": "#/$defs/TmdbListSource",
+          "tmdb_person": "#/$defs/TmdbPersonSource"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TmdbCollectionSource"
+        },
+        {
+          "$ref": "#/$defs/TmdbItemSource"
+        },
+        {
+          "$ref": "#/$defs/TmdbListSource"
+        },
+        {
+          "$ref": "#/$defs/TmdbPersonSource"
+        },
+        {
+          "$ref": "#/$defs/TmdbChartSource"
+        },
+        {
+          "$ref": "#/$defs/MdblistSource"
+        },
+        {
+          "$ref": "#/$defs/RadarrTagSource"
+        },
+        {
+          "$ref": "#/$defs/SonarrTagSource"
+        }
+      ]
+    },
+    "Condition": {
+      "discriminator": {
+        "mapping": {
+          "field": "#/$defs/FieldCondition",
+          "source": "#/$defs/SourceCondition"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/FieldCondition"
+        },
+        {
+          "$ref": "#/$defs/SourceCondition"
+        }
+      ]
+    },
+    "CustomSetValue": {
+      "additionalProperties": false,
+      "description": "One collection of a custom set.",
+      "properties": {
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "criteria": {
+          "$ref": "#/$defs/FilterGroup"
+        }
+      },
+      "required": [
+        "name",
+        "criteria"
+      ],
+      "title": "CustomSetValue",
+      "type": "object"
+    },
+    "FieldCondition": {
+      "additionalProperties": false,
+      "description": "Test one metadata field of an item.",
+      "properties": {
+        "kind": {
+          "const": "field",
+          "default": "field",
+          "title": "Kind",
+          "type": "string"
+        },
+        "field": {
+          "$ref": "#/$defs/FilterField"
+        },
+        "operator": {
+          "$ref": "#/$defs/FilterOperator",
+          "default": "is"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "field",
+        "value"
+      ],
+      "title": "FieldCondition",
+      "type": "object"
+    },
+    "FilterField": {
+      "description": "Item metadata a collection condition tests.",
+      "enum": [
+        "title",
+        "tmdb_id",
+        "tvdb_id",
+        "imdb_id",
+        "studio",
+        "edition",
+        "genre",
+        "actor",
+        "director",
+        "writer",
+        "producer",
+        "country",
+        "label",
+        "collection",
+        "content_rating",
+        "network",
+        "resolution",
+        "audio_language",
+        "subtitle_language",
+        "hdr",
+        "dolby_vision",
+        "hdr10_plus",
+        "atmos",
+        "video_codec",
+        "audio_codec",
+        "subtitle_codec",
+        "audio_layout",
+        "file_size",
+        "bitrate",
+        "year",
+        "decade",
+        "critic_rating",
+        "audience_rating",
+        "user_rating",
+        "age_rating",
+        "duration",
+        "plays",
+        "added",
+        "released",
+        "last_played",
+        "episode_added",
+        "episode_last_played",
+        "unplayed_episodes",
+        "unplayed",
+        "in_progress",
+        "in_collection",
+        "versions",
+        "folder",
+        "original_language",
+        "origin_country",
+        "tmdb_rating",
+        "tmdb_votes",
+        "tmdb_keyword",
+        "company",
+        "streaming",
+        "show_status",
+        "last_aired",
+        "monitored",
+        "art_status",
+        "poster_status",
+        "background_status",
+        "season_posters_status",
+        "poster_source",
+        "background_source",
+        "season_posters_source",
+        "poster_width",
+        "background_width",
+        "season_posters_width",
+        "incorrect_aspect_ratio",
+        "theme_status",
+        "theme_source",
+        "theme_length",
+        "metadata_issue",
+        "overturedb_complete",
+        "themerrdb_theme",
+        "overturedb_poster",
+        "overturedb_background",
+        "overturedb_season_posters",
+        "overturedb_theme"
+      ],
+      "title": "FilterField",
+      "type": "string"
+    },
+    "FilterGroup": {
+      "additionalProperties": false,
+      "description": "Conditions and nested groups, matched together or individually.",
+      "properties": {
+        "mode": {
+          "default": "all",
+          "enum": [
+            "all",
+            "any"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/Condition"
+          },
+          "maxItems": 100,
+          "title": "Conditions",
+          "type": "array"
+        },
+        "groups": {
+          "items": {
+            "$ref": "#/$defs/FilterGroup"
+          },
+          "maxItems": 20,
+          "title": "Groups",
+          "type": "array"
+        }
+      },
+      "title": "FilterGroup",
+      "type": "object"
+    },
+    "FilterOperator": {
+      "description": "Comparison operator for a filter condition.",
+      "enum": [
+        "is",
+        "is_not",
+        "contains",
+        "does_not_contain",
+        "starts_with",
+        "ends_with",
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "in_last",
+        "not_in_last",
+        "before",
+        "after"
+      ],
+      "title": "FilterOperator",
+      "type": "string"
+    },
+    "GroupName": {
+      "maxLength": 200,
+      "type": "string"
+    },
+    "MdblistSource": {
+      "additionalProperties": false,
+      "description": "One or more MDBList lists, in source order.",
+      "properties": {
+        "type": {
+          "const": "mdblist",
+          "default": "mdblist",
+          "title": "Type",
+          "type": "string"
+        },
+        "identifiers": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Identifiers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "identifiers"
+      ],
+      "title": "MdblistSource",
+      "type": "object"
+    },
+    "MediaType": {
+      "description": "Kind of library item Overture tracks.",
+      "enum": [
+        "movie",
+        "show"
+      ],
+      "title": "MediaType",
+      "type": "string"
+    },
+    "MemberTagFormat": {
+      "maxLength": 200,
+      "minLength": 1,
+      "type": "string"
+    },
+    "PortableCollection": {
+      "additionalProperties": false,
+      "description": "A collection, with criteria for each media type instead of each library.\n\n``collection_group`` names a group of the file or one the install has.",
+      "properties": {
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "maxLength": 10000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Summary"
+        },
+        "summary_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SummaryFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sort_title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sort Title"
+        },
+        "sort_title_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SortTitleFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collection_group": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GroupName"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "tmdb_collection_id": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tmdb Collection Id"
+        },
+        "collection_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "order_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionOrder"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collection_filtering": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionFiltering"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "visible_home": {
+          "default": false,
+          "title": "Visible Home",
+          "type": "boolean"
+        },
+        "visible_shared": {
+          "default": false,
+          "title": "Visible Shared",
+          "type": "boolean"
+        },
+        "visible_library": {
+          "default": false,
+          "title": "Visible Library",
+          "type": "boolean"
+        },
+        "active_start_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_end_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "delete_when_inactive": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete When Inactive"
+        },
+        "policy": {
+          "$ref": "#/$defs/CollectionPolicyBase"
+        },
+        "smart": {
+          "default": false,
+          "title": "Smart",
+          "type": "boolean"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "criteria": {
+          "additionalProperties": {
+            "$ref": "#/$defs/FilterGroup"
+          },
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/MediaType"
+          },
+          "title": "Criteria",
+          "type": "object"
+        },
+        "art": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PresetArt"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "title",
+        "criteria"
+      ],
+      "title": "PortableCollection",
+      "type": "object"
+    },
+    "PortableGroup": {
+      "additionalProperties": false,
+      "description": "A group's defaults, and the set it runs when it is one.",
+      "properties": {
+        "sync_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SyncMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "minimum_items": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Items"
+        },
+        "delete_below_minimum": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete Below Minimum"
+        },
+        "auto_art": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/AutoArtSource"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Art"
+        },
+        "generated_style": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtStyle"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "generated_title_only": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generated Title Only"
+        },
+        "overturedb_posters": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/CollectionPosterStyle"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overturedb Posters"
+        },
+        "backgrounds": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backgrounds"
+        },
+        "themes": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Themes"
+        },
+        "auto_match_theme": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auto Match Theme"
+        },
+        "delete_when_inactive": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete When Inactive"
+        },
+        "collection_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "order_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionOrder"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collection_filtering": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CollectionFiltering"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "visible_home": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Home"
+        },
+        "visible_shared": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Shared"
+        },
+        "visible_library": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visible Library"
+        },
+        "sort_title_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SortTitleFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "summary_format": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SummaryFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_start_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_end_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "request_missing": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Request Missing"
+        },
+        "member_label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MemberTagFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "arr_tag": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MemberTagFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "home_order": {
+          "anyOf": [
+            {
+              "maximum": 999,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Home Order"
+        },
+        "name": {
+          "$ref": "#/$defs/GroupName",
+          "minLength": 1
+        },
+        "generator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PortableSet"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "separator": {
+          "default": false,
+          "title": "Separator",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "PortableGroup",
+      "type": "object"
+    },
+    "PortableSet": {
+      "additionalProperties": false,
+      "description": "A collection set, for media types instead of libraries.",
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/SetDimension"
+        },
+        "include": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 500,
+          "title": "Include",
+          "type": "array"
+        },
+        "exclude": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 500,
+          "title": "Exclude",
+          "type": "array"
+        },
+        "top": {
+          "anyOf": [
+            {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Top"
+        },
+        "title_format": {
+          "$ref": "#/$defs/SetTitleFormat",
+          "default": "{value}"
+        },
+        "strip_prefix": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Strip Prefix",
+          "type": "string"
+        },
+        "strip_suffix": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Strip Suffix",
+          "type": "string"
+        },
+        "criteria": {
+          "$ref": "#/$defs/FilterGroup"
+        },
+        "smart": {
+          "default": false,
+          "title": "Smart",
+          "type": "boolean"
+        },
+        "custom_values": {
+          "items": {
+            "$ref": "#/$defs/CustomSetValue"
+          },
+          "maxItems": 200,
+          "title": "Custom Values",
+          "type": "array"
+        },
+        "aliases": {
+          "items": {
+            "$ref": "#/$defs/SetValueAlias"
+          },
+          "maxItems": 200,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "media_types": {
+          "items": {
+            "$ref": "#/$defs/MediaType"
+          },
+          "minItems": 1,
+          "title": "Media Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "media_types"
+      ],
+      "title": "PortableSet",
+      "type": "object"
+    },
+    "PresetArt": {
+      "additionalProperties": false,
+      "description": "The art a collection starts with.",
+      "properties": {
+        "poster": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PresetPoster"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "background": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PresetImage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "PresetArt",
+      "type": "object"
+    },
+    "PresetCategory": {
+      "description": "What kind of collections an OvertureDB preset adds.",
+      "enum": [
+        "charts",
+        "seasonal",
+        "decades",
+        "franchises",
+        "genres",
+        "studios",
+        "networks",
+        "streaming",
+        "people",
+        "languages",
+        "regions",
+        "ratings",
+        "technical",
+        "awards",
+        "other"
+      ],
+      "title": "PresetCategory",
+      "type": "string"
+    },
+    "PresetImage": {
+      "additionalProperties": false,
+      "description": "A public image link.",
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/ArtUrl"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "PresetImage",
+      "type": "object"
+    },
+    "PresetMetadata": {
+      "additionalProperties": false,
+      "description": "How a preset describes itself in the gallery.",
+      "properties": {
+        "id": {
+          "maxLength": 60,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/PresetCategory"
+        },
+        "tags": {
+          "items": {
+            "$ref": "#/$defs/PresetTag"
+          },
+          "maxItems": 10,
+          "title": "Tags",
+          "type": "array"
+        },
+        "media_types": {
+          "items": {
+            "$ref": "#/$defs/MediaType"
+          },
+          "minItems": 1,
+          "title": "Media Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "category",
+        "media_types"
+      ],
+      "title": "PresetMetadata",
+      "type": "object"
+    },
+    "PresetPoster": {
+      "additionalProperties": false,
+      "description": "A public poster link, and which OvertureDB poster style it is.",
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/ArtUrl"
+        },
+        "style": {
+          "$ref": "#/$defs/CollectionPosterStyle",
+          "default": "individual"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "PresetPoster",
+      "type": "object"
+    },
+    "PresetTag": {
+      "maxLength": 40,
+      "minLength": 1,
+      "type": "string"
+    },
+    "RadarrTagSource": {
+      "additionalProperties": false,
+      "description": "Movies carrying any of the Radarr tags.",
+      "properties": {
+        "type": {
+          "const": "radarr_tag",
+          "default": "radarr_tag",
+          "title": "Type",
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Tags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tags"
+      ],
+      "title": "RadarrTagSource",
+      "type": "object"
+    },
+    "SeasonalDate": {
+      "maxLength": 5,
+      "minLength": 5,
+      "type": "string"
+    },
+    "SetDimension": {
+      "description": "The metadata a collection set creates one collection per value of.",
+      "enum": [
+        "decade",
+        "year",
+        "genre",
+        "studio",
+        "country",
+        "content_rating",
+        "resolution",
+        "label",
+        "actor",
+        "director",
+        "writer",
+        "producer",
+        "franchise",
+        "edition",
+        "network",
+        "original_language",
+        "origin_country",
+        "streaming",
+        "audio_language",
+        "subtitle_language",
+        "video_codec",
+        "audio_codec",
+        "audio_layout",
+        "company",
+        "tmdb_keyword",
+        "show_status",
+        "custom"
+      ],
+      "title": "SetDimension",
+      "type": "string"
+    },
+    "SetTitleFormat": {
+      "maxLength": 200,
+      "type": "string"
+    },
+    "SetValueAlias": {
+      "additionalProperties": false,
+      "description": "Values that make one collection under a name of their own.",
+      "properties": {
+        "values": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "values",
+        "name"
+      ],
+      "title": "SetValueAlias",
+      "type": "object"
+    },
+    "SonarrTagSource": {
+      "additionalProperties": false,
+      "description": "Shows carrying any of the Sonarr tags.",
+      "properties": {
+        "type": {
+          "const": "sonarr_tag",
+          "default": "sonarr_tag",
+          "title": "Type",
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Tags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tags"
+      ],
+      "title": "SonarrTagSource",
+      "type": "object"
+    },
+    "SortTitleFormat": {
+      "maxLength": 400,
+      "type": "string"
+    },
+    "SourceCondition": {
+      "additionalProperties": false,
+      "description": "Test whether an external list holds the item.",
+      "properties": {
+        "kind": {
+          "const": "source",
+          "default": "source",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operator": {
+          "default": "is",
+          "enum": [
+            "is",
+            "is_not"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/CollectionSource"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "SourceCondition",
+      "type": "object"
+    },
+    "SummaryFormat": {
+      "maxLength": 20000,
+      "type": "string"
+    },
+    "SyncMode": {
+      "description": "How a dynamic collection applies source membership.",
+      "enum": [
+        "sync",
+        "append"
+      ],
+      "title": "SyncMode",
+      "type": "string"
+    },
+    "TmdbChart": {
+      "description": "A TMDB chart; some exist for movies or for shows only.",
+      "enum": [
+        "popular",
+        "top_rated",
+        "trending_day",
+        "trending_week",
+        "now_playing",
+        "upcoming",
+        "airing_today",
+        "on_the_air"
+      ],
+      "title": "TmdbChart",
+      "type": "string"
+    },
+    "TmdbChartSource": {
+      "additionalProperties": false,
+      "description": "The top titles of a TMDB chart, such as Popular or Trending this week.",
+      "properties": {
+        "type": {
+          "const": "tmdb_chart",
+          "default": "tmdb_chart",
+          "title": "Type",
+          "type": "string"
+        },
+        "chart": {
+          "$ref": "#/$defs/TmdbChart"
+        },
+        "limit": {
+          "default": 100,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chart"
+      ],
+      "title": "TmdbChartSource",
+      "type": "object"
+    },
+    "TmdbCollectionSource": {
+      "additionalProperties": false,
+      "description": "Movies in one TMDB franchise collection, in release order.",
+      "properties": {
+        "type": {
+          "const": "tmdb_collection",
+          "default": "tmdb_collection",
+          "title": "Type",
+          "type": "string"
+        },
+        "collection_id": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "title": "Collection Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "collection_id"
+      ],
+      "title": "TmdbCollectionSource",
+      "type": "object"
+    },
+    "TmdbItemSource": {
+      "additionalProperties": false,
+      "description": "Explicit TMDB movie or show IDs, in the order given.",
+      "properties": {
+        "type": {
+          "const": "tmdb_item",
+          "default": "tmdb_item",
+          "title": "Type",
+          "type": "string"
+        },
+        "tmdb_ids": {
+          "items": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Tmdb Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tmdb_ids"
+      ],
+      "title": "TmdbItemSource",
+      "type": "object"
+    },
+    "TmdbListSource": {
+      "additionalProperties": false,
+      "description": "Public TMDB lists, in their saved order.",
+      "properties": {
+        "type": {
+          "const": "tmdb_list",
+          "default": "tmdb_list",
+          "title": "Type",
+          "type": "string"
+        },
+        "list_ids": {
+          "items": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "List Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "list_ids"
+      ],
+      "title": "TmdbListSource",
+      "type": "object"
+    },
+    "TmdbPersonRole": {
+      "description": "Credit roles included by a TMDB person condition.",
+      "enum": [
+        "actor",
+        "director",
+        "writer",
+        "producer",
+        "biography"
+      ],
+      "title": "TmdbPersonRole",
+      "type": "string"
+    },
+    "TmdbPersonSource": {
+      "additionalProperties": false,
+      "description": "Movies or shows credited to a TMDB person in selected roles.",
+      "properties": {
+        "type": {
+          "const": "tmdb_person",
+          "default": "tmdb_person",
+          "title": "Type",
+          "type": "string"
+        },
+        "person_id": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "title": "Person Id",
+          "type": "integer"
+        },
+        "person_name": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Person Name"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/TmdbPersonRole"
+          },
+          "minItems": 1,
+          "title": "Roles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "person_id"
+      ],
+      "title": "TmdbPersonSource",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Collections, sets and groups that can be added to any install.",
+  "properties": {
+    "preset_version": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 1,
+      "title": "Preset Version",
+      "type": "integer"
+    },
+    "preset": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PresetMetadata"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "groups": {
+      "items": {
+        "$ref": "#/$defs/PortableGroup"
+      },
+      "maxItems": 10,
+      "title": "Groups",
+      "type": "array"
+    },
+    "collections": {
+      "items": {
+        "$ref": "#/$defs/PortableCollection"
+      },
+      "maxItems": 50,
+      "title": "Collections",
+      "type": "array"
+    }
+  },
+  "title": "CollectionPresetFile",
+  "type": "object"
+}

@@ -1,0 +1,28 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "show-statuses",
+    "title": "Show statuses",
+    "description": "Returning, ended and canceled shows, one collection each.",
+    "category": "other",
+    "tags": [],
+    "media_types": [
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Show statuses",
+      "minimum_items": 1,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "show_status",
+        "media_types": [
+          "show"
+        ]
+      }
+    }
+  ]
+}

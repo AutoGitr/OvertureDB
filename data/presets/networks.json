@@ -1,0 +1,29 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "networks",
+    "title": "Networks",
+    "description": "The twenty TV networks that aired the most of your shows.",
+    "category": "networks",
+    "tags": [],
+    "media_types": [
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Networks",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "network",
+        "media_types": [
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "resolutions",
+    "title": "Resolutions",
+    "description": "One collection per resolution, such as 4K or 1080p.",
+    "category": "technical",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Resolutions",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "resolution",
+        "media_types": [
+          "movie",
+          "show"
+        ]
+      }
+    }
+  ]
+}

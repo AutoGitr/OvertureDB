@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "studios",
+    "title": "Studios",
+    "description": "The twenty studios behind the most of your library, as your media server names them.",
+    "category": "studios",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Studios",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "studio",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

@@ -9,7 +9,7 @@ description: The automation that reviews, imports, checks and publishes the cata
 | Workflow           | Purpose                                                                                                                       |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | Contributions      | Validate contribution issues, post preview comments, and commit approved changes to `main`.                                   |
-| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, and block non-maintainer catalog PRs.                   |
+| Contribution Guard | Run the full checks and dependency audit on PRs and pushes to `main`, check presets against Overture, and block non-maintainer catalog PRs. |
 | CodeQL             | Scan Python and Actions code when either changes, and weekly; catalog contributions start no analysis.                        |
 | Import ThemerrDB   | Import new and updated ThemerrDB themes daily, starting the daily pipeline (or on manual dispatch, optionally limited).     |
 | Catalog Health     | Check entries after each import and update the `health` issue.                                                                |

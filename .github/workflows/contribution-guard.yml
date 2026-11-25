@@ -37,3 +37,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: uv run --locked python -m scripts.guard
+      # Overture's models define presets; a preset or contract change must be
+      # one the released Overture code reads.
+      - name: Checkout Overture
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: AutoGitr/Overture
+          path: overture-checkout
+          persist-credentials: false
+      - name: Check presets and the contract against Overture
+        env:
+          OVERTUREDB_DIR: ${{ github.workspace }}
+          OVERTURE_REQUIRE_SIBLING: "1"
+        run: |
+          uv run --locked --directory overture-checkout python -m scripts.preset_contract "$GITHUB_WORKSPACE" --check
+          uv run --locked --directory overture-checkout python -m scripts.catalog_contract "$GITHUB_WORKSPACE" --check
+          uv run --locked --directory overture-checkout python -m pytest tests/test_release/test_shared_files.py -p no:cacheprovider --no-cov

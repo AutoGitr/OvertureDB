@@ -1,0 +1,29 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "producers",
+    "title": "Producers",
+    "description": "The twenty producers credited on the most of your movies.",
+    "category": "people",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Producers",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "producer",
+        "media_types": [
+          "movie"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

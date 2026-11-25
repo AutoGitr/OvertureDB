@@ -89,8 +89,12 @@ validation or other diagnostics.
 ## Shared schema
 
 Every file in `schema/` except the package's `__init__.py`
-(`entry.schema.json`, `catalog.schema.json` and `contract.py`) is shared with
-Overture, whose CI fails while its copy differs. After changing them, validate
+(`entry.schema.json`, `catalog.schema.json`, `preset.schema.json`,
+`preset-vocabulary.json` and `contract.py`) is shared with Overture, whose CI
+fails while its copy differs. Overture generates the two preset files from its
+models with `uv run python -m scripts.preset_contract ../OvertureDB`; never edit
+them by hand. Contribution Guard checks out Overture and fails while they
+differ or while a preset in `data/presets/` is one Overture cannot add. After changing them, validate
 existing data and run, from the sibling Overture checkout:
 
 ```sh
@@ -98,7 +102,8 @@ uv run python -m scripts.catalog_contract ../OvertureDB
 ```
 
 Submit both repositories' changes together. Increment `SCHEMA_VERSION` for
-breaking changes; do not introduce compatibility shims.
+breaking catalog changes and `PRESET_VERSION` for breaking preset changes; do
+not introduce compatibility shims.
 
 ## Documentation
 

@@ -6,8 +6,8 @@ description: Reading a preview, approving or rejecting, and what the bot does on
 
 # Review
 
-Contributions arrive as issues of kind `movie`, `show`, `collection` or
-`bulk`. The bot posts a preview comment with validation failures, clickable
+Contributions arrive as issues of kind `movie`, `show`, `collection`, `bulk`
+or `preset`. The bot posts a preview comment with validation failures, clickable
 selections and the proposed diff.
 
 ## What the preview checks
@@ -24,6 +24,14 @@ repository admin opens the issue, the archive also replaces the artwork, season
 posters and OvertureDB themes entries hold; identifiers and years are still
 only filled in. Invalid bulk records block the whole contribution; fix the
 archive before review.
+
+A preset preview lists the groups, sets and collections the preset adds with
+their media types, names what they need (TMDB, MDBList, Radarr or Sonarr), shows
+each image, and ends with the preset file as it will be committed. Linked
+images must be reachable and follow the 1% rule; attached ones are re-encoded
+without their metadata and committed beside the preset. Check that the preset
+is broadly useful, that its title and description say what it adds, and that
+attached images are ones the contributor may share.
 
 A bulk preview opens with two tables. The first counts entries by outcome
 (**New entries**, **Filled gaps**, **Overwritten**, **Unchanged**) for movies,

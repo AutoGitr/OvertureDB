@@ -1,0 +1,123 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "based-on",
+    "title": "Based on…",
+    "description": "Titles based on a book, a comic, a true story or a video game, by their TMDB keywords.",
+    "category": "other",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Based on",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "custom",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "title_format": "Based on a {value}",
+        "custom_values": [
+          {
+            "name": "Book",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on novel or book"
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on book"
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on novel"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Comic",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on comic"
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on comic book"
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on graphic novel"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "True Story",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on true story"
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "biography"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Video Game",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "based on video game"
+                }
+              ],
+              "groups": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1455 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "common-sense-ages",
+    "title": "Common Sense ages",
+    "description": "The youngest age Common Sense Media recommends each title for.",
+    "category": "ratings",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Common Sense ages",
+      "minimum_items": 1,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "custom",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "title_format": "Age {value}+",
+        "custom_values": [
+          {
+            "name": "1",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "1"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/05"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "01"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "2",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "2"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/05"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "02"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "3",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "3"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/05"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "03"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "4",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "4"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/05"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "04"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "5",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/5"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/05"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "05"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "6",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "6"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/U"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/0+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-G"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/E"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "G - All Ages"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/6"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/06"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/07"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "06"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "7",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7-FV"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/6"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/06"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/07"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "07"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "8",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "8"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7-FV"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/6"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/06"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/07"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "08"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "9",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "9"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7-FV"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/9+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/9"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/09"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/10"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "09"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "10",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "10"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7-FV"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/9+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/9"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/09"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/10"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "11",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "11"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-Y7-FV"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/9+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/9"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/09"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/10"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/11"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "12",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "12"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "12+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG - Children"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/11"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/12"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "13",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "13"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "12+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13 - Teens 13 or older"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/11"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/12"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "14",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "14"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "12"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/12A"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "12+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-14"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13 - Teens 13 or older"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/11"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/12"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "15",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/14+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-14"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13 - Teens 13 or older"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/16"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "16",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "16"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/14+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-14"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "PG-13 - Teens 13 or older"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/16"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "17",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "17"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/18"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/14+"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-14"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "R"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "R - 17+ (violence & profanity)"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TVMA"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-MA"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "MA-17"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/18"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/15"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/16"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "18",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "18"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/18"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "MA-17"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TVMA"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "TV-MA"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "R"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/R18"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "gb/X"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "X"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "NC-17"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "R - 17+ (violence & profanity)"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "R+ - Mild Nudity"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "Rx - Hentai"
+                },
+                {
+                  "kind": "field",
+                  "field": "content_rating",
+                  "operator": "is",
+                  "value": "no/18"
+                }
+              ],
+              "groups": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

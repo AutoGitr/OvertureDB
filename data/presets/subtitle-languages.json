@@ -1,0 +1,32 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "subtitle-languages",
+    "title": "Subtitle languages",
+    "description": "The fifteen subtitle languages the most of your files carry, as Plex smart collections.",
+    "category": "languages",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Subtitle languages",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "subtitle_language",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 15,
+        "smart": true
+      }
+    }
+  ]
+}

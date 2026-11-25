@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "actors",
+    "title": "Actors",
+    "description": "The twenty actors who appear in the most of your library.",
+    "category": "people",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Actors",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "actor",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

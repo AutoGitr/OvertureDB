@@ -21,5 +21,9 @@ hosts that do not name an image (sets, pages, viewers) are rejected.
 Images must be JPEG (`.jpg`, `.jpeg`) or PNG (`.png`) files. Matte and
 overlay collection posters are accepted from TMDB and ThePosterDB only.
 
+[Presets](presets.md) may link TMDB, ThePosterDB, fanart.tv or TheTVDB, or
+keep an image no other source holds, such as a Holidays poster, in the
+repository; catalog entries never link those.
+
 The rules live in `schema/contract.py`, which Overture uses too, so a link
 Overture accepts is a link the catalog accepts.

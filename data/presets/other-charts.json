@@ -1,0 +1,131 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "other-charts",
+    "title": "Other charts",
+    "description": "Common Sense Media's family picks, Metacritic's must-sees and the week's most pirated movies, from Kometa's MDBList lists.",
+    "category": "charts",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "collections": [
+    {
+      "title": "Common Sense Movies",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/cssfamiliesmovies"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Common Sense Shows",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/cssfamiliesshows"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Metacritic Must-See Movies",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/metacriticmustseemovies"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Metacritic Must-See Shows",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/metacriticmustseeshows"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Top 10 Pirated Movies of the Week",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/top-ten-pirated-movies-of-the-week-torrent-freakcom"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    }
+  ]
+}

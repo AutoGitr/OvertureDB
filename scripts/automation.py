@@ -13,7 +13,14 @@ lazy from typing import IO, Any, override
 lazy from urllib.request import HTTPRedirectHandler, Request, build_opener
 lazy from zipfile import BadZipFile
 
-lazy from schema.contract import ENTRY_FOLDERS, IDENTITY_FIELDS, theme_length_problem
+lazy from schema.contract import (
+    ENTRY_FOLDERS,
+    IDENTITY_FIELDS,
+    art_source,
+    preset_art_urls,
+    preset_requires,
+    theme_length_problem,
+)
 
 lazy from . import github, publication
 lazy from .catalog import (
@@ -40,8 +47,9 @@ lazy from .import_bulk_export import (
     OUTCOMES,
     import_bulk_export,
 )
+lazy from .preset_contribution import process_preset
 
-KINDS = frozenset({"movie", "show", "collection", "bulk"})
+KINDS = frozenset({"movie", "show", "collection", "bulk", "preset"})
 #: The kind label each contribution form's title starts with. GitHub leaves a
 #: form's label off the issue when the repository lacks it.
 TITLE_KINDS = {
@@ -49,6 +57,7 @@ TITLE_KINDS = {
     "[Show]:": "show",
     "[Collection]:": "collection",
     "[Bulk]:": "bulk",
+    "[Preset]:": "preset",
 }
 MARKER = "<!-- overturedb-preview -->"
 FINGERPRINT_RE = re.compile(r"<!-- fingerprint: ([0-9a-f]{64}) -->")
@@ -72,7 +81,7 @@ class Plan:
     commit_body: str
     preview_body: str
     fingerprint: str
-    additions: dict[str, str]
+    additions: dict[str, str | bytes]
     deletions: list[str]
     is_modification: bool = False
 
@@ -86,7 +95,7 @@ def contribution_kind(issue: dict[str, Any]) -> str:
     kinds = labels & KINDS
     if issue["state"] != "open" or "pull_request" in issue or len(kinds) != 1:
         raise ValueError(
-            "Use one open movie, show, collection or bulk contribution issue."
+            "Use one open movie, show, collection, bulk or preset contribution issue."
         )
     return next(iter(kinds))
 
@@ -143,25 +152,32 @@ class AttachmentRedirectHandler(HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
-def download_archive(body: str, target: Path) -> None:
-    urls = set(ATTACHMENT.findall(body))
-    if len(urls) != 1:
-        raise ValueError("Attach exactly one GitHub-hosted selections ZIP.")
-    url = urls.pop()
+def download_attachment(url: str, limit: int) -> bytes:
+    """Read a GitHub-hosted issue attachment of at most *limit* bytes."""
+    if not ATTACHMENT.fullmatch(url):
+        raise ValueError("Attach the file to the issue so GitHub hosts it.")
     public_https_destination(url, allowed_hosts={"github.com"})
     # HTTPS and host validated above; redirects undergo the same validation.
     request = Request(url, headers={"User-Agent": "OvertureDB"})  # noqa: S310
     opener = build_opener(AttachmentRedirectHandler())
     deadline = time.monotonic() + 60
-    total = 0
-    with opener.open(request, timeout=20) as response, target.open("wb") as output:
+    data = bytearray()
+    with opener.open(request, timeout=20) as response:
         while chunk := response.read(65536):
-            total += len(chunk)
-            if total > MAX_ARCHIVE_BYTES or time.monotonic() > deadline:
+            data += chunk
+            if len(data) > limit or time.monotonic() > deadline:
                 raise ValueError(
-                    "Attachment exceeds the 10 MB or 60 second download limit."
+                    f"Attachment exceeds the {limit // (1024 * 1024) or 1} MB "
+                    "or 60 second download limit."
                 )
-            output.write(chunk)
+    return bytes(data)
+
+
+def download_archive(body: str, target: Path) -> None:
+    urls = set(ATTACHMENT.findall(body))
+    if len(urls) != 1:
+        raise ValueError("Attach exactly one GitHub-hosted selections ZIP.")
+    target.write_bytes(download_attachment(urls.pop(), MAX_ARCHIVE_BYTES))
 
 
 def fenced(value: str, language: str = "text") -> str:
@@ -460,12 +476,112 @@ def _evaluate_bulk(issue: dict[str, Any], root: Path, *, overwrite: bool) -> Pla
     )
 
 
+def _preset_summary(preset: dict[str, Any], attached: dict[str, str]) -> str:
+    """The preset preview: what it adds, what it needs, and its images."""
+    metadata = preset["preset"]
+    title, category = metadata["title"], metadata["category"]
+    rows = [
+        *(
+            [
+                f"**{group['name']}**",
+                f"Set by {group['generator']['dimension'].replace('_', ' ')}"
+                if group.get("generator")
+                else "Group",
+                ", ".join(group["generator"]["media_types"])
+                if group.get("generator")
+                else "",
+            ]
+            for group in preset.get("groups", [])
+        ),
+        *(
+            [
+                collection["title"],
+                f"Collection in {collection['collection_group']}"
+                if collection.get("collection_group")
+                else "Collection",
+                ", ".join(collection["criteria"]),
+            ]
+            for collection in preset.get("collections", [])
+        ),
+    ]
+    requires = ", ".join(preset_requires(preset)) or "nothing beyond a library"
+    images = [
+        f"![{path}]({attached.get(url, url)})" for path, url in preset_art_urls(preset)
+    ]
+    return "\n".join(
+        [
+            f"**{title}** ({category}): {metadata['description']}",
+            "",
+            *_table(["Adds", "Kind", "Media types"], rows),
+            "",
+            f"**Needs:** {requires}",
+            *(["", *images] if images else []),
+        ]
+    )
+
+
+def _evaluate_preset(issue: dict[str, Any], root: Path) -> Plan:
+    result = process_preset(issue["body"] or "", root, download_attachment)
+    preset = result.preset
+    for path, url in [] if result.removed else preset_art_urls(preset):
+        if art_source(url) == "overturedb":
+            continue
+        kind = "poster" if ".poster." in path else "background"
+        if (size := check_art_url(url)) and (problem := aspect_problem(kind, *size)):
+            raise ValueError(f"The {kind} {url} is {problem}.")
+    if result.removed:
+        action = "Remove"
+    else:
+        action = "Update" if result.is_modification else "Add"
+    sections = [
+        *([f"**Reason:** {result.reason}"] if result.reason else []),
+        *(
+            ["**Removes:** " + ", ".join(f"`{name}`" for name in result.deletions)]
+            if result.removed
+            else []
+        ),
+        _preset_summary(preset, result.attached),
+        *(
+            []
+            if result.removed
+            else [fenced(json.dumps(preset, indent=2, ensure_ascii=False), "json")]
+        ),
+    ]
+    fingerprint = _digest(
+        {
+            "kind": "preset",
+            "title": issue["title"],
+            "body": issue["body"] or "",
+            "additions": {
+                name: hashlib.sha256(
+                    data if isinstance(data, bytes) else data.encode()
+                ).hexdigest()
+                for name, data in result.additions.items()
+            },
+            "deletions": result.deletions,
+        }
+    )
+    return Plan(
+        kind="preset",
+        headline=f"{action} preset: {preset['preset']['title']} (#{issue['number']})",
+        commit_body=f"Closes #{issue['number']}",
+        preview_body="\n\n".join(sections),
+        fingerprint=fingerprint,
+        additions=result.additions,
+        deletions=result.deletions,
+        is_modification=result.is_modification,
+    )
+
+
 def evaluate_issue(repo: str, issue: dict[str, Any], root: Path) -> Plan:
     """Plan an issue's contribution; an admin's bulk contribution may overwrite."""
-    if contribution_kind(issue) == "bulk":
+    kind = contribution_kind(issue)
+    if kind == "bulk":
         plan = _evaluate_bulk(
             issue, root, overwrite=is_admin(repo, issue["user"]["login"])
         )
+    elif kind == "preset":
+        plan = _evaluate_preset(issue, root)
     else:
         plan = _evaluate_single(issue, root)
     if len(plan.preview_body.encode("utf-8")) > 55_000:

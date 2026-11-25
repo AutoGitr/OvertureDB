@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "countries",
+    "title": "Countries",
+    "description": "The twenty countries the most of your library comes from, as your media server lists them.",
+    "category": "regions",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Countries",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "country",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

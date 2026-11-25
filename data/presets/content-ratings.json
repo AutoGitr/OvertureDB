@@ -1,0 +1,30 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "content-ratings",
+    "title": "Content ratings",
+    "description": "One collection per content rating, such as PG-13 or TV-MA.",
+    "category": "ratings",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Content ratings",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "content_rating",
+        "media_types": [
+          "movie",
+          "show"
+        ]
+      }
+    }
+  ]
+}

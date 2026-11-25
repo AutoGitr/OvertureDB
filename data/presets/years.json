@@ -1,0 +1,30 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "years",
+    "title": "Years",
+    "description": "One collection per release year, newest first.",
+    "category": "decades",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Years",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "year",
+        "media_types": [
+          "movie",
+          "show"
+        ]
+      }
+    }
+  ]
+}

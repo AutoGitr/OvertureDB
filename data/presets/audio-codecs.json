@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "audio-codecs",
+    "title": "Audio codecs",
+    "description": "One collection per audio codec, such as TrueHD or DTS, as Plex smart collections.",
+    "category": "technical",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Audio codecs",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "audio_codec",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "smart": true
+      }
+    }
+  ]
+}

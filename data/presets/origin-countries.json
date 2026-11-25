@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "origin-countries",
+    "title": "Origin countries",
+    "description": "The twenty countries of origin TMDB lists for the most of your library.",
+    "category": "regions",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Origin countries",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "origin_country",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

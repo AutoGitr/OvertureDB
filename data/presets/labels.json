@@ -1,0 +1,30 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "labels",
+    "title": "Labels",
+    "description": "One collection per label you give titles on your media server.",
+    "category": "other",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Labels",
+      "minimum_items": 1,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "label",
+        "media_types": [
+          "movie",
+          "show"
+        ]
+      }
+    }
+  ]
+}

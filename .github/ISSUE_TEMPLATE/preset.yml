@@ -1,0 +1,111 @@
+name: Contribute a collection preset
+description: Share collections, sets and groups exported from Overture as a ready-made preset.
+title: "[Preset]: Title"
+labels: ["preset"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Export the collections and groups from Overture (**Collections -> Presets -> Export**) and attach or paste the downloaded `.json` file below.
+
+        Before submitting, please review the [preset guidelines](https://autogitr.github.io/Overture/overturedb/contributing/presets). A preset never requests downloads or writes labels or tags; those settings are left to the person adding it.
+
+        To change or remove a published preset, give its ID below and explain why under Reason for modification.
+
+  - type: input
+    id: preset_id
+    attributes:
+      label: Preset ID
+      description: Leave empty for a new preset. To change or remove a published one, give its ID, the name of its file in data/presets without `.json`.
+      placeholder: holidays
+
+  - type: input
+    id: preset_title
+    attributes:
+      label: Preset title
+      description: Names the preset in Overture's gallery; a new preset's ID is made from it.
+      placeholder: Holidays
+    validations:
+      required: true
+
+  - type: textarea
+    id: preset_description
+    attributes:
+      label: Description
+      description: One or two sentences on what the preset adds.
+      placeholder: Christmas, Halloween and Valentine's Day titles, shown only in the weeks around each holiday.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - charts
+        - seasonal
+        - decades
+        - franchises
+        - genres
+        - studios
+        - networks
+        - streaming
+        - people
+        - languages
+        - regions
+        - ratings
+        - technical
+        - awards
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated words people may search for.
+      placeholder: christmas, halloween
+
+  - type: textarea
+    id: preset_file
+    attributes:
+      label: Preset file
+      description: Attach the exported `.json` file, or paste its contents.
+      placeholder: Attach or drag and drop the exported .json file here...
+
+  - type: textarea
+    id: images
+    attributes:
+      label: Images
+      description: |
+        One line per image, as `<collection title> poster: <link>` or `<collection title> background: <link>`. Link an image on TMDB, ThePosterDB, fanart.tv or TheTVDB, or attach a JPEG or PNG (posters 2:3, at least 1000x1500; backgrounds 16:9, at least 1280x720), which OvertureDB keeps.
+      placeholder: "Christmas poster: <attach or link>"
+
+  - type: checkboxes
+    id: licence
+    attributes:
+      label: Licence
+      options:
+        - label: I made the images I attached, or may share them under the repository licence.
+
+  - type: textarea
+    id: modification_reason
+    attributes:
+      label: Reason for modification
+      description: Why a published preset is changed or removed.
+
+  - type: checkboxes
+    id: remove
+    attributes:
+      label: Removal
+      options:
+        - label: Remove this preset and its images from OvertureDB
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+    validations:
+      required: false

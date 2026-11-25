@@ -1,0 +1,56 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "most-played",
+    "title": "Most played",
+    "description": "The twenty movies played most on your Plex server among those played in the last 30 days, and the twenty shows played most recently.",
+    "category": "charts",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "collections": [
+    {
+      "title": "Most Played Movies",
+      "collection_group": "Charts",
+      "order_type": "plays.desc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "last_played",
+              "operator": "in_last",
+              "value": 30
+            }
+          ],
+          "groups": []
+        }
+      },
+      "limit": 20
+    },
+    {
+      "title": "Recently Played Shows",
+      "collection_group": "Charts",
+      "order_type": "last_played.desc",
+      "criteria": {
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "last_played",
+              "operator": "in_last",
+              "value": 30
+            }
+          ],
+          "groups": []
+        }
+      },
+      "limit": 20
+    }
+  ]
+}

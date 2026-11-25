@@ -1,0 +1,153 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "tmdb-charts",
+    "title": "TMDB charts",
+    "description": "What is trending, popular and top rated on TMDB this week, for movies and shows, refreshed on every sync.",
+    "category": "charts",
+    "tags": [
+      "trending",
+      "popular"
+    ],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Charts",
+      "auto_art": [
+        "generate"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "title": "Trending Movies",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "trending_week",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Trending Shows",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "show": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "trending_week",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Popular Movies",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "popular",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Popular Shows",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "show": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "popular",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Top Rated Movies",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "movie": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "top_rated",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Top Rated Shows",
+      "collection_group": "Charts",
+      "order_type": "custom",
+      "criteria": {
+        "show": {
+          "mode": "all",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_chart",
+                "chart": "top_rated",
+                "limit": 50
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

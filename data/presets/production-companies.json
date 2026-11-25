@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "production-companies",
+    "title": "Production companies",
+    "description": "The twenty TMDB production companies behind the most of your library.",
+    "category": "studios",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Production companies",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "company",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

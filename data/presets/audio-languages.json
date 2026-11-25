@@ -1,0 +1,32 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "audio-languages",
+    "title": "Audio languages",
+    "description": "The fifteen audio languages the most of your files carry, as Plex smart collections.",
+    "category": "languages",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Audio languages",
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "audio_language",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 15,
+        "smart": true
+      }
+    }
+  ]
+}

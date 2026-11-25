@@ -1,0 +1,384 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "universes",
+    "title": "Universes",
+    "description": "Shared universes such as Star Wars, Middle Earth and the Marvel Cinematic Universe, made of their TMDB franchises and lists.",
+    "category": "franchises",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Universes",
+      "minimum_items": 2,
+      "auto_art": [
+        "generate"
+      ],
+      "order_type": "release.asc",
+      "generator": {
+        "dimension": "custom",
+        "media_types": [
+          "movie"
+        ],
+        "title_format": "{value}",
+        "custom_values": [
+          {
+            "name": "Alien / Predator",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 8091
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 399
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 115762
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Conjuring Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 313086
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 402074
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 968052
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "DC Animated Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "mdblist",
+                    "identifiers": [
+                      "johnfawkes/dca"
+                    ]
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "DC Extended Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "mdblist",
+                    "identifiers": [
+                      "fa11en82/dc-extended-universe"
+                    ]
+                  }
+                },
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "dc extended universe (dceu)"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "DC Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_list",
+                    "list_ids": [
+                      8642250
+                    ]
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Fast & Furious",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 9485
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Marvel Cinematic Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "tmdb_keyword",
+                  "operator": "is",
+                  "value": "marvel cinematic universe (mcu)"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Middle Earth",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 119
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 121938
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 141290
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Mummy Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 1733
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Rocky / Creed",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 1575
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Star Trek",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 151
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 115570
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 115575
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Star Wars Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 10
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 133830
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 302331
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Wizarding World",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 1241
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 435259
+                  }
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "X-Men Universe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 748
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 453993
+                  }
+                },
+                {
+                  "kind": "source",
+                  "operator": "is",
+                  "source": {
+                    "type": "tmdb_collection",
+                    "collection_id": 448150
+                  }
+                }
+              ],
+              "groups": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

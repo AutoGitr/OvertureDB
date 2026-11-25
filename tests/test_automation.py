@@ -123,7 +123,8 @@ def test_invalid_issue_state_or_ambiguous_kind_is_rejected(
         with (
             subtests.test(changes=changes),
             pytest.raises(
-                ValueError, match=r"Use one open movie, show, collection or bulk"
+                ValueError,
+                match=r"Use one open movie, show, collection, bulk or preset",
             ),
         ):
             automation.contribution_kind(issue(**changes))
@@ -490,7 +491,7 @@ def test_evaluate_single_and_non_overlapping_changes_preserve_fingerprint(
     )
     plan2 = automation.evaluate_issue("AutoGitr/OvertureDB", update_issue, root)
     assert plan2.fingerprint == plan1.fingerprint
-    assert "AB96CvvLZKc" in plan2.additions["data/movies/tmdb-1.json"]
+    assert "AB96CvvLZKc" in str(plan2.additions["data/movies/tmdb-1.json"])
 
     # Overlapping concurrent change on main (same background_url field changed)
     # DOES change the fingerprint!

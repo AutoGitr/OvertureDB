@@ -2,15 +2,15 @@
 
 lazy import hashlib
 lazy import tempfile
-lazy from collections.abc import Callable
+lazy from collections.abc import Callable, Mapping
 lazy from pathlib import Path
 
 lazy from . import github
 
-type Commit = tuple[str, str, dict[str, str], list[str]]
+type Commit = tuple[str, str, Mapping[str, str | bytes], list[str]]
 
 
-def _snapshot(root: Path, additions: dict[str, str]) -> dict[str, str]:
+def _snapshot(root: Path, additions: Mapping[str, str | bytes]) -> dict[str, str]:
     tracked = github.run("git", "ls-files", "-z", cwd=root).split("\0")
     return {
         name: hashlib.sha256((root / name).read_bytes()).hexdigest()
@@ -18,14 +18,15 @@ def _snapshot(root: Path, additions: dict[str, str]) -> dict[str, str]:
         | additions.keys()
         | {
             path.relative_to(root).as_posix()
-            for path in (root / "data").rglob("*.json")
+            for path in (root / "data").rglob("*")
+            if path.is_file()
         }
         if name and (root / name).is_file()
     }
 
 
 def validate_candidate(
-    root: Path, additions: dict[str, str], deletions: list[str]
+    root: Path, additions: Mapping[str, str | bytes], deletions: list[str]
 ) -> None:
     """Apply only catalog changes and require the complete guard to succeed."""
     for name in (*additions, *deletions):
@@ -38,7 +39,10 @@ def validate_candidate(
     for name, content in additions.items():
         path = root / name
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content, encoding="utf-8", newline="\n")
+        if isinstance(content, bytes):
+            path.write_bytes(content)
+        else:
+            path.write_text(content, encoding="utf-8", newline="\n")
     expected = _snapshot(root, additions)
     output = github.run("bash", "scripts/contribution-check.sh", cwd=root, timeout=300)
     print(output)  # noqa: T201 -- Preserve the validation report in Actions logs.

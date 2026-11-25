@@ -1,0 +1,29 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "writers",
+    "title": "Writers",
+    "description": "The twenty writers credited on the most of your movies.",
+    "category": "people",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Writers",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "writer",
+        "media_types": [
+          "movie"
+        ],
+        "top": 20
+      }
+    }
+  ]
+}

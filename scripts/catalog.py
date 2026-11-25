@@ -29,15 +29,23 @@ lazy from schema.contract import (
     IDENTITY_FIELDS,
     IMDB_ID_PATTERN,
     POSTER_FIELDS,
+    PRESET_DIR,
+    PRESET_ID_PATTERN,
     SCHEMA_VERSION,
     Identity,
+    art_source,
     check_catalog_art_url,
     dump_catalog,
+    dump_presets,
     entry_fields,
     entry_identities,
     entry_repo_path,
+    preset_art_urls,
+    preset_image_path,
+    preset_repo_path,
     validate_entries,
     validate_header,
+    validate_preset,
 )
 
 lazy from .catalog_stats import dashboard, statistics_json, summarize
@@ -57,6 +65,10 @@ ART_LABELS: frozendict[str, str] = frozendict(
     }
 )
 MAX_PROBE_BYTES = 256 * 1024
+#: The largest image a preset keeps in the repository.
+MAX_PRESET_IMAGE_BYTES = 5 * 1024 * 1024
+#: An image file in a preset's folder, as the ``overturedb`` art source links it.
+PRESET_IMAGE_FILE = re.compile(rf"{PRESET_ID_PATTERN.pattern}\.(?:jpg|png)")
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 #: JPEG start-of-frame markers, which carry the dimensions.
 _JPEG_SOF = {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE}
@@ -184,7 +196,11 @@ def entry_files(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
     """Return every entry file of the catalog with its validated entry."""
     if not (root / "data").is_dir():
         raise ValueError("Data directory does not exist")
-    paths = sorted((root / "data").rglob("*.json"))
+    paths = sorted(
+        path
+        for folder in ENTRY_FOLDERS.values()
+        for path in (root / "data" / folder).rglob("*.json")
+    )
     resolved_data = root.resolve() / "data"
     for path in paths:
         if path.is_symlink() or not path.resolve().is_relative_to(resolved_data):
@@ -194,6 +210,65 @@ def entry_files(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
     for path, entry in files:
         validate_entry_path(path, entry, root)
     return files
+
+
+def preset_files(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
+    """Return every preset file with its validated preset, sorted by ID.
+
+    Each preset's folder holds exactly the images it links, and each is a
+    JPEG or PNG of the right shape.
+    """
+    folder = root / PRESET_DIR
+    if not folder.is_dir():
+        return []
+    resolved = folder.resolve()
+    files: list[tuple[Path, dict[str, Any]]] = []
+    linked: set[str] = set()
+    for path in sorted(folder.rglob("*")):
+        if path.is_symlink() or not path.resolve().is_relative_to(resolved):
+            raise ValueError(f"Preset file must be a regular local file: {path}")
+    for path in sorted(folder.glob("*.json")):
+        preset = validate_preset(json.loads(path.read_text()), published=True)
+        expected = root / preset_repo_path(preset["preset"]["id"])
+        if path.resolve() != expected.resolve():
+            raise ValueError(
+                f"{path.name} must be {preset_repo_path(preset['preset']['id'])}"
+            )
+        for where, url in preset_art_urls(preset):
+            if (image := preset_image_path(url)) is None:
+                continue
+            kind = "poster" if ".poster." in where else "background"
+            preset_image_problem(root / image, kind)
+            linked.add(image)
+        files.append((path, preset))
+    for path in sorted(folder.rglob("*")):
+        relative = path.relative_to(root).as_posix()
+        if path.is_file() and path.suffix != ".json" and relative not in linked:
+            raise ValueError(f"No preset links {relative}")
+        if path.is_file() and path.parent != folder and path.suffix == ".json":
+            raise ValueError(f"Preset files sit directly in {PRESET_DIR}: {relative}")
+    return files
+
+
+def preset_image_problem(path: Path, kind: str) -> None:
+    """Require a preset image to be a JPEG or PNG of *kind*'s shape and size.
+
+    Raises:
+        ValueError: Naming the image and what is wrong with it.
+    """
+    if not path.is_file():
+        raise ValueError(f"Preset image is missing: {path.name}")
+    if not PRESET_IMAGE_FILE.fullmatch(path.name):
+        raise ValueError(f"Name preset images in lowercase words: {path.name}")
+    data = path.read_bytes()
+    if len(data) > MAX_PRESET_IMAGE_BYTES:
+        raise ValueError(f"{path.name} is larger than 5 MB")
+    signature = _PNG_SIGNATURE if path.suffix == ".png" else b"\xff\xd8\xff"
+    size = image_size(data) if data.startswith(signature) else None
+    if size is None:
+        raise ValueError(f"{path.name} is not a {path.suffix[1:].upper()} image")
+    if problem := aspect_problem(kind, *size) or resolution_warning(kind, *size):
+        raise ValueError(f"{path.name}: {problem}")
 
 
 def validate_entry_path(path: Path, entry: dict[str, Any], root: Path) -> None:
@@ -236,6 +311,16 @@ def art_fields(entry: dict[str, Any]) -> list[tuple[str, str]]:
 
 def art_urls(entries: list[dict[str, Any]]) -> set[str]:
     return {url for entry in entries for _, url in art_fields(entry)}
+
+
+def preset_provider_urls(presets: list[dict[str, Any]]) -> set[str]:
+    """Return the art links of presets that another source serves."""
+    return {
+        url
+        for preset in presets
+        for _, url in preset_art_urls(preset)
+        if art_source(url) != "overturedb"
+    }
 
 
 def image_size(data: bytes) -> tuple[int, int] | None:
@@ -454,6 +539,15 @@ def check_art_url(url: str, *, max_retries: int = 5) -> tuple[int, int] | None:
     return size
 
 
+#: The contract schemas published beside the catalog.
+PUBLISHED_SCHEMAS = (
+    "entry.schema.json",
+    "catalog.schema.json",
+    "preset.schema.json",
+    "preset-vocabulary.json",
+)
+
+
 def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) -> None:
     entries = sorted(
         (entry for _, entry in entry_files(root)),
@@ -482,6 +576,10 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
         "catalog.jsonl": content,
         "catalog.jsonl.gz": gzip.compress(content, mtime=0),
     }
+    presets = [preset for _, preset in preset_files(root)]
+    artifacts["presets.json"] = dump_presets(
+        {"generated_at": generated_at, "source_revision": revision}, presets
+    )
     groups = summarize(entries)
     artifacts["stats.json"] = (
         json.dumps(
@@ -507,8 +605,12 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
     shutil.copyfile(notices, output / notices.name)
     shutil.copytree(root / "licenses", output / "licenses", dirs_exist_ok=True)
     (output / "schema").mkdir(exist_ok=True)
-    for name in ("entry.schema.json", "catalog.schema.json"):
+    for name in PUBLISHED_SCHEMAS:
         shutil.copyfile(root / "schema" / name, output / "schema" / name)
+    for path in sorted((root / PRESET_DIR).glob("*/*")):
+        target = output / "presets" / path.relative_to(root / PRESET_DIR)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, target)
     (output / "index.html").write_text(
         '<!doctype html><html lang="en"><meta charset="utf-8"><title>OvertureDB</title>'
         "<h1>OvertureDB</h1><ul>"
@@ -517,7 +619,7 @@ def build(output: Path, *, root: Path = ROOT, revision: str, generated_at: str) 
             for name in (
                 *artifacts,
                 "SHA256SUMS",
-                "schema/catalog.schema.json",
+                *(f"schema/{name}" for name in PUBLISHED_SCHEMAS),
                 notices.name,
             )
         )
@@ -556,10 +658,12 @@ def main() -> int:
                 )
                 for path, entry in zip(paths, entries, strict=True):
                     validate_entry_path(path, entry, root)
+                presets = []
             else:
                 entries = [entry for _, entry in entry_files()]
+                presets = [preset for _, preset in preset_files()]
             if args.check_urls:
-                for url in sorted(art_urls(entries)):
+                for url in sorted(art_urls(entries) | preset_provider_urls(presets)):
                     check_art_url(url)
         else:
             if git("status", "--porcelain", "--untracked-files=all"):

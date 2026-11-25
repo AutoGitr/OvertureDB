@@ -116,6 +116,20 @@ _ART_SOURCES = (
         example="https://m.media-amazon.com/images/M/<id>.jpg",
         catalog=False,
     ),
+    # Preset art no other source holds, published from data/presets/ to Pages.
+    _ArtSource(
+        name="overturedb",
+        label="OvertureDB",
+        host="autogitr.github.io",
+        aliases=frozenset(),
+        path=re.compile(
+            r"/OvertureDB/presets/(?P<file>[a-z0-9]+(?:-[a-z0-9]+)*/"
+            r"[a-z0-9]+(?:-[a-z0-9]+)*\.(?:jpg|png))"
+        ),
+        canonical="/OvertureDB/presets/{file}",
+        example="https://autogitr.github.io/OvertureDB/presets/<preset>/<file>.jpg",
+        catalog=False,
+    ),
 )
 _ART_SOURCE_BY_HOST: frozendict[str, _ArtSource] = frozendict(
     {host: source for source in _ART_SOURCES for host in (source.host, *source.aliases)}  # pyright: ignore[reportCallIssue] -- stale frozendict stub
@@ -561,3 +575,291 @@ def _unique_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     if len(record) != len(pairs):
         raise ValueError("Catalog record repeats a key")
     return record
+
+
+# Presets: ready-made collections, sets and groups Overture copies once into a
+# library. Overture's models define their shape: it generates
+# preset.schema.json and preset-vocabulary.json, so both sides test the same
+# fields, operators, sources and dimensions.
+
+#: The version of the preset file format and of the published presets bundle.
+#: It increases only when Overture could not read a preset as it stands.
+PRESET_VERSION = 1
+#: A preset's ID, which names its file and the folder of its images.
+PRESET_ID_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+#: The repository folder preset files and their image folders live in.
+PRESET_DIR = "data/presets"
+#: The art sources a preset may link to; ``overturedb`` serves its own images.
+PRESET_ART_SOURCES = ("tmdb", "tpdb", "fanart", "tvdb", "overturedb")
+#: Policy a published preset never sets: it would request downloads, or write
+#: labels and tags, on every server that adds it.
+PRESET_REFUSED_POLICY = ("request_missing", "member_label", "arr_tag")
+#: The issue form that contributes a preset.
+PRESET_ISSUE_FORM = "preset.yml"
+#: The issue form field each part of a preset contribution fills.
+PRESET_ISSUE_FORM_FIELDS: frozendict[str, str] = frozendict(
+    {  # pyright: ignore[reportCallIssue] -- stale frozendict stub
+        "id": "preset_id",
+        "title": "preset_title",
+        "description": "preset_description",
+        "category": "category",
+        "tags": "tags",
+        "file": "preset_file",
+        "images": "images",
+        "licence": "licence",
+        "reason": "modification_reason",
+        "remove": "remove",
+    }
+)
+
+PRESET_SCHEMA = _schema("preset.schema.json")
+PRESET_VOCABULARY = _schema("preset-vocabulary.json")
+Draft202012Validator.check_schema(PRESET_SCHEMA)
+_PRESET_VALIDATOR = _Validator(PRESET_SCHEMA)
+
+
+def preset_repo_path(preset_id: str) -> str:
+    """Return the repository path of a preset's file: ``data/presets/decades.json``."""
+    return f"{PRESET_DIR}/{preset_id}.json"
+
+
+def preset_image_url(preset_id: str, name: str) -> str:
+    """Return the published link of an image in a preset's folder."""
+    source = next(source for source in _ART_SOURCES if source.name == "overturedb")
+    return f"https://{source.host}{source.canonical.format(file=f'{preset_id}/{name}')}"
+
+
+def preset_image_path(url: str) -> str | None:
+    """Return the repository path of a preset image link, or None for other art."""
+    if art_source(url) != "overturedb":
+        return None
+    file = urlsplit(canonical_art_url(url)).path.removeprefix("/OvertureDB/presets/")
+    return f"{PRESET_DIR}/{file}"
+
+
+def _criteria(preset: dict[str, Any]) -> Iterator[tuple[str, str, dict[str, Any]]]:
+    """Yield each criteria group of a preset as (path, media type, group)."""
+    for index, collection in enumerate(preset.get("collections", [])):
+        for media_type, group in collection["criteria"].items():
+            yield f"collections.{index}.criteria.{media_type}", media_type, group
+    for index, group in enumerate(preset.get("groups", [])):
+        generator = group.get("generator")
+        if generator is None:
+            continue
+        path = f"groups.{index}.generator"
+        groups = [
+            (f"{path}.criteria", generator.get("criteria")),
+            *(
+                (f"{path}.custom_values.{number}.criteria", value["criteria"])
+                for number, value in enumerate(generator.get("custom_values", []))
+            ),
+        ]
+        for media_type in generator["media_types"]:
+            for where, criteria in groups:
+                if criteria is not None:
+                    yield where, media_type, criteria
+
+
+def _conditions(group: dict[str, Any]) -> Iterator[dict[str, Any]]:
+    yield from group.get("conditions", [])
+    for nested in group.get("groups", []):
+        yield from _conditions(nested)
+
+
+def _condition_problem(condition: dict[str, Any], media_type: str) -> str | None:
+    vocabulary = PRESET_VOCABULARY
+    if condition["kind"] == "source":
+        source = condition["source"]
+        spec = vocabulary["sources"][source["type"]]
+        if media_type not in spec["media_types"]:
+            return f"the {source['type']} source cannot select {media_type}s"
+        if (
+            source["type"] == "tmdb_chart"
+            and media_type not in (vocabulary["charts"][source["chart"]])
+        ):
+            return f"TMDB has no {source['chart']} chart of {media_type}s"
+        return None
+    field = vocabulary["fields"][condition["field"]]
+    if not field["portable"]:
+        return f"{condition['field']} names something only one install has"
+    if media_type not in field["media_types"]:
+        return f"{condition['field']} cannot be tested on {media_type}s"
+    if condition["operator"] not in vocabulary["operators"][field["kind"]]:
+        return f"{condition['field']} cannot use the {condition['operator']} operator"
+    return None
+
+
+def _media_types(preset: dict[str, Any]) -> set[str]:
+    return {media_type for _, media_type, _ in _criteria(preset)} | {
+        media_type
+        for group in preset.get("groups", [])
+        if (generator := group.get("generator")) is not None
+        for media_type in generator["media_types"]
+    }
+
+
+def preset_art_urls(preset: dict[str, Any]) -> list[tuple[str, str]]:
+    """Return each artwork link of a preset with the path it sits at."""
+    return [
+        (f"collections.{index}.art.{slot}.url", art[slot]["url"])
+        for index, collection in enumerate(preset.get("collections", []))
+        if (art := collection.get("art"))
+        for slot in ("poster", "background")
+        if art.get(slot)
+    ]
+
+
+def validate_preset(value: object, *, published: bool) -> dict[str, Any]:
+    """Validate a preset file, as OvertureDB publishes it when *published*.
+
+    An export from Overture need not describe itself; a published preset
+    does, links only to preset art sources in their canonical form, and sets
+    none of :data:`PRESET_REFUSED_POLICY`.
+
+    Raises:
+        ValueError: Naming the first part of the preset that is refused.
+    """
+    try:
+        # The generated validate method is untyped in jsonschema's stubs.
+        _PRESET_VALIDATOR.validate(value)  # pyright: ignore[reportUnknownMemberType]
+    except ValidationError as exc:
+        path = ".".join(str(part) for part in exc.absolute_path) or "root"
+        raise ValueError(f"Preset contract violation at {path}: {exc.message}") from exc
+    preset = cast("dict[str, Any]", value)
+    _distinct_items(preset)
+    for path, media_type, group in _criteria(preset):
+        for condition in _conditions(group):
+            if problem := _condition_problem(condition, media_type):
+                raise ValueError(f"Preset contract violation at {path}: {problem}")
+    _set_dimensions(preset)
+    if published:
+        _published_preset(preset)
+    return preset
+
+
+def _distinct_items(preset: dict[str, Any]) -> None:
+    """Require something to add, each once, as Overture's models do."""
+    if not preset.get("groups") and not preset.get("collections"):
+        raise ValueError("Preset contract violation at root: add a collection or a set")
+    for kind, key in (("groups", "name"), ("collections", "title")):
+        names = [item[key].strip().casefold() for item in preset.get(kind, [])]
+        if len(names) != len(set(names)):
+            raise ValueError(
+                f"Preset contract violation at {kind}: give each its own {key}"
+            )
+
+
+def _set_dimensions(preset: dict[str, Any]) -> None:
+    """Require each set's dimension to hold its media types."""
+    for index, group in enumerate(preset.get("groups", [])):
+        generator = group.get("generator")
+        if generator is None:
+            continue
+        dimension = PRESET_VOCABULARY["dimensions"][generator["dimension"]]
+        for media_type in generator["media_types"]:
+            if media_type not in dimension["media_types"]:
+                raise ValueError(
+                    f"Preset contract violation at groups.{index}.generator: "
+                    f"{generator['dimension']} sets cannot hold {media_type}s"
+                )
+
+
+def _published_preset(preset: dict[str, Any]) -> None:
+    metadata = preset.get("preset")
+    if metadata is None:
+        raise ValueError("Preset contract violation at preset: describe the preset")
+    if unlisted := _media_types(preset) - set(metadata["media_types"]):
+        raise ValueError(
+            "Preset contract violation at preset.media_types: add "
+            + ", ".join(sorted(unlisted))
+        )
+    for kind in ("groups", "collections"):
+        for index, item in enumerate(preset.get(kind, [])):
+            policy = item.get("policy", item) if kind == "collections" else item
+            for key in PRESET_REFUSED_POLICY:
+                if policy.get(key) is not None:
+                    raise ValueError(
+                        f"Preset contract violation at {kind}.{index}.{key}: "
+                        "a published preset leaves it to the person adding it"
+                    )
+    for path, url in preset_art_urls(preset):
+        try:
+            canonical = canonical_art_url(url)
+        except ValueError as exc:
+            raise ValueError(f"Preset contract violation at {path}: {exc}") from exc
+        if art_source(canonical) not in PRESET_ART_SOURCES:
+            labels = [
+                source.label
+                for source in _ART_SOURCES
+                if source.name in PRESET_ART_SOURCES
+            ]
+            raise ValueError(
+                f"Preset contract violation at {path}: artwork must come from "
+                f"{', '.join(labels[:-1])} or {labels[-1]}"
+            )
+        if canonical != url:
+            raise ValueError(
+                f"Preset contract violation at {path}: artwork link must use "
+                f"its canonical form {canonical}"
+            )
+        image = preset_image_path(url)
+        if image is not None and not image.startswith(
+            f"{PRESET_DIR}/{metadata['id']}/"
+        ):
+            raise ValueError(
+                f"Preset contract violation at {path}: link the preset's own images"
+            )
+
+
+def preset_requires(preset: dict[str, Any]) -> list[str]:
+    """Return the integrations a preset's criteria and sets need, sorted."""
+    vocabulary = PRESET_VOCABULARY
+    needs: set[str | None] = set()
+    for _, _, group in _criteria(preset):
+        for condition in _conditions(group):
+            needs.add(
+                vocabulary["sources"][condition["source"]["type"]]["requires"]
+                if condition["kind"] == "source"
+                else vocabulary["fields"][condition["field"]]["requires"]
+            )
+    for group in preset.get("groups", []):
+        if (generator := group.get("generator")) is not None:
+            needs.add(vocabulary["dimensions"][generator["dimension"]]["requires"])
+    return sorted(need for need in needs if need is not None)
+
+
+def dump_presets(header: dict[str, Any], presets: Iterable[dict[str, Any]]) -> bytes:
+    """Serialize the published presets bundle: the header with every preset."""
+    return json.dumps(
+        {**header, "preset_version": PRESET_VERSION, "presets": list(presets)},
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode()
+
+
+def read_presets(data: bytes) -> tuple[dict[str, Any], list[object]]:
+    """Return a presets bundle's header and its presets, each still unchecked.
+
+    Each preset is validated on its own, so one an older reader cannot use
+    leaves the others usable.
+
+    Raises:
+        ValueError: When the bundle is not one this contract reads.
+    """
+    bundle = _record(data)
+    if not isinstance(bundle, dict):
+        raise ValueError("Payload is not an OvertureDB presets bundle")
+    record = cast("dict[str, Any]", bundle)
+    if record.get("preset_version") != PRESET_VERSION:
+        raise ValueError("Unsupported presets preset_version")
+    presets = record.get("presets")
+    if not isinstance(presets, list):
+        raise ValueError("Presets bundle has no presets list")
+    header = {key: record.get(key) for key in ("generated_at", "source_revision")}
+    if not isinstance(header["generated_at"], str) or not isinstance(
+        header["source_revision"], str
+    ):
+        raise ValueError("Presets bundle header is incomplete")
+    datetime.fromisoformat(header["generated_at"])
+    return header, cast("list[object]", presets)

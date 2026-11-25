@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "video-codecs",
+    "title": "Video codecs",
+    "description": "One collection per video codec, such as HEVC or AV1, as Plex smart collections.",
+    "category": "technical",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Video codecs",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "video_codec",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "smart": true
+      }
+    }
+  ]
+}

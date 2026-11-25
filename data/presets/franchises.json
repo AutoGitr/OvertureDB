@@ -1,0 +1,33 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "franchises",
+    "title": "Franchises",
+    "description": "One collection per TMDB franchise your library holds at least two movies of, in release order.",
+    "category": "franchises",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Franchises",
+      "generator": {
+        "dimension": "franchise",
+        "media_types": [
+          "movie"
+        ],
+        "strip_prefix": "The ",
+        "strip_suffix": " Collection"
+      },
+      "minimum_items": 2,
+      "order_type": "release.asc",
+      "auto_art": [
+        "overturedb",
+        "tmdb",
+        "generate"
+      ]
+    }
+  ]
+}

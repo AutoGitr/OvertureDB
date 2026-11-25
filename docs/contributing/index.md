@@ -53,6 +53,11 @@ themes; to change or remove an existing value, use the movie, show or
 collection form. A repository admin's bulk contribution also replaces existing
 artwork, season posters and OvertureDB themes.
 
+To share collections, sets and groups as a ready-made preset, export them with
+**Collections -> Presets -> Export** in Overture and attach the file to a
+[preset contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=preset.yml);
+see [Presets](presets.md).
+
 ## Manually
 
 Fill in the form yourself:

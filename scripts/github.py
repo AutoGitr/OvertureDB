@@ -6,10 +6,11 @@ lazy import re
 lazy import shutil
 lazy import subprocess
 lazy import tempfile
+lazy from collections.abc import Mapping
 lazy from pathlib import Path
 lazy from typing import Any
 
-lazy from schema.contract import ENTRY_FOLDERS
+lazy from schema.contract import ENTRY_FOLDERS, PRESET_DIR, PRESET_ID_PATTERN
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -84,7 +85,12 @@ def git(*args: str) -> str:
 
 def validate_bot_path(path: str) -> None:
     folders = "|".join(ENTRY_FOLDERS.values())
-    if not re.fullmatch(rf"data/({folders})/[\w-]+\.json", path):
+    words = PRESET_ID_PATTERN.pattern
+    if not (
+        re.fullmatch(rf"data/({folders})/[\w-]+\.json", path)
+        or re.fullmatch(rf"{PRESET_DIR}/{words}\.json", path)
+        or re.fullmatch(rf"{PRESET_DIR}/{words}/{words}\.(?:jpg|png)", path)
+    ):
         raise ValueError(f"Bot commits may only modify catalog entries: {path}")
 
 
@@ -94,7 +100,7 @@ def commit_files(
     expected_head: str,
     headline: str,
     body: str,
-    additions: dict[str, str],
+    additions: Mapping[str, str | bytes],
     deletions: list[str],
 ) -> str:
     """Create a GitHub-signed catalog commit on *branch* pinned to *expected_head*."""
@@ -124,7 +130,9 @@ def commit_files(
                             {
                                 "path": path,
                                 "contents": base64.b64encode(
-                                    content.encode("utf-8")
+                                    content
+                                    if isinstance(content, bytes)
+                                    else content.encode("utf-8")
                                 ).decode("ascii"),
                             }
                             for path, content in sorted(additions.items())

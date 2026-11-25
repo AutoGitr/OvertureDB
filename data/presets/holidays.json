@@ -1,0 +1,889 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "holidays",
+    "title": "Holidays",
+    "description": "Nineteen holidays and heritage months, from New Year's Day to Christmas, each shown only in its weeks, as Kometa's seasonal defaults are.",
+    "category": "seasonal",
+    "tags": [
+      "christmas",
+      "halloween"
+    ],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Holidays",
+      "auto_art": [
+        "generate"
+      ],
+      "delete_when_inactive": false
+    }
+  ],
+  "collections": [
+    {
+      "title": "New Year's Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "12-26",
+      "active_end_mmdd": "01-04",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "new year's eve"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "new year"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "new year's eve"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "new year"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Valentine's Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "02-01",
+      "active_end_mmdd": "02-29",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "valentine's day"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "valentine's day"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "St. Patrick's Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "03-01",
+      "active_end_mmdd": "03-18",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "saint patrick's day"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "saint patrick's day"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Easter",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "03-20",
+      "active_end_mmdd": "04-30",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "easter"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "easter"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Mother's Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "05-05",
+      "active_end_mmdd": "05-10",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "mother's day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "motherhood"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "mother's day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "motherhood"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Memorial Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "05-18",
+      "active_end_mmdd": "06-07",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "memorial day"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "memorial day"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Father's Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "06-15",
+      "active_end_mmdd": "06-20",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "father's day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "fatherhood"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "father's day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "fatherhood"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Independence Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "06-23",
+      "active_end_mmdd": "07-11",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "independence day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "4th of july"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "independence day"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "4th of july"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Labor Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "09-01",
+      "active_end_mmdd": "09-10",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "labor day"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "labor day"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Halloween",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "10-01",
+      "active_end_mmdd": "10-31",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "halloween"
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 185103
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 11716
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 750822
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 313086
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 91361
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 8581
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 1733
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 8091
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 2980
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_collection",
+                "collection_id": 751156
+              }
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "tmdb_item",
+                "tmdb_ids": [
+                  23437
+                ]
+              }
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "halloween"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Veterans Day",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "11-01",
+      "active_end_mmdd": "11-30",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "veteran"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "veteran"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Thanksgiving",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "11-01",
+      "active_end_mmdd": "11-30",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "thanksgiving"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "thanksgiving"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Christmas",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "12-01",
+      "active_end_mmdd": "12-31",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "christmas"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "christmas party"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "santa claus"
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/christmas-extravaganza"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "christmas"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "christmas party"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "santa claus"
+            },
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/christmas-extravaganza"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Asian American & Pacific Islander Heritage Month",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "04-30",
+      "active_end_mmdd": "05-31",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/asian-american-pacific-islander-heritage-month"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/asian-american-pacific-islander-heritage-month"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Day of Persons with Disabilities",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "12-02",
+      "active_end_mmdd": "12-04",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "disability"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "disability"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Black History Month",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "02-01",
+      "active_end_mmdd": "03-01",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "african american history"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "civil rights movement"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "african american history"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "civil rights movement"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "LGBTQ+ Pride Month",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "05-31",
+      "active_end_mmdd": "06-30",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "lgbt"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "gay theme"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "lgbt"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "gay theme"
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Latinx Heritage Month",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "09-15",
+      "active_end_mmdd": "10-15",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/latinx-heritage-month"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "source",
+              "operator": "is",
+              "source": {
+                "type": "mdblist",
+                "identifiers": [
+                  "k0meta/latinx-heritage-month"
+                ]
+              }
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "Women's History Month",
+      "collection_group": "Holidays",
+      "active_start_mmdd": "02-28",
+      "active_end_mmdd": "03-31",
+      "order_type": "release.asc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "women's rights"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "women's suffrage"
+            }
+          ],
+          "groups": []
+        },
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "women's rights"
+            },
+            {
+              "kind": "field",
+              "field": "tmdb_keyword",
+              "operator": "is",
+              "value": "women's suffrage"
+            }
+          ],
+          "groups": []
+        }
+      }
+    }
+  ]
+}

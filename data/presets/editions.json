@@ -1,0 +1,28 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "editions",
+    "title": "Editions",
+    "description": "One collection per movie edition, such as Director's Cut or Extended.",
+    "category": "technical",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Editions",
+      "minimum_items": 2,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "edition",
+        "media_types": [
+          "movie"
+        ]
+      }
+    }
+  ]
+}

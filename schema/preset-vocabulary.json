@@ -1,0 +1,935 @@
+{
+  "fields": {
+    "title": {
+      "kind": "text",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "tmdb_id": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "tvdb_id": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "imdb_id": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "studio": {
+      "kind": "text",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "edition": {
+      "kind": "text",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "genre": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "actor": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "director": {
+      "kind": "tag",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "writer": {
+      "kind": "tag",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "producer": {
+      "kind": "tag",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "country": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "label": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "collection": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": false,
+      "requires": null
+    },
+    "in_collection": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "content_rating": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "network": {
+      "kind": "tag",
+      "media_types": [
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "resolution": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "audio_language": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "subtitle_language": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "video_codec": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "audio_codec": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "subtitle_codec": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "file_size": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "bitrate": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "audio_layout": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "hdr": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "dolby_vision": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "hdr10_plus": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "atmos": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "year": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "decade": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "critic_rating": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "audience_rating": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "user_rating": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "age_rating": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "duration": {
+      "kind": "number",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "plays": {
+      "kind": "number",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "added": {
+      "kind": "date",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "released": {
+      "kind": "date",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "last_played": {
+      "kind": "date",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "episode_added": {
+      "kind": "date",
+      "media_types": [
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "episode_last_played": {
+      "kind": "date",
+      "media_types": [
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "unplayed_episodes": {
+      "kind": "number",
+      "media_types": [],
+      "portable": true,
+      "requires": null
+    },
+    "unplayed": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "in_progress": {
+      "kind": "boolean",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "versions": {
+      "kind": "number",
+      "media_types": [
+        "movie"
+      ],
+      "portable": true,
+      "requires": null
+    },
+    "folder": {
+      "kind": "text",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": false,
+      "requires": null
+    },
+    "original_language": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "origin_country": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "tmdb_rating": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "tmdb_votes": {
+      "kind": "number",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "tmdb_keyword": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "company": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "streaming": {
+      "kind": "tag",
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "show_status": {
+      "kind": "tag",
+      "media_types": [
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "last_aired": {
+      "kind": "date",
+      "media_types": [
+        "show"
+      ],
+      "portable": true,
+      "requires": "tmdb"
+    },
+    "monitored": {
+      "kind": "boolean",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "art_status": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "poster_status": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "background_status": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "season_posters_status": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "poster_source": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "background_source": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "season_posters_source": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "poster_width": {
+      "kind": "number",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "background_width": {
+      "kind": "number",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "season_posters_width": {
+      "kind": "number",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "incorrect_aspect_ratio": {
+      "kind": "boolean",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "theme_status": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "theme_source": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "theme_length": {
+      "kind": "number",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "metadata_issue": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "overturedb_complete": {
+      "kind": "boolean",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "themerrdb_theme": {
+      "kind": "boolean",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "overturedb_poster": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "overturedb_background": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "overturedb_season_posters": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    },
+    "overturedb_theme": {
+      "kind": "tag",
+      "media_types": [],
+      "portable": false,
+      "requires": null
+    }
+  },
+  "operators": {
+    "text": [
+      "is",
+      "is_not",
+      "contains",
+      "does_not_contain",
+      "starts_with",
+      "ends_with"
+    ],
+    "tag": [
+      "is",
+      "is_not"
+    ],
+    "number": [
+      "is",
+      "is_not",
+      "gt",
+      "gte",
+      "lt",
+      "lte"
+    ],
+    "date": [
+      "in_last",
+      "not_in_last",
+      "before",
+      "after"
+    ],
+    "boolean": [
+      "is",
+      "is_not"
+    ]
+  },
+  "sources": {
+    "tmdb_collection": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": "tmdb"
+    },
+    "tmdb_item": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "tmdb_list": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "tmdb_person": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "tmdb_chart": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "mdblist": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "mdblist"
+    },
+    "radarr_tag": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": "radarr"
+    },
+    "sonarr_tag": {
+      "media_types": [
+        "show"
+      ],
+      "requires": "sonarr"
+    }
+  },
+  "charts": {
+    "popular": [
+      "movie",
+      "show"
+    ],
+    "top_rated": [
+      "movie",
+      "show"
+    ],
+    "trending_day": [
+      "movie",
+      "show"
+    ],
+    "trending_week": [
+      "movie",
+      "show"
+    ],
+    "now_playing": [
+      "movie"
+    ],
+    "upcoming": [
+      "movie"
+    ],
+    "airing_today": [
+      "show"
+    ],
+    "on_the_air": [
+      "show"
+    ]
+  },
+  "dimensions": {
+    "decade": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "year": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "genre": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "studio": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "country": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "content_rating": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "resolution": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "label": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "actor": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "director": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": null
+    },
+    "writer": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": null
+    },
+    "producer": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": null
+    },
+    "franchise": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": "tmdb"
+    },
+    "edition": {
+      "media_types": [
+        "movie"
+      ],
+      "requires": null
+    },
+    "network": {
+      "media_types": [
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "original_language": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "origin_country": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "streaming": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "audio_language": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "subtitle_language": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "video_codec": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "audio_codec": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "audio_layout": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    },
+    "company": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "tmdb_keyword": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "show_status": {
+      "media_types": [
+        "show"
+      ],
+      "requires": "tmdb"
+    },
+    "custom": {
+      "media_types": [
+        "movie",
+        "show"
+      ],
+      "requires": null
+    }
+  }
+}

@@ -1,0 +1,1639 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "show-continents",
+    "title": "Show continents",
+    "description": "One collection per continent shows come from, grouping their countries as Kometa's continent defaults do.",
+    "category": "regions",
+    "tags": [],
+    "media_types": [
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Show continents",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "custom",
+        "media_types": [
+          "show"
+        ],
+        "title_format": "{value}",
+        "custom_values": [
+          {
+            "name": "Africa",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "dz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "eg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ly"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ma"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sd"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "eh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "io"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bi"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "km"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "dj"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "er"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "et"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ke"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "yt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "re"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "rw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "so"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ss"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ug"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "zm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "zw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ao"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "td"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cd"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "zr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gq"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ga"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "st"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ls"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "na"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "za"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bj"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ci"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ml"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ne"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ng"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tg"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Americas",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ai"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ag"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "aw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bs"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bb"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bq"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "an"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "vg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ky"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "dm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "do"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gd"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gp"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ht"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "jm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mq"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ms"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "vc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sx"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "vi"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "hn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mx"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ni"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pa"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ar"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bo"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "br"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "co"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ec"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gy"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "py"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pe"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gs"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "uy"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ve"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ca"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "us"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Antarctica",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "aq"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Asia",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tj"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "uz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "hk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mo"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kp"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "jp"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "id"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "la"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "my"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ph"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "th"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tp"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "vn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "af"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bd"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "in"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ir"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "np"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "am"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "az"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cy"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ge"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "iq"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "il"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "jo"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "kw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lb"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "om"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "qa"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sa"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ps"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sy"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ae"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ye"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Europe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "by"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "bg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cs"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "hu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "md"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ro"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ru"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "su"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ua"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ax"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "je"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cq"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "dk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ee"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fo"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fi"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "is"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ie"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "im"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "False"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sj"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "se"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gb"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "al"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ad"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ba"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "hr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gi"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "xk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "va"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "it"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "me"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pt"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "rs"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "si"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "es"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "yu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "at"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "be"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "de"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "dd"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "li"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "lu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nl"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ch"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Oceania",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "au"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cx"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "cc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "hm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nz"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fj"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nc"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pg"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "sb"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "vu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "gu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ki"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mh"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "fm"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nr"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "mp"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pw"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "um"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "as"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ck"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pf"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "nu"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "pn"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "ws"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tk"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "to"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "tv"
+                },
+                {
+                  "kind": "field",
+                  "field": "origin_country",
+                  "operator": "is",
+                  "value": "wf"
+                }
+              ],
+              "groups": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

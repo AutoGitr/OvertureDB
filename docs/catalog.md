@@ -17,11 +17,15 @@ deploy. Overture downloads it from there.
 | ------------------------------------- | ---------------------------------------------------------- |
 | `catalog.jsonl`                       | A header line, then one entry per line                     |
 | `catalog.jsonl.gz`                    | The same, gzip-compressed, which Overture downloads        |
+| `presets.json`                        | Every collection preset, which Overture's gallery reads    |
+| `presets/<preset>/`                   | The images presets keep in the repository                  |
 | `stats.json`                          | Totals and coverage                                        |
 | `stats-light.svg`, `stats-dark.svg`   | The statistics dashboard shown on the README and this site |
 | `SHA256SUMS`                          | Checksums of the files above                               |
 | `schema/entry.schema.json`            | The JSON Schema of an entry                                |
 | `schema/catalog.schema.json`          | The JSON Schema of the header line                         |
+| `schema/preset.schema.json`           | The JSON Schema of a preset, generated from Overture       |
+| `schema/preset-vocabulary.json`       | What presets may test, and where, generated from Overture  |
 | `THIRD_PARTY_NOTICES.md`, `licenses/` | Licenses of the data the catalog derives from              |
 
 The build is reproducible: its revision and timestamp come from the source
@@ -43,6 +47,23 @@ was generated, the source commit and the notices file:
 
 `schema_version` increases only when Overture could not read the catalog as
 it stands; Overture reads version 4.
+
+## Presets
+
+`presets.json` holds `preset_version`, `generated_at`, `source_revision` and
+`presets`, the files in `data/presets/`, each as Overture exports collections:
+groups, with the set each runs, and collections, whose criteria are given per
+media type rather than per library. Overture copies a preset into the libraries
+someone picks; when the preset changes, Overture lists what changed and the
+person chooses what of it to take.
+
+`preset_version` increases only when Overture could not read a preset as it
+stands, separately from `schema_version`. Overture checks each preset on its
+own, so one that needs a newer Overture leaves the others usable.
+
+A preset's images either link TMDB, ThePosterDB, fanart.tv or TheTVDB, or are
+kept in `data/presets/<preset>/` and published under
+`https://autogitr.github.io/OvertureDB/presets/<preset>/`.
 
 ## Entries
 

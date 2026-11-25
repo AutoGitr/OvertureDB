@@ -22,6 +22,7 @@ Every poster, background and season poster in OvertureDB was chosen by a contrib
 - **Season posters** that belong together, so a show's seasons look like one set.
 - **Posters** and **Backgrounds** that are visually distinct from each other for every movie and show.
 - **Collection art** for TMDB collections: a poster and background for each, with the poster in three styles. Take each collection's own **individual** poster, or a consistent **matte** or **overlay** poster so every collection shares one layout.
+- **Collection presets**: ready-made collections, sets and groups, such as Holidays, Decades and TMDB charts, that Overture adds to a library in one step.
 - **Themes** for movies, shows and movie collections that sound like an opening: music from the first second, with no dialogue intros, promotions or watermarks. They are picked and reviewed the same way, with ThemerrDB's themes available as an alternative.
 - **Consistent sets**, so franchises, select studios and documentary series look and feel cohesive in your library.
 - **Criterion releases** with their authentic Criterion cover art.
@@ -49,7 +50,7 @@ to save to your library. Turn it off under **Settings -> OvertureDB**.
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
 3. Click **Contribute issue** on the title to open a prefilled issue, review it and submit it.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. Spotted something wrong? [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). To share ready-made collections, sets and groups, export them with **Collections -> Presets -> Export** and attach the file to a [preset contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=preset.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. Spotted something wrong? [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
 
 ## License
 

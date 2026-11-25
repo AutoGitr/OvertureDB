@@ -1,0 +1,2035 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "movie-continents",
+    "title": "Movie continents",
+    "description": "One collection per continent movies come from, grouping their countries as Kometa's continent defaults do.",
+    "category": "regions",
+    "tags": [],
+    "media_types": [
+      "movie"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Movie continents",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "custom",
+        "media_types": [
+          "movie"
+        ],
+        "title_format": "{value}",
+        "custom_values": [
+          {
+            "name": "Africa",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Algeria"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Egypt"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Libya"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Morocco"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sudan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tunisia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Western Sahara"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "British Indian Ocean Territory"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Burundi"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Comoros"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Djibouti"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Eritrea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ethiopia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "French Southern Territories"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kenya"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Madagascar"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Malawi"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mauritius"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mayotte"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mozambique"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Réunion"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Rwanda"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Seychelles"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Somalia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Sudan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Uganda"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tanzania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United Republic of Tanzania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Zambia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Zimbabwe"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Angola"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cameroon"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Central African Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Chad"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Republic of the Congo"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Congo"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Democratic Republic of the Congo"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Zaire"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Equatorial Guinea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Gabon"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "São Tomé and Príncipe"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sao Tome and Principe"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Botswana"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Eswatini"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Swaziland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Lesotho"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Namibia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Africa"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Benin"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Burkina Faso"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cape Verde"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cabo Verde"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Côte d'Ivoire"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Côte d’Ivoire"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ivory Coast"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Gambia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ghana"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guinea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guinea-Bissau"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Liberia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mali"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mauritania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Niger"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Nigeria"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Helena, Ascension and Tristan da Cunha"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Helena"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Helena"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ascension"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tristan da Cunha"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Senegal"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sierra Leone"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Togo"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Americas",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Anguilla"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Antigua and Barbuda"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Antigua"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Barbuda"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Aruba"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bahamas"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Barbados"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bonaire, Sint Eustatius and Saba"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bonaire"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sint Eustatius"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saba"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Netherlands Antilles"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "British Virgin Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cayman Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cuba"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Curaçao"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Dominica"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Dominican Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Grenada"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guadeloupe"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Haiti"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Jamaica"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Martinique"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Montserrat"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Puerto Rico"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Barthélemy"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Kitts and Nevis"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Kitts and Nevis"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Lucia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Lucia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Martin"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Vincent and the Grenadines"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Vincent and Grenadines"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Vincent and the Grenadines"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Vincent and Grenadines"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sint Maarten"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Trinidad and Tobago"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Turks and Caicos Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "US Virgin Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "U.S. Virgin Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United States Virgin Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Belize"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Costa Rica"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "El Salvador"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guatemala"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Honduras"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mexico"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Nicaragua"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Panama"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Argentina"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bolivia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Plurinational State of Bolivia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bouvet Island"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Brazil"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Chile"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Colombia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ecuador"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Falkland Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Malvinas"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "French Guiana"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guyana"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Paraguay"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Peru"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Georgia and the South Sandwich Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Georgia and South Sandwich Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Georgia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Sandwich Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Suriname"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Uruguay"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Venezuela"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bolivarian Republic of Venezuela"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bermuda"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Canada"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Greenland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saint Pierre and Miquelon"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "St. Pierre and Miquelon"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United States"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United States of America"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Antarctica",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Antarctica"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Asia",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kazakhstan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kyrgyzstan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tajikistan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Turkmenistan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Uzbekistan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "China"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Hong Kong"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Hong Kong SAR China"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Macao"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Macau"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Macau SAR China"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "North Korea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Democratic People's Republic of Korea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Japan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Mongolia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "South Korea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Republic of Korea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Korea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Taiwan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Taiwan, Province of China"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Brunei"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Brunei Darussalam"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cambodia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Indonesia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Laos"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Lao People's Democratic Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Lao"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Malaysia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Myanmar"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Burma"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Philippines"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Singapore"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Thailand"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "East Timor"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Timor-Leste"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Vietnam"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Viet Nam"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Afghanistan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bangladesh"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bhutan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "India"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Iran"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Islamic Republic of Iran"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Maldives"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Nepal"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Pakistan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sri Lanka"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Armenia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Azerbaijan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bahrain"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cyprus"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Georgia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Iraq"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Israel"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Jordan"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kuwait"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Lebanon"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Oman"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Qatar"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Saudi Arabia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Palestine"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "State of Palestine"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Syria"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Syrian Arab Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Turkey"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Türkiye"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United Arab Emirates"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Yemen"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Europe",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Belarus"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bulgaria"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Czech Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Czechia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Czechoslovakia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Hungary"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Poland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Moldova"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Republic of Moldova"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Romania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Russia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Russian Federation"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Soviet Union"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Slovakia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ukraine"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Åland Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guernsey"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Jersey"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sark"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Denmark"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Estonia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Faroe Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Finland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Iceland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Ireland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Northern Ireland"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Isle of Man"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Latvia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Lithuania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Norway"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Svalbard and Jan Mayen Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Svalbard and Jan Mayen"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Sweden"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United Kingdom"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Albania"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Andorra"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Bosnia and Herzegovina"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Croatia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Gibraltar"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Greece"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kosovo"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Vatican City"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Holy See"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Italy"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Malta"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Montenegro"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "North Macedonia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Macedonia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Republic of North Macedonia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Portugal"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "San Marino"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Serbia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Serbia and Montenegro"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Slovenia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Spain"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Yugoslavia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Austria"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Belgium"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "France"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "French Republic"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Germany"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "East Germany"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Liechtenstein"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Luxembourg"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Monaco"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Netherlands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Switzerland"
+                }
+              ],
+              "groups": []
+            }
+          },
+          {
+            "name": "Oceania",
+            "criteria": {
+              "mode": "any",
+              "conditions": [
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Australia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Christmas Island"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cocos (Keeling) Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Heard Island and McDonald Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Heard and McDonald Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "New Zealand"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Norfolk Island"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Fiji"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "New Caledonia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Papua New Guinea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "New Guinea"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Solomon Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Vanuatu"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Guam"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Kiribati"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Marshall Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Micronesia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Federated States of Micronesia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Nauru"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Northern Mariana Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Palau"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "US Minor Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United States Minor Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "United States Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "U.S. Minor Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "U.S. Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "US Outlying Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "American Samoa"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Cook Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "French Polynesia"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Niue"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Pitcairn"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Pitcairn Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Samoa"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tokelau"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tonga"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Tuvalu"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Wallis and Futuna Islands"
+                },
+                {
+                  "kind": "field",
+                  "field": "country",
+                  "operator": "is",
+                  "value": "Wallis and Futuna"
+                }
+              ],
+              "groups": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

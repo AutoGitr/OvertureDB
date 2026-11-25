@@ -36,6 +36,13 @@ one your collections get, and each poster you choose is contributed as the style
 you pick for it; see
 [Art and themes](/overture/features/collections/art-and-themes#overturedb-posters).
 
+## Presets
+
+Overture's **Collections → Presets** lists the [presets](contributing/presets.md)
+OvertureDB publishes, such as Holidays, Decades and TMDB charts. Adding one
+copies its collections and sets into the libraries you choose, once; see
+[Presets](/overture/features/collections/presets).
+
 ## Availability
 
 The catalog links to artwork and videos on their sources. Coverage grows with

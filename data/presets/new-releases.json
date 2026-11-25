@@ -1,0 +1,54 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "new-releases",
+    "title": "New releases",
+    "description": "Movies released in the last 90 days, and shows with an episode aired in the last week.",
+    "category": "charts",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "collections": [
+    {
+      "title": "Newly Released Movies",
+      "collection_group": "Charts",
+      "order_type": "release.desc",
+      "criteria": {
+        "movie": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "released",
+              "operator": "in_last",
+              "value": 90
+            }
+          ],
+          "groups": []
+        }
+      }
+    },
+    {
+      "title": "New Episodes",
+      "collection_group": "Charts",
+      "order_type": "release.desc",
+      "criteria": {
+        "show": {
+          "mode": "any",
+          "conditions": [
+            {
+              "kind": "field",
+              "field": "last_aired",
+              "operator": "in_last",
+              "value": 7
+            }
+          ],
+          "groups": []
+        }
+      }
+    }
+  ]
+}

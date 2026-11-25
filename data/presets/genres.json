@@ -1,0 +1,30 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "genres",
+    "title": "Genres",
+    "description": "One collection per genre, for movies and shows.",
+    "category": "genres",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Genres",
+      "generator": {
+        "dimension": "genre",
+        "media_types": [
+          "movie",
+          "show"
+        ]
+      },
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ]
+    }
+  ]
+}

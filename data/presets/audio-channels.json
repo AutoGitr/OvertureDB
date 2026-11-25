@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "audio-channels",
+    "title": "Audio channels",
+    "description": "One collection per audio channel layout, such as 5.1 or 7.1, as Plex smart collections.",
+    "category": "technical",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Audio channels",
+      "minimum_items": 3,
+      "auto_art": [
+        "generate"
+      ],
+      "generator": {
+        "dimension": "audio_layout",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "smart": true
+      }
+    }
+  ]
+}

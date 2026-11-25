@@ -3,6 +3,7 @@
   {"name": "show", "color": "5319e7", "description": "Show contribution"},
   {"name": "collection", "color": "c5def5", "description": "Movie collection contribution"},
   {"name": "bulk", "color": "77afbe", "description": "Bulk export contribution from Overture"},
+  {"name": "preset", "color": "e99695", "description": "Collection preset contribution"},
   {"name": "edit", "color": "49c0a8", "description": "Replaces an existing artwork or theme selection"},
   {"name": "health", "color": "fbca04", "description": "Daily catalog health report"},
   {"name": "deps", "color": "0366d6", "description": "Dependency update"},

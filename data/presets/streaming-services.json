@@ -1,0 +1,31 @@
+{
+  "preset_version": 1,
+  "preset": {
+    "id": "streaming-services",
+    "title": "Streaming services",
+    "description": "The ten streaming services that carry the most of your library, one collection each.",
+    "category": "streaming",
+    "tags": [],
+    "media_types": [
+      "movie",
+      "show"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Streaming",
+      "generator": {
+        "dimension": "streaming",
+        "media_types": [
+          "movie",
+          "show"
+        ],
+        "top": 10
+      },
+      "minimum_items": 5,
+      "auto_art": [
+        "generate"
+      ]
+    }
+  ]
+}
