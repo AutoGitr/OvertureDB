@@ -7,18 +7,19 @@ description: Contributing ready-made collections, sets and groups from Overture.
 # Presets
 
 A preset is a ready-made set of collections, collection sets and groups, such
-as Holidays, Decades or TMDB charts, that anyone can add to their libraries
-from Overture's gallery. What adding one creates belongs to the person who added
-it; when the preset changes, Overture offers them the changes, which they may
-take or leave.
+as Holidays, Decades or TMDB charts. Overture lists each of its collections and
+sets under **Presets** when someone creates a collection, and choosing one fills
+in the form, which they can change before saving. What they save is their own;
+a later change to the preset changes nothing they saved.
 
 ## Contributing a preset
 
 1. In Overture, build the collections and groups as you would for yourself.
-2. Open **Collections → Presets → Export**, choose the groups and collections,
-   and export them. Overture downloads `overture-collections.json` and lists
-   what it left out and why.
-3. Click the GitHub button beside the export to open the preset form, attach
+2. Click **Export**, the download icon on the group's or the collection's page
+   in Overture; to export several at once, filter the collection sidebar to
+   them and choose **Export as a file** under the Filters popup's collection
+   operations. Overture downloads the file and says what it left out and why.
+3. Click **Contribute to OvertureDB** in the export's notice to open the preset form, attach
    the file under **Preset file**, give the preset a title, description and
    category, and submit it. The bot previews what the preset adds and what it
    needs, such as a TMDB token.
