@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Export the collections and groups from Overture (**Collections -> Presets -> Export**) and attach or paste the downloaded `.json` file below.
+        Export the collections, sets and groups from Overture (**Export** on a group's or a collection's page, or **Export as a file** in the collection operations) and attach or paste the downloaded `.json` file below.
 
         Before submitting, please review the [preset guidelines](https://autogitr.github.io/Overture/overturedb/contributing/presets). A preset never requests downloads or writes labels or tags; those settings are left to the person adding it.
 

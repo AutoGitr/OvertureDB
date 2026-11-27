@@ -26,10 +26,9 @@ entry. On Windows, run it in Git Bash. To run it on every commit, enable the
 Git hooks once per clone with `git config core.hooksPath .githooks`. To
 format changes, use `uv run --locked ruff format scripts schema tests`.
 
-PR checks and a weekly scheduled guard also run `uv audit --locked`, covering
+PR checks and a weekly scheduled guard also run `uv audit --locked --preview-features audit-command`, covering
 direct, transitive and development dependencies. Run it locally when changing
-dependencies; it requires network access and currently emits uv's
-experimental feature notice. No vulnerabilities are ignored.
+dependencies; it requires network access. No vulnerabilities are ignored.
 
 ## Optional network checks
 

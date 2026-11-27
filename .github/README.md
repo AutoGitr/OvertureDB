@@ -50,7 +50,7 @@ to save to your library. Turn it off under **Settings -> OvertureDB**.
 2. Choose artwork and a theme. Overture checks image formats, dimensions and links against the catalog rules.
 3. Click **Contribute issue** on the title to open a prefilled issue, review it and submit it.
 
-To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). To share ready-made collections, sets and groups, export them with **Collections -> Presets -> Export** and attach the file to a [preset contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=preset.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. Spotted something wrong? [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
+To submit many titles at once, use **OvertureDB -> Export selections** and attach the ZIP to a [bulk contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=bulk.yml). To share ready-made collections, sets and groups, export them with **Export** on a group's or a collection's page (or **Export as a file** in the collection operations) and attach the file to a [preset contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=preset.yml). A maintainer reviews every submission; approved ones reach the catalog with its next daily update. Spotted something wrong? [Report a problem](https://github.com/AutoGitr/OvertureDB/issues/new?template=report.yml).
 
 ## License
 

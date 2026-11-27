@@ -49,6 +49,7 @@ def _filtered_in(path: str, patterns: list[str]) -> bool:
         ("scripts/catalog.py", True),
         ("schema/contract.py", True),
         (".github/workflows/contributions.yml", True),
+        (".github/codeql/codeql-config.yml", True),
     ],
 )
 def test_codeql_runs_for_analysed_code_and_then_analyses_every_language(
@@ -223,7 +224,7 @@ def test_all_validation_jobs_use_the_same_gate() -> None:
     assert "bash scripts/contribution-check.sh" in guard
     checks = (ROOT / "scripts/contribution-check.sh").read_text()
     assert "bash scripts/pre-commit-check.sh" in checks
-    assert "uv audit --locked" in checks
+    assert "uv audit --locked --preview-features audit-command" in checks
     assert "trivy fs --scanners secret --exit-code 1 ." in checks
     for name in ("contributions", "import-themerrdb", "contribution-guard"):
         source = (ROOT / f".github/workflows/{name}.yml").read_text()

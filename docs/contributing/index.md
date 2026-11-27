@@ -54,7 +54,8 @@ collection form. A repository admin's bulk contribution also replaces existing
 artwork, season posters and OvertureDB themes.
 
 To share collections, sets and groups as a ready-made preset, export them with
-**Collections -> Presets -> Export** in Overture and attach the file to a
+**Export** on a group's or a collection's page (or **Export as a file** in the
+collection operations) in Overture and attach the file to a
 [preset contribution](https://github.com/AutoGitr/OvertureDB/issues/new?template=preset.yml);
 see [Presets](presets.md).
 

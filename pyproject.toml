@@ -26,6 +26,10 @@ required-version = "0.13.9"
 minversion = "9.1"
 testpaths = ["tests"]
 addopts = ["-q", "-ra", "--tb=short"]
+# A subtest follows the run's verbosity, which -q lowers below the level that
+# keeps a passing one quiet: each would print a "u" and count towards the
+# progress past 100%. A failing one is reported whatever the level.
+verbosity_subtests = 0
 strict = true
 filterwarnings = ["error"]
 
@@ -38,14 +42,18 @@ show_missing = true
 skip_covered = false
 precision = 1
 fail_under = 90
+# Protocol and overload bodies are signatures only.
+exclude_also = ['^\s*\.\.\.\s*$']
 
 [tool.pyright]
-typeCheckingMode = "strict"
-pythonVersion = "3.15"
 include = ["scripts", "schema", "tests"]
-strictListInference = true
-strictDictionaryInference = true
-strictSetInference = true
+exclude = [
+    "**/.*",
+    "**/__pycache__",
+]
+pythonVersion = "3.15"
+pythonPlatform = "All"
+typeCheckingMode = "strict"
 reportUnnecessaryTypeIgnoreComment = "error"
 reportImplicitOverride = "error"
 reportPropertyTypeMismatch = "error"
@@ -71,13 +79,15 @@ select = [
     "ERA",    # eradicate: no commented-out code
     "EXE",    # flake8-executable: executable bits and shebangs
     "F",      # Pyflakes
-    "FLY",    # flynt: f-strings over string joins
+    "FA",     # flake8-future-annotations
     "FIX",    # flake8-fixme: no TODO, FIXME, XXX or HACK left in the code
+    "FLY",    # flynt: f-strings over string joins
     "FURB",   # refurb: modern Python idioms
     "G",      # flake8-logging-format
     "I",      # isort
     "ICN",    # flake8-import-conventions
     "INP",    # flake8-no-pep420: packages need __init__.py
+    "INT",    # flake8-gettext
     "ISC",    # flake8-implicit-str-concat
     "LOG",    # flake8-logging
     "N",      # pep8-naming
@@ -87,6 +97,8 @@ select = [
     "PL",     # Pylint
     "PT",     # flake8-pytest-style
     "PTH",    # flake8-use-pathlib
+    "PYI",    # flake8-pyi: type stub and annotation best practices
+    "Q",      # flake8-quotes
     "RET",    # flake8-return
     "RSE",    # flake8-raise
     "RUF",    # Ruff-specific
@@ -97,6 +109,7 @@ select = [
     "T10",    # flake8-debugger
     "T20",    # flake8-print
     "TC",     # flake8-type-checking
+    "TD",     # flake8-todos
     "TID",    # flake8-tidy-imports
     "UP",     # pyupgrade
     "W",      # pycodestyle warnings
@@ -105,15 +118,12 @@ select = [
 ignore = [
     "PLR0911", # too-many-return-statements: validation guards return early
     "PLR0913", # too-many-arguments: covered by McCabe complexity
-    "PLR0915", # too-many-statements: covered by McCabe complexity
     "PLR0917", # too-many-positional-arguments: duplicate of PLR0913
     "PLR2004", # magic-value-comparison: HTTP statuses and limits read better inline
 ]
 
 # These entry points intentionally report results and errors to the terminal.
 [tool.ruff.lint.per-file-ignores]
-"scripts/automation.py" = ["T201"]
-"scripts/github.py" = ["T201"]
 "scripts/catalog.py" = ["T201"]
 "scripts/catalog_health.py" = ["T201"]
 "scripts/import_themerrdb.py" = ["T201"]
@@ -132,5 +142,7 @@ max-complexity = 12
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+skip-magic-trailing-comma = false
 line-ending = "lf"
 docstring-code-format = true
+docstring-code-line-length = "dynamic"

@@ -38,9 +38,11 @@ you pick for it; see
 
 ## Presets
 
-Overture's **Collections → Presets** lists the [presets](contributing/presets.md)
-OvertureDB publishes, such as Holidays, Decades and TMDB charts. Adding one
-copies its collections and sets into the libraries you choose, once; see
+**Presets**, first in a new collection's **Setup** in Overture, lists the
+[presets](contributing/presets.md) OvertureDB publishes, such as Holidays,
+Decades and TMDB charts. Choosing one fills the form, or **Choose several**
+adds many at once; Overture remembers the preset it came from so you can take
+updates when OvertureDB changes it. See
 [Presets](/overture/features/collections/presets).
 
 ## Availability
