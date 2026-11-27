@@ -14,9 +14,6 @@
     {
       "name": "Writers",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "writer",
         "media_types": [

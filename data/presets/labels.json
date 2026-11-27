@@ -15,9 +15,6 @@
     {
       "name": "Labels",
       "minimum_items": 1,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "label",
         "media_types": [

@@ -15,9 +15,6 @@
     {
       "name": "Content ratings",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "content_rating",
         "media_types": [

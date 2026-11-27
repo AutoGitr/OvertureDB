@@ -14,9 +14,6 @@
     {
       "name": "US movie ratings",
       "minimum_items": 1,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "custom",
         "media_types": [

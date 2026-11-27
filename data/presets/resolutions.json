@@ -15,9 +15,6 @@
     {
       "name": "Resolutions",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "resolution",
         "media_types": [

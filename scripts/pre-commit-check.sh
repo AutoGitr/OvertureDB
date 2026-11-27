@@ -6,6 +6,7 @@ if ! uv lock --check; then
     exit 1
 fi
 uv run --locked ruff check scripts schema tests
+uv run --locked zizmor --offline --quiet .github/workflows
 uv run --locked ruff format --check scripts schema tests
 uv run --locked pyright
 uv run --locked python -m pytest --cov

@@ -20,6 +20,7 @@ lazy from schema.contract import (
     preset_image_path,
     preset_image_url,
     preset_repo_path,
+    preset_text,
     validate_preset,
 )
 
@@ -284,7 +285,7 @@ def process_preset(body: str, root: Path, download: Download) -> PresetContribut
             raise ValueError(f"Attach the image {url} links, or link another.")
     preset = validate_preset(preset, published=True)
     path = preset_repo_path(identifier)
-    text = json.dumps(preset, indent=2, ensure_ascii=False) + "\n"
+    text = preset_text(preset)
     kept = {
         image for _, url in preset_art_urls(preset) if (image := preset_image_path(url))
     }

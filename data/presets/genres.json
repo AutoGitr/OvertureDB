@@ -21,10 +21,7 @@
           "show"
         ]
       },
-      "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ]
+      "minimum_items": 5
     }
   ]
 }

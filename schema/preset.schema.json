@@ -1,50 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
-    "ArtStyle": {
-      "description": "The colours of art Overture generates from a title.",
-      "enum": [
-        "dark",
-        "light",
-        "accent"
-      ],
-      "title": "ArtStyle",
-      "type": "string"
-    },
     "ArtUrl": {
       "maxLength": 2000,
       "minLength": 1,
       "pattern": "^https://",
-      "type": "string"
-    },
-    "AutoArtSource": {
-      "description": "Where Automatic art takes a collection slot's art from, in a policy's order.\n\nA sync tries each in turn and stops at the first that gives art: the best\nart of a catalog source, or, with ``generate``, art generated from the title.",
-      "enum": [
-        "overturedb",
-        "tmdb",
-        "generate"
-      ],
-      "title": "AutoArtSource",
-      "type": "string"
-    },
-    "CollectionFiltering": {
-      "description": "User-context filtering mode for Plex smart collections.",
-      "enum": [
-        "admin",
-        "user"
-      ],
-      "title": "CollectionFiltering",
-      "type": "string"
-    },
-    "CollectionMode": {
-      "description": "Collection visibility on servers supporting library display modes.",
-      "enum": [
-        "default",
-        "hide_items",
-        "show_items",
-        "hide"
-      ],
-      "title": "CollectionMode",
       "type": "string"
     },
     "CollectionOrder": {
@@ -77,313 +37,6 @@
       ],
       "title": "CollectionOrder",
       "type": "string"
-    },
-    "CollectionPolicyBase": {
-      "additionalProperties": false,
-      "description": "Shared policy and media server display configuration.",
-      "properties": {
-        "sync_mode": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SyncMode"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "minimum_items": {
-          "anyOf": [
-            {
-              "maximum": 100,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Minimum Items"
-        },
-        "delete_below_minimum": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Delete Below Minimum"
-        },
-        "auto_art": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/AutoArtSource"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Auto Art"
-        },
-        "generated_style": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ArtStyle"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "generated_title_only": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Generated Title Only"
-        },
-        "overturedb_posters": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/CollectionPosterStyle"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Overturedb Posters"
-        },
-        "backgrounds": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Backgrounds"
-        },
-        "themes": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Themes"
-        },
-        "auto_match_theme": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Auto Match Theme"
-        },
-        "delete_when_inactive": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Delete When Inactive"
-        },
-        "collection_mode": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/CollectionMode"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "order_type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/CollectionOrder"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "collection_filtering": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/CollectionFiltering"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "visible_home": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Home"
-        },
-        "visible_shared": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Shared"
-        },
-        "visible_library": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Library"
-        },
-        "sort_title_format": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SortTitleFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "summary_format": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SummaryFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "active_start_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "active_end_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "request_missing": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Request Missing"
-        },
-        "member_label": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/MemberTagFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "arr_tag": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/MemberTagFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "home_order": {
-          "anyOf": [
-            {
-              "maximum": 999,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Home Order"
-        }
-      },
-      "title": "CollectionPolicyBase",
-      "type": "object"
     },
     "CollectionPosterStyle": {
       "description": "Which poster OvertureDB gives a TMDB collection.\n\n``matte`` and ``overlay`` take the consistent poster in that layout; a\ncollection without one has no OvertureDB poster.",
@@ -697,15 +350,49 @@
       "title": "MediaType",
       "type": "string"
     },
-    "MemberTagFormat": {
-      "maxLength": 200,
-      "minLength": 1,
-      "type": "string"
+    "MinimumItems": {
+      "maximum": 100,
+      "minimum": 1,
+      "type": "integer"
     },
     "PortableCollection": {
       "additionalProperties": false,
       "description": "A collection, with criteria for each media type instead of each library.\n\n``collection_group`` names a group of the file or one the install has.",
       "properties": {
+        "active_start_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "active_end_mmdd": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SeasonalDate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "delete_when_inactive": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delete When Inactive"
+        },
         "title": {
           "maxLength": 200,
           "minLength": 1,
@@ -785,17 +472,6 @@
           "default": null,
           "title": "Tmdb Collection Id"
         },
-        "collection_mode": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/CollectionMode"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
         "order_type": {
           "anyOf": [
             {
@@ -807,68 +483,16 @@
           ],
           "default": null
         },
-        "collection_filtering": {
+        "minimum_items": {
           "anyOf": [
             {
-              "$ref": "#/$defs/CollectionFiltering"
+              "$ref": "#/$defs/MinimumItems"
             },
             {
               "type": "null"
             }
           ],
           "default": null
-        },
-        "visible_home": {
-          "default": false,
-          "title": "Visible Home",
-          "type": "boolean"
-        },
-        "visible_shared": {
-          "default": false,
-          "title": "Visible Shared",
-          "type": "boolean"
-        },
-        "visible_library": {
-          "default": false,
-          "title": "Visible Library",
-          "type": "boolean"
-        },
-        "active_start_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "active_end_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "delete_when_inactive": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Delete When Inactive"
-        },
-        "policy": {
-          "$ref": "#/$defs/CollectionPolicyBase"
         },
         "smart": {
           "default": false,
@@ -923,10 +547,10 @@
       "additionalProperties": false,
       "description": "A group's defaults, and the set it runs when it is one.",
       "properties": {
-        "sync_mode": {
+        "active_start_mmdd": {
           "anyOf": [
             {
-              "$ref": "#/$defs/SyncMode"
+              "$ref": "#/$defs/SeasonalDate"
             },
             {
               "type": "null"
@@ -934,120 +558,16 @@
           ],
           "default": null
         },
-        "minimum_items": {
+        "active_end_mmdd": {
           "anyOf": [
             {
-              "maximum": 100,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Minimum Items"
-        },
-        "delete_below_minimum": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Delete Below Minimum"
-        },
-        "auto_art": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/AutoArtSource"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Auto Art"
-        },
-        "generated_style": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ArtStyle"
+              "$ref": "#/$defs/SeasonalDate"
             },
             {
               "type": "null"
             }
           ],
           "default": null
-        },
-        "generated_title_only": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Generated Title Only"
-        },
-        "overturedb_posters": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/CollectionPosterStyle"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Overturedb Posters"
-        },
-        "backgrounds": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Backgrounds"
-        },
-        "themes": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Themes"
-        },
-        "auto_match_theme": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Auto Match Theme"
         },
         "delete_when_inactive": {
           "anyOf": [
@@ -1061,10 +581,10 @@
           "default": null,
           "title": "Delete When Inactive"
         },
-        "collection_mode": {
+        "minimum_items": {
           "anyOf": [
             {
-              "$ref": "#/$defs/CollectionMode"
+              "$ref": "#/$defs/MinimumItems"
             },
             {
               "type": "null"
@@ -1082,53 +602,6 @@
             }
           ],
           "default": null
-        },
-        "collection_filtering": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/CollectionFiltering"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "visible_home": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Home"
-        },
-        "visible_shared": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Shared"
-        },
-        "visible_library": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Visible Library"
         },
         "sort_title_format": {
           "anyOf": [
@@ -1152,79 +625,8 @@
           ],
           "default": null
         },
-        "active_start_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "active_end_mmdd": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/SeasonalDate"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "request_missing": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Request Missing"
-        },
-        "member_label": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/MemberTagFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "arr_tag": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/MemberTagFormat"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
-        "home_order": {
-          "anyOf": [
-            {
-              "maximum": 999,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Home Order"
-        },
         "name": {
-          "$ref": "#/$defs/GroupName",
-          "minLength": 1
+          "$ref": "#/$defs/RequiredGroupName"
         },
         "generator": {
           "anyOf": [
@@ -1236,11 +638,6 @@
             }
           ],
           "default": null
-        },
-        "separator": {
-          "default": false,
-          "title": "Separator",
-          "type": "boolean"
         }
       },
       "required": [
@@ -1398,6 +795,11 @@
       "title": "PresetCategory",
       "type": "string"
     },
+    "PresetId": {
+      "maxLength": 60,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "type": "string"
+    },
     "PresetImage": {
       "additionalProperties": false,
       "description": "A public image link.",
@@ -1417,10 +819,7 @@
       "description": "How a preset describes itself in the gallery.",
       "properties": {
         "id": {
-          "maxLength": 60,
-          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
-          "title": "Id",
-          "type": "string"
+          "$ref": "#/$defs/PresetId"
         },
         "title": {
           "maxLength": 100,
@@ -1514,6 +913,10 @@
       ],
       "title": "RadarrTagSource",
       "type": "object"
+    },
+    "RequiredGroupName": {
+      "$ref": "#/$defs/GroupName",
+      "minLength": 1
     },
     "SeasonalDate": {
       "maxLength": 5,
@@ -1650,15 +1053,6 @@
     },
     "SummaryFormat": {
       "maxLength": 20000,
-      "type": "string"
-    },
-    "SyncMode": {
-      "description": "How a dynamic collection applies source membership.",
-      "enum": [
-        "sync",
-        "append"
-      ],
-      "title": "SyncMode",
       "type": "string"
     },
     "TmdbChart": {

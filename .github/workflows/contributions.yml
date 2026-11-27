@@ -12,9 +12,6 @@ on:
         type: string
         default: ''
 
-permissions:
-  contents: read
-
 concurrency:
   group: catalog-write
   cancel-in-progress: false
@@ -22,6 +19,8 @@ concurrency:
 
 jobs:
   process:
+    permissions:
+      contents: read
     if: >-
       github.ref == 'refs/heads/main' &&
       (

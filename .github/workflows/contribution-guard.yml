@@ -9,15 +9,14 @@ on:
     - cron: '37 4 * * 1'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 concurrency:
   group: contribution-guard-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   contribution-guard:
+    permissions:
+      contents: read
     name: contribution-guard
     runs-on: ubuntu-26.04
     timeout-minutes: 15

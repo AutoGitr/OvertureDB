@@ -577,10 +577,12 @@ def _unique_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return record
 
 
-# Presets: ready-made collections, sets and groups Overture copies once into a
+# Presets: ready-made collections, sets and groups Overture copies into a
 # library. Overture's models define their shape: it generates
 # preset.schema.json and preset-vocabulary.json, so both sides test the same
-# fields, operators, sources and dimensions.
+# fields, operators, sources and dimensions. A preset says what its
+# collections are; how they are shown, their art and themes, and what they
+# request or label follow the defaults of the install adding them.
 
 #: The version of the preset file format and of the published presets bundle.
 #: It increases only when Overture could not read a preset as it stands.
@@ -591,9 +593,6 @@ PRESET_ID_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 PRESET_DIR = "data/presets"
 #: The art sources a preset may link to; ``overturedb`` serves its own images.
 PRESET_ART_SOURCES = ("tmdb", "tpdb", "fanart", "tvdb", "overturedb")
-#: Policy a published preset never sets: it would request downloads, or write
-#: labels and tags, on every server that adds it.
-PRESET_REFUSED_POLICY = ("request_missing", "member_label", "arr_tag")
 #: The issue form that contributes a preset.
 PRESET_ISSUE_FORM = "preset.yml"
 #: The issue form field each part of a preset contribution fills.
@@ -713,8 +712,7 @@ def validate_preset(value: object, *, published: bool) -> dict[str, Any]:
     """Validate a preset file, as OvertureDB publishes it when *published*.
 
     An export from Overture need not describe itself; a published preset
-    does, links only to preset art sources in their canonical form, and sets
-    none of :data:`PRESET_REFUSED_POLICY`.
+    does, and links only to preset art sources in their canonical form.
 
     Raises:
         ValueError: Naming the first part of the preset that is refused.
@@ -773,15 +771,6 @@ def _published_preset(preset: dict[str, Any]) -> None:
             "Preset contract violation at preset.media_types: add "
             + ", ".join(sorted(unlisted))
         )
-    for kind in ("groups", "collections"):
-        for index, item in enumerate(preset.get(kind, [])):
-            policy = item.get("policy", item) if kind == "collections" else item
-            for key in PRESET_REFUSED_POLICY:
-                if policy.get(key) is not None:
-                    raise ValueError(
-                        f"Preset contract violation at {kind}.{index}.{key}: "
-                        "a published preset leaves it to the person adding it"
-                    )
     for path, url in preset_art_urls(preset):
         try:
             canonical = canonical_art_url(url)
@@ -826,6 +815,24 @@ def preset_requires(preset: dict[str, Any]) -> list[str]:
         if (generator := group.get("generator")) is not None:
             needs.add(vocabulary["dimensions"][generator["dimension"]]["requires"])
     return sorted(need for need in needs if need is not None)
+
+
+def _set(value: Any) -> Any:
+    """*value* without the nulls that leave a setting unset, at any depth."""
+    if isinstance(value, dict):
+        return {
+            key: _set(item)
+            for key, item in cast("dict[str, Any]", value).items()
+            if item is not None
+        }
+    if isinstance(value, list):
+        return [_set(item) for item in cast("list[Any]", value)]
+    return value
+
+
+def preset_text(preset: dict[str, Any]) -> str:
+    """Return a preset file as it is written: only what it sets, indented."""
+    return json.dumps(_set(preset), indent=2, ensure_ascii=False) + "\n"
 
 
 def dump_presets(header: dict[str, Any], presets: Iterable[dict[str, Any]]) -> bytes:

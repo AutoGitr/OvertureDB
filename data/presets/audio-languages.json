@@ -15,9 +15,6 @@
     {
       "name": "Audio languages",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "audio_language",
         "media_types": [

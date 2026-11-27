@@ -15,9 +15,6 @@
     {
       "name": "Years",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "year",
         "media_types": [

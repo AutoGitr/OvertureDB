@@ -15,9 +15,6 @@
     {
       "name": "Subtitle languages",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "subtitle_language",
         "media_types": [

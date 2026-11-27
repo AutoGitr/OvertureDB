@@ -15,9 +15,6 @@
     {
       "name": "Audio channels",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "audio_layout",
         "media_types": [

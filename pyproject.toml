@@ -16,6 +16,7 @@ dev = [
     "pytest-cov==7.1.0",
     "pyyaml==6.0.4",
     "ruff==0.17.6",
+    "zizmor==1.16.3",
 ]
 
 [tool.uv]

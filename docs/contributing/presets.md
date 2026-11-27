@@ -9,8 +9,9 @@ description: Contributing ready-made collections, sets and groups from Overture.
 A preset is a ready-made set of collections, collection sets and groups, such
 as Holidays, Decades or TMDB charts. Overture lists each of its collections and
 sets under **Presets** when someone creates a collection, and choosing one fills
-in the form, which they can change before saving. What they save is their own;
-a later change to the preset changes nothing they saved.
+in the form, which they can change before saving. What they save is their own.
+Overture remembers the preset it came from, so when the preset changes it says
+what changed, and they choose whether to take those parts.
 
 ## Contributing a preset
 
@@ -39,8 +40,11 @@ is never replaced by accident.
 - Criteria every install can test: no folders, no collections picked by ID,
   and nothing only a library filter tests. Labels are allowed but are only
   useful where the labels exist.
-- No requests for missing titles, member labels or Radarr and Sonarr tags.
-  Those act on someone's servers, so the person adding a preset chooses them.
+- What its collections are: criteria, titles and title templates, order,
+  minimum members and active dates. How they are shown on a server, their
+  automatic art and themes, separators, requests for missing titles, member
+  labels and Radarr and Sonarr tags are the person's own, so a preset has no
+  place for them and their own defaults decide.
 - At most 50 collections and 10 groups.
 
 ## Images
@@ -56,5 +60,5 @@ line per image, such as `Christmas poster: <link>`:
   `data/presets/<preset>/`, and OvertureDB publishes it under the repository
   licence.
 
-Sets take their art from their group's automatic art settings, such as
-generated posters.
+Sets take their art from the automatic art settings of the install adding
+them, such as OvertureDB's art or generated posters.

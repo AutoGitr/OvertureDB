@@ -22,10 +22,7 @@
         ],
         "title_format": "{value}s"
       },
-      "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ]
+      "minimum_items": 3
     }
   ]
 }

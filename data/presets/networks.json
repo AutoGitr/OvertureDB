@@ -14,9 +14,6 @@
     {
       "name": "Networks",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "network",
         "media_types": [

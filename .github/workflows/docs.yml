@@ -13,15 +13,14 @@ on:
     paths:
       - docs/**
 
-permissions:
-  contents: read
-
 concurrency:
   group: docs-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
+    permissions:
+      contents: read
     name: Build the site
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
@@ -50,6 +49,7 @@ jobs:
         run: bun run ci
 
   dispatch:
+    permissions: {}
     name: Deploy through Overture
     if: github.event_name == 'push'
     runs-on: ubuntu-26.04

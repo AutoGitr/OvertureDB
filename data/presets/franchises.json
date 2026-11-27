@@ -22,12 +22,7 @@
         "strip_suffix": " Collection"
       },
       "minimum_items": 2,
-      "order_type": "release.asc",
-      "auto_art": [
-        "overturedb",
-        "tmdb",
-        "generate"
-      ]
+      "order_type": "release.asc"
     }
   ]
 }

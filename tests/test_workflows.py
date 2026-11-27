@@ -82,15 +82,27 @@ def _triggers(name: str) -> dict[str, object]:
     return workflow[True]
 
 
-def test_the_daily_pipeline_starts_with_the_import() -> None:
+def test_the_daily_pipeline_starts_with_the_import_which_calls_the_rest() -> None:
     assert set(_triggers("import-themerrdb.yml")) == {"schedule", "workflow_dispatch"}
+    # Called, never woken by another workflow's run, which a fork could start.
     for name in ("catalog-health.yml", "publish-catalog.yml"):
-        triggers = _triggers(name)
-        assert set(triggers) == {"workflow_run", "workflow_dispatch"}, name
-        assert triggers["workflow_run"] == {
-            "workflows": ["Import ThemerrDB"],
-            "types": ["completed"],
-        }, name
+        assert set(_triggers(name)) == {"workflow_call", "workflow_dispatch"}, name
+    jobs = yaml.safe_load(
+        (ROOT / ".github/workflows/import-themerrdb.yml").read_text()
+    )["jobs"]
+    assert jobs["health"]["uses"] == "./.github/workflows/catalog-health.yml"
+    assert jobs["publish"]["uses"] == "./.github/workflows/publish-catalog.yml"
+    # The day's contributions go out whatever the import did.
+    assert jobs["health"]["if"] == jobs["publish"]["if"] == "${{ !cancelled() }}"
+
+
+def test_each_job_names_its_permissions_in_one_place() -> None:
+    # The repository's default token reads only; each job says what it needs.
+    for path in sorted((ROOT / ".github/workflows").glob("*.yml")):
+        workflow = yaml.safe_load(path.read_text())
+        assert "permissions" not in workflow, path.name
+        for name, job in workflow["jobs"].items():
+            assert "permissions" in job, f"{path.name}: {name}"
 
 
 def test_every_daily_run_validates_builds_and_deploys_the_catalog() -> None:
@@ -124,10 +136,14 @@ def test_workflows_pin_actions_bound_runtime_and_do_not_persist_credentials(
     for path in (ROOT / ".github/workflows").glob("*.yml"):
         workflow = yaml.safe_load(path.read_text())
         with subtests.test(path=path.name):
-            assert "permissions" in workflow
             for action in re.findall(r"(?m)^\s*-?\s*uses: (.+)$", path.read_text()):
+                # The repository's own workflows are called at this commit.
+                if action.startswith("./.github/workflows/"):
+                    continue
                 assert re.search(r"@[0-9a-f]{40} # v\d+\.\d+\.\d+$", action)
             for job in workflow["jobs"].values():
+                if "uses" in job:
+                    continue
                 assert "${{ matrix." not in job.get("name", "")
                 assert re.search(r"^ubuntu-\d{2}\.04$", job["runs-on"])
                 assert job["timeout-minutes"] <= 20

@@ -14,9 +14,6 @@
     {
       "name": "Show regions",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "custom",
         "media_types": [

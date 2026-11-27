@@ -14,9 +14,6 @@
     {
       "name": "Editions",
       "minimum_items": 2,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "edition",
         "media_types": [

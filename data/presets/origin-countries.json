@@ -15,9 +15,6 @@
     {
       "name": "Origin countries",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "origin_country",
         "media_types": [

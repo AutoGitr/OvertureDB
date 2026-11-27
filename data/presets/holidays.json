@@ -17,9 +17,6 @@
   "groups": [
     {
       "name": "Holidays",
-      "auto_art": [
-        "generate"
-      ],
       "delete_when_inactive": false
     }
   ],

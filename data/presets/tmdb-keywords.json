@@ -15,9 +15,6 @@
     {
       "name": "Keywords",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "tmdb_keyword",
         "media_types": [

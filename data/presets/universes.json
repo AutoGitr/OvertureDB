@@ -14,9 +14,6 @@
     {
       "name": "Universes",
       "minimum_items": 2,
-      "auto_art": [
-        "generate"
-      ],
       "order_type": "release.asc",
       "generator": {
         "dimension": "custom",

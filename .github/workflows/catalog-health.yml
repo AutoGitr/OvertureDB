@@ -1,11 +1,19 @@
 name: Catalog Health
 
-# Daily, right after the import, so newly imported entries are checked the
-# same day.
+# Daily, called by the import once it is done, so newly imported entries are
+# checked the same day.
 on:
-  workflow_run:
-    workflows: [Import ThemerrDB]
-    types: [completed]
+  workflow_call:
+    inputs:
+      limit:
+        description: "Rotating entries to check, in addition to changed problem entries (optional)"
+        type: string
+        default: ""
+    secrets:
+      OVERTUREDB_CLIENT_ID:
+        required: true
+      OVERTUREDB_APP_PRIVATE_KEY:
+        required: true
   workflow_dispatch:
     inputs:
       limit:
@@ -13,15 +21,14 @@ on:
         type: string
         default: ""
 
-permissions:
-  contents: read
-
 concurrency:
   group: catalog-health
   cancel-in-progress: false
 
 jobs:
   health:
+    permissions:
+      contents: read
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-26.04
     timeout-minutes: 20

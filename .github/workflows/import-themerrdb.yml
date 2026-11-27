@@ -2,7 +2,7 @@ name: Import ThemerrDB
 
 on:
   schedule:
-    # Starts the daily pipeline: Catalog Health and Publish Catalog follow it.
+    # Starts the daily pipeline: it calls Catalog Health and Publish Catalog.
     # Off the top of the hour, when GitHub delays scheduled runs the most.
     - cron: "23 14 * * *"
   workflow_dispatch:
@@ -12,9 +12,6 @@ on:
         type: string
         default: ""
 
-permissions:
-  contents: read
-
 concurrency:
   group: catalog-write
   cancel-in-progress: false
@@ -22,6 +19,8 @@ concurrency:
 
 jobs:
   import:
+    permissions:
+      contents: read
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-26.04
     timeout-minutes: 20
@@ -72,3 +71,24 @@ jobs:
             ARGS+=(--limit "$LIMIT")
           fi
           uv run --locked python -m scripts.import_themerrdb "${ARGS[@]}"
+
+  # The rest of the daily pipeline runs whatever the import did: the day's
+  # approved contributions are checked and published either way.
+  health:
+    needs: import
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/catalog-health.yml
+    secrets:
+      OVERTUREDB_CLIENT_ID: ${{ secrets.OVERTUREDB_CLIENT_ID }}
+      OVERTUREDB_APP_PRIVATE_KEY: ${{ secrets.OVERTUREDB_APP_PRIVATE_KEY }}
+
+  publish:
+    needs: [import, health]
+    if: ${{ !cancelled() }}
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+    uses: ./.github/workflows/publish-catalog.yml

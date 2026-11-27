@@ -14,9 +14,6 @@
     {
       "name": "Show statuses",
       "minimum_items": 1,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "show_status",
         "media_types": [

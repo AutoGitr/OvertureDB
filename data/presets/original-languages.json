@@ -15,9 +15,6 @@
     {
       "name": "Original languages",
       "minimum_items": 5,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "original_language",
         "media_types": [

@@ -194,7 +194,7 @@ def test_a_preset_is_refused_for_what_overture_could_not_add(
             validate_preset(value, published=False)
 
 
-def test_a_published_preset_describes_itself_and_stays_harmless(
+def test_a_published_preset_describes_itself_and_links_preset_art(
     subtests: pytest.Subtests,
 ) -> None:
     validate_preset(preset(), published=True)
@@ -203,9 +203,6 @@ def test_a_published_preset_describes_itself_and_stays_harmless(
     cases = {
         "describe the preset": {k: v for k, v in preset().items() if k != "preset"},
         "add show": _with(preset(), "preset.media_types", ["movie"]),
-        "leaves it to the person adding it": _with(
-            preset(), "groups.0.request_missing", True
-        ),
         "artwork must come from": _with(
             preset(), art, {"poster": {"url": "https://example.com/poster.jpg"}}
         ),
@@ -218,10 +215,11 @@ def test_a_published_preset_describes_itself_and_stays_harmless(
             preset(), art, {"poster": {"url": POSTER.replace("holidays", "other")}}
         ),
     }
-    with pytest.raises(ValueError, match="leaves it to the person adding it"):
-        validate_preset(
-            _with(preset(), "collections.0.policy", {"arr_tag": "x"}), published=True
-        )
+    # What a collection requests, labels or shows, and its art and themes, are
+    # the adding install's own, so a preset has no place for them.
+    for key in ("request_missing", "auto_art", "visible_home", "separator"):
+        with subtests.test(key), pytest.raises(ValueError, match="not allowed"):
+            validate_preset(_with(preset(), f"groups.0.{key}", True), published=False)
     for message, value in cases.items():
         with subtests.test(message), pytest.raises(ValueError, match=message):
             validate_preset(value, published=True)

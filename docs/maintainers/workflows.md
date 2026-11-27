@@ -18,9 +18,15 @@ description: The automation that reviews, imports, checks and publishes the cata
 
 ## The daily pipeline
 
-Import ThemerrDB runs once a day and starts the rest: Catalog Health and
-Publish Catalog follow it, so the day's approved contributions and imported
-themes go out in one deploy.
+Import ThemerrDB runs once a day and calls the rest as reusable workflows:
+Catalog Health, then Publish Catalog, whatever the import did, so the day's
+approved contributions and imported themes go out in one deploy. Neither is
+started by another workflow's run, which a pull request from a fork could
+trigger.
+
+Each job names the permissions it needs, and no workflow grants any to all of
+its jobs, so a job never holds more than its own; the repository's default
+token reads only.
 
 ## Catalog Health
 

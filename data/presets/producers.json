@@ -14,9 +14,6 @@
     {
       "name": "Producers",
       "minimum_items": 3,
-      "auto_art": [
-        "generate"
-      ],
       "generator": {
         "dimension": "producer",
         "media_types": [

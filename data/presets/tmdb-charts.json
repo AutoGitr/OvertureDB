@@ -16,10 +16,7 @@
   },
   "groups": [
     {
-      "name": "Charts",
-      "auto_art": [
-        "generate"
-      ]
+      "name": "Charts"
     }
   ],
   "collections": [
