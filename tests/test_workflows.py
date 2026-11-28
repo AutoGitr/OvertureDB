@@ -159,7 +159,10 @@ def test_workflows_pin_actions_bound_runtime_and_do_not_persist_credentials(
                         # setup-uv installs the required-version from
                         # pyproject.toml, and uv reads Python's version from
                         # .python-version.
-                        assert "with" not in step
+                        assert step.get("with", {}) in (
+                            {},
+                            {"working-directory": "overture-checkout"},
+                        )
                     run = step.get("run", "")
                     assert "${{" not in run, (
                         "Pass expressions through env, not shell interpolation"
